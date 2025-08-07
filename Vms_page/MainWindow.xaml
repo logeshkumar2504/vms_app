@@ -36,14 +36,27 @@
                     <Grid Margin="5,0">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE897;" ToolTip="Help" Foreground="White" FontSize="16"/>
                     </Grid>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE921;" ToolTip="Minimize" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE922;" ToolTip="Maximize" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" ToolTip="Close" Foreground="White" FontSize="16" Margin="5,0"/>
+                    <!-- Replace TextBlocks with Buttons for Minimize, Maximize, Close -->
+                    <Button x:Name="MinimizeButton" Click="MinimizeButton_Click" ToolTip="Minimize"
+                            Background="Transparent" BorderThickness="0" Margin="5,0">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE921;" Foreground="White" FontSize="16"/>
+                    </Button>
+                    <Button x:Name="MaximizeButton" Click="MaximizeButton_Click" ToolTip="Maximize"
+                            Background="Transparent" BorderThickness="0" Margin="5,0">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE922;" Foreground="White" FontSize="16"/>
+                    </Button>
+                    <Button x:Name="CloseButton" Click="CloseButton_Click" ToolTip="Close"
+                            Background="Transparent" BorderThickness="0" Margin="5,0">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" Foreground="White" FontSize="16"/>
+                    </Button>
+                    <!-- Dark Mode Toggle Button -->
+                  
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- ✅ Bottom Navigation Bar -->
+        
         <Border DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="⚠️" Foreground="White" FontSize="16" Margin="10,0"/>
@@ -70,18 +83,108 @@
             <Grid Grid.Column="1"/>
 
             <!-- Right Panel -->
-            <StackPanel Grid.Column="2" Margin="10" Background="#1B1E2B">
-                <TextBlock Text="Basic" Foreground="Gray" FontWeight="SemiBold"/>
-                <TextBlock Text="Smart" Foreground="White" FontWeight="Bold" Margin="0,5"/>
+            <!-- Right Panel -->
+            <StackPanel Grid.Column="2" Margin="10,10,10,-13" Background="#1B1E2B">
+                <Expander Header="Basic" Foreground="Gray" FontWeight="SemiBold" Margin="10,5,0,5"
+                          Background="Transparent" BorderThickness="0" IsExpanded="False">
+                    <StackPanel>
+                        <!-- Existing Menu Items -->
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/user.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="User Management" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/recording.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Recording Schedule" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/view.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="View" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/alarm_records.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Alarm Records" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/device.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Device Management" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/alarm_config.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Alarm Configuration" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/system_config.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="System Configuration" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/sequence.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Sequence Resource" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/live_view.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Live View" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/operation_log.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Operation Log" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/playback.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Playback" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <!-- Moved Extra Buttons into the Expander -->
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/audio.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Audio" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/video_wall.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Video Wall" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/emap.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="E-map" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource MenuButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/emap.png" Width="20" Height="20" Margin="5"/>
+                                <TextBlock Text="Recording Schdual" Foreground="White" Margin="10,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Expander>
 
-                <StackPanel Margin="10,10">
-                    <Button Content="🟧 Access Control" Click="AccessControl_Click" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Content="🟨 LPR" Click="LPR_Click" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Content="📊 People Counting" Click="PeopleCounting_Click" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Content="🟢 VCA" Click="VCA_Click" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Content="🔵 Face Recognition" Click="FaceRecognition_Click" Style="{StaticResource MenuButtonStyle}" />
-                </StackPanel>
             </StackPanel>
+
         </Grid>
     </DockPanel>
 </Window>
