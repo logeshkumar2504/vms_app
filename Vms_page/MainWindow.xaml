@@ -8,127 +8,133 @@
 
         <!-- ✅ Top Bar -->
         <Border DockPanel.Dock="Top" Height="40" Background="#2A2D3E">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Border BorderBrush="White" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Control Panel Button -->
-                <Button Grid.Column="1" Content="Control Panel" Padding="12,2"
-                        Margin="20,0,0,0"
-                        Background="#383C4C"
-                        Foreground="#61A0FF"
-                        BorderThickness="0"
-                        FontWeight="Bold"
-                        VerticalAlignment="Center"
-                        Cursor="Hand"/>
+                    <!-- Control Panel Button -->
+                    <Button Grid.Column="1" Content="Control Panel" Padding="12,2"
+                            Margin="20,0,0,0"
+                            Background="#383C4C"
+                            Foreground="#61A0FF"
+                            BorderThickness="0"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"/>
 
-                <!-- Right Icons and Admin -->
-                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE80C;" ToolTip="Dashboard" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE77B;" ToolTip="Uniform" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE706;" ToolTip="Uniform" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <TextBlock Text="admin" Foreground="#61A0FF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" ToolTip="Lock" Foreground="White" FontSize="16" Margin="5,0"/>
-                    <Grid Margin="5,0">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE897;" ToolTip="Help" Foreground="White" FontSize="16"/>
-                    </Grid>
-                    <!-- Replace TextBlocks with Buttons for Minimize, Maximize, Close -->
-                    <Button x:Name="MinimizeButton" Click="MinimizeButton_Click" ToolTip="Minimize"
-                            Background="Transparent" BorderThickness="0" Margin="5,0">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE921;" Foreground="White" FontSize="16"/>
-                    </Button>
-                    <Button x:Name="MaximizeButton" Click="MaximizeButton_Click" ToolTip="Maximize"
-                            Background="Transparent" BorderThickness="0" Margin="5,0">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE922;" Foreground="White" FontSize="16"/>
-                    </Button>
-                    <Button x:Name="CloseButton" Click="CloseButton_Click" ToolTip="Close"
-                            Background="Transparent" BorderThickness="0" Margin="5,0">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" Foreground="White" FontSize="16"/>
-                    </Button>
-                    <!-- Dark Mode Toggle Button -->
+                    <!-- Right Icons and Admin -->
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE80C;" ToolTip="Dashboard" Foreground="White" FontSize="16" Margin="5,0"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE77B;" ToolTip="Uniform" Foreground="White" FontSize="16" Margin="5,0"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE706;" ToolTip="Uniform" Foreground="White" FontSize="16" Margin="5,0"/>
+                        <TextBlock Text="admin" Foreground="#61A0FF" FontWeight="Bold" VerticalAlignment="Center" Margin="5,0"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" ToolTip="Lock" Foreground="White" FontSize="16" Margin="5,0"/>
+                        <Grid Margin="5,0">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE897;" ToolTip="Help" Foreground="White" FontSize="16"/>
+                        </Grid>
+                        <!-- Replace TextBlocks with Buttons for Minimize, Maximize, Close -->
+                        <Button x:Name="MinimizeButton" Click="MinimizeButton_Click" ToolTip="Minimize"
+                                Background="Transparent" BorderThickness="0" Margin="5,0">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE921;" Foreground="White" FontSize="16"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Click="MaximizeButton_Click" ToolTip="Maximize"
+                                Background="Transparent" BorderThickness="0" Margin="5,0">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE922;" Foreground="White" FontSize="16"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Click="CloseButton_Click" ToolTip="Close"
+                                Background="Transparent" BorderThickness="0" Margin="5,0">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" Foreground="White" FontSize="16"/>
+                        </Button>
+                        <!-- Dark Mode Toggle Button -->
 
-                </StackPanel>
-            </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Border>
 
         <!-- ✅ Bottom Navigation Bar -->
-
         <Border DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="⚠️" Foreground="White" FontSize="16" Margin="10,0"/>
                 <TextBlock Text="⏬" Foreground="White" FontSize="16" Margin="10,0"/>
                 <TextBlock Text="📋" Foreground="White" FontSize="16" Margin="10,0"/>
                 <TextBlock Text="📂" Foreground="White" FontSize="16" Margin="10,0" HorizontalAlignment="Left"/>
-
-
             </StackPanel>
         </Border>
 
         <!-- ✅ Main Content Grid -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
+        <Border BorderBrush="White" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Left Panel (Empty or Navigation Optional) -->
-            <StackPanel Grid.Column="0" Background="#1B1E2B" Margin="10"/>
+                <!-- Left Panel (Empty or Navigation Optional) -->
+                <Border Grid.Column="0" BorderBrush="White" BorderThickness="1">
+                    <StackPanel Background="#1B1E2B" Margin="10"/>
+                </Border>
 
-            <!-- Center Content Area with Drop Support -->
-            <Grid Grid.Column="1"
-                  x:Name="DropTargetGrid"
-                  AllowDrop="True"
-                  Drop="DropTargetGrid_Drop"
-                  DragOver="DropTargetGrid_DragOver"
-                  Background="Transparent">
-                <ItemsControl x:Name="DroppedItemsControl"
-                              ItemsSource="{Binding DroppedItems}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Content="{Binding Name}"
-                                    Click="DroppedItem_Click"
-                                    Margin="10"
-                                    Padding="10,5"
-                                    Tag="{Binding}" 
-                                    Style="{StaticResource MenuButtonStyle}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <!-- Center Content Area with Drop Support -->
+                <Border Grid.Column="1" BorderBrush="White" BorderThickness="1">
+                    <Grid x:Name="DropTargetGrid"
+                          AllowDrop="True"
+                          Drop="DropTargetGrid_Drop"
+                          DragOver="DropTargetGrid_DragOver"
+                          Background="Transparent">
+                        <ItemsControl x:Name="DroppedItemsControl"
+                                      ItemsSource="{Binding DroppedItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Name}"
+                                            Click="DroppedItem_Click"
+                                            Margin="10"
+                                            Padding="10,5"
+                                            Tag="{Binding}" 
+                                            Style="{StaticResource MenuButtonStyle}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+
+                <!-- Right Panel -->
+                <Border Grid.Column="2" BorderBrush="White" BorderThickness="1">
+                    <StackPanel Margin="10,10,10,-13" Background="#1B1E2B">
+                        <Expander Header="Basic" Foreground="Gray" FontWeight="SemiBold" Margin="10,5,0,5"
+                                  Background="Transparent" BorderThickness="0" IsExpanded="False">
+                            <ItemsControl ItemsSource="{Binding BasicMenuItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Name}"
+                                                Tag="{Binding}"
+                                                PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                                Style="{StaticResource MenuButtonStyle}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                        <Expander Header="Smart" IsExpanded="True" Foreground="White" FontWeight="Bold" Width="158">
+                            <ItemsControl ItemsSource="{Binding SmartMenuItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Name}"
+                                                Tag="{Binding}"
+                                                PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                                Style="{StaticResource MenuButtonStyle}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </StackPanel>
+                </Border>
             </Grid>
-
-            <!-- Right Panel -->
-            <StackPanel Grid.Column="2" Margin="10,10,10,-13" Background="#1B1E2B">
-                <Expander Header="Basic" Foreground="Gray" FontWeight="SemiBold" Margin="10,5,0,5"
-                          Background="Transparent" BorderThickness="0" IsExpanded="False">
-                    <ItemsControl ItemsSource="{Binding BasicMenuItems}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding Name}"
-                                        Tag="{Binding}"
-                                        PreviewMouseMove="MenuButton_PreviewMouseMove"
-                                        Style="{StaticResource MenuButtonStyle}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Expander>
-                <Expander Header="Smart" IsExpanded="True" Foreground="White" FontWeight="Bold" Width="158">
-                    <ItemsControl ItemsSource="{Binding SmartMenuItems}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding Name}"
-                                        Tag="{Binding}"
-                                        PreviewMouseMove="MenuButton_PreviewMouseMove"
-                                        Style="{StaticResource MenuButtonStyle}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Expander>
-            </StackPanel>
-        </Grid>
+        </Border>
     </DockPanel>
 </Window>
