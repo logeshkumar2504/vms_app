@@ -78,6 +78,33 @@ namespace Vms_page
             }
         }
 
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button?.Tag is MenuItemModel item)
+            {
+                // Handle specific menu item clicks
+                if (item.Name == "View")
+                {
+                    var viewWindow = new ViewWindow();
+                    viewWindow.Show();
+                }
+                else if (item.Name == "Live View")
+                {
+                    var liveViewWindow = new LiveViewWindow();
+                    liveViewWindow.Show();
+                }
+                else
+                {
+                    // Show alert for other menu items
+                    MessageBox.Show($"Menu item '{item.Name}' was clicked!\n\nFunction: {item.Description}", 
+                                  "Menu Item Clicked", 
+                                  MessageBoxButton.OK, 
+                                  MessageBoxImage.Information);
+                }
+            }
+        }
+
         private void DropTargetGrid_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(MenuItemModel)))
@@ -112,6 +139,12 @@ namespace Vms_page
                 {
                     var liveViewWindow = new LiveViewWindow();
                     liveViewWindow.Show();
+                }
+                // Check if it's View and open the View window
+                else if (item.Name == "View")
+                {
+                    var viewWindow = new ViewWindow();
+                    viewWindow.Show();
                 }
                 else
                 {

@@ -215,6 +215,7 @@
                                 <DataTemplate>
                                     <Button Tag="{Binding}"
                                             PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                            Click="MenuButton_Click"
                                             Style="{StaticResource MenuButtonStyle}">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Icon}" 
@@ -253,6 +254,7 @@
                                 <DataTemplate>
                                     <Button Tag="{Binding}"
                                             PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                            Click="MenuButton_Click"
                                             Style="{StaticResource MenuButtonStyle}">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Icon}" 
