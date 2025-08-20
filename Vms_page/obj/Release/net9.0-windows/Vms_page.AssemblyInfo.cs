@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vms_page")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b722f1de39aefe1d61fb570452833232c740a59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+090d68d2b3df7c264ac50fcc21ea592dc23ccf92")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vms_page")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vms_page")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

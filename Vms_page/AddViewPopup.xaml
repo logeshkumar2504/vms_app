@@ -233,10 +233,19 @@
 
                 <!-- Right Panel - Display/Content Area -->
                 <StackPanel Grid.Column="1" Margin="20,0,0,0">
-                    <!-- Preview/Display Area -->
+                    <!-- Current Grid Layout Info -->
+                    <TextBlock x:Name="GridLayoutInfo" Text="Selected Layout: 1x1" 
+                               Foreground="#4A9EFF" FontSize="12" FontWeight="SemiBold" 
+                               Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                    
+                    <!-- Dynamic Grid Preview Area -->
                     <Border Background="#1A1F2A" Height="200" CornerRadius="8" Margin="0,0,0,16">
-                        <TextBlock Text="Video Preview Area" Foreground="#B0BEC5" FontSize="14" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
+                        <Grid x:Name="GridPreviewContainer" Background="#1A1F2A">
+                            <!-- Default preview text when no grid is selected -->
+                            <TextBlock x:Name="PreviewText" Text="Select a grid layout to preview" 
+                                       Foreground="#B0BEC5" FontSize="14" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
+                        </Grid>
                     </Border>
 
                     <!-- Layout Selection Icons -->
@@ -282,10 +291,20 @@
                         </Button>
                         
                         <Button x:Name="CustomGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="CustomGridButton_Click">
+                                Click="CustomGridButton_Click" Margin="0,0,8,0">
                             <Canvas Width="24" Height="24">
                                 <Rectangle Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
                                 <Polygon Stroke="White" StrokeThickness="1" Fill="White" Points="18,6 22,6 20,9"/>
+                            </Canvas>
+                        </Button>
+
+                        <!-- Reset Button -->
+                        <Button x:Name="ResetGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="ResetGridButton_Click" Margin="8,0,0,0">
+                            <Canvas Width="24" Height="24">
+                                <Ellipse Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="8" Y1="8" X2="16" Y2="16"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="16" Y1="8" X2="8" Y2="16"/>
                             </Canvas>
                         </Button>
                     </StackPanel>

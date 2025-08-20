@@ -14,6 +14,140 @@ namespace Vms_page
         {
             InitializeComponent();
             UpdateButtonStates();
+            // Set default grid layout
+            CreateGridPreview(1, 1);
+        }
+
+        private void UpdateGridLayoutInfo(int rows, int columns)
+        {
+            int totalCells = rows * columns;
+            GridLayoutInfo.Text = $"Selected Layout: {rows}x{columns} ({totalCells} cells)";
+        }
+
+        private void CreateGridPreview(int rows, int columns)
+        {
+            // Update the layout info label
+            UpdateGridLayoutInfo(rows, columns);
+            
+            // Clear existing content
+            GridPreviewContainer.Children.Clear();
+            GridPreviewContainer.RowDefinitions.Clear();
+            GridPreviewContainer.ColumnDefinitions.Clear();
+
+            // Hide preview text
+            PreviewText.Visibility = Visibility.Collapsed;
+
+            // Create grid structure
+            for (int i = 0; i < rows; i++)
+            {
+                GridPreviewContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            }
+
+            for (int j = 0; j < columns; j++)
+            {
+                GridPreviewContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+
+            // Create grid cells
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    var cell = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromRgb(30, 35, 48)), // #1E2330
+                        BorderBrush = new SolidColorBrush(Color.FromRgb(58, 63, 74)), // #3A3F4A
+                        BorderThickness = new Thickness(1),
+                        Margin = new Thickness(2),
+                        CornerRadius = new CornerRadius(4),
+                        Cursor = System.Windows.Input.Cursors.Hand,
+                        ToolTip = $"Click to configure Cell {i + 1}-{j + 1}\nGrid Position: Row {i + 1}, Column {j + 1}"
+                    };
+
+                    // Add cell number for identification
+                    var cellText = new TextBlock
+                    {
+                        Text = $"Cell {i + 1}-{j + 1}",
+                        Foreground = new SolidColorBrush(Color.FromRgb(176, 190, 197)), // #B0BEC5
+                        FontSize = 10,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Opacity = 0.8
+                    };
+
+                    // Add a subtle icon to make cells more visually appealing
+                    var cellContent = new StackPanel
+                    {
+                        Orientation = Orientation.Vertical,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+
+                    // Add a small video camera icon
+                    var iconText = new TextBlock
+                    {
+                        Text = "📹",
+                        FontSize = 16,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0, 0, 0, 4)
+                    };
+
+                    cellContent.Children.Add(iconText);
+                    cellContent.Children.Add(cellText);
+
+                    cell.Child = cellContent;
+                    Grid.SetRow(cell, i);
+                    Grid.SetColumn(cell, j);
+                    
+                    // Add click event to make cells interactive
+                    int rowIndex = i;
+                    int colIndex = j;
+                    cell.MouseLeftButtonDown += (s, e) => OnCellClicked(rowIndex, colIndex, rows, columns);
+                    
+                    // Add hover effect
+                    cell.MouseEnter += (s, e) => {
+                        cell.Background = new SolidColorBrush(Color.FromRgb(58, 63, 74)); // #3A3F4A
+                        cell.BorderBrush = new SolidColorBrush(Color.FromRgb(74, 158, 255)); // #4A9EFF
+                    };
+                    cell.MouseLeave += (s, e) => {
+                        cell.Background = new SolidColorBrush(Color.FromRgb(30, 35, 48)); // #1E2330
+                        cell.BorderBrush = new SolidColorBrush(Color.FromRgb(58, 63, 74)); // #3A3F4A
+                    };
+                    
+                    GridPreviewContainer.Children.Add(cell);
+                }
+            }
+        }
+
+        private void OnCellClicked(int row, int col, int totalRows, int totalColumns)
+        {
+            // Show which cell was clicked
+            MessageBox.Show($"Clicked on Cell {row + 1}-{col + 1}\nGrid Layout: {totalRows}x{totalColumns}", 
+                          "Cell Clicked", MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            // You can add more functionality here, such as:
+            // - Opening a video stream for that cell
+            // - Showing cell-specific settings
+            // - Highlighting the selected cell
+            // - etc.
+        }
+
+        private void ShowDefaultPreview()
+        {
+            // Clear grid and show default text
+            GridPreviewContainer.Children.Clear();
+            GridPreviewContainer.RowDefinitions.Clear();
+            GridPreviewContainer.ColumnDefinitions.Clear();
+            PreviewText.Visibility = Visibility.Visible;
+            GridLayoutInfo.Text = "No Layout Selected";
+        }
+
+        private void ResetGridSelection()
+        {
+            selectedGridRows = 0;
+            selectedGridColumns = 0;
+            UpdateButtonStates();
+            ShowDefaultPreview();
         }
 
         private void VideoChannelIcon_Click(object sender, RoutedEventArgs e)
@@ -55,6 +189,7 @@ namespace Vms_page
             selectedGridRows = 1;
             selectedGridColumns = 1;
             UpdateButtonStates();
+            CreateGridPreview(1, 1);
         }
 
         private void Grid2x2Button_Click(object sender, RoutedEventArgs e)
@@ -62,6 +197,7 @@ namespace Vms_page
             selectedGridRows = 2;
             selectedGridColumns = 2;
             UpdateButtonStates();
+            CreateGridPreview(2, 2);
         }
 
         private void Grid3x3Button_Click(object sender, RoutedEventArgs e)
@@ -69,6 +205,7 @@ namespace Vms_page
             selectedGridRows = 3;
             selectedGridColumns = 3;
             UpdateButtonStates();
+            CreateGridPreview(3, 3);
         }
 
         private void Grid4x4Button_Click(object sender, RoutedEventArgs e)
@@ -76,6 +213,7 @@ namespace Vms_page
             selectedGridRows = 4;
             selectedGridColumns = 4;
             UpdateButtonStates();
+            CreateGridPreview(4, 4);
         }
 
         private void CustomGridButton_Click(object sender, RoutedEventArgs e)
@@ -87,7 +225,13 @@ namespace Vms_page
                 selectedGridRows = customGridDialog.SelectedRows;
                 selectedGridColumns = customGridDialog.SelectedColumns;
                 UpdateButtonStates();
+                CreateGridPreview(selectedGridRows, selectedGridColumns);
             }
+        }
+
+        private void ResetGridButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetGridSelection();
         }
 
         private void UpdateButtonStates()
@@ -99,26 +243,38 @@ namespace Vms_page
             Grid4x4Button.Style = FindResource("GridLayoutButtonStyle") as Style;
             CustomGridButton.Style = FindResource("GridLayoutButtonStyle") as Style;
 
-            // Highlight selected button
+            // If no grid is selected, show default preview
+            if (selectedGridRows == 0 || selectedGridColumns == 0)
+            {
+                ShowDefaultPreview();
+                return;
+            }
+
+            // Highlight selected button and update preview
             if (selectedGridRows == 1 && selectedGridColumns == 1)
             {
                 SingleGridButton.Style = FindResource("ActionButtonStyle") as Style;
+                CreateGridPreview(1, 1);
             }
             else if (selectedGridRows == 2 && selectedGridColumns == 2)
             {
                 Grid2x2Button.Style = FindResource("ActionButtonStyle") as Style;
+                CreateGridPreview(2, 2);
             }
             else if (selectedGridRows == 3 && selectedGridColumns == 3)
             {
                 Grid3x3Button.Style = FindResource("ActionButtonStyle") as Style;
+                CreateGridPreview(3, 3);
             }
             else if (selectedGridRows == 4 && selectedGridColumns == 4)
             {
                 Grid4x4Button.Style = FindResource("ActionButtonStyle") as Style;
+                CreateGridPreview(4, 4);
             }
             else
             {
                 CustomGridButton.Style = FindResource("ActionButtonStyle") as Style;
+                CreateGridPreview(selectedGridRows, selectedGridColumns);
             }
         }
 
