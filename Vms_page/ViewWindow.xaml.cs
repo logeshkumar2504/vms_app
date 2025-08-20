@@ -70,6 +70,31 @@ namespace Vms_page
             Close();
         }
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addViewPopup = new AddViewPopup();
+            addViewPopup.Owner = this;
+            addViewPopup.ShowDialog();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Implement edit functionality
+            MessageBox.Show("Edit button clicked", "Edit View", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Implement delete functionality
+            var result = MessageBox.Show("Are you sure you want to delete the selected view?", "Delete View", 
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                // TODO: Implement actual deletion logic
+                MessageBox.Show("View deleted successfully", "Delete View", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         // Enable window dragging
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {

@@ -1,0 +1,333 @@
+<Window x:Class="Vms_page.AddViewPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="View Info" Height="600" Width="900"
+        Background="#0F1419" WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <!-- Modern color scheme -->
+        <SolidColorBrush x:Key="PrimaryBackground" Color="#0F1419"/>
+        <SolidColorBrush x:Key="SecondaryBackground" Color="#1A1F2A"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#1E2330"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#2A2F3A"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#E0E6ED"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#B0BEC5"/>
+        <SolidColorBrush x:Key="AccentBlue" Color="#4A9EFF"/>
+        <SolidColorBrush x:Key="AccentRed" Color="#E74C3C"/>
+        <SolidColorBrush x:Key="SuccessGreen" Color="#2ECC71"/>
+        <SolidColorBrush x:Key="WarningOrange" Color="#F39C12"/>
+
+        <!-- Input Box Style -->
+        <Style x:Key="InputBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#1E2330"/>
+            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Button Styles -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4A9EFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3A8EEF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CancelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2A2F3A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Grid Layout Button Style -->
+        <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2A2F3A"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#4A9EFF"/>
+                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Icon Button Style -->
+        <Style x:Key="IconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2A2F3A"/>
+                                <Setter Property="Foreground" Value="#E0E6ED"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#0F1419">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main Content Area -->
+        <Border Grid.Row="0" Background="#0F1419" CornerRadius="8,8,0,0" Margin="20,20,20,0">
+            <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Panel - Configuration/Input Area -->
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                    <!-- Name Section -->
+                    <TextBlock Text="Name" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox x:Name="NameInput" Style="{StaticResource InputBoxStyle}" 
+                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
+                             Tag="Enter view name"/>
+
+                    <!-- Video Channel Section -->
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Video Channel" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Grid.Column="0"/>
+                        <Button Grid.Column="1" Style="{StaticResource IconButtonStyle}" Click="VideoChannelIcon_Click">
+                            <TextBlock Text="⊞" FontSize="18"/>
+                        </Button>
+                    </Grid>
+                    <TextBox x:Name="VideoChannelInput" Style="{StaticResource InputBoxStyle}" 
+                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
+                             Tag="Enter Keywords"/>
+
+                    <!-- Sequence Resource Section -->
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Sequence Resource" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Grid.Column="0"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button Style="{StaticResource IconButtonStyle}" Click="AddResource_Click" Margin="0,0,4,0">
+                                <TextBlock Text="+" FontSize="18"/>
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}" Click="EditResource_Click" Margin="0,0,4,0">
+                                <TextBlock Text="✎" FontSize="16"/>
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}" Click="DeleteResource_Click">
+                                <TextBlock Text="🗑" FontSize="16"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <TextBox x:Name="SequenceResourceInput" Style="{StaticResource InputBoxStyle}" 
+                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
+                             Tag="Enter Keywords"/>
+
+                    <!-- Remarks Section -->
+                    <TextBlock Text="Remarks:" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox x:Name="RemarksInput" Style="{StaticResource InputBoxStyle}" 
+                             Height="80" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="Input_TextChanged"
+                             VerticalContentAlignment="Top"/>
+                </StackPanel>
+
+                <!-- Right Panel - Display/Content Area -->
+                <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                    <!-- Preview/Display Area -->
+                    <Border Background="#1A1F2A" Height="200" CornerRadius="8" Margin="0,0,0,16">
+                        <TextBlock Text="Video Preview Area" Foreground="#B0BEC5" FontSize="14" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
+                    </Border>
+
+                    <!-- Layout Selection Icons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                        <Button x:Name="SingleGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="SingleGridButton_Click" Margin="0,0,8,0">
+                            <Canvas Width="24" Height="24">
+                                <Rectangle Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
+                            </Canvas>
+                        </Button>
+                        
+                        <Button x:Name="Grid2x2Button" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="Grid2x2Button_Click" Margin="0,0,8,0">
+                            <Canvas Width="24" Height="24">
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="12" X2="24" Y2="12"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="12" Y1="0" X2="12" Y2="24"/>
+                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
+                            </Canvas>
+                        </Button>
+                        
+                        <Button x:Name="Grid3x3Button" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="Grid3x3Button_Click" Margin="0,0,8,0">
+                            <Canvas Width="24" Height="24">
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="8" X2="24" Y2="8"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="16" X2="24" Y2="16"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="8" Y1="0" X2="8" Y2="24"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="16" Y1="0" X2="16" Y2="24"/>
+                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
+                            </Canvas>
+                        </Button>
+                        
+                        <Button x:Name="Grid4x4Button" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="Grid4x4Button_Click" Margin="0,0,8,0">
+                            <Canvas Width="24" Height="24">
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="6" X2="24" Y2="6"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="12" X2="24" Y2="12"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="18" X2="24" Y2="18"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="6" Y1="0" X2="6" Y2="24"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="12" Y1="0" X2="12" Y2="24"/>
+                                <Line Stroke="White" StrokeThickness="2" X1="18" Y1="0" X2="18" Y2="24"/>
+                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
+                            </Canvas>
+                        </Button>
+                        
+                        <Button x:Name="CustomGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="CustomGridButton_Click">
+                            <Canvas Width="24" Height="24">
+                                <Rectangle Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
+                                <Polygon Stroke="White" StrokeThickness="1" Fill="White" Points="18,6 22,6 20,9"/>
+                            </Canvas>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Table Header -->
+                    <Border Background="#1A1F2A" Height="40" CornerRadius="6" Margin="0,0,0,8">
+                        <Grid Margin="16,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Channel Name" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
+                                       Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Stream" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
+                                       Grid.Column="1" VerticalAlignment="Center"/>
+                            <TextBlock Text="Preset" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
+                                       Grid.Column="2" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Table Content Area -->
+                    <Border Background="#1A1F2A" Height="120" CornerRadius="6">
+                        <TextBlock Text="No data available" Foreground="#B0BEC5" FontSize="13" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Bottom Action Buttons -->
+        <Border Grid.Row="1" Background="#1A1F2A" CornerRadius="0,0,8,8" Margin="20,0,20,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+                <Button x:Name="CancelButton" Style="{StaticResource CancelButtonStyle}" 
+                        Click="CancelButton_Click" Margin="0,0,12,0">
+                    Cancel
+                </Button>
+                <Button x:Name="OKButton" Style="{StaticResource ActionButtonStyle}" 
+                        Click="OKButton_Click">
+                    OK
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
