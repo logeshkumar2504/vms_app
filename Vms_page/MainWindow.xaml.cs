@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System; // Added for EventArgs
+using System.Windows.Interop; // Added for WindowInteropHelper
+using System.Runtime.InteropServices; // Added for DllImport
 
 namespace Vms_page
 {
@@ -21,10 +24,15 @@ namespace Vms_page
         public ObservableCollection<MenuItemModel> SmartMenuItems { get; set; } = new();
         public ObservableCollection<MenuItemModel> DroppedItems { get; set; } = new();
         private bool isDarkMode = true;
+        private bool isMaximized = false; // Track maximized state
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+            
+            // Ensure window respects taskbar
+            this.SourceInitialized += MainWindow_SourceInitialized;
+            
             // Initialize menu items with calm and attractive icon colors and descriptions
             BasicMenuItems.Add(new MenuItemModel { Name = "User Management", Group = "Basic", Icon = "👥", IconColor = "#81C784", Description = "Manage user accounts and permissions" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Recording Schedule", Group = "Basic", Icon = "📅", IconColor = "#64B5F6", Description = "Configure recording schedules and timings" });
@@ -55,10 +63,43 @@ namespace Vms_page
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized)
+            if (isMaximized)
+            {
+                // Restore to normal size
                 WindowState = WindowState.Normal;
+                // Reset to default size and center
+                Width = 1000;
+                Height = 600;
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                isMaximized = false;
+                
+                // Update button icon to maximize (restore icon)
+                var textBlock = MaximizeButton.Content as TextBlock;
+                if (textBlock != null)
+                    textBlock.Text = "⤢"; // Unicode restore icon
+            }
             else
-                WindowState = WindowState.Maximized;
+            {
+                // Custom maximize that respects taskbar - NO WindowState.Maximized
+                WindowState = WindowState.Normal;
+                
+                // Get the work area (screen area excluding taskbar)
+                var workArea = SystemParameters.WorkArea;
+                
+                // Set window to fill the work area exactly
+                Left = workArea.Left;
+                Top = workArea.Top;
+                Width = workArea.Width;
+                Height = workArea.Height;
+                
+                // Mark as maximized for our tracking
+                isMaximized = true;
+                
+                // Update button icon to restore (maximize icon)
+                var textBlock = MaximizeButton.Content as TextBlock;
+                if (textBlock != null)
+                    textBlock.Text = "⤡"; // Unicode maximize icon
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -171,6 +212,24 @@ namespace Vms_page
                     SmartMenuItems.Add(item);
             }
         }
+
+        private void MainWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            // Ensure window respects taskbar by setting appropriate window style
+            // This prevents the window from covering the taskbar
+            var helper = new System.Windows.Interop.WindowInteropHelper(this);
+            var source = System.Windows.Interop.HwndSource.FromHwnd(helper.Handle);
+            if (source?.Handle != IntPtr.Zero)
+            {
+                // Set window style to respect taskbar
+                var style = NativeMethods.GetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE);
+                style |= NativeMethods.WS_EX_APPWINDOW;
+                style &= ~NativeMethods.WS_EX_TOOLWINDOW;
+                NativeMethods.SetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE, style);
+            }
+        }
     }
+
+
 }
 // This code is part of a WPF application that implements a main window with buttons for various functionalities.

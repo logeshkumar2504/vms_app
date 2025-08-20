@@ -1,5 +1,5 @@
 ﻿Vms_page
-
+1.0.0.0
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
 3-187353798
 
-7-424204543
+9-706160322
 200366931479
 LiveViewWindow.xaml;MainWindow.xaml;ViewWindow.xaml;
 
