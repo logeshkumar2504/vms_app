@@ -6,9 +6,29 @@ using System.Windows.Input;
 using System; // Added for EventArgs
 using System.Windows.Interop; // Added for WindowInteropHelper
 using System.Runtime.InteropServices; // Added for DllImport
+using System.Windows.Data; // Added for IValueConverter
+using System.Globalization; // Added for CultureInfo
 
 namespace Vms_page
 {
+    // Converter to show/hide drop zone hint based on item count
+    public class CountToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int count)
+            {
+                return count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class MenuItemModel
     {
         public string Name { get; set; }
@@ -24,6 +44,9 @@ namespace Vms_page
         public ObservableCollection<MenuItemModel> SmartMenuItems { get; set; } = new();
         public ObservableCollection<MenuItemModel> DroppedItems { get; set; } = new();
         private bool isDarkMode = true;
+
+        // Converter for binding
+        public CountToVisibilityConverter CountToVisibilityConverter { get; } = new CountToVisibilityConverter();
 
         public MainWindow()
         {
@@ -178,6 +201,22 @@ namespace Vms_page
                 style &= ~NativeMethods.WS_EX_TOOLWINDOW;
                 NativeMethods.SetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE, style);
             }
+        }
+
+        // Theme switching methods
+        private void LightTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Light");
+        }
+
+        private void DarkTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Dark");
+        }
+
+        private void BlueTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Blue");
         }
     }
 
