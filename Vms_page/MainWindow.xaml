@@ -2,102 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Guard Station" Height="600" Width="1000"
-        Background="#1B1E2B" WindowStyle="None" ResizeMode="CanResize">
+        Background="#1B1E2B" WindowStyle="SingleBorderWindow" ResizeMode="CanResize">
 
     <Window.Resources>
-        <LinearGradientBrush x:Key="TopBarBackground" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#2A2D3E" Offset="0"/>
-            <GradientStop Color="#1E2128" Offset="1"/>
-        </LinearGradientBrush>
-        
-        <!-- Window Control Button Style -->
-        <Style x:Key="WindowControlButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Foreground" Value="#B0BEC5"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="8,0"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3A3F4A"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#2A2F3A"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
 
-        <!-- ✅ Top Bar -->
-        <Border DockPanel.Dock="Top" Height="45"
-                Background="{StaticResource TopBarBackground}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
 
-                <!-- Control Panel Button -->
-                <Button Grid.Column="1" Content="Control Panel" Padding="16,4"
-                        Margin="25,0,0,0"
-                        Background="#383C4C"
-                        Foreground="#61A0FF"
-                        BorderThickness="0"
-                        FontWeight="Bold"
-                        FontSize="14"
-                        VerticalAlignment="Center"
-                        Cursor="Hand">
-                    <Button.Effect>
-                        <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="2" Opacity="0.3"/>
-                    </Button.Effect>
-                </Button>
-
-                <!-- Right Icons and Admin -->
-                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE80C;" ToolTip="Dashboard" Foreground="#B0BEC5" FontSize="18" Margin="8,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE77B;" ToolTip="Uniform" Foreground="#B0BEC5" FontSize="18" Margin="8,0"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE706;" ToolTip="Uniform" Foreground="#B0BEC5" FontSize="18" Margin="8,0"/>
-                    <TextBlock Text="admin" Foreground="#61A0FF" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0" FontSize="14"/>
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" ToolTip="Lock" Foreground="#B0BEC5" FontSize="18" Margin="8,0"/>
-                    <Grid Margin="8,0">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE897;" ToolTip="Help" Foreground="#B0BEC5" FontSize="18"/>
-                    </Grid>
-                    <!-- Window Control Buttons -->
-                    <Button x:Name="MinimizeButton" Click="MinimizeButton_Click" ToolTip="Minimize"
-                            Style="{StaticResource WindowControlButtonStyle}">
-                        <TextBlock Text="─"/>
-                    </Button>
-                    <Button x:Name="MaximizeButton" Click="MaximizeButton_Click" ToolTip="Maximize"
-                            Style="{StaticResource WindowControlButtonStyle}">
-                        <TextBlock Text="⤡"/>
-                    </Button>
-                    <Button x:Name="CloseButton" Click="CloseButton_Click" ToolTip="Close"
-                            Style="{StaticResource WindowControlButtonStyle}">
-                        <TextBlock Text="✕"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
 
         <!-- ✅ Bottom Navigation Bar -->
         <Border DockPanel.Dock="Bottom" Height="40">

@@ -324,18 +324,6 @@ namespace Vms_page
             
             Close();
         }
-
-        protected override void OnSourceInitialized(System.EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            
-            // Make window draggable
-            this.MouseLeftButtonDown += (s, args) =>
-            {
-                if (args.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
-                    this.DragMove();
-            };
-        }
     }
 
     // Custom Grid Dialog for custom grid sizes
@@ -352,8 +340,8 @@ namespace Vms_page
             Width = 350;
             Height = 250;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            WindowStyle = WindowStyle.None;
-            ResizeMode = ResizeMode.NoResize;
+            WindowStyle = WindowStyle.SingleBorderWindow;
+            ResizeMode = ResizeMode.CanResize;
             Background = new SolidColorBrush(Color.FromRgb(15, 20, 25)); // #0F1419
 
             var grid = new Grid();
@@ -488,13 +476,6 @@ namespace Vms_page
             grid.Children.Add(buttonPanel);
 
             Content = grid;
-
-            // Make window draggable
-            this.MouseLeftButtonDown += (s, args) =>
-            {
-                if (args.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
-                    this.DragMove();
-            };
         }
     }
 }

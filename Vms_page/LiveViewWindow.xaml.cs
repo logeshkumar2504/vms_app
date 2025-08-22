@@ -8,7 +8,7 @@ namespace Vms_page
 {
     public partial class LiveViewWindow : Window
     {
-        private bool isMaximized = false; // Track maximized state
+
         
         public LiveViewWindow()
         {
@@ -18,56 +18,7 @@ namespace Vms_page
             this.SourceInitialized += LiveViewWindow_SourceInitialized;
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
 
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (isMaximized)
-            {
-                // Restore to normal size
-                WindowState = WindowState.Normal;
-                // Reset to default size and center
-                Width = 1000;
-                Height = 600;
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                isMaximized = false;
-                
-                // Update button icon to maximize (restore icon)
-                var textBlock = MaximizeButton.Content as TextBlock;
-                if (textBlock != null)
-                    textBlock.Text = "⤢"; // Unicode restore icon
-            }
-            else
-            {
-                // Custom maximize that respects taskbar - NO WindowState.Maximized
-                WindowState = WindowState.Normal;
-                
-                // Get the work area (screen area excluding taskbar)
-                var workArea = SystemParameters.WorkArea;
-                
-                // Set window to fill the work area exactly
-                Left = workArea.Left;
-                Top = workArea.Top;
-                Width = workArea.Width;
-                Height = workArea.Height;
-                
-                // Mark as maximized for our tracking
-                isMaximized = true;
-                
-                // Update button icon to restore (maximize icon)
-                var textBlock = MaximizeButton.Content as TextBlock;
-                if (textBlock != null)
-                    textBlock.Text = "⤡"; // Unicode maximize icon
-            }
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
         // Allow window dragging
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

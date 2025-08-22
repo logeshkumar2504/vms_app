@@ -2,14 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Live View" Height="600" Width="1000"
-        Background="#000000" WindowStyle="None" ResizeMode="CanResize"
+        Background="#000000" WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen">
 
          <Window.Resources>
-         <LinearGradientBrush x:Key="TopBarBackground" StartPoint="0,0" EndPoint="0,1">
-             <GradientStop Color="#2C3E50" Offset="0"/>
-             <GradientStop Color="#34495E" Offset="1"/>
-         </LinearGradientBrush>
+
          
          <LinearGradientBrush x:Key="CameraBackground" StartPoint="0,0" EndPoint="1,1">
              <GradientStop Color="#34495E" Offset="0"/>
@@ -24,38 +21,7 @@
 
     <DockPanel LastChildFill="True">
         
-        <!-- Top Bar -->
-        <Border DockPanel.Dock="Top" Height="45" Background="{StaticResource TopBarBackground}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
 
-                <!-- Title -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
-                    <TextBlock Text="📺" FontSize="20" Foreground="#61A0FF" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBlock Text="Live View" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <!-- Right Side Controls -->
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
-                    <Button x:Name="MinimizeButton" Click="MinimizeButton_Click" ToolTip="Minimize"
-                            Background="Transparent" BorderThickness="0" Margin="8,0">
-                        <TextBlock Text="─" Foreground="#B0BEC5" FontSize="18" FontWeight="Bold"/>
-                    </Button>
-                    <Button x:Name="MaximizeButton" Click="MaximizeButton_Click" ToolTip="Maximize"
-                            Background="Transparent" BorderThickness="0" Margin="8,0">
-                        <TextBlock Text="⤡" Foreground="#B0BEC5" FontSize="18" FontWeight="Bold"/>
-                    </Button>
-                    <Button x:Name="CloseButton" Click="CloseButton_Click" ToolTip="Close"
-                            Background="Transparent" BorderThickness="0" Margin="8,0">
-                        <TextBlock Text="✕" Foreground="#B0BEC5" FontSize="18" FontWeight="Bold"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
 
         <!-- Main Content -->
         <Grid Background="#000000">

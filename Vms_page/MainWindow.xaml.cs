@@ -24,7 +24,7 @@ namespace Vms_page
         public ObservableCollection<MenuItemModel> SmartMenuItems { get; set; } = new();
         public ObservableCollection<MenuItemModel> DroppedItems { get; set; } = new();
         private bool isDarkMode = true;
-        private bool isMaximized = false; // Track maximized state
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,56 +56,7 @@ namespace Vms_page
             SmartMenuItems.Add(new MenuItemModel { Name = "VCA", Group = "Smart", Icon = "🎯", IconColor = "#F06292", Description = "Video Content Analysis and analytics" });
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
 
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (isMaximized)
-            {
-                // Restore to normal size
-                WindowState = WindowState.Normal;
-                // Reset to default size and center
-                Width = 1000;
-                Height = 600;
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                isMaximized = false;
-                
-                // Update button icon to maximize (restore icon)
-                var textBlock = MaximizeButton.Content as TextBlock;
-                if (textBlock != null)
-                    textBlock.Text = "⤢"; // Unicode restore icon
-            }
-            else
-            {
-                // Custom maximize that respects taskbar - NO WindowState.Maximized
-                WindowState = WindowState.Normal;
-                
-                // Get the work area (screen area excluding taskbar)
-                var workArea = SystemParameters.WorkArea;
-                
-                // Set window to fill the work area exactly
-                Left = workArea.Left;
-                Top = workArea.Top;
-                Width = workArea.Width;
-                Height = workArea.Height;
-                
-                // Mark as maximized for our tracking
-                isMaximized = true;
-                
-                // Update button icon to restore (maximize icon)
-                var textBlock = MaximizeButton.Content as TextBlock;
-                if (textBlock != null)
-                    textBlock.Text = "⤡"; // Unicode maximize icon
-            }
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
         private void MenuButton_PreviewMouseMove(object sender, MouseEventArgs e)
         {
