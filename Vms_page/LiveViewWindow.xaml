@@ -1,853 +1,290 @@
 <Window x:Class="Vms_page.LiveViewWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Live View" Height="600" Width="1000"
+        Title="Live View" Height="700" Width="1200"
         Background="{DynamicResource BackgroundColor}" WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" FontFamily="Segoe UI">
 
-         <Window.Resources>
-
-         
-         <LinearGradientBrush x:Key="CameraBackground" StartPoint="0,0" EndPoint="1,1">
-             <GradientStop Color="#34495E" Offset="0"/>
-             <GradientStop Color="#2C3E50" Offset="1"/>
-         </LinearGradientBrush>
-         
-         <LinearGradientBrush x:Key="ControlPanelBackground" StartPoint="0,0" EndPoint="1,1">
-             <GradientStop Color="#2C3E50" Offset="0"/>
-             <GradientStop Color="#34495E" Offset="1"/>
-         </LinearGradientBrush>
-     </Window.Resources>
-
-    <DockPanel LastChildFill="True">
+    <Window.Resources>
+        <!-- Native TopBar Effect -->
+        <DropShadowEffect x:Key="NativeTopBarEffect" Color="#000000" Direction="270" ShadowDepth="1" Opacity="0.1" BlurRadius="4"/>
         
+        <!-- iOS-inspired Button Style -->
+        <Style x:Key="IOSButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="12" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0056CC"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#004499"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+        <!-- Grid Button Style -->
+        <Style x:Key="GridButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                Padding="{TemplateBinding Padding}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Active Grid Button Style -->
+        <Style x:Key="ActiveGridButtonStyle" TargetType="Button" BasedOn="{StaticResource GridButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+        </Style>
+
+        <!-- Card Style -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="2" Opacity="0.1" BlurRadius="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Input Style -->
+        <Style x:Key="ModernInputStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ComboBox Style -->
+        <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Navigation Bar -->
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" 
+                Effect="{DynamicResource NativeTopBarEffect}" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="📹" FontSize="24" Margin="0,0,12,0"/>
+                    <TextBlock Text="Live View" FontSize="20" FontWeight="SemiBold" 
+                               Foreground="{DynamicResource TextPrimaryColor}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Grid Configuration Controls -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Grid:" Foreground="{DynamicResource TextSecondaryColor}" 
+                               FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    
+                    <TextBox x:Name="RowsInput" Text="1" Width="50" Style="{StaticResource ModernInputStyle}" 
+                             Margin="0,0,8,0" TextAlignment="Center"/>
+                    <TextBlock Text="×" Foreground="{DynamicResource TextSecondaryColor}" 
+                               FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBox x:Name="ColumnsInput" Text="1" Width="50" Style="{StaticResource ModernInputStyle}" 
+                             Margin="0,0,16,0" TextAlignment="Center"/>
+                    
+                    <Button x:Name="ApplyGridButton" Content="Apply Grid" Style="{StaticResource IOSButtonStyle}" 
+                            Click="ApplyGrid_Click"/>
+                </StackPanel>
+
+                <!-- Quick Grid Presets -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="View1x1Button" Content="1×1" Style="{StaticResource ActiveGridButtonStyle}" 
+                            Click="View1x1_Click" Margin="0,0,8,0"/>
+                    <Button x:Name="View2x2Button" Content="2×2" Style="{StaticResource GridButtonStyle}" 
+                            Click="View2x2_Click" Margin="0,0,8,0"/>
+                    <Button x:Name="View3x3Button" Content="3×3" Style="{StaticResource GridButtonStyle}" 
+                            Click="View3x3_Click" Margin="0,0,8,0"/>
+                    <Button x:Name="View4x4Button" Content="4×4" Style="{StaticResource GridButtonStyle}" 
+                            Click="View4x4_Click" Margin="0,0,8,0"/>
+                    <Button x:Name="View8x8Button" Content="8×8" Style="{StaticResource GridButtonStyle}" 
+                            Click="View8x8_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
         <!-- Main Content -->
-        <Grid Background="{DynamicResource BackgroundColor}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
 
-            <!-- Live View Content -->
-            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" Margin="20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="300"/>
-                    </Grid.ColumnDefinitions>
-
-                     <!-- Camera View Area -->
-                     <Border Grid.Column="0" Background="{StaticResource CameraBackground}" CornerRadius="8" Margin="0,0,10,0">
-                         <Border.Effect>
-                             <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="4" Opacity="0.3"/>
-                         </Border.Effect>
-                         
-                         <!-- Container for all grid views -->
-                         <Grid>
-                             <!-- 1x1 View (Single Camera) -->
-                             <Grid x:Name="View1x1Grid" Visibility="Visible">
-                                 <Border Background="#0A0A0A" CornerRadius="5" Margin="10">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="60" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="Camera 1" Foreground="#666666" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,0,0"/>
-                                     </Grid>
-                                 </Border>
-                             </Grid>
-                             
-                             <!-- 2x2 View (Four Cameras) -->
-                             <Grid x:Name="View2x2Grid" Visibility="Collapsed">
-                                 <Grid.RowDefinitions>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                 </Grid.RowDefinitions>
-                                 <Grid.ColumnDefinitions>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                 </Grid.ColumnDefinitions>
-                                 
-                                 <!-- Camera 1 -->
-                                 <Border Grid.Row="0" Grid.Column="0" Background="#0A0A0A" CornerRadius="5" Margin="5">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="30" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="Cam 1" Foreground="#666666" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Camera 2 -->
-                                 <Border Grid.Row="0" Grid.Column="1" Background="#0A0A0A" CornerRadius="5" Margin="5">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="30" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="Cam 2" Foreground="#666666" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Camera 3 -->
-                                 <Border Grid.Row="1" Grid.Column="0" Background="#0A0A0A" CornerRadius="5" Margin="5">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="30" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="Cam 3" Foreground="#666666" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Camera 4 -->
-                                 <Border Grid.Row="1" Grid.Column="1" Background="#0A0A0A" CornerRadius="5" Margin="5">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="30" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="Cam 4" Foreground="#666666" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
-                                     </Grid>
-                                 </Border>
-                             </Grid>
-                             
-                             <!-- 3x3 View (Nine Cameras) -->
-                             <Grid x:Name="View3x3Grid" Visibility="Collapsed">
-                                 <Grid.RowDefinitions>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                 </Grid.RowDefinitions>
-                                 <Grid.ColumnDefinitions>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                 </Grid.ColumnDefinitions>
-                                 
-                                 <!-- Camera 1-9 -->
-                                 <Border Grid.Row="0" Grid.Column="0" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="1" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="1" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="2" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="2" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="3" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="0" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="4" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="1" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="5" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="2" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="6" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="0" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="7" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="1" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="8" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="2" Background="#0A0A0A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="20" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="9" Foreground="#666666" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0"/>
-                                     </Grid>
-                                 </Border>
-                             </Grid>
-                             
-                             <!-- 4x4 View (Sixteen Cameras) -->
-                             <Grid x:Name="View4x4Grid" Visibility="Collapsed">
-                                 <Grid.RowDefinitions>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                 </Grid.RowDefinitions>
-                                 <Grid.ColumnDefinitions>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                 </Grid.ColumnDefinitions>
-                                 
-                                 <!-- Camera 1-16 -->
-                                 <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="1" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="2" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="2" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="3" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="3" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="4" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="5" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="6" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="2" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="7" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="3" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="8" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="0" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="9" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="1" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="10" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="2" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="11" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="3" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="12" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="0" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="13" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="1" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="14" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="2" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="15" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="3" Background="#1A1A1A" CornerRadius="3" Margin="2">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="16" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="16" Foreground="#888888" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12,0,0"/>
-                                     </Grid>
-                                 </Border>
-                             </Grid>
-                             
-                             <!-- 8x8 View (Sixty-Four Cameras) -->
-                             <Grid x:Name="View8x8Grid" Visibility="Collapsed">
-                                 <Grid.RowDefinitions>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                     <RowDefinition Height="*"/>
-                                 </Grid.RowDefinitions>
-                                 <Grid.ColumnDefinitions>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                     <ColumnDefinition Width="*"/>
-                                 </Grid.ColumnDefinitions>
-                                 
-                                 <!-- Camera 1-64 (Generated dynamically) -->
-                                 <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="1" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="2" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="3" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="4" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="5" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="6" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="7" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="0" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="8" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Continue with remaining cameras (9-64) -->
-                                 <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="9" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="10" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="11" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="12" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="13" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="14" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="15" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="1" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="16" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Add more cameras for the remaining rows (3-7) -->
-                                 <Border Grid.Row="2" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="17" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="18" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="19" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="20" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="21" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="22" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="23" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="2" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="24" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Continue with remaining rows (4-7) for cameras 25-64 -->
-                                 <Border Grid.Row="3" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="25" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="26" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="27" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="28" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="29" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="30" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="31" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="3" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="32" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Add remaining cameras for rows 5-7 (33-64) -->
-                                 <Border Grid.Row="4" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="33" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="34" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="35" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="36" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="37" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="38" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="39" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="4" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="40" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Add remaining cameras for rows 6-7 (41-64) -->
-                                 <Border Grid.Row="5" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="41" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="42" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="43" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="44" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="45" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="46" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="47" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="5" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="48" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Add remaining cameras for row 7 (49-64) -->
-                                 <Border Grid.Row="6" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="49" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="50" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="51" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="52" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="53" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="54" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="55" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="6" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="56" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <!-- Add final row of cameras (57-64) -->
-                                 <Border Grid.Row="7" Grid.Column="0" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="57" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="1" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="58" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="2" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="59" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="3" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="60" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="4" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="61" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="5" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="62" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="6" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="63" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                                 
-                                 <Border Grid.Row="7" Grid.Column="7" Background="#1A1A1A" CornerRadius="2" Margin="1">
-                                     <Grid>
-                                         <TextBlock Text="📹" FontSize="12" Foreground="#555555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                         <TextBlock Text="64" Foreground="#888888" FontSize="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                     </Grid>
-                                 </Border>
-                             </Grid>
-                         </Grid>
-                     </Border>
-
-                                         <!-- Control Panel -->
-                     <Border Grid.Column="1" Background="{StaticResource ControlPanelBackground}" CornerRadius="8">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="4" Opacity="0.3"/>
-                        </Border.Effect>
-                        <StackPanel Margin="20">
-                            <TextBlock Text="Camera Controls" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
-                            
-                            <!-- Camera Selection -->
-                            <TextBlock Text="Select Camera:" Foreground="#B0BEC5" FontSize="12" Margin="0,0,0,5"/>
-                            <ComboBox Background="#1A1A1A" Foreground="White" BorderBrush="#333333" Margin="0,0,0,15">
-                                <ComboBoxItem Content="Camera 1 - Main Entrance"/>
-                                <ComboBoxItem Content="Camera 2 - Parking Lot"/>
-                                <ComboBoxItem Content="Camera 3 - Security Gate"/>
-                                <ComboBoxItem Content="Camera 4 - Loading Dock"/>
-                            </ComboBox>
-
-                            <!-- Recording Controls -->
-                            <TextBlock Text="Recording:" Foreground="#B0BEC5" FontSize="12" Margin="0,0,0,5"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                <Button Content="⏺️ Record" Background="#E57373" Foreground="White" BorderThickness="0" Padding="15,8" Margin="0,0,10,0"/>
-                                <Button Content="⏸️ Pause" Background="#FFB74D" Foreground="White" BorderThickness="0" Padding="15,8"/>
-                            </StackPanel>
-
-                                                         <!-- View Options -->
-                             <TextBlock Text="View Mode:" Foreground="#B0BEC5" FontSize="12" Margin="0,0,0,5"/>
-                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                 <Button x:Name="View1x1Button" Content="1x1" Background="#4CAF50" Foreground="White" BorderThickness="0" Padding="10,8" Margin="0,0,5,0" Click="View1x1_Click"/>
-                                 <Button x:Name="View2x2Button" Content="2x2" Background="#2196F3" Foreground="White" BorderThickness="0" Padding="10,8" Margin="0,0,5,0" Click="View2x2_Click"/>
-                                 <Button x:Name="View3x3Button" Content="3x3" Background="#9C27B0" Foreground="White" BorderThickness="0" Padding="10,8" Margin="0,0,5,0" Click="View3x3_Click"/>
-                                 <Button x:Name="View4x4Button" Content="4x4" Background="#FF5722" Foreground="White" BorderThickness="0" Padding="10,8" Margin="0,0,5,0" Click="View4x4_Click"/>
-                                 <Button x:Name="View8x8Button" Content="8x8" Background="#795548" Foreground="White" BorderThickness="0" Padding="10,8" Click="View8x8_Click"/>
-                             </StackPanel>
-
-                            <!-- Status -->
-                            <Border Background="#1A1A1A" CornerRadius="5" Padding="10" Margin="0,20,0,0">
-                                <StackPanel>
-                                    <TextBlock Text="Status: Live" Foreground="#4CAF50" FontSize="12" FontWeight="Bold"/>
-                                    <TextBlock Text="Camera: Camera 1" Foreground="#B0BEC5" FontSize="11" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Resolution: 1920x1080" Foreground="#B0BEC5" FontSize="11" Margin="0,2,0,0"/>
-                                    <TextBlock Text="FPS: 30" Foreground="#B0BEC5" FontSize="11" Margin="0,2,0,0"/>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </Border>
+            <!-- Camera Grid Area -->
+            <Border Grid.Column="0" Background="{DynamicResource SurfaceColor}" CornerRadius="16" Margin="0,0,20,0">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="4" Opacity="0.1" BlurRadius="12"/>
+                </Border.Effect>
+                
+                <!-- Dynamic Grid Container -->
+                <Grid x:Name="DynamicGridContainer" Margin="20">
+                    <!-- Grid will be generated dynamically -->
                 </Grid>
             </Border>
 
-            <!-- Bottom Status Bar -->
-            <Border Grid.Row="1" Background="#0A0A0A" Height="30">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
-                    <TextBlock Text="●" Foreground="#4CAF50" FontSize="12" Margin="0,0,5,0"/>
-                    <TextBlock Text="Live View Active" Foreground="#B0BEC5" FontSize="11"/>
-                    <TextBlock Text="|" Foreground="#333333" FontSize="11" Margin="15,0"/>
-                    <TextBlock Text="📹 Camera 1" Foreground="#B0BEC5" FontSize="11"/>
-                    <TextBlock Text="|" Foreground="#333333" FontSize="11" Margin="15,0"/>
-                    <TextBlock Text="⏱️ 00:15:32" Foreground="#B0BEC5" FontSize="11"/>
-                </StackPanel>
+            <!-- Control Panel -->
+            <Border Grid.Column="1" Background="{DynamicResource SurfaceColor}" CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="4" Opacity="0.1" BlurRadius="12"/>
+                </Border.Effect>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="20">
+                    <StackPanel>
+                        <TextBlock Text="Camera Controls" Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,0,0,24"/>
+                        
+                        <!-- Camera Selection -->
+                        <TextBlock Text="Select Camera:" Foreground="{DynamicResource TextSecondaryColor}" 
+                                   FontSize="14" Margin="0,0,0,8"/>
+                        <ComboBox x:Name="CameraComboBox" Style="{StaticResource ModernComboBoxStyle}" 
+                                  Margin="0,0,0,20">
+                            <ComboBoxItem Content="Camera 1 - Main Entrance"/>
+                            <ComboBoxItem Content="Camera 2 - Parking Lot"/>
+                            <ComboBoxItem Content="Camera 3 - Security Gate"/>
+                            <ComboBoxItem Content="Camera 4 - Loading Dock"/>
+                            <ComboBoxItem Content="Camera 5 - Office Area"/>
+                            <ComboBoxItem Content="Camera 6 - Server Room"/>
+                        </ComboBox>
+
+                        <!-- Recording Controls -->
+                        <TextBlock Text="Recording:" Foreground="{DynamicResource TextSecondaryColor}" 
+                                   FontSize="14" Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Button Content="⏺️ Record" Background="{DynamicResource ErrorColor}" 
+                                    Foreground="White" BorderThickness="0" Padding="16,10" 
+                                    Margin="0,0,12,0"/>
+                            <Button Content="⏸️ Pause" Background="{DynamicResource WarningColor}" 
+                                    Foreground="White" BorderThickness="0" Padding="16,10"/>
+                        </StackPanel>
+
+                        <!-- Camera Settings -->
+                        <TextBlock Text="Camera Settings:" Foreground="{DynamicResource TextSecondaryColor}" 
+                                   FontSize="14" Margin="0,0,0,8"/>
+                        <StackPanel Margin="0,0,0,20">
+                            <TextBlock Text="Resolution: 1920×1080" Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" Margin="0,2,0,0"/>
+                            <TextBlock Text="Frame Rate: 30 FPS" Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" Margin="0,2,0,0"/>
+                            <TextBlock Text="Bitrate: 4 Mbps" Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" Margin="0,2,0,0"/>
+                        </StackPanel>
+
+                        <!-- Status Panel -->
+                        <Border Background="{DynamicResource BackgroundColor}" CornerRadius="12" Padding="16">
+                            <StackPanel>
+                                <TextBlock Text="Status: Live" Foreground="{DynamicResource SuccessColor}" 
+                                           FontSize="14" FontWeight="SemiBold"/>
+                                <TextBlock Text="Active Cameras: 4" Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="12" Margin="0,8,0,0"/>
+                                <TextBlock Text="Recording: Camera 1" Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="12" Margin="0,2,0,0"/>
+                                <TextBlock Text="Uptime: 02:15:43" Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="12" Margin="0,2,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
-    </DockPanel>
+
+        <!-- Bottom Status Bar -->
+        <Border Grid.Row="2" Background="{DynamicResource SurfaceColor}" Height="40" 
+                Effect="{DynamicResource NativeTopBarEffect}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
+                <Ellipse Width="8" Height="8" Fill="{DynamicResource SuccessColor}" Margin="0,0,8,0"/>
+                <TextBlock Text="Live View Active" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12"/>
+                <TextBlock Text="|" Foreground="{DynamicResource BorderColor}" FontSize="12" Margin="16,0"/>
+                <TextBlock Text="📹 4 Cameras Active" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12"/>
+                <TextBlock Text="|" Foreground="{DynamicResource BorderColor}" FontSize="12" Margin="16,0"/>
+                <TextBlock Text="⏱️ 02:15:43" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12"/>
+                <TextBlock Text="|" Foreground="{DynamicResource BorderColor}" FontSize="12" Margin="16,0"/>
+                <TextBlock Text="💾 Recording: Camera 1" Foreground="{DynamicResource ErrorColor}" FontSize="12"/>
+            </StackPanel>
+        </Border>
+    </Grid>
 </Window>
