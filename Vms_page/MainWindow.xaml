@@ -264,7 +264,7 @@
 
             <!-- Center Content Area with Drop Support -->
             <Border Grid.Column="0" 
-                    Background="White" 
+                    Background="{DynamicResource SurfaceColor}" 
                     CornerRadius="20" 
                     Margin="0,0,15,0"
                     Style="{StaticResource CardStyle}">
@@ -357,7 +357,7 @@
 
             <!-- Right Panel - iOS-style Menu -->
             <Border Grid.Column="1" 
-                    Background="White" 
+                    Background="{DynamicResource SurfaceColor}" 
                     CornerRadius="20" 
                     Margin="15,0,0,0"
                     Style="{StaticResource CardStyle}">
