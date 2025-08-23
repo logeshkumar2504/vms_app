@@ -27,6 +27,39 @@ namespace Vms_page
             
             // Set initial active button
             UpdateButtonStyles(1, 1);
+            
+            // Subscribe to theme changes
+            this.Loaded += LiveViewWindow_Loaded;
+        }
+
+        private void LiveViewWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Refresh camera cells to ensure proper theme colors
+            RefreshCameraCellColors();
+        }
+
+        private void RefreshCameraCellColors()
+        {
+            foreach (var cell in cameraCells)
+            {
+                if (cell.Child is Grid grid && grid.Children.Count >= 2)
+                {
+                    // Update background
+                    cell.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
+                    
+                    // Update icon color
+                    if (grid.Children[0] is TextBlock icon)
+                    {
+                        icon.Foreground = (SolidColorBrush)Application.Current.Resources["TextSecondaryColor"];
+                    }
+                    
+                    // Update label color
+                    if (grid.Children[1] is TextBlock label)
+                    {
+                        label.Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"];
+                    }
+                }
+            }
         }
 
         // Allow window dragging
@@ -74,6 +107,9 @@ namespace Vms_page
                     cameraNumber++;
                 }
             }
+            
+            // Ensure camera cells use current theme colors
+            RefreshCameraCellColors();
         }
 
         private Border CreateCameraCell(int cameraNumber, int totalRows, int totalColumns)
@@ -89,7 +125,7 @@ namespace Vms_page
 
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 CornerRadius = new CornerRadius(totalRows * totalColumns <= 4 ? 8 : 
                                              totalRows * totalColumns <= 9 ? 6 : 
                                              totalRows * totalColumns <= 16 ? 4 : 2),
@@ -112,7 +148,7 @@ namespace Vms_page
             {
                 Text = "📹",
                 FontSize = iconSize,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x55, 0x55, 0x55)),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextSecondaryColor"],
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -121,7 +157,7 @@ namespace Vms_page
             {
                 Text = cameraNumber.ToString(),
                 FontSize = textSize,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, iconSize * 0.4, 0, 0)
@@ -187,27 +223,6 @@ namespace Vms_page
                 View8x8Button.Style = (Style)FindResource("ActiveGridButtonStyle");
         }
 
-        // Custom Grid Application
-        private void ApplyGrid_Click(object sender, RoutedEventArgs e)
-        {
-            if (int.TryParse(RowsInput.Text, out int rows) && int.TryParse(ColumnsInput.Text, out int columns))
-            {
-                if (rows > 0 && rows <= 16 && columns > 0 && columns <= 16)
-                {
-                    GenerateDynamicGrid(rows, columns);
-                    UpdateButtonStyles(rows, columns);
-                }
-                else
-                {
-                    MessageBox.Show("Please enter values between 1 and 16 for both rows and columns.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter valid numbers for rows and columns.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-
         private void LiveViewWindow_SourceInitialized(object sender, EventArgs e)
         {
             // Ensure window respects taskbar by setting appropriate window style
@@ -224,6 +239,4 @@ namespace Vms_page
             }
         }
     }
-
-
 }
