@@ -56,6 +56,12 @@ namespace Vms_page
             // Ensure window respects taskbar
             this.SourceInitialized += MainWindow_SourceInitialized;
             
+            // Add click outside handler for popup
+            this.PreviewMouseDown += MainWindow_PreviewMouseDown;
+            
+            // Initialize theme button icon based on current theme
+            UpdateThemeButtonIcon();
+            
             // Initialize menu items with calm and attractive icon colors and descriptions
             BasicMenuItems.Add(new MenuItemModel { Name = "User Management", Group = "Basic", Icon = "👥", IconColor = "#81C784", Description = "Manage user accounts and permissions" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Recording Schedule", Group = "Basic", Icon = "📅", IconColor = "#64B5F6", Description = "Configure recording schedules and timings" });
@@ -202,21 +208,46 @@ namespace Vms_page
                 NativeMethods.SetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE, style);
             }
         }
-
-        // Theme switching methods
-        private void LightTheme_Click(object sender, RoutedEventArgs e)
+        
+        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the popup
+            ThemePopup.IsOpen = !ThemePopup.IsOpen;
+        }
+        
+        private void LightMode_Click(object sender, RoutedEventArgs e)
         {
             ThemeManager.ApplyTheme("Light");
+            isDarkMode = false;
+            UpdateThemeButtonIcon();
+            ThemePopup.IsOpen = false;
         }
-
-        private void DarkTheme_Click(object sender, RoutedEventArgs e)
+        
+        private void DarkMode_Click(object sender, RoutedEventArgs e)
         {
             ThemeManager.ApplyTheme("Dark");
+            isDarkMode = true;
+            UpdateThemeButtonIcon();
+            ThemePopup.IsOpen = false;
+        }
+        
+        private void UpdateThemeButtonIcon()
+        {
+            // Update the button icon based on current theme
+            var themeButton = ThemeButton.Content as TextBlock;
+            if (themeButton != null)
+            {
+                themeButton.Text = isDarkMode ? "🌙" : "☀️";
+            }
         }
 
-        private void BlueTheme_Click(object sender, RoutedEventArgs e)
+        private void MainWindow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ThemeManager.ApplyTheme("Blue");
+            // Check if the click is outside the theme popup
+            if (ThemePopup.IsOpen && !ThemePopup.IsMouseOver)
+            {
+                ThemePopup.IsOpen = false;
+            }
         }
     }
 

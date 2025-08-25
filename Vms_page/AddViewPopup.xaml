@@ -30,7 +30,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="4"
+                                CornerRadius="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ScrollViewer x:Name="PART_ContentHost" 
@@ -60,7 +60,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6"
+                                CornerRadius="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -88,7 +88,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6"
+                                CornerRadius="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -116,7 +116,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="4"
+                                CornerRadius="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -147,7 +147,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="4"
+                                CornerRadius="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -171,181 +171,111 @@
         </Grid.RowDefinitions>
 
         <!-- Main Content Area -->
-        <Border Grid.Row="0" Background="#0F1419" CornerRadius="8,8,0,0" Margin="20,20,20,0">
+        <Border Grid.Row="0" Background="#0F1419" CornerRadius="0,0,0,0" Margin="12,12,12,0">
             <Grid Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Left Panel - Configuration/Input Area -->
-                <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                    <!-- Name Section -->
-                    <TextBlock Text="Name" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox x:Name="NameInput" Style="{StaticResource InputBoxStyle}" 
-                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
-                             Tag="Enter view name"/>
-
-                    <!-- Video Channel Section -->
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Video Channel" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Grid.Column="0"/>
-                        <Button Grid.Column="1" Style="{StaticResource IconButtonStyle}" Click="VideoChannelIcon_Click">
-                            <TextBlock Text="⊞" FontSize="18"/>
-                        </Button>
-                    </Grid>
-                    <TextBox x:Name="VideoChannelInput" Style="{StaticResource InputBoxStyle}" 
-                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
-                             Tag="Enter Keywords"/>
-
-                    <!-- Sequence Resource Section -->
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Sequence Resource" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Grid.Column="0"/>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Style="{StaticResource IconButtonStyle}" Click="AddResource_Click" Margin="0,0,4,0">
-                                <TextBlock Text="+" FontSize="18"/>
-                            </Button>
-                            <Button Style="{StaticResource IconButtonStyle}" Click="EditResource_Click" Margin="0,0,4,0">
-                                <TextBlock Text="✎" FontSize="16"/>
-                            </Button>
-                            <Button Style="{StaticResource IconButtonStyle}" Click="DeleteResource_Click">
-                                <TextBlock Text="🗑" FontSize="16"/>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                    <TextBox x:Name="SequenceResourceInput" Style="{StaticResource InputBoxStyle}" 
-                             Height="36" Margin="0,0,0,20" TextChanged="Input_TextChanged"
-                             Tag="Enter Keywords"/>
-
-                    <!-- Remarks Section -->
-                    <TextBlock Text="Remarks:" Foreground="#E0E6ED" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox x:Name="RemarksInput" Style="{StaticResource InputBoxStyle}" 
-                             Height="80" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="Input_TextChanged"
-                             VerticalContentAlignment="Top"/>
-                </StackPanel>
-
-                <!-- Right Panel - Display/Content Area -->
-                <StackPanel Grid.Column="1" Margin="20,0,0,0">
-                    <!-- Current Grid Layout Info -->
-                    <TextBlock x:Name="GridLayoutInfo" Text="Selected Layout: 1x1" 
-                               Foreground="#4A9EFF" FontSize="12" FontWeight="SemiBold" 
-                               Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                <!-- Left Column - Grid Layout Selection -->
+                <StackPanel Grid.Column="0" Margin="12,12,6,12">
+                    <!-- Section Header -->
+                    <TextBlock Text="Grid Layout" Foreground="White" FontSize="16" FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+                    
+                    <!-- Grid Layout Buttons -->
+                    <WrapPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <Button x:Name="Grid1x1Btn" Content="1×1" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Margin="0,0,8,8" Padding="16,10" Click="Grid1x1Btn_Click"/>
+                        <Button x:Name="Grid2x2Btn" Content="2×2" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Margin="0,0,8,8" Padding="16,10" Click="Grid2x2Btn_Click"/>
+                        <Button x:Name="Grid3x3Btn" Content="3×3" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Margin="0,0,8,8" Padding="16,10" Click="Grid3x3Btn_Click"/>
+                        <Button x:Name="Grid4x4Btn" Content="4×4" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Margin="0,0,8,8" Padding="16,10" Click="Grid4x4Btn_Click"/>
+                        <Button x:Name="GridCustomBtn" Content="Custom" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Margin="0,0,8,8" Padding="16,10" Click="GridCustomBtn_Click"/>
+                    </WrapPanel>
                     
                     <!-- Dynamic Grid Preview Area -->
-                    <Border Background="#1A1F2A" Height="200" CornerRadius="8" Margin="0,0,0,16">
+                    <Border Background="#1A1F2A" Height="160" CornerRadius="0" Margin="0,0,0,12">
                         <Grid x:Name="GridPreviewContainer" Background="#1A1F2A">
                             <!-- Default preview text when no grid is selected -->
-                            <TextBlock x:Name="PreviewText" Text="Select a grid layout to preview" 
-                                       Foreground="#B0BEC5" FontSize="14" 
+                            <TextBlock Text="Select a grid layout to preview" Foreground="#B0BEC5" FontSize="13" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
                         </Grid>
                     </Border>
-
-                    <!-- Layout Selection Icons -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Button x:Name="SingleGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="SingleGridButton_Click" Margin="0,0,8,0">
-                            <Canvas Width="24" Height="24">
-                                <Rectangle Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
-                            </Canvas>
-                        </Button>
-                        
-                        <Button x:Name="Grid2x2Button" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="Grid2x2Button_Click" Margin="0,0,8,0">
-                            <Canvas Width="24" Height="24">
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="12" X2="24" Y2="12"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="12" Y1="0" X2="12" Y2="24"/>
-                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
-                            </Canvas>
-                        </Button>
-                        
-                        <Button x:Name="Grid3x3Button" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="Grid3x3Button_Click" Margin="0,0,8,0">
-                            <Canvas Width="24" Height="24">
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="8" X2="24" Y2="8"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="16" X2="24" Y2="16"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="8" Y1="0" X2="8" Y2="24"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="16" Y1="0" X2="16" Y2="24"/>
-                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
-                            </Canvas>
-                        </Button>
-                        
-                        <Button x:Name="Grid4x4Button" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="Grid4x4Button_Click" Margin="0,0,8,0">
-                            <Canvas Width="24" Height="24">
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="6" X2="24" Y2="6"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="12" X2="24" Y2="12"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="0" Y1="18" X2="24" Y2="18"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="6" Y1="0" X2="6" Y2="24"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="12" Y1="0" X2="12" Y2="24"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="18" Y1="0" X2="18" Y2="24"/>
-                                <Rectangle Stroke="White" StrokeThickness="1" Width="24" Height="24"/>
-                            </Canvas>
-                        </Button>
-                        
-                        <Button x:Name="CustomGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="CustomGridButton_Click" Margin="0,0,8,0">
-                            <Canvas Width="24" Height="24">
-                                <Rectangle Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
-                                <Polygon Stroke="White" StrokeThickness="1" Fill="White" Points="18,6 22,6 20,9"/>
-                            </Canvas>
-                        </Button>
-
-                        <!-- Reset Button -->
-                        <Button x:Name="ResetGridButton" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Click="ResetGridButton_Click" Margin="8,0,0,0">
-                            <Canvas Width="24" Height="24">
-                                <Ellipse Stroke="White" StrokeThickness="2" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="8" Y1="8" X2="16" Y2="16"/>
-                                <Line Stroke="White" StrokeThickness="2" X1="16" Y1="8" X2="8" Y2="16"/>
-                            </Canvas>
-                        </Button>
-                    </StackPanel>
-
+                    
                     <!-- Table Header -->
-                    <Border Background="#1A1F2A" Height="40" CornerRadius="6" Margin="0,0,0,8">
-                        <Grid Margin="16,0">
+                    <Border Background="#1A1F2A" Height="32" CornerRadius="0" Margin="0,0,0,6">
+                        <Grid Margin="12,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Channel Name" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
-                                       Grid.Column="0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Stream" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
-                                       Grid.Column="1" VerticalAlignment="Center"/>
-                            <TextBlock Text="Preset" Foreground="#E0E6ED" FontSize="13" FontWeight="SemiBold" 
-                                       Grid.Column="2" VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Column="0" Text="Camera Name" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="Status" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="Actions" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>
-
+                    
                     <!-- Table Content Area -->
-                    <Border Background="#1A1F2A" Height="120" CornerRadius="6">
-                        <TextBlock Text="No data available" Foreground="#B0BEC5" FontSize="13" 
+                    <Border Background="#1A1F2A" Height="100" CornerRadius="0">
+                        <TextBlock Text="No data available" Foreground="#B0BEC5" FontSize="12" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
                     </Border>
+                </StackPanel>
+
+                <!-- Right Column - Camera Selection -->
+                <StackPanel Grid.Column="1" Margin="6,12,12,12">
+                    <!-- Section Header -->
+                    <TextBlock Text="Camera Selection" Foreground="White" FontSize="16" FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+                    
+                    <!-- Search Box -->
+                    <TextBox x:Name="SearchBox" Style="{StaticResource InputBoxStyle}" 
+                             Margin="0,0,0,12" Text="Search cameras..." Foreground="Gray"/>
+                    
+                    <!-- Camera List -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200" Margin="0,0,0,12">
+                        <StackPanel x:Name="CameraListContainer">
+                            <!-- Camera items will be added here dynamically -->
+                        </StackPanel>
+                    </ScrollViewer>
+                    
+                    <!-- Add Camera Button -->
+                    <Button x:Name="AddCameraBtn" Content="+ Add Camera" Style="{StaticResource ActionButtonStyle}" 
+                            HorizontalAlignment="Stretch" Margin="0,0,0,12" Click="AddCameraBtn_Click"/>
+                    
+                    <!-- Camera Details -->
+                    <Expander Header="Camera Details" IsExpanded="False" Foreground="White" 
+                              FontWeight="SemiBold" Margin="0,0,0,12">
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBox x:Name="CameraNameBox" Style="{StaticResource InputBoxStyle}" 
+                                     Margin="0,0,0,8" Text="Camera Name" Foreground="Gray"/>
+                            <TextBox x:Name="CameraUrlBox" Style="{StaticResource InputBoxStyle}" 
+                                     Margin="0,0,0,8" Text="Camera URL" Foreground="Gray"/>
+                            <ComboBox x:Name="CameraTypeCombo" Style="{StaticResource InputBoxStyle}" 
+                                      Margin="0,0,0,8" Text="Camera Type" Foreground="Gray"/>
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- Bottom Action Buttons -->
-        <Border Grid.Row="1" Background="#1A1F2A" CornerRadius="0,0,8,8" Margin="20,0,20,20">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+        <Border Grid.Row="1" Background="#1A1F2A" CornerRadius="0,0,0,0" Margin="12,0,12,12">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
                 <Button x:Name="CancelButton" Style="{StaticResource CancelButtonStyle}" 
-                        Click="CancelButton_Click" Margin="0,0,12,0">
-                    Cancel
-                </Button>
-                <Button x:Name="OKButton" Style="{StaticResource ActionButtonStyle}" 
-                        Click="OKButton_Click">
-                    OK
-                </Button>
+                        Content="Cancel" Margin="0,0,8,0" Click="CancelButton_Click"/>
+                <Button x:Name="SaveButton" Style="{StaticResource ActionButtonStyle}" 
+                        Content="Save View" Click="SaveButton_Click"/>
             </StackPanel>
         </Border>
     </Grid>

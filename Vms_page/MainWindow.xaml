@@ -100,36 +100,6 @@
             </Setter>
         </Style>
         
-        <!-- Theme Toggle Button Style -->
-        <Style x:Key="ThemeToggleButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="40"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="20"
-                                BorderThickness="1"
-                                BorderBrush="{DynamicResource BorderColor}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
         <!-- iOS-inspired Button Style -->
         <Style x:Key="IOSButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
@@ -142,7 +112,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="12" 
+                                CornerRadius="0" 
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"/>
@@ -164,15 +134,15 @@
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="0,2"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="10" 
+                                CornerRadius="0" 
                                 Padding="{TemplateBinding Padding}"
                                 Margin="{TemplateBinding Margin}">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
@@ -194,7 +164,7 @@
         <!-- Card Style -->
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
-            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="CornerRadius" Value="0"/>
             <Setter Property="Padding" Value="20"/>
             <Setter Property="Margin" Value="8"/>
             <Setter Property="Effect">
@@ -203,70 +173,258 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Toggle Button Style -->
+        <Style x:Key="ToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                Width="32" Height="20">
+                            <Grid>
+                                <Ellipse x:Name="ToggleCircle"
+                                         Fill="White"
+                                         Width="14" Height="14"
+                                         HorizontalAlignment="Left"
+                                         Margin="3,0,0,0"/>
+                                
+                                <!-- Sun Icon (Light Mode) -->
+                                <TextBlock x:Name="SunIcon"
+                                           Text="☀️"
+                                           FontSize="8"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0"
+                                           Foreground="{DynamicResource TextPrimaryColor}"/>
+                                
+                                <!-- Moon Icon (Dark Mode) -->
+                                <TextBlock x:Name="MoonIcon"
+                                           Text="🌙"
+                                           FontSize="8"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           Foreground="{DynamicResource TextPrimaryColor}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter TargetName="ToggleCircle" Property="HorizontalAlignment" Value="Right"/>
+                                <Setter TargetName="ToggleCircle" Property="Margin" Value="0,0,3,0"/>
+                                <Setter TargetName="SunIcon" Property="Opacity" Value="0.3"/>
+                                <Setter TargetName="MoonIcon" Property="Opacity" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="SunIcon" Property="Opacity" Value="1"/>
+                                <Setter TargetName="MoonIcon" Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Compact ComboBox Style -->
+        <Style x:Key="CompactComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Path x:Name="Arrow"
+                                                  Fill="{TemplateBinding Foreground}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,4,0"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Style="{x:Null}"
+                                     Template="{DynamicResource ComboBoxTextBox}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="{TemplateBinding Padding}"
+                                     Focusable="True"
+                                     Background="Transparent"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     Visibility="Hidden"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="{TemplateBinding Background}"
+                                            BorderThickness="1"
+                                            BorderBrush="{TemplateBinding BorderBrush}"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Popup Button Style -->
+        <Style x:Key="PopupButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="2"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Card Shadow Effect -->
+        <DropShadowEffect x:Key="CardShadow" 
+                          Color="#000000" 
+                          Direction="270" 
+                          ShadowDepth="2" 
+                          Opacity="0.15" 
+                          BlurRadius="8"/>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
-                 <!-- Custom Native TopBar -->
-         <Border DockPanel.Dock="Top" 
-                 Height="60"
-                 Style="{StaticResource NativeTopBarStyle}">
+        <!-- Native TopBar with Dark Mode Toggle -->
+        <Border DockPanel.Dock="Top" 
+                Height="35"
+                Style="{StaticResource NativeTopBarStyle}">
             <Grid>
                 <TextBlock Text="Guard Station" 
-                           FontSize="24" 
+                           FontSize="16" 
                            FontWeight="Bold" 
                            Foreground="{DynamicResource TextPrimaryColor}"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"
+                           Margin="15,0"/>
                 <StackPanel Orientation="Horizontal" 
                            HorizontalAlignment="Right" 
                            VerticalAlignment="Center" 
-                           Margin="20,0">
-                    <Button Content="☀️" 
-                            Name="LightThemeButton"
-                            Style="{StaticResource ThemeToggleButtonStyle}"
-                            Width="40" Height="40" 
-                            Padding="0"
-                            Margin="8,0,0,0"
-                            Click="LightTheme_Click"
-                            ToolTip="Light Theme"/>
-                    <Button Content="🌙" 
-                            Name="DarkThemeButton"
-                            Style="{StaticResource ThemeToggleButtonStyle}"
-                            Width="40" Height="40" 
-                            Padding="0"
-                            Margin="8,0,0,0"
-                            Click="DarkTheme_Click"
-                            ToolTip="Dark Theme"/>
-                    <Button Content="🌊" 
-                            Name="BlueThemeButton"
-                            Style="{StaticResource ThemeToggleButtonStyle}"
-                            Width="40" Height="40" 
-                            Padding="0"
-                            Margin="8,0,0,0"
-                            Click="BlueTheme_Click"
-                            ToolTip="Blue Theme"/>
-                    <Button Content="⚙️" 
-                            Style="{StaticResource ThemeToggleButtonStyle}"
-                            Width="40" Height="40" 
-                            Padding="0"
-                            Margin="8,0,0,0"
-                            ToolTip="Settings"/>
+                           Margin="15,0">
+                    <Button x:Name="ThemeButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ThemeButton_Click"
+                            ToolTip="Select Theme">
+                        <TextBlock Text="🌙" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+                    
+                    <!-- Theme Options Popup -->
+                    <Popup x:Name="ThemePopup"
+                           PlacementTarget="{Binding ElementName=ThemeButton}"
+                           Placement="Bottom"
+                           IsOpen="False"
+                           AllowsTransparency="True"
+                           PopupAnimation="Slide">
+                        <Border Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Padding="8"
+                                Effect="{DynamicResource CardShadow}">
+                            <StackPanel Orientation="Vertical" MinWidth="100">
+                                <Button Content="☀️ Light Mode" 
+                                        Style="{StaticResource PopupButtonStyle}"
+                                        Click="LightMode_Click"
+                                        Margin="0,2"/>
+                                <Button Content="🌙 Dark Mode" 
+                                        Style="{StaticResource PopupButtonStyle}"
+                                        Click="DarkMode_Click"
+                                        Margin="0,2"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- Main Content Grid -->
-        <Grid Margin="20" Background="{DynamicResource BackgroundColor}">
+        <Grid Margin="12" Background="{DynamicResource BackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
 
             <!-- Center Content Area with Drop Support -->
             <Border Grid.Column="0" 
                     Background="{DynamicResource SurfaceColor}" 
-                    CornerRadius="20" 
-                    Margin="0,0,15,0"
+                    CornerRadius="0" 
+                    Margin="0,0,10,0"
                     Style="{StaticResource CardStyle}">
                 <Grid x:Name="DropTargetGrid"
                       AllowDrop="True"
@@ -277,14 +435,14 @@
                     <!-- Drop Zone Hint -->
                     <TextBlock Text="Drop menu items here to create your workspace" 
                                Foreground="{DynamicResource TextSecondaryColor}" 
-                               FontSize="16" 
+                               FontSize="14" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center"
                                Visibility="{Binding DroppedItems.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                     
                     <ItemsControl x:Name="DroppedItemsControl"
                                   ItemsSource="{Binding DroppedItems}"
-                                  Margin="10">
+                                  Margin="8">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -293,8 +451,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Style="{StaticResource CardStyle}"
-                                        Width="250" 
-                                        Height="180"
+                                        Width="220" 
+                                        Height="160"
                                         Cursor="Hand"
                                         MouseLeftButtonDown="Card_Click"
                                         Tag="{Binding}">
@@ -306,20 +464,20 @@
                                         </Grid.RowDefinitions>
                                         
                                         <!-- Icon and Close Button Row -->
-                                        <Grid Grid.Row="0" Margin="0,0,0,12">
+                                        <Grid Grid.Row="0" Margin="0,0,0,8">
                                             <TextBlock Text="{Binding Icon}" 
-                                                       FontSize="32" 
+                                                       FontSize="28" 
                                                        Foreground="{Binding IconColor}"
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Center"/>
                                             <Button Content="✕" 
-                                                    FontSize="14" 
+                                                    FontSize="12" 
                                                     Foreground="#8E8E93"
                                                     Background="Transparent"
                                                     BorderThickness="0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
-                                                    Width="24" Height="24"
+                                                    Width="20" Height="20"
                                                     Padding="0"
                                                     Click="RemoveCard_Click"
                                                     Tag="{Binding}"/>
@@ -329,24 +487,24 @@
                                         <TextBlock Grid.Row="1" 
                                                    Text="{Binding Name}" 
                                                    Foreground="{DynamicResource TextPrimaryColor}" 
-                                                   FontSize="18" 
+                                                   FontSize="16" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Top"
                                                    HorizontalAlignment="Left"
                                                    TextWrapping="Wrap"
                                                    TextAlignment="Left"
-                                                   Margin="0,0,0,8"/>
+                                                   Margin="0,0,0,6"/>
                                         
                                         <!-- Description -->
                                         <TextBlock Grid.Row="2" 
                                                    Text="{Binding Description}" 
                                                    Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="14"
+                                                   FontSize="12"
                                                    VerticalAlignment="Bottom"
                                                    HorizontalAlignment="Left"
                                                    TextWrapping="Wrap"
                                                    TextAlignment="Left"
-                                                   LineHeight="20"/>
+                                                   LineHeight="18"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -358,8 +516,8 @@
             <!-- Right Panel - iOS-style Menu -->
             <Border Grid.Column="1" 
                     Background="{DynamicResource SurfaceColor}" 
-                    CornerRadius="20" 
-                    Margin="15,0,0,0"
+                    CornerRadius="0" 
+                    Margin="10,0,0,0"
                     Style="{StaticResource CardStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Disabled"
@@ -368,32 +526,11 @@
                               Style="{StaticResource ThinScrollStyle}">
                     <StackPanel Margin="0" Background="Transparent">
                         
-                        <!-- Panel Header -->
-                        <Border Background="{DynamicResource BorderColor}" 
-                                CornerRadius="16" 
-                                Height="60" 
-                                Margin="0,0,0,20">
-                            <StackPanel Orientation="Horizontal" 
-                                        VerticalAlignment="Center" 
-                                        HorizontalAlignment="Center">
-                                <TextBlock Text="🚀" 
-                                           FontSize="24" 
-                                           Foreground="{DynamicResource PrimaryColor}" 
-                                           VerticalAlignment="Center" 
-                                           Margin="0,0,12,0"/>
-                                <TextBlock Text="Quick Access" 
-                                           Foreground="{DynamicResource TextPrimaryColor}" 
-                                           FontSize="20" 
-                                           FontWeight="Bold" 
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        
                         <!-- Basic Section -->
                         <Expander Header="📋 Basic Functions" 
                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                   FontWeight="SemiBold" 
-                                  Margin="0,0,0,20"
+                                  Margin="0,0,0,12"
                                   Background="Transparent" 
                                   BorderThickness="0" 
                                   IsExpanded="False">
@@ -401,12 +538,12 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="📋" 
-                                                   FontSize="20" 
+                                                   FontSize="14" 
                                                    Foreground="{DynamicResource SuccessColor}" 
                                                    VerticalAlignment="Center" 
-                                                   Margin="0,0,12,0"/>
+                                                   Margin="0,0,6,0"/>
                                         <TextBlock Text="Basic Functions" 
-                                                   FontSize="16" 
+                                                   FontSize="12" 
                                                    Foreground="{DynamicResource TextPrimaryColor}" 
                                                    VerticalAlignment="Center" 
                                                    FontWeight="SemiBold"/>
@@ -414,7 +551,7 @@
                                 </DataTemplate>
                             </Expander.HeaderTemplate>
                             <ItemsControl ItemsSource="{Binding BasicMenuItems}" 
-                                          Margin="0,8,0,0">
+                                          Margin="0,4,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Button Tag="{Binding}"
@@ -423,14 +560,14 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="24" 
+                                                           FontSize="18" 
                                                            Foreground="{Binding IconColor}"
                                                            VerticalAlignment="Center"
-                                                           Margin="0,0,16,0"/>
+                                                           Margin="0,0,8,0"/>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
-                                                           FontSize="15"
+                                                           FontSize="11"
                                                            FontWeight="Medium"/>
                                             </StackPanel>
                                         </Button>
@@ -444,17 +581,17 @@
                                   IsExpanded="True" 
                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                   FontWeight="SemiBold" 
-                                  Margin="0,0,0,20">
+                                  Margin="0,0,0,12">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="🧠" 
-                                                   FontSize="20" 
+                                                   FontSize="14" 
                                                    Foreground="{DynamicResource ErrorColor}" 
                                                    VerticalAlignment="Center" 
-                                                   Margin="0,0,12,0"/>
+                                                   Margin="0,0,6,0"/>
                                         <TextBlock Text="Smart Features" 
-                                                   FontSize="16" 
+                                                   FontSize="12" 
                                                    Foreground="{DynamicResource TextPrimaryColor}" 
                                                    VerticalAlignment="Center" 
                                                    FontWeight="SemiBold"/>
@@ -462,7 +599,7 @@
                                 </DataTemplate>
                             </Expander.HeaderTemplate>
                             <ItemsControl ItemsSource="{Binding SmartMenuItems}" 
-                                          Margin="0,8,0,0">
+                                          Margin="0,4,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Button Tag="{Binding}"
@@ -471,14 +608,14 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="24" 
+                                                           FontSize="18" 
                                                            Foreground="{Binding IconColor}"
                                                            VerticalAlignment="Center"
-                                                           Margin="0,0,16,0"/>
+                                                           Margin="0,0,8,0"/>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
-                                                           FontSize="15"
+                                                           FontSize="11"
                                                            FontWeight="Medium"/>
                                             </StackPanel>
                                         </Button>
