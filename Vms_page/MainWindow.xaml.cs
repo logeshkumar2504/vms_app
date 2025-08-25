@@ -249,6 +249,31 @@ namespace Vms_page
                 ThemePopup.IsOpen = false;
             }
         }
+        
+        private void LockButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle lock state
+            var lockButton = LockButton.Content as TextBlock;
+            if (lockButton != null)
+            {
+                if (lockButton.Text == "🔒")
+                {
+                    lockButton.Text = "🔓";
+                    MessageBox.Show("Application unlocked!", "Lock Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    lockButton.Text = "🔒";
+                    MessageBox.Show("Application locked!", "Lock Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        
+        private void MainMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Show menu options
+            MessageBox.Show("Menu options:\n• Settings\n• Help\n• About\n• Exit", "Menu", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
 

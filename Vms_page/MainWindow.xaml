@@ -362,17 +362,65 @@
                 Height="35"
                 Style="{StaticResource NativeTopBarStyle}">
             <Grid>
-                <TextBlock Text="Guard Station" 
-                           FontSize="16" 
-                           FontWeight="Bold" 
-                           Foreground="{DynamicResource TextPrimaryColor}"
+                <StackPanel Orientation="Horizontal" 
                            HorizontalAlignment="Left" 
                            VerticalAlignment="Center"
-                           Margin="15,0"/>
+                           Margin="15,0">
+                    <!-- Warning/Alert Icon -->
+                    <TextBlock Text="⚠️" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+                    
+                    <!-- Notification/Bell Icon -->
+                    <TextBlock Text="🔔" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+                    
+                    <!-- Download/Arrow Icon -->
+                    <TextBlock Text="⬇️" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+                    
+                    <!-- Clipboard/List Icon -->
+                    <TextBlock Text="📋" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,0,0"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" 
                            HorizontalAlignment="Right" 
                            VerticalAlignment="Center" 
                            Margin="15,0">
+                    <!-- Lock Icon -->
+                    <Button x:Name="LockButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="LockButton_Click"
+                            ToolTip="Lock/Unlock"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="🔒" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+                    
+                    <!-- Menu Icon -->
+                    <Button x:Name="MainMenuButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="MainMenuButton_Click"
+                            ToolTip="Menu"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="☰" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+                    
+                    <!-- Theme Toggle Button -->
                     <Button x:Name="ThemeButton"
                             Width="24" Height="24"
                             Background="Transparent"
