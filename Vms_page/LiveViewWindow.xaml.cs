@@ -14,6 +14,8 @@ namespace Vms_page
         private int currentRows = 1;
         private int currentColumns = 1;
         private List<Border> cameraCells = new List<Border>();
+        private Border selectedCameraCell = null;
+        private int selectedCameraNumber = 0;
 
         public LiveViewWindow()
         {
@@ -44,19 +46,16 @@ namespace Vms_page
             {
                 if (cell.Child is Grid grid && grid.Children.Count >= 2)
                 {
-                    // Update background
-                    cell.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
-                    
                     // Update icon color
                     if (grid.Children[0] is TextBlock icon)
                     {
-                        icon.Foreground = (SolidColorBrush)Application.Current.Resources["TextSecondaryColor"];
+                        icon.Foreground = Brushes.White;
                     }
                     
                     // Update label color
                     if (grid.Children[1] is TextBlock label)
                     {
-                        label.Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"];
+                        label.Foreground = Brushes.White;
                     }
                 }
             }
@@ -81,6 +80,9 @@ namespace Vms_page
             DynamicGridContainer.RowDefinitions.Clear();
             DynamicGridContainer.ColumnDefinitions.Clear();
             cameraCells.Clear();
+            selectedCameraCell = null;
+            selectedCameraNumber = 0;
+            UpdateSelectedCameraText();
 
             // Create grid definitions
             for (int i = 0; i < rows; i++)
@@ -114,10 +116,10 @@ namespace Vms_page
 
         private Border CreateCameraCell(int cameraNumber, int totalRows, int totalColumns)
         {
-            // Calculate appropriate font sizes based on grid size
-            int iconSize = totalRows * totalColumns <= 4 ? 40 : 
+            // Calculate appropriate font sizes based on grid size - Made smaller
+            int iconSize = totalRows * totalColumns <= 4 ? 36 : 
                           totalRows * totalColumns <= 9 ? 24 : 
-                          totalRows * totalColumns <= 16 ? 16 : 12;
+                          totalRows * totalColumns <= 16 ? 18 : 12;
             
             int textSize = totalRows * totalColumns <= 4 ? 14 : 
                           totalRows * totalColumns <= 9 ? 10 : 
@@ -125,21 +127,10 @@ namespace Vms_page
 
             var border = new Border
             {
-                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
-                CornerRadius = new CornerRadius(totalRows * totalColumns <= 4 ? 8 : 
-                                             totalRows * totalColumns <= 9 ? 6 : 
-                                             totalRows * totalColumns <= 16 ? 4 : 2),
+                Style = (Style)FindResource("CameraCellStyle"),
                 Margin = new Thickness(totalRows * totalColumns <= 4 ? 8 : 
-                                     totalRows * totalColumns <= 9 ? 4 : 
-                                     totalRows * totalColumns <= 16 ? 2 : 1),
-                Effect = new DropShadowEffect
-                {
-                    Color = Colors.Black,
-                    Direction = 270,
-                    ShadowDepth = 2,
-                    Opacity = 0.2,
-                    BlurRadius = 4
-                }
+                                     totalRows * totalColumns <= 9 ? 6 : 
+                                     totalRows * totalColumns <= 16 ? 4 : 2)
             };
 
             var grid = new Grid();
@@ -148,26 +139,53 @@ namespace Vms_page
             {
                 Text = "📹",
                 FontSize = iconSize,
-                Foreground = (SolidColorBrush)Application.Current.Resources["TextSecondaryColor"],
+                Foreground = Brushes.White,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
 
             var label = new TextBlock
             {
-                Text = cameraNumber.ToString(),
+                Text = $"Camera {cameraNumber}",
                 FontSize = textSize,
-                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
+                Foreground = Brushes.White,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, iconSize * 0.4, 0, 0)
+                Margin = new Thickness(0, iconSize * 0.25, 0, 0),
+                FontWeight = FontWeights.Medium
             };
 
             grid.Children.Add(icon);
             grid.Children.Add(label);
             border.Child = grid;
 
+            // Add click event for camera selection
+            border.MouseLeftButtonDown += (sender, e) => OnCameraCellClicked(border, cameraNumber);
+
             return border;
+        }
+
+        private void OnCameraCellClicked(Border cameraCell, int cameraNumber)
+        {
+            // Deselect previously selected camera
+            if (selectedCameraCell != null)
+            {
+                selectedCameraCell.Style = (Style)FindResource("CameraCellStyle");
+            }
+
+            // Select new camera
+            selectedCameraCell = cameraCell;
+            selectedCameraNumber = cameraNumber;
+            cameraCell.Style = (Style)FindResource("SelectedCameraCellStyle");
+
+            // Update selected camera text
+            UpdateSelectedCameraText();
+        }
+
+        private void UpdateSelectedCameraText()
+        {
+            // Camera selection display removed - no action needed
+            // This method is kept for future use if needed
         }
 
         // Grid View Change Methods
@@ -175,52 +193,65 @@ namespace Vms_page
         {
             GenerateDynamicGrid(1, 1);
             UpdateButtonStyles(1, 1);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
         }
 
         private void View2x2_Click(object sender, RoutedEventArgs e)
         {
             GenerateDynamicGrid(2, 2);
             UpdateButtonStyles(2, 2);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
         }
 
         private void View3x3_Click(object sender, RoutedEventArgs e)
         {
             GenerateDynamicGrid(3, 3);
             UpdateButtonStyles(3, 3);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
         }
 
         private void View4x4_Click(object sender, RoutedEventArgs e)
         {
             GenerateDynamicGrid(4, 4);
             UpdateButtonStyles(4, 4);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
+        }
+
+        private void View5x5_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(5, 5);
+            UpdateButtonStyles(5, 5);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
         }
 
         private void View8x8_Click(object sender, RoutedEventArgs e)
         {
             GenerateDynamicGrid(8, 8);
             UpdateButtonStyles(8, 8);
+            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
+        }
+
+        // Dropdown Toggle Method
+        private void ViewDropdownButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewDropdownPopup.IsOpen = !ViewDropdownPopup.IsOpen;
         }
 
         private void UpdateButtonStyles(int rows, int columns)
         {
-            // Reset all buttons to default style
-            View1x1Button.Style = (Style)FindResource("GridButtonStyle");
-            View2x2Button.Style = (Style)FindResource("GridButtonStyle");
-            View3x3Button.Style = (Style)FindResource("GridButtonStyle");
-            View4x4Button.Style = (Style)FindResource("GridButtonStyle");
-            View8x8Button.Style = (Style)FindResource("GridButtonStyle");
-
-            // Set active button style
+            // Update the View dropdown button to show current selection
             if (rows == 1 && columns == 1)
-                View1x1Button.Style = (Style)FindResource("ActiveGridButtonStyle");
+                ViewDropdownButton.Content = "View (1×1)";
             else if (rows == 2 && columns == 2)
-                View2x2Button.Style = (Style)FindResource("ActiveGridButtonStyle");
+                ViewDropdownButton.Content = "View (2×2)";
             else if (rows == 3 && columns == 3)
-                View3x3Button.Style = (Style)FindResource("ActiveGridButtonStyle");
+                ViewDropdownButton.Content = "View (3×3)";
             else if (rows == 4 && columns == 4)
-                View4x4Button.Style = (Style)FindResource("ActiveGridButtonStyle");
+                ViewDropdownButton.Content = "View (4×4)";
+            else if (rows == 5 && columns == 5)
+                ViewDropdownButton.Content = "View (5×5)";
             else if (rows == 8 && columns == 8)
-                View8x8Button.Style = (Style)FindResource("ActiveGridButtonStyle");
+                ViewDropdownButton.Content = "View (8×8)";
         }
 
         private void LiveViewWindow_SourceInitialized(object sender, EventArgs e)
