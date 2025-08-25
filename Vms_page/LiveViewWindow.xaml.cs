@@ -6,6 +6,7 @@ using System.Windows.Media.Effects;
 using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Vms_page
 {
@@ -252,6 +253,299 @@ namespace Vms_page
                 ViewDropdownButton.Content = "View (5×5)";
             else if (rows == 8 && columns == 8)
                 ViewDropdownButton.Content = "View (8×8)";
+            else
+                ViewDropdownButton.Content = $"View ({rows}×{columns})";
+        }
+
+        // Customize Button Click Event
+        private void CustomizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the dropdown popup
+            CustomGridDropdownPopup.IsOpen = !CustomGridDropdownPopup.IsOpen;
+        }
+
+        // Apply Custom Grid Layout
+        private void ApplyCustomGridLayout(int rows, int columns, List<GridCellInfo> customLayout)
+        {
+            currentRows = rows;
+            currentColumns = columns;
+            
+            // Clear existing grid
+            DynamicGridContainer.Children.Clear();
+            DynamicGridContainer.RowDefinitions.Clear();
+            DynamicGridContainer.ColumnDefinitions.Clear();
+            cameraCells.Clear();
+            selectedCameraCell = null;
+            selectedCameraNumber = 0;
+            UpdateSelectedCameraText();
+
+            // Create grid definitions
+            for (int i = 0; i < rows; i++)
+            {
+                DynamicGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            }
+            
+            for (int j = 0; j < columns; j++)
+            {
+                DynamicGridContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+
+            // Create camera cells based on custom layout
+            int cameraNumber = 1;
+            foreach (var cellInfo in customLayout)
+            {
+                var cameraCell = CreateCustomCameraCell(cameraNumber, cellInfo);
+                Grid.SetRow(cameraCell, cellInfo.Row);
+                Grid.SetColumn(cameraCell, cellInfo.Column);
+                Grid.SetRowSpan(cameraCell, cellInfo.RowSpan);
+                Grid.SetColumnSpan(cameraCell, cellInfo.ColumnSpan);
+                DynamicGridContainer.Children.Add(cameraCell);
+                cameraCells.Add(cameraCell);
+                cameraNumber++;
+            }
+            
+            // Ensure camera cells use current theme colors
+            RefreshCameraCellColors();
+        }
+
+        private Border CreateCustomCameraCell(int cameraNumber, GridCellInfo cellInfo)
+        {
+            // Calculate appropriate font sizes based on grid size
+            int iconSize = cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 36 : 
+                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 24 : 
+                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 18 : 12;
+            
+            int textSize = cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 14 : 
+                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 10 : 
+                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 8 : 6;
+
+            var border = new Border
+            {
+                Style = (Style)FindResource("CameraCellStyle"),
+                Margin = new Thickness(cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 8 : 
+                                     cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 6 : 
+                                     cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 4 : 2)
+            };
+
+            var grid = new Grid();
+            
+            var icon = new TextBlock
+            {
+                Text = "📹",
+                FontSize = iconSize,
+                Foreground = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var label = new TextBlock
+            {
+                Text = $"Camera {cameraNumber}",
+                FontSize = textSize,
+                Foreground = Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, iconSize * 0.25, 0, 0),
+                FontWeight = FontWeights.Medium
+            };
+
+            grid.Children.Add(icon);
+            grid.Children.Add(label);
+            border.Child = grid;
+
+            // Add click event for camera selection
+            border.MouseLeftButtonDown += (sender, e) => OnCameraCellClicked(border, cameraNumber);
+
+            return border;
+        }
+
+        // Grid selection methods for dropdown popup
+        private void Grid1x1_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(1, 1);
+            UpdateButtonStyles(1, 1);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid3Col_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(1, 3);
+            UpdateButtonStyles(1, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid2x2_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(2, 2);
+            UpdateButtonStyles(2, 2);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid4Pane_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(2, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid5Pane_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 2, RowSpan = 2, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(2, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid6Pane_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(2, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid7Pane_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(2, 4, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 3, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 3, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(2, 4);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid8Pane_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 1, ColumnSpan = 3 },
+                new GridCellInfo { Row = 1, Column = 0, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(2, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid3x3_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(3, 3);
+            UpdateButtonStyles(3, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid10Top_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(3, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 1, ColumnSpan = 3 },
+                new GridCellInfo { Row = 1, Column = 0, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 2, Column = 0, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 2, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 2, Column = 2, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(3, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid10Left_Click(object sender, RoutedEventArgs e)
+        {
+            ApplyCustomGridLayout(3, 3, new List<GridCellInfo>
+            {
+                new GridCellInfo { Row = 0, Column = 0, RowSpan = 3, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 2, Column = 1, RowSpan = 1, ColumnSpan = 1 },
+                new GridCellInfo { Row = 2, Column = 2, RowSpan = 1, ColumnSpan = 1 }
+            });
+            UpdateButtonStyles(3, 3);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid13Pane_Click(object sender, RoutedEventArgs e)
+        {
+            var layout = new List<GridCellInfo>();
+            
+            // Add outer cells
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if ((i == 0 || i == 4 || j == 0 || j == 4))
+                    {
+                        layout.Add(new GridCellInfo { Row = i, Column = j, RowSpan = 1, ColumnSpan = 1 });
+                    }
+                }
+            }
+            
+            // Add center merged cell
+            layout.Add(new GridCellInfo { Row = 1, Column = 1, RowSpan = 3, ColumnSpan = 3 });
+            
+            ApplyCustomGridLayout(5, 5, layout);
+            UpdateButtonStyles(5, 5);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid4x4_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(4, 4);
+            UpdateButtonStyles(4, 4);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid25_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(5, 5);
+            UpdateButtonStyles(5, 5);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid32_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(8, 4);
+            UpdateButtonStyles(8, 4);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid36_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(6, 6);
+            UpdateButtonStyles(6, 6);
+            CustomGridDropdownPopup.IsOpen = false;
+        }
+
+        private void Grid64_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateDynamicGrid(8, 8);
+            UpdateButtonStyles(8, 8);
+            CustomGridDropdownPopup.IsOpen = false;
         }
 
         private void LiveViewWindow_SourceInitialized(object sender, EventArgs e)

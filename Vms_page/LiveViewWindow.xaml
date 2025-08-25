@@ -154,9 +154,318 @@
         <!-- Player Controls Section - Below Camera Grid -->
         <Border Grid.Row="2" Background="#80000000" Padding="16,12" Margin="4,0,4,4">
             <Grid>
-                <!-- Left Side - Customize Icon -->
-                <Button Content="⚙️" Style="{StaticResource ModernButtonStyle}" 
-                        Padding="12,8" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <!-- Left Side - Customize Icon with Dropdown -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Button x:Name="CustomizeButton" Content="⚙️" Style="{StaticResource ModernButtonStyle}" 
+                            Padding="12,8" FontSize="14" Click="CustomizeButton_Click"/>
+                    
+                    <!-- Custom Grid Layout Dropdown Popup -->
+                    <Popup x:Name="CustomGridDropdownPopup" PlacementTarget="{Binding ElementName=CustomizeButton}" 
+                           Placement="Bottom" IsOpen="False" AllowsTransparency="True">
+                        <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" 
+                                BorderThickness="1" Padding="16" Margin="0,8,0,0" MaxWidth="900" MaxHeight="600">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Header -->
+                                    <Border Grid.Row="0" Background="#10FFFFFF" Padding="16,12" Margin="0,0,0,16">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Default" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                                            <TextBlock Text=" - Select Grid Layout" Foreground="#CCFFFFFF" FontSize="14" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- First Row of Grid Options -->
+                                    <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16">
+                                        <!-- 1x1 Grid -->
+                                        <Button x:Name="Grid1x1" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid1x1_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="35" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="1" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 3 Column Grid -->
+                                        <Button x:Name="Grid3Col" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid3Col_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="15" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="27.5" Canvas.Top="2.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="3" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 2x2 Grid -->
+                                        <Button x:Name="Grid2x2" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid2x2_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="22.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="2.5" Canvas.Top="17.5"/>
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="22.5" Canvas.Top="17.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="4" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 4 Pane Grid (Left + 2 Right) -->
+                                        <Button x:Name="Grid4Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid4Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="25" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="12" Canvas.Left="30" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="12" Canvas.Left="30" Canvas.Top="17.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="4" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 5 Pane Grid -->
+                                        <Button x:Name="Grid5Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid5Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="15" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="15" Canvas.Top="17.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="27.5" Canvas.Top="2.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="5" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 6 Pane Grid -->
+                                        <Button x:Name="Grid6Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid6Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="2.5" Canvas.Top="17.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="22.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="35" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="22.5" Canvas.Top="17.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="35" Canvas.Top="17.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="6" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 7 Pane Grid -->
+                                        <Button x:Name="Grid7Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid7Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="25" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="30" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="38" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="30" Canvas.Top="10"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="38" Canvas.Top="10"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="30" Canvas.Top="18"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="38" Canvas.Top="18"/>
+                                                </Canvas>
+                                                <TextBlock Text="7" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 8 Pane Grid -->
+                                        <Button x:Name="Grid8Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid8Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="35" Height="10" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="2.5" Canvas.Top="15"/>
+                                                    <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="15" Canvas.Top="15"/>
+                                                    <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="27.5" Canvas.Top="15"/>
+                                                </Canvas>
+                                                <TextBlock Text="8" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 3x3 Grid -->
+                                        <Button x:Name="Grid3x3" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid3x3_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="16.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="30.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="2.5" Canvas.Top="12.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="16.5" Canvas.Top="12.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="30.5" Canvas.Top="12.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="2.5" Canvas.Top="22.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="16.5" Canvas.Top="22.5"/>
+                                                    <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="30.5" Canvas.Top="22.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="9" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </WrapPanel>
+
+                                    <!-- Second Row of Grid Options -->
+                                    <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <!-- 10 Pane Grid (Top + 3x3) -->
+                                        <Button x:Name="Grid10Top" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid10Top_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="35" Height="8" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="2.5" Canvas.Top="12.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="15" Canvas.Top="12.5"/>
+                                                    <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="27.5" Canvas.Top="12.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="10" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 10 Pane Grid (Left + 3x3) -->
+                                        <Button x:Name="Grid10Left" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid10Left_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="8" Height="25" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="12.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="29.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="12.5" Canvas.Top="17.5"/>
+                                                    <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="29.5" Canvas.Top="17.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="10" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 13 Pane Grid -->
+                                        <Button x:Name="Grid13Pane" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid13Pane_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="10.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="18.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="26.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="34.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="2.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="34.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="2.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="34.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="2.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="10.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="18.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="26.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="34.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="16" Height="16" Canvas.Left="12" Canvas.Top="12"/>
+                                                </Canvas>
+                                                <TextBlock Text="13" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 4x4 Grid -->
+                                        <Button x:Name="Grid4x4" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid4x4_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="2.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="12.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="22.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="32.5" Canvas.Top="2.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="2.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="12.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="22.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="32.5" Canvas.Top="10.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="2.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="12.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="22.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="32.5" Canvas.Top="18.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="2.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="12.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="22.5" Canvas.Top="26.5"/>
+                                                    <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="32.5" Canvas.Top="26.5"/>
+                                                </Canvas>
+                                                <TextBlock Text="16" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 25 Grid -->
+                                        <Button x:Name="Grid25" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid25_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <TextBlock Text="25" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                                               Canvas.Left="15" Canvas.Top="12"/>
+                                                </Canvas>
+                                                <TextBlock Text="25" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 32 Grid -->
+                                        <Button x:Name="Grid32" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid32_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <TextBlock Text="32" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                                               Canvas.Left="15" Canvas.Top="12"/>
+                                                </Canvas>
+                                                <TextBlock Text="32" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 36 Grid -->
+                                        <Button x:Name="Grid36" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid36_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <TextBlock Text="36" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                                               Canvas.Left="15" Canvas.Top="12"/>
+                                                </Canvas>
+                                                <TextBlock Text="36" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 64 Grid -->
+                                        <Button x:Name="Grid64" Style="{StaticResource ModernButtonStyle}" 
+                                                Margin="6" Padding="12,8" Click="Grid64_Click">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                <Canvas Width="40" Height="30" Background="Transparent">
+                                                    <TextBlock Text="64" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                                               Canvas.Left="15" Canvas.Top="12"/>
+                                                </Canvas>
+                                                <TextBlock Text="64" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                                           HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </WrapPanel>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+                </StackPanel>
                 
                 <!-- Center - Player Controls -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
