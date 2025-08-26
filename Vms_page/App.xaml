@@ -4,16 +4,19 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- Global Theme Colors (Default: Dark Theme) -->
-        <SolidColorBrush x:Key="PrimaryColor" Color="#0A84FF"/>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#10B981"/>
         <SolidColorBrush x:Key="SecondaryColor" Color="#5E5CE6"/>
         <SolidColorBrush x:Key="SuccessColor" Color="#30D158"/>
         <SolidColorBrush x:Key="WarningColor" Color="#FF9F0A"/>
         <SolidColorBrush x:Key="ErrorColor" Color="#FF453A"/>
         <SolidColorBrush x:Key="BackgroundColor" Color="#1C1C1E"/>
-        <SolidColorBrush x:Key="SurfaceColor" Color="#2C2C2E"/>
-        <SolidColorBrush x:Key="TextPrimaryColor" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="TextSecondaryColor" Color="#8E8E93"/>
-        <SolidColorBrush x:Key="BorderColor" Color="#38383A"/>
+        <SolidColorBrush x:Key="SurfaceColor" Color="#0F172A"/>
+        <SolidColorBrush x:Key="TextPrimaryColor" Color="#F8FAFC"/>
+        <SolidColorBrush x:Key="TextSecondaryColor" Color="#94A3B8"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#1E293B"/>
+
+        <!-- Menu hover/active background -->
+        <SolidColorBrush x:Key="MenuHoverColor" Color="#1E293B"/>
         
 
     </Application.Resources>

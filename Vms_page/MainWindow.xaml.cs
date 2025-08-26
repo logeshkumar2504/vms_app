@@ -52,6 +52,9 @@ namespace Vms_page
         {
             InitializeComponent();
             DataContext = this;
+            // Ensure the requested dark palette is applied at startup
+            ThemeManager.ApplyTheme("Dark");
+            isDarkMode = true;
             
             // Ensure window respects taskbar
             this.SourceInitialized += MainWindow_SourceInitialized;
