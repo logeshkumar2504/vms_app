@@ -504,65 +504,96 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Style="{StaticResource CardStyle}"
-                                        Width="220" 
-                                        Height="160"
-                                        Cursor="Hand"
-                                        MouseLeftButtonDown="Card_Click"
-                                        Tag="{Binding}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                                                                 <DataTemplate>
+                                         <Border Width="220" 
+                                                 Height="160"
+                                                 Cursor="Hand"
+                                                 MouseLeftButtonDown="Card_Click"
+                                                 Tag="{Binding}"
+                                                 Background="{DynamicResource SurfaceColor}"
+                                                 CornerRadius="12"
+                                                 Margin="8"
+                                                 Effect="{DynamicResource CardShadow}">
+                                             <Grid>
+                                                 <Grid.RowDefinitions>
+                                                     <RowDefinition Height="Auto"/>
+                                                     <RowDefinition Height="*"/>
+                                                     <RowDefinition Height="Auto"/>
+                                                 </Grid.RowDefinitions>
 
-                                        <!-- Icon and Close Button Row -->
-                                        <Grid Grid.Row="0" Margin="0,0,0,8">
-                                            <TextBlock Text="{Binding Icon}" 
-                                                       FontSize="28" 
-                                                       Foreground="{Binding IconColor}"
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Center"/>
-                                            <Button Content="✕" 
-                                                    FontSize="12" 
-                                                    Foreground="#8E8E93"
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Top"
-                                                    Width="20" Height="20"
-                                                    Padding="0"
-                                                    Click="RemoveCard_Click"
-                                                    Tag="{Binding}"/>
-                                        </Grid>
+                                                 <!-- Icon and Close Button Row -->
+                                                 <Grid Grid.Row="0" Margin="16,16,16,8">
+                                                     <TextBlock Text="{Binding Icon}" 
+                                                                FontSize="48" 
+                                                                FontWeight="UltraLight"
+                                                                Foreground="{Binding IconColor}"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"/>
+                                                     <Button Content="✕" 
+                                                             FontSize="14" 
+                                                             Foreground="#8E8E93"
+                                                             Background="Transparent"
+                                                             BorderThickness="0"
+                                                             HorizontalAlignment="Right"
+                                                             VerticalAlignment="Top"
+                                                             Width="24" Height="24"
+                                                             Padding="0"
+                                                             Click="RemoveCard_Click"
+                                                             Tag="{Binding}"
+                                                             Opacity="0.7"
+                                                             ToolTip="Remove card"/>
+                                                 </Grid>
 
-                                        <!-- Title -->
-                                        <TextBlock Grid.Row="1" 
-                                                   Text="{Binding Name}" 
-                                                   Foreground="{DynamicResource TextPrimaryColor}" 
-                                                   FontSize="16" 
-                                                   FontWeight="Bold"
-                                                   VerticalAlignment="Top"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   TextAlignment="Left"
-                                                   Margin="0,0,0,6"/>
+                                                 <!-- Title -->
+                                                 <TextBlock Grid.Row="1" 
+                                                            Text="{Binding Name}" 
+                                                            Foreground="{DynamicResource TextPrimaryColor}" 
+                                                            FontSize="16" 
+                                                            FontWeight="SemiBold"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            TextWrapping="Wrap"
+                                                            TextAlignment="Center"
+                                                            Margin="16,0,16,8"/>
 
-                                        <!-- Description -->
-                                        <TextBlock Grid.Row="2" 
-                                                   Text="{Binding Description}" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="12"
-                                                   VerticalAlignment="Bottom"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   TextAlignment="Left"
-                                                   LineHeight="18"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
+                                                 <!-- Description -->
+                                                 <TextBlock Grid.Row="2" 
+                                                            Text="{Binding Description}" 
+                                                            Foreground="{DynamicResource TextSecondaryColor}" 
+                                                            FontSize="11"
+                                                            FontWeight="Light"
+                                                            VerticalAlignment="Bottom"
+                                                            HorizontalAlignment="Center"
+                                                            TextWrapping="Wrap"
+                                                            TextAlignment="Center"
+                                                            LineHeight="16"
+                                                            Margin="16,0,16,16"/>
+                                             </Grid>
+                                             
+                                             <!-- Hover Effect Border -->
+                                             <Border.Style>
+                                                 <Style TargetType="Border">
+                                                     <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                                     <Setter Property="CornerRadius" Value="12"/>
+                                                     <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
+                                                     <Style.Triggers>
+                                                         <Trigger Property="IsMouseOver" Value="True">
+                                                             <Setter Property="Effect">
+                                                                 <Setter.Value>
+                                                                     <DropShadowEffect Color="#000000" 
+                                                                                      Direction="270" 
+                                                                                      ShadowDepth="4" 
+                                                                                      Opacity="0.2" 
+                                                                                      BlurRadius="12"/>
+                                                                 </Setter.Value>
+                                                             </Setter>
+                                                             <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                                                         </Trigger>
+                                                     </Style.Triggers>
+                                                 </Style>
+                                             </Border.Style>
+                                         </Border>
+                                     </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>
@@ -570,7 +601,7 @@
 
             <!-- Right Panel - iOS-style Menu -->
             <Border Grid.Column="1" 
-                    Background="{DynamicResource SurfaceColor}" 
+                    Background="{DynamicResource SidebarColor}" 
                     CornerRadius="0" 
                     Margin="0,-13,-12,-11"
                     Style="{StaticResource CardStyle}" Grid.RowSpan="2">
@@ -615,15 +646,16 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="18" 
+                                                           FontSize="32" 
+                                                           FontWeight="UltraLight"
                                                            Foreground="{Binding IconColor}"
                                                            VerticalAlignment="Center"
-                                                           Margin="0,0,8,0"/>
+                                                           Margin="-8,0,12,0"/>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
                                                            FontSize="11"
-                                                           FontWeight="Medium"/>
+                                                           FontWeight="Normal"/>
                                             </StackPanel>
                                         </Button>
                                     </DataTemplate>
@@ -663,15 +695,16 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="18" 
+                                                           FontSize="32" 
+                                                           FontWeight="UltraLight"
                                                            Foreground="{Binding IconColor}"
                                                            VerticalAlignment="Center"
-                                                           Margin="0,0,8,0"/>
+                                                           Margin="-8,0,12,0"/>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
                                                            FontSize="11"
-                                                           FontWeight="Medium"/>
+                                                           FontWeight="Normal"/>
                                             </StackPanel>
                                         </Button>
                                     </DataTemplate>

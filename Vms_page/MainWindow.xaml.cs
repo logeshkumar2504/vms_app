@@ -74,7 +74,7 @@ namespace Vms_page
             BasicMenuItems.Add(new MenuItemModel { Name = "Alarm Configuration", Group = "Basic", Icon = "🔧", IconColor = "#A1887F", Description = "Configure arming schedules and actions to trigger" });
             BasicMenuItems.Add(new MenuItemModel { Name = "System Configuration", Group = "Basic", Icon = "🖥️", IconColor = "#90A4AE", Description = "Configure system settings and preferences" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Sequence Resource", Group = "Basic", Icon = "📋", IconColor = "#4DD0E1", Description = "Manage sequence resources and configurations" });
-            BasicMenuItems.Add(new MenuItemModel { Name = "Live View", Group = "Basic", Icon = "📺", IconColor = "#F06292", Description = "Monitor live camera feeds and streams" });
+            BasicMenuItems.Add(new MenuItemModel { Name = "Live View", Group = "Basic", Icon = "📹", IconColor = "#F06292", Description = "Monitor live camera feeds and streams" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Operation Log", Group = "Basic", Icon = "📝", IconColor = "#AED581", Description = "View and manage operation logs" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Playback", Group = "Basic", Icon = "⏯️", IconColor = "#FF8A65", Description = "Playback recorded video and audio" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Audio", Group = "Basic", Icon = "🔊", IconColor = "#7986CB", Description = "Configure audio settings and controls" });
