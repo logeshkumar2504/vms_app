@@ -10,6 +10,25 @@
 
   <ItemGroup>
     <Folder Include="Assets\Icons\" />
+    <Resource Include="Assets\Icons\user-management.png" />
+    <Resource Include="Assets\Icons\Record-Schedule.png" />
+    <Resource Include="Assets\Icons\view.png" />
+    <Resource Include="Assets\Icons\alarm-records.png" />
+    <Resource Include="Assets\Icons\device-management.png" />
+    <Resource Include="Assets\Icons\alarm-configuration.png" />
+    <Resource Include="Assets\Icons\system-configuration.png" />
+    <Resource Include="Assets\Icons\sequence-Resources.png" />
+    <Resource Include="Assets\Icons\live-view.png" />
+    <Resource Include="Assets\Icons\log.png" />
+    <Resource Include="Assets\Icons\playback.png" />
+    <Resource Include="Assets\Icons\audio.png" />
+    <Resource Include="Assets\Icons\video-wall.png" />
+    <Resource Include="Assets\Icons\e-map.png" />
+    <Resource Include="Assets\Icons\face-recognition.png" />
+    <Resource Include="Assets\Icons\access control.png" />
+    <Resource Include="Assets\Icons\LPR.png" />
+    <Resource Include="Assets\Icons\peopel-counting.png" />
+    <Resource Include="Assets\Icons\VCA.png" />
   </ItemGroup>
 
 </Project>

@@ -523,12 +523,32 @@
 
                                                  <!-- Icon and Close Button Row -->
                                                  <Grid Grid.Row="0" Margin="16,16,16,8">
-                                                     <TextBlock Text="{Binding Icon}" 
-                                                                FontSize="48" 
-                                                                FontWeight="UltraLight"
-                                                                Foreground="{Binding IconColor}"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"/>
+                                                     <!-- Show Image for Live View, Emoji for others -->
+                                                     <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                         <ContentControl.Style>
+                                                             <Style TargetType="ContentControl">
+                                                                 <Style.Triggers>
+                                                                     <DataTrigger Binding="{Binding Name}" Value="Live View">
+                                                                         <Setter Property="Content">
+                                                                             <Setter.Value>
+                                                                                 <Image Source="/Assets/Icons/view.png" Width="48" Height="48" Stretch="Uniform"/>
+                                                                             </Setter.Value>
+                                                                         </Setter>
+                                                                     </DataTrigger>
+                                                                 </Style.Triggers>
+                                                                 <Setter Property="Content">
+                                                                     <Setter.Value>
+                                                                         <TextBlock Text="{Binding Icon}" 
+                                                                                    FontSize="48" 
+                                                                                    FontWeight="UltraLight"
+                                                                                    Foreground="{Binding IconColor}"
+                                                                                    HorizontalAlignment="Center"
+                                                                                    VerticalAlignment="Center"/>
+                                                                     </Setter.Value>
+                                                                 </Setter>
+                                                             </Style>
+                                                         </ContentControl.Style>
+                                                     </ContentControl>
                                                      <Button Content="✕" 
                                                              FontSize="14" 
                                                              Foreground="#8E8E93"
@@ -645,12 +665,128 @@
                                                 Click="MenuButton_Click"
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="32" 
-                                                           FontWeight="UltraLight"
-                                                           Foreground="{Binding IconColor}"
-                                                           VerticalAlignment="Center"
-                                                           Margin="-8,0,12,0"/>
+                                                <!-- Show Images for specific items, Emoji for others -->
+                                                <ContentControl VerticalAlignment="Center" Margin="-8,0,12,0">
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Name}" Value="User Management">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/user-management.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/Record-Schedule.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="View">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/view.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Alarm Records">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/alarm-records.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Device Management">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/device-management.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Alarm Configuration">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/alarm-configuration.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="System Configuration">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/system-configuration.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Sequence Resource">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/sequence-Resources.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Live View">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/live-view.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Operation Log">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/log.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Playback">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/playback.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Audio">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/audio.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Video Wall">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/video-wall.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="E-map">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/e-map.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Recording Schdual">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/Record-Schedule.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <TextBlock Text="{Binding Icon}" 
+                                                                               FontSize="32" 
+                                                                               FontWeight="UltraLight"
+                                                                               Foreground="{Binding IconColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
@@ -694,12 +830,58 @@
                                                 Click="MenuButton_Click"
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Icon}" 
-                                                           FontSize="32" 
-                                                           FontWeight="UltraLight"
-                                                           Foreground="{Binding IconColor}"
-                                                           VerticalAlignment="Center"
-                                                           Margin="-8,0,12,0"/>
+                                                <!-- Show Images for specific items, Emoji for others -->
+                                                <ContentControl VerticalAlignment="Center" Margin="-8,0,12,0">
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Face Recognition">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/face-recognition.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="Access Control">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/access control.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="LPR">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/LPR.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="People Counting">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/peopel-counting.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Name}" Value="VCA">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image Source="/Assets/Icons/VCA.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <TextBlock Text="{Binding Icon}" 
+                                                                               FontSize="32" 
+                                                                               FontWeight="UltraLight"
+                                                                               Foreground="{Binding IconColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
                                                 <TextBlock Text="{Binding Name}" 
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextPrimaryColor}"
