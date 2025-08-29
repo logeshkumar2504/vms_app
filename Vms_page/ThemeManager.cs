@@ -21,6 +21,8 @@ namespace Vms_page
                     appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xF2, 0xF2, 0xF7));
                     appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
                     appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0xF5, 0xF5, 0xF5)); // White with grey merged
+                    appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFA, 0xFA, 0xFA)); // White with grey mixed
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x1C, 0x1C, 0x1E));
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x8E, 0x8E, 0x93));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0xE5, 0xE5, 0xEA));
@@ -37,6 +39,8 @@ namespace Vms_page
                     appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x1C, 0x1C, 0x1E));
                     appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0x0F, 0x17, 0x2A)); // Topbar
                     appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x26, 0x2A, 0x3A)); // New sidebar color - darker blue-gray
+                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x26, 0x2A, 0x3A)); // Same as SidebarColor for consistency
+                    appResources["CardBackgroundColor"] = new SolidColorBrush(Colors.Transparent); // Transparent for shadow effect
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xF8, 0xFA, 0xFC));
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x1E, 0x29, 0x3B));
