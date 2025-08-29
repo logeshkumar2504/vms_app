@@ -358,9 +358,9 @@
         <DropShadowEffect x:Key="CardShadow" 
                           Color="#000000" 
                           Direction="270" 
-                          ShadowDepth="4" 
-                          Opacity="0.25" 
-                          BlurRadius="12"/>
+                          ShadowDepth="3" 
+                          Opacity="0.3" 
+                          BlurRadius="10"/>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
@@ -523,6 +523,8 @@
                                                  Background="{DynamicResource CardBackgroundColor}"
                                                  CornerRadius="12"
                                                  Margin="8"
+                                                 BorderThickness="1"
+                                                 BorderBrush="{DynamicResource BorderColor}"
                                                  Effect="{DynamicResource CardShadow}">
                                              <Grid>
                                                  <Grid.RowDefinitions>
@@ -740,27 +742,31 @@
                                              </Grid>
                                              
                                              <!-- Hover Effect Border -->
-                                             <Border.Style>
-                                                 <Style TargetType="Border">
-                                                     <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
-                                                     <Setter Property="CornerRadius" Value="12"/>
-                                                     <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
-                                                     <Style.Triggers>
-                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                             <Setter Property="Effect">
-                                                                 <Setter.Value>
-                                                                     <DropShadowEffect Color="#000000" 
-                                                                                      Direction="270" 
-                                                                                      ShadowDepth="8" 
-                                                                                      Opacity="0.35" 
-                                                                                      BlurRadius="20"/>
-                                                                 </Setter.Value>
-                                                             </Setter>
-                                                             <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
-                                                         </Trigger>
-                                                     </Style.Triggers>
-                                                 </Style>
-                                             </Border.Style>
+                                                                                           <Border.Style>
+                                                  <Style TargetType="Border">
+                                                      <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+                                                      <Setter Property="CornerRadius" Value="12"/>
+                                                      <Setter Property="BorderThickness" Value="1"/>
+                                                      <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+                                                      <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
+                                                      <Style.Triggers>
+                                                          <Trigger Property="IsMouseOver" Value="True">
+                                                              <Setter Property="Effect">
+                                                                  <Setter.Value>
+                                                                      <DropShadowEffect Color="#000000" 
+                                                                                       Direction="270" 
+                                                                                       ShadowDepth="6" 
+                                                                                       Opacity="0.4" 
+                                                                                       BlurRadius="16"/>
+                                                                  </Setter.Value>
+                                                              </Setter>
+                                                              <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                                              <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                              <Setter Property="BorderThickness" Value="2"/>
+                                                          </Trigger>
+                                                      </Style.Triggers>
+                                                  </Style>
+                                              </Border.Style>
                                          </Border>
                                      </DataTemplate>
                         </ItemsControl.ItemTemplate>

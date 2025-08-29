@@ -36,15 +36,15 @@ namespace Vms_page
                     appResources["SuccessColor"] = new SolidColorBrush(Color.FromRgb(0x30, 0xD1, 0x58));
                     appResources["WarningColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x9F, 0x0A));
                     appResources["ErrorColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x45, 0x3A));
-                    appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x1C, 0x1C, 0x1E));
-                    appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0x0F, 0x17, 0x2A)); // Topbar
-                    appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x26, 0x2A, 0x3A)); // New sidebar color - darker blue-gray
-                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x26, 0x2A, 0x3A)); // Same as SidebarColor for consistency
-                    appResources["CardBackgroundColor"] = new SolidColorBrush(Colors.Transparent); // Transparent for shadow effect
-                    appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xF8, 0xFA, 0xFC));
+                    appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x0F, 0x0F, 0x23)); // Darker background
+                    appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Slightly lighter surface
+                    appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Same as SurfaceColor
+                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Same as SurfaceColor
+                    appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Card background with subtle contrast
+                    appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0)); // Brighter text for better readability
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
-                    appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x1E, 0x29, 0x3B));
-                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0x1E, 0x29, 0x3B));
+                    appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x4F)); // Subtle border for cards
+                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0x2A, 0x2A, 0x3E)); // Hover color for menu items
                     break;
                     
                 case "Blue":
