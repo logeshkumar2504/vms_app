@@ -39,7 +39,7 @@ namespace Vms_page
                     appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x0F, 0x0F, 0x23)); // Darker background
                     appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Slightly lighter surface
                     appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Same as SurfaceColor
-                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Same as SurfaceColor
+                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Same as CardBackgroundColor
                     appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Card background with subtle contrast
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0)); // Brighter text for better readability
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
