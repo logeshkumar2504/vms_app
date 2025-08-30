@@ -11,7 +11,9 @@
         <SolidColorBrush x:Key="ErrorColor" Color="#FF453A"/>
         <SolidColorBrush x:Key="BackgroundColor" Color="#1C1C1E"/>
         <SolidColorBrush x:Key="SurfaceColor" Color="#0F172A"/>
-        <SolidColorBrush x:Key="SidebarColor" Color="#262A3A"/>
+        <SolidColorBrush x:Key="SidebarColor" Color="#242438"/>
+        <SolidColorBrush x:Key="TopBarColor" Color="#242438"/>
+        <SolidColorBrush x:Key="CardBackgroundColor" Color="#2A2A3E"/>
         <SolidColorBrush x:Key="TextPrimaryColor" Color="#F8FAFC"/>
         <SolidColorBrush x:Key="TextSecondaryColor" Color="#94A3B8"/>
         <SolidColorBrush x:Key="BorderColor" Color="#1E293B"/>

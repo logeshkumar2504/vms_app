@@ -38,9 +38,9 @@ namespace Vms_page
                     appResources["ErrorColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x45, 0x3A));
                     appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x0F, 0x0F, 0x23)); // Darker background
                     appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Slightly lighter surface
-                    appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x2E)); // Same as SurfaceColor
+                    appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Sidebar color #242438
                     appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Same as CardBackgroundColor
-                    appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x24, 0x24, 0x38)); // Card background with subtle contrast
+                    appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x2A, 0x2A, 0x3E)); // Different color for cards
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0)); // Brighter text for better readability
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x4F)); // Subtle border for cards
