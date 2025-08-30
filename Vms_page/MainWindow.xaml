@@ -840,7 +840,6 @@
                                                  Cursor="Hand"
                                                  MouseLeftButtonDown="Card_Click"
                                                  Tag="{Binding}"
-                                                 Background="{DynamicResource CardBackgroundColor}"
                                                  CornerRadius="12"
                                                  Margin="8"
                                                  BorderThickness="1"

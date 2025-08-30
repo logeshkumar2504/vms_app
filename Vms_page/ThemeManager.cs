@@ -44,7 +44,7 @@ namespace Vms_page
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0)); // Brighter text for better readability
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x4F)); // Subtle border for cards
-                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0x2A, 0x2A, 0x3E)); // Hover color for menu items
+                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0x4A, 0x4A, 0x5E)); // Hover color for menu items and cards
                     break;
                     
                 case "Blue":

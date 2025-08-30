@@ -19,7 +19,7 @@
         <SolidColorBrush x:Key="BorderColor" Color="#1E293B"/>
 
         <!-- Menu hover/active background -->
-        <SolidColorBrush x:Key="MenuHoverColor" Color="#1E293B"/>
+        <SolidColorBrush x:Key="MenuHoverColor" Color="#4A4A5E"/>
         
 
     </Application.Resources>
