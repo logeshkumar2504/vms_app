@@ -481,305 +481,16 @@
                 <RowDefinition Height="388*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Center Content Area with Drop Support -->
+            <!-- Left Panel - iOS-style Menu -->
             <Border Grid.Column="0" 
-                    Background="{DynamicResource CardBackgroundColor}" 
-                    CornerRadius="0" 
-                    Margin="-10,-13,0,-11"
-                    Style="{StaticResource CardStyle}" Grid.RowSpan="2">
-                <Grid x:Name="DropTargetGrid"
-                      AllowDrop="True"
-                      Drop="DropTargetGrid_Drop"
-                      DragOver="DropTargetGrid_DragOver"
-                      Background="Transparent">
-
-                    <!-- Drop Zone Hint -->
-                    <TextBlock Text="Drop menu items here to create your workspace" 
-                               Foreground="{DynamicResource TextSecondaryColor}" 
-                               FontSize="14" 
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center"
-                               Visibility="{Binding DroppedItems.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                    <ItemsControl x:Name="DroppedItemsControl"
-                                  ItemsSource="{Binding DroppedItems}"
-                                  Margin="0,8,8,0" Height="621" VerticalAlignment="Top">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                                                                 <DataTemplate>
-                                         <Border Width="220" 
-                                                 Height="180"
-                                                 Cursor="Hand"
-                                                 MouseLeftButtonDown="Card_Click"
-                                                 Tag="{Binding}"
-                                                 Background="{DynamicResource CardBackgroundColor}"
-                                                 CornerRadius="12"
-                                                 Margin="8"
-                                                 BorderThickness="1"
-                                                 BorderBrush="{DynamicResource BorderColor}"
-                                                 Effect="{DynamicResource CardShadow}">
-                                             <Grid>
-                                                 <Grid.RowDefinitions>
-                                                     <RowDefinition Height="Auto"/>
-                                                     <RowDefinition Height="Auto"/>
-                                                     <RowDefinition Height="*"/>
-                                                 </Grid.RowDefinitions>
-
-                                                 <!-- Icon and Close Button Row -->
-                                                 <Grid Grid.Row="0" Margin="16,16,16,8">
-                                                     <!-- Icon Container with Fixed Size -->
-                                                     <Border Width="80" Height="80" 
-                                                             HorizontalAlignment="Center" 
-                                                             VerticalAlignment="Center"
-                                                             Background="Transparent">
-                                                         <ContentControl HorizontalAlignment="Center" 
-                                                                       VerticalAlignment="Center">
-                                                             <ContentControl.Style>
-                                                                 <Style TargetType="ContentControl">
-                                                                     <Style.Triggers>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="User Management">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/user-management.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="View">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/view.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Alarm Records">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/alarm-records.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Device Management">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/device-management.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Alarm Configuration">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/alarm-configuration.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="System Configuration">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/system-configuration.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Sequence Resource">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/sequence-Resources.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Live View">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/live-view.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Operation Log">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/log.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Playback">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/playback.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Audio">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/audio.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Video Wall">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/video-wall.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="E-map">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/e-map.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schdual">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Face Recognition">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/face-recognition.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Access Control">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/access control.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="LPR">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/LPR.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="People Counting">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/peopel-counting.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="VCA">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/VCA.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                     </Style.Triggers>
-                                                                     <Setter Property="Content">
-                                                                         <Setter.Value>
-                                                                             <TextBlock Text="{Binding Icon}" 
-                                                                                        FontSize="64" 
-                                                                                        FontWeight="UltraLight"
-                                                                                        Foreground="{Binding IconColor}"
-                                                                                        HorizontalAlignment="Center"
-                                                                                        VerticalAlignment="Center"/>
-                                                                         </Setter.Value>
-                                                                     </Setter>
-                                                                 </Style>
-                                                             </ContentControl.Style>
-                                                         </ContentControl>
-                                                     </Border>
-                                                     <Button Content="✕" 
-                                                             FontSize="14" 
-                                                             Foreground="#8E8E93"
-                                                             Background="Transparent"
-                                                             BorderThickness="0"
-                                                             HorizontalAlignment="Right"
-                                                             VerticalAlignment="Top"
-                                                             Width="24" Height="24"
-                                                             Padding="0"
-                                                             Click="RemoveCard_Click"
-                                                             Tag="{Binding}"
-                                                             Opacity="0.7"
-                                                             ToolTip="Remove card"/>
-                                                 </Grid>
-
-                                                 <!-- Title -->
-                                                 <TextBlock Grid.Row="1" 
-                                                            Text="{Binding Name}" 
-                                                            Foreground="{DynamicResource TextPrimaryColor}" 
-                                                            FontSize="16" 
-                                                            FontWeight="SemiBold"
-                                                            VerticalAlignment="Top"
-                                                            HorizontalAlignment="Center"
-                                                            TextWrapping="Wrap"
-                                                            TextAlignment="Center"
-                                                            Margin="16,8,16,8"/>
-
-                                                 <!-- Description -->
-                                                 <TextBlock Grid.Row="2" 
-                                                            Text="{Binding Description}" 
-                                                            Foreground="{DynamicResource TextSecondaryColor}" 
-                                                            FontSize="11"
-                                                            FontWeight="Light"
-                                                            VerticalAlignment="Top"
-                                                            HorizontalAlignment="Center"
-                                                            TextWrapping="Wrap"
-                                                            TextAlignment="Center"
-                                                            LineHeight="16"
-                                                            Margin="16,8,16,16"/>
-                                             </Grid>
-                                             
-                                             <!-- Hover Effect Border -->
-                                                                                           <Border.Style>
-                                                  <Style TargetType="Border">
-                                                      <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
-                                                      <Setter Property="CornerRadius" Value="12"/>
-                                                      <Setter Property="BorderThickness" Value="1"/>
-                                                      <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                                      <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
-                                                      <Style.Triggers>
-                                                          <Trigger Property="IsMouseOver" Value="True">
-                                                              <Setter Property="Effect">
-                                                                  <Setter.Value>
-                                                                      <DropShadowEffect Color="#000000" 
-                                                                                       Direction="270" 
-                                                                                       ShadowDepth="6" 
-                                                                                       Opacity="0.4" 
-                                                                                       BlurRadius="16"/>
-                                                                  </Setter.Value>
-                                                              </Setter>
-                                                              <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                                              <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
-                                                              <Setter Property="BorderThickness" Value="2"/>
-                                                          </Trigger>
-                                                      </Style.Triggers>
-                                                  </Style>
-                                              </Border.Style>
-                                         </Border>
-                                     </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </Border>
-
-            <!-- Right Panel - iOS-style Menu -->
-            <Border Grid.Column="1" 
                     Background="{DynamicResource SidebarColor}" 
                     CornerRadius="0" 
-                    Margin="0,-13,-13,-11"
-                    Style="{StaticResource CardStyle}" Grid.RowSpan="2">
+                    Margin="-13,-13,0,-11"
+                    Grid.RowSpan="2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Disabled"
                               Margin="0"
@@ -1092,6 +803,295 @@
                         </Expander>
                     </StackPanel>
                 </ScrollViewer>
+            </Border>
+
+            <!-- Center Content Area with Drop Support -->
+            <Border Grid.Column="1" 
+                    Background="{DynamicResource CardBackgroundColor}" 
+                    CornerRadius="0" 
+                    Margin="0,-13,-13,-11"
+                    Style="{StaticResource CardStyle}" Grid.RowSpan="2">
+                <Grid x:Name="DropTargetGrid"
+                      AllowDrop="True"
+                      Drop="DropTargetGrid_Drop"
+                      DragOver="DropTargetGrid_DragOver"
+                      Background="Transparent">
+
+                    <!-- Drop Zone Hint -->
+                    <TextBlock Text="Drop menu items here to create your workspace" 
+                               Foreground="{DynamicResource TextSecondaryColor}" 
+                               FontSize="14" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Visibility="{Binding DroppedItems.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                    <ItemsControl x:Name="DroppedItemsControl"
+                                  ItemsSource="{Binding DroppedItems}"
+                                  Margin="0,8,8,0" Height="621" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                                                                 <DataTemplate>
+                                         <Border Width="220" 
+                                                 Height="180"
+                                                 Cursor="Hand"
+                                                 MouseLeftButtonDown="Card_Click"
+                                                 Tag="{Binding}"
+                                                 Background="{DynamicResource CardBackgroundColor}"
+                                                 CornerRadius="12"
+                                                 Margin="8"
+                                                 BorderThickness="1"
+                                                 BorderBrush="{DynamicResource BorderColor}"
+                                                 Effect="{DynamicResource CardShadow}">
+                                             <Grid>
+                                                 <Grid.RowDefinitions>
+                                                     <RowDefinition Height="Auto"/>
+                                                     <RowDefinition Height="Auto"/>
+                                                     <RowDefinition Height="*"/>
+                                                 </Grid.RowDefinitions>
+
+                                                 <!-- Icon and Close Button Row -->
+                                                 <Grid Grid.Row="0" Margin="16,16,16,8">
+                                                     <!-- Icon Container with Fixed Size -->
+                                                     <Border Width="80" Height="80" 
+                                                             HorizontalAlignment="Center" 
+                                                             VerticalAlignment="Center"
+                                                             Background="Transparent">
+                                                         <ContentControl HorizontalAlignment="Center" 
+                                                                       VerticalAlignment="Center">
+                                                             <ContentControl.Style>
+                                                                 <Style TargetType="ContentControl">
+                                                                     <Style.Triggers>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="User Management">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/user-management.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="View">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/view.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Alarm Records">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/alarm-records.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Device Management">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/device-management.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Alarm Configuration">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/alarm-configuration.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="System Configuration">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/system-configuration.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Sequence Resource">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/sequence-Resources.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Live View">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/live-view.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Operation Log">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/log.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Playback">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/playback.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Audio">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/audio.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Video Wall">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/video-wall.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="E-map">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/e-map.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schdual">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Face Recognition">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/face-recognition.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Access Control">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/access control.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="LPR">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/LPR.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="People Counting">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/peopel-counting.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                         <DataTrigger Binding="{Binding Name}" Value="VCA">
+                                                                             <Setter Property="Content">
+                                                                                 <Setter.Value>
+                                                                                     <Image Source="/Assets/Icons/VCA.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                 </Setter.Value>
+                                                                             </Setter>
+                                                                         </DataTrigger>
+                                                                     </Style.Triggers>
+                                                                     <Setter Property="Content">
+                                                                         <Setter.Value>
+                                                                             <TextBlock Text="{Binding Icon}" 
+                                                                                        FontSize="64" 
+                                                                                        FontWeight="UltraLight"
+                                                                                        Foreground="{Binding IconColor}"
+                                                                                        HorizontalAlignment="Center"
+                                                                                        VerticalAlignment="Center"/>
+                                                                         </Setter.Value>
+                                                                     </Setter>
+                                                                 </Style>
+                                                             </ContentControl.Style>
+                                                         </ContentControl>
+                                                     </Border>
+                                                     <Button Content="✕" 
+                                                             FontSize="14" 
+                                                             Foreground="#8E8E93"
+                                                             Background="Transparent"
+                                                             BorderThickness="0"
+                                                             HorizontalAlignment="Right"
+                                                             VerticalAlignment="Top"
+                                                             Width="24" Height="24"
+                                                             Padding="0"
+                                                             Click="RemoveCard_Click"
+                                                             Tag="{Binding}"
+                                                             Opacity="0.7"
+                                                             ToolTip="Remove card"/>
+                                                 </Grid>
+
+                                                 <!-- Title -->
+                                                 <TextBlock Grid.Row="1" 
+                                                            Text="{Binding Name}" 
+                                                            Foreground="{DynamicResource TextPrimaryColor}" 
+                                                            FontSize="16" 
+                                                            FontWeight="SemiBold"
+                                                            VerticalAlignment="Top"
+                                                            HorizontalAlignment="Center"
+                                                            TextWrapping="Wrap"
+                                                            TextAlignment="Center"
+                                                            Margin="16,8,16,8"/>
+
+                                                 <!-- Description -->
+                                                 <TextBlock Grid.Row="2" 
+                                                            Text="{Binding Description}" 
+                                                            Foreground="{DynamicResource TextSecondaryColor}" 
+                                                            FontSize="11"
+                                                            FontWeight="Light"
+                                                            VerticalAlignment="Top"
+                                                            HorizontalAlignment="Center"
+                                                            TextWrapping="Wrap"
+                                                            TextAlignment="Center"
+                                                            LineHeight="16"
+                                                            Margin="16,8,16,16"/>
+                                             </Grid>
+                                             
+                                             <!-- Hover Effect Border -->
+                                                                                           <Border.Style>
+                                                  <Style TargetType="Border">
+                                                      <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+                                                      <Setter Property="CornerRadius" Value="12"/>
+                                                      <Setter Property="BorderThickness" Value="1"/>
+                                                      <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+                                                      <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
+                                                      <Style.Triggers>
+                                                          <Trigger Property="IsMouseOver" Value="True">
+                                                              <Setter Property="Effect">
+                                                                  <Setter.Value>
+                                                                      <DropShadowEffect Color="#000000" 
+                                                                                       Direction="270" 
+                                                                                       ShadowDepth="6" 
+                                                                                       Opacity="0.4" 
+                                                                                       BlurRadius="16"/>
+                                                                  </Setter.Value>
+                                                              </Setter>
+                                                              <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                                              <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                              <Setter Property="BorderThickness" Value="2"/>
+                                                          </Trigger>
+                                                      </Style.Triggers>
+                                                  </Style>
+                                              </Border.Style>
+                                         </Border>
+                                     </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
             </Border>
         </Grid>
     </DockPanel>
