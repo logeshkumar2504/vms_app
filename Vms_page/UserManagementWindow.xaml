@@ -96,9 +96,9 @@
 
         <!-- DataGrid Style -->
         <Style x:Key="UserDataGridStyle" TargetType="{x:Type DataGrid}">
-            <Setter Property="Background" Value="#1A1A2E"/>
-            <Setter Property="Foreground" Value="#E2E8F0"/>
-            <Setter Property="BorderBrush" Value="#3B3B4F"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="GridLinesVisibility" Value="None"/>
             <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
@@ -113,18 +113,18 @@
             <Setter Property="SelectionUnit" Value="FullRow"/>
             <Setter Property="RowHeight" Value="40"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="AlternatingRowBackground" Value="#242438"/>
-            <Setter Property="RowBackground" Value="#1A1A2E"/>
+            <Setter Property="AlternatingRowBackground" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="RowBackground" Value="{DynamicResource SurfaceColor}"/>
         </Style>
 
         <!-- DataGrid Header Style -->
         <Style x:Key="UserDataGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="Background" Value="#2A2A3E"/>
-            <Setter Property="Foreground" Value="#E2E8F0"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="BorderBrush" Value="#3B3B4F"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -133,7 +133,7 @@
         <!-- DataGrid Cell Style -->
         <Style x:Key="UserDataGridCellStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#E2E8F0"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="12,8"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -155,7 +155,7 @@
         <!-- Operation Button Style -->
         <Style x:Key="OperationButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="4"/>
             <Setter Property="Margin" Value="2"/>
@@ -173,8 +173,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#4A4A5E"/>
-                                <Setter Property="Foreground" Value="#E2E8F0"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -227,7 +227,7 @@
 
         <!-- Main Content Area -->
         <Grid Grid.Row="1" 
-              Background="#0F0F23"
+              Background="{DynamicResource BackgroundColor}"
               Margin="15,0,15,15">
             <DataGrid x:Name="UserDataGrid"
                       Style="{StaticResource UserDataGridStyle}"
