@@ -62,7 +62,8 @@ namespace Vms_page
                     break;
             }
             
-            // Store the current theme name for future windows
+            // Store the current 
+            //  name for future windows
             appResources["CurrentTheme"] = themeName;
         }
 

@@ -118,6 +118,11 @@ namespace Vms_page
                     var liveViewWindow = new LiveViewWindow();
                     liveViewWindow.Show();
                 }
+                else if (item.Name == "User Management")
+                {
+                    var userManagementWindow = new UserManagementWindow();
+                    userManagementWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -169,6 +174,12 @@ namespace Vms_page
                 {
                     var viewWindow = new ViewWindow();
                     viewWindow.Show();
+                }
+                // Check if it's User Management and open the User Management window
+                else if (item.Name == "User Management")
+                {
+                    var userManagementWindow = new UserManagementWindow();
+                    userManagementWindow.Show();
                 }
                 else
                 {
