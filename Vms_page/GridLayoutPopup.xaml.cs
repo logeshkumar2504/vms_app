@@ -54,5 +54,38 @@ namespace Vms_page
             DialogResult = false;
             Close();
         }
+
+        private void CustomLayout_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the custom layout designer popup
+            var customLayoutPopup = new PeopleCountingCustomLayoutPopup();
+            customLayoutPopup.Owner = this;
+            
+            if (customLayoutPopup.ShowDialog() == true)
+            {
+                // Set the custom layout as selected
+                SelectedLayout = customLayoutPopup.CustomLayout;
+                
+                // Clear previous selection
+                if (selectedButton != null)
+                {
+                    selectedButton.Background = Application.Current.Resources["CardBackgroundColor"] as SolidColorBrush;
+                    selectedButton.Foreground = Application.Current.Resources["TextPrimaryColor"] as SolidColorBrush;
+                }
+
+                // Set new selection
+                selectedButton = sender as Button;
+                
+                // Update button appearance
+                if (selectedButton != null)
+                {
+                    selectedButton.Background = Application.Current.Resources["PrimaryColor"] as SolidColorBrush;
+                    selectedButton.Foreground = Brushes.White;
+                }
+                
+                // Enable Apply button
+                ApplyButton.IsEnabled = true;
+            }
+        }
     }
 }

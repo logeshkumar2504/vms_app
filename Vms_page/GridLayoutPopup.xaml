@@ -75,6 +75,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!-- Single View -->
@@ -426,6 +427,95 @@
                                 Margin="0,0,12,0"
                                 Click="SelectLayout_Click"
                                 Tag="4x4"/>
+                    </Grid>
+                </Border>
+
+                <!-- Custom Layout -->
+                <Border Grid.Row="4" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1" 
+                        Margin="0,0,0,8"
+                        CornerRadius="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Preview -->
+                        <Border Grid.Column="0" 
+                                Width="80" Height="60" 
+                                Background="#1A1A1A" 
+                                BorderBrush="#333333"
+                                BorderThickness="1"
+                                Margin="12,8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Custom layout preview with different cell sizes -->
+                                <Border Grid.Row="0" Grid.Column="0" 
+                                        Background="#1A1A1A" 
+                                        BorderBrush="#FF9500"
+                                        BorderThickness="1"
+                                        Margin="1">
+                                    <TextBlock Text="📹" FontSize="8" Foreground="#666666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" 
+                                        Background="#1A1A1A" 
+                                        BorderBrush="#333333"
+                                        BorderThickness="1"
+                                        Margin="1">
+                                    <TextBlock Text="📹" FontSize="8" Foreground="#666666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="0" 
+                                        Background="#1A1A1A" 
+                                        BorderBrush="#333333"
+                                        BorderThickness="1"
+                                        Margin="1">
+                                    <TextBlock Text="📹" FontSize="8" Foreground="#666666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" 
+                                        Background="#1A1A1A" 
+                                        BorderBrush="#333333"
+                                        BorderThickness="1"
+                                        Margin="1">
+                                    <TextBlock Text="📹" FontSize="8" Foreground="#666666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Description -->
+                        <StackPanel Grid.Column="1" 
+                                    VerticalAlignment="Center" 
+                                    Margin="12,0,12,0">
+                            <TextBlock Text="Custom Layout" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="14" 
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="Create your own custom grid layout" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
+                                       FontSize="11" 
+                                       Margin="0,2,0,0"/>
+                        </StackPanel>
+                        
+                        <!-- Select Button -->
+                        <Button Grid.Column="1" 
+                                Content="Custom" 
+                                Style="{StaticResource LayoutButtonStyle}"
+                                Width="60" Height="24"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0,0,12,0"
+                                Click="CustomLayout_Click"
+                                Tag="custom"/>
                     </Grid>
                 </Border>
             </Grid>

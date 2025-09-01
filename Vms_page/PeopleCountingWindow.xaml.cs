@@ -151,12 +151,20 @@ namespace Vms_page
             {
                 // Apply the selected layout
                 currentLayout = layoutPopup.SelectedLayout;
+                System.Diagnostics.Debug.WriteLine($"Layout popup returned: {currentLayout}");
+                
+                // Show a message to confirm the layout is being applied
+                MessageBox.Show($"Applying layout: {currentLayout}", "Layout Applied", MessageBoxButton.OK, MessageBoxImage.Information);
+                
                 ApplyGridLayout(currentLayout);
             }
         }
 
         private void ApplyGridLayout(string layout)
         {
+            // Debug: Show what layout is being applied
+            System.Diagnostics.Debug.WriteLine($"Applying Layout: {layout}");
+            
             // Find the main grid container
             var mainGrid = FindName("MainVideoGrid") as Grid;
             if (mainGrid == null)
@@ -172,25 +180,97 @@ namespace Vms_page
                 mainGrid.RowDefinitions.Clear();
                 mainGrid.ColumnDefinitions.Clear();
 
-                // Parse layout (e.g., "2x2", "3x3", etc.)
-                var parts = layout.Split('x');
-                if (parts.Length == 2 && 
-                    int.TryParse(parts[0], out int rows) && 
-                    int.TryParse(parts[1], out int cols))
+                // Check if it's a custom layout with combined cells
+                if (layout.StartsWith("custom_") && layout.Contains("_combined"))
                 {
-                    // Create row definitions
+                    System.Diagnostics.Debug.WriteLine("Applying custom combined layout");
+                    ApplyCustomCombinedLayout(mainGrid, layout);
+                }
+                else if (layout.StartsWith("custom_") && !layout.Contains("_combined"))
+                {
+                    System.Diagnostics.Debug.WriteLine("Applying custom regular layout");
+                    ApplyCustomRegularLayout(mainGrid, layout);
+                }
+                else if (layout == "custom_image_layout")
+                {
+                    System.Diagnostics.Debug.WriteLine("Applying custom image layout");
+                    try
+                    {
+                        ApplyImageLayout(mainGrid);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error applying image layout: {ex.Message}");
+                        // Fallback to 2x2 layout
+                        ApplyFallbackLayout(mainGrid);
+                    }
+                }
+                else
+                {
+                    // Parse regular layout (e.g., "2x2", "3x3", etc.)
+                    var parts = layout.Split('x');
+                    if (parts.Length == 2 && 
+                        int.TryParse(parts[0], out int rows) && 
+                        int.TryParse(parts[1], out int cols))
+                    {
+                        // Create row definitions
+                        for (int i = 0; i < rows; i++)
+                        {
+                            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                        }
+
+                        // Create column definitions
+                        for (int i = 0; i < cols; i++)
+                        {
+                            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                        }
+
+                        // Create video feed borders
+                        for (int row = 0; row < rows; row++)
+                        {
+                            for (int col = 0; col < cols; col++)
+                            {
+                                var border = CreateVideoFeedBorder(row, col, rows, cols);
+                                Grid.SetRow(border, row);
+                                Grid.SetColumn(border, col);
+                                mainGrid.Children.Add(border);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ApplyCustomRegularLayout(Grid mainGrid, string layout)
+        {
+            System.Diagnostics.Debug.WriteLine($"Applying custom regular layout: {layout}");
+            
+            // Parse custom layout: custom_4x4, custom_3x5, custom_6x2, etc. - works for ANY size
+            var parts = layout.Split('_');
+            if (parts.Length >= 2)
+            {
+                // Get grid dimensions - flexible parsing
+                var dimensions = parts[1].Split('x');
+                if (dimensions.Length == 2 && 
+                    int.TryParse(dimensions[0], out int rows) && 
+                    int.TryParse(dimensions[1], out int cols) &&
+                    rows > 0 && cols > 0) // Validate dimensions
+                {
+                    System.Diagnostics.Debug.WriteLine($"Creating {rows}x{cols} regular grid (any size supported)");
+                    
+                    // Create row definitions - works for any number of rows
                     for (int i = 0; i < rows; i++)
                     {
                         mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                     }
 
-                    // Create column definitions
+                    // Create column definitions - works for any number of columns
                     for (int i = 0; i < cols; i++)
                     {
                         mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                     }
 
-                    // Create video feed borders
+                    // Create individual cells - works for any grid size
                     for (int row = 0; row < rows; row++)
                     {
                         for (int col = 0; col < cols; col++)
@@ -202,7 +282,284 @@ namespace Vms_page
                         }
                     }
                 }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Invalid grid dimensions in layout: {layout}");
+                    ApplyFallbackLayout(mainGrid);
+                }
             }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Invalid layout format: {layout}");
+                ApplyFallbackLayout(mainGrid);
+            }
+        }
+
+        private void ApplyCustomCombinedLayout(Grid mainGrid, string layout)
+        {
+            System.Diagnostics.Debug.WriteLine($"Applying custom combined layout: {layout}");
+            
+            // Parse custom layout: custom_4x4_combined_0_0_2_2_2_2_1_1 - works for ANY grid size and ANY combinations
+            var parts = layout.Split('_');
+            if (parts.Length >= 3)
+            {
+                // Get grid dimensions - flexible for any size
+                var dimensions = parts[1].Split('x');
+                if (dimensions.Length == 2 && 
+                    int.TryParse(dimensions[0], out int rows) && 
+                    int.TryParse(dimensions[1], out int cols) &&
+                    rows > 0 && cols > 0) // Validate dimensions
+                {
+                    System.Diagnostics.Debug.WriteLine($"Creating {rows}x{cols} grid with combined cells (any size supported)");
+                    
+                    // Create row definitions - works for any number of rows
+                    for (int i = 0; i < rows; i++)
+                    {
+                        mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create column definitions - works for any number of columns
+                    for (int i = 0; i < cols; i++)
+                    {
+                        mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create a grid to track which cells are occupied
+                    var occupied = new bool[rows, cols];
+
+                    // Parse combined cells - works for any number of combinations
+                    if (parts.Length > 3 && parts[2] == "combined")
+                    {
+                        for (int i = 3; i < parts.Length; i += 4)
+                        {
+                            if (i + 3 < parts.Length &&
+                                int.TryParse(parts[i], out int startRow) &&
+                                int.TryParse(parts[i + 1], out int startCol) &&
+                                int.TryParse(parts[i + 2], out int rowSpan) &&
+                                int.TryParse(parts[i + 3], out int colSpan) &&
+                                startRow >= 0 && startCol >= 0 && 
+                                startRow < rows && startCol < cols &&
+                                rowSpan > 0 && colSpan > 0 &&
+                                startRow + rowSpan <= rows && startCol + colSpan <= cols) // Validate bounds
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Creating combined cell: {startRow},{startCol} span {rowSpan}x{colSpan}");
+                                
+                                // Mark cells as occupied
+                                for (int r = startRow; r < startRow + rowSpan && r < rows; r++)
+                                {
+                                    for (int c = startCol; c < startCol + colSpan && c < cols; c++)
+                                    {
+                                        occupied[r, c] = true;
+                                    }
+                                }
+
+                                // Create combined cell
+                                var border = CreateCombinedVideoFeedBorder(startRow, startCol, rowSpan, colSpan);
+                                Grid.SetRow(border, startRow);
+                                Grid.SetColumn(border, startCol);
+                                Grid.SetRowSpan(border, rowSpan);
+                                Grid.SetColumnSpan(border, colSpan);
+                                mainGrid.Children.Add(border);
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Invalid combined cell parameters at index {i}");
+                            }
+                        }
+                    }
+
+                    // Create individual cells for unoccupied positions
+                    for (int row = 0; row < rows; row++)
+                    {
+                        for (int col = 0; col < cols; col++)
+                        {
+                            if (!occupied[row, col])
+                            {
+                                var border = CreateVideoFeedBorder(row, col, rows, cols);
+                                Grid.SetRow(border, row);
+                                Grid.SetColumn(border, col);
+                                mainGrid.Children.Add(border);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Invalid grid dimensions in combined layout: {layout}");
+                    ApplyFallbackLayout(mainGrid);
+                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Invalid combined layout format: {layout}");
+                ApplyFallbackLayout(mainGrid);
+            }
+        }
+
+        private void ApplyFallbackLayout(Grid mainGrid)
+        {
+            System.Diagnostics.Debug.WriteLine("Applying fallback 2x2 layout");
+            
+            // Create a simple 2x2 grid as fallback
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // Create 4 regular video cells
+            for (int row = 0; row < 2; row++)
+            {
+                for (int col = 0; col < 2; col++)
+                {
+                    var border = CreateVideoFeedBorder(row, col, 2, 2);
+                    Grid.SetRow(border, row);
+                    Grid.SetColumn(border, col);
+                    mainGrid.Children.Add(border);
+                }
+            }
+        }
+
+        private void ApplyImageLayout(Grid mainGrid)
+        {
+            System.Diagnostics.Debug.WriteLine("ApplyImageLayout called - creating 2x2 grid with sub-grids");
+            
+            // Create a 2x2 main grid like in the image
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // Top-left cell with 2x2 sub-grid (4 small cells)
+            var topLeftContainer = new Border
+            {
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(1),
+                Cursor = Cursors.Hand
+            };
+
+            var topLeftGrid = new Grid();
+            for (int i = 0; i < 2; i++)
+            {
+                topLeftGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                topLeftGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+
+            // Create 4 small cells in the top-left
+            for (int row = 0; row < 2; row++)
+            {
+                for (int col = 0; col < 2; col++)
+                {
+                    var smallCell = CreateSmallVideoCell();
+                    Grid.SetRow(smallCell, row);
+                    Grid.SetColumn(smallCell, col);
+                    topLeftGrid.Children.Add(smallCell);
+                }
+            }
+            topLeftContainer.Child = topLeftGrid;
+            Grid.SetRow(topLeftContainer, 0);
+            Grid.SetColumn(topLeftContainer, 0);
+            mainGrid.Children.Add(topLeftContainer);
+
+            // Top-right cell with 1x2 sub-grid (2 small cells)
+            var topRightContainer = new Border
+            {
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(1),
+                Cursor = Cursors.Hand
+            };
+
+            var topRightGrid = new Grid();
+            topRightGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            topRightGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            topRightGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // Create 2 small cells in the top-right
+            for (int row = 0; row < 2; row++)
+            {
+                var smallCell = CreateSmallVideoCell();
+                Grid.SetRow(smallCell, row);
+                Grid.SetColumn(smallCell, 0);
+                topRightGrid.Children.Add(smallCell);
+            }
+            topRightContainer.Child = topRightGrid;
+            Grid.SetRow(topRightContainer, 0);
+            Grid.SetColumn(topRightContainer, 1);
+            mainGrid.Children.Add(topRightContainer);
+
+            // Bottom-left cell (regular)
+            var bottomLeftCell = CreateVideoFeedBorder(1, 0, 2, 2);
+            Grid.SetRow(bottomLeftCell, 1);
+            Grid.SetColumn(bottomLeftCell, 0);
+            mainGrid.Children.Add(bottomLeftCell);
+
+            // Bottom-right cell (regular)
+            var bottomRightCell = CreateVideoFeedBorder(1, 1, 2, 2);
+            Grid.SetRow(bottomRightCell, 1);
+            Grid.SetColumn(bottomRightCell, 1);
+            mainGrid.Children.Add(bottomRightCell);
+        }
+
+        private Border CreateSmallVideoCell()
+        {
+            var border = new Border
+            {
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
+                BorderThickness = new Thickness(0.5),
+                Margin = new Thickness(0.5),
+                Cursor = Cursors.Hand
+            };
+
+            var grid = new Grid();
+            var textBlock = new TextBlock
+            {
+                Text = "📹",
+                FontSize = 12,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            grid.Children.Add(textBlock);
+            border.Child = grid;
+
+            // Add click handler
+            border.MouseLeftButtonDown += VideoFeed_Click;
+
+            return border;
+        }
+
+        private Border CreateCombinedVideoFeedBorder(int row, int col, int rowSpan, int colSpan)
+        {
+            var border = new Border
+            {
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderThickness = new Thickness(2),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)), // Orange border for combined cells
+                CornerRadius = new CornerRadius(0),
+                Margin = new Thickness(1),
+                Cursor = Cursors.Hand
+            };
+
+            var grid = new Grid();
+            var textBlock = new TextBlock
+            {
+                Text = "📹",
+                FontSize = GetOptimalFontSize(rowSpan, colSpan),
+                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            grid.Children.Add(textBlock);
+            border.Child = grid;
+
+            // Add click handler
+            border.MouseLeftButtonDown += VideoFeed_Click;
+
+            return border;
         }
 
         private Grid FindVideoGrid(DependencyObject parent)

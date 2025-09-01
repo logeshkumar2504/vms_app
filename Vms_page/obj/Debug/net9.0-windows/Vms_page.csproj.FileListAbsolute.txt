@@ -37,3 +37,5 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Peopl
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GridLayoutPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GridLayoutPopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.g.cs
