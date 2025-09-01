@@ -181,6 +181,12 @@ namespace Vms_page
                     var userManagementWindow = new UserManagementWindow();
                     userManagementWindow.Show();
                 }
+                // Check if it's People Counting and open the People Counting window
+                else if (item.Name == "People Counting")
+                {
+                    var peopleCountingWindow = new PeopleCountingWindow();
+                    peopleCountingWindow.Show();
+                }
                 else
                 {
                     // Show alert for other cards

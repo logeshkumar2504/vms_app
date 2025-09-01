@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
-7-572931242
+9-858832113
 
-12-547606832
+14-49331048
 200366931479
-AddUserPopup.xaml;AddViewPopup.xaml;CustomGridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;UserManagementWindow.xaml;ViewWindow.xaml;
+AddUserPopup.xaml;AddViewPopup.xaml;CustomGridLayoutPopup.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;PeopleCountingWindow.xaml;UserManagementWindow.xaml;ViewWindow.xaml;
 
 False
 

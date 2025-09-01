@@ -1,0 +1,708 @@
+<Window x:Class="Vms_page.PeopleCountingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="People Counting" Height="700" Width="1200"
+        Background="{DynamicResource BackgroundColor}" 
+        WindowStyle="SingleBorderWindow" 
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Button Styles for Report Statistics -->
+        <Style x:Key="ReportButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4A9EFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6BB6FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4A9EFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#6BB6FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExportButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3A3A3A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom ScrollBar Style -->
+        <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Height" Value="8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Background="{DynamicResource TextSecondaryColor}" 
+                                           BorderThickness="0">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderThickness="0"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom Scroll Style -->
+        <Style x:Key="ThinScrollStyle" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ScrollContentPresenter Grid.Column="0" Grid.Row="0" 
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                  CanHorizontallyScroll="False"
+                                                  CanVerticallyScroll="False"/>
+
+                            <ScrollBar x:Name="PART_VerticalScrollBar" 
+                                       Grid.Column="1" Grid.Row="0"
+                                       Value="{TemplateBinding VerticalOffset}"
+                                       Maximum="{TemplateBinding ScrollableHeight}"
+                                       ViewportSize="{TemplateBinding ViewportHeight}"
+                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                       Style="{StaticResource ThinScrollBarStyle}"/>
+
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" 
+                                       Grid.Column="0" Grid.Row="1"
+                                       Value="{TemplateBinding HorizontalOffset}"
+                                       Maximum="{TemplateBinding ScrollableWidth}"
+                                       ViewportSize="{TemplateBinding ViewportWidth}"
+                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                       Style="{StaticResource ThinScrollBarStyle}"
+                                       Orientation="Horizontal"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Sidebar -->
+        <Border Grid.Column="0" 
+                Background="{DynamicResource SidebarColor}" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                BorderThickness="0,0,1,0">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Top Tabs -->
+                <Border Grid.Row="0" 
+                        Background="{DynamicResource SidebarColor}" 
+                        Padding="12,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Realtime Statistics Tab -->
+                        <Border Grid.Column="0" 
+                                Background="{DynamicResource MenuHoverColor}" 
+                                CornerRadius="0" 
+                                Margin="0,0,2,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="RealtimeTab_Click">
+                            <TextBlock Text="Realtime Statistics" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="10" 
+                                       FontWeight="Medium"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Padding="4,3"/>
+                        </Border>
+
+                        <!-- Report Statistics Tab -->
+                        <Border Grid.Column="1" 
+                                Background="Transparent" 
+                                CornerRadius="0" 
+                                Margin="2,0,0,0"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="ReportTab_Click">
+                            <TextBlock Text="Report Statistics" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
+                                       FontSize="10" 
+                                       FontWeight="Medium"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Padding="4,3"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Section Title -->
+                <TextBlock Grid.Row="1" 
+                           Text="People Counting" 
+                           Foreground="{DynamicResource TextPrimaryColor}" 
+                           FontSize="14" 
+                           FontWeight="Bold"
+                           Margin="8,8,8,4"/>
+
+                <!-- Search Bar -->
+                <Border Grid.Row="2" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        CornerRadius="0" 
+                        Margin="8,2,8,4"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" 
+                                   Text="🔍" 
+                                   FontSize="10" 
+                                   Foreground="{DynamicResource TextSecondaryColor}"
+                                   VerticalAlignment="Center" 
+                                   Margin="6,0,4,0"/>
+                        
+                        <TextBox Grid.Column="1" 
+                                 Text="Enter Keywords" 
+                                 Foreground="{DynamicResource TextSecondaryColor}" 
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 FontSize="10"
+                                 VerticalAlignment="Center"
+                                 Margin="0,4,6,4"
+                                 x:Name="SearchTextBox"
+                                 GotFocus="SearchTextBox_GotFocus"
+                                 LostFocus="SearchTextBox_LostFocus"/>
+                    </Grid>
+                </Border>
+
+                <!-- Category List -->
+                <ScrollViewer Grid.Row="3" 
+                              Style="{StaticResource ThinScrollStyle}"
+                              Margin="8,0,8,4">
+                    <StackPanel>
+                        <!-- People Flow Counting -->
+                        <Border Background="Transparent" 
+                                CornerRadius="0" 
+                                Margin="0,0,0,2"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="PeopleFlow_Click">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" 
+                                           Text="📁" 
+                                           FontSize="12" 
+                                           Foreground="#FFD700"
+                                           VerticalAlignment="Center" 
+                                           Margin="6,0,6,0"/>
+                                
+                                <TextBlock Grid.Column="1" 
+                                           Text="People Flow Counting" 
+                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                           FontSize="10" 
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center"
+                                           Margin="0,6"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- People Density Monitoring -->
+                        <Border Background="{DynamicResource MenuHoverColor}" 
+                                CornerRadius="0" 
+                                Margin="0,0,0,2"
+                                Cursor="Hand"
+                                MouseLeftButtonDown="PeopleDensity_Click">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" 
+                                           Text="📁" 
+                                           FontSize="12" 
+                                           Foreground="#FFD700"
+                                           VerticalAlignment="Center" 
+                                           Margin="6,0,6,0"/>
+                                
+                                <TextBlock Grid.Column="1" 
+                                           Text="People Density Monitoring" 
+                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                           FontSize="10" 
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center"
+                                           Margin="0,6"/>
+                                
+                                <TextBlock Grid.Column="2" 
+                                           Text="+" 
+                                           FontSize="10" 
+                                           Foreground="{DynamicResource TextSecondaryColor}"
+                                           VerticalAlignment="Center" 
+                                           Margin="0,0,6,0"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Right Panel - Main Content Area -->
+        <Border Grid.Column="1" 
+                Background="{DynamicResource CardBackgroundColor}">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Content Area with Tab Views -->
+                <Grid Grid.Row="0" Margin="0" x:Name="MainContentArea">
+                    
+                    <!-- Realtime Statistics View (Video Grid) -->
+                    <Grid x:Name="RealtimeView" Visibility="Visible">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- 2x2 Grid for Video Feeds -->
+                        <Grid Grid.Row="0" Margin="0" x:Name="MainVideoGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Top Left Video Feed -->
+                            <Border Grid.Row="0" Grid.Column="0" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="0"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <TextBlock Text="📹" 
+                                               FontSize="40" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Top Right Video Feed -->
+                            <Border Grid.Row="0" Grid.Column="1" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="0"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <TextBlock Text="📹" 
+                                               FontSize="40" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Bottom Left Video Feed -->
+                            <Border Grid.Row="1" Grid.Column="0" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="0"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click"
+                                    x:Name="BottomLeftFeed">
+                                <Grid>
+                                    <TextBlock Text="📹" 
+                                               FontSize="40" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Bottom Right Video Feed (Selected) -->
+                            <Border Grid.Row="1" Grid.Column="1" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="0"
+                                    BorderThickness="1"
+                                    BorderBrush="#FF9500"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click"
+                                    x:Name="BottomRightFeed">
+                                <Grid>
+                                    <TextBlock Text="📹" 
+                                               FontSize="40" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <!-- Bottom Controls for Realtime View -->
+                        <Border Grid.Row="1" 
+                                Background="Transparent" 
+                                Padding="8,4,8,8">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Right">
+                                
+                                <!-- Grid Layout Button -->
+                                <Button Content="⊞" 
+                                        FontSize="14" 
+                                        Foreground="{DynamicResource TextSecondaryColor}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Width="28" Height="28"
+                                        Margin="0,0,6,0"
+                                        Cursor="Hand"
+                                        Click="GridLayout_Click"
+                                        ToolTip="Change grid layout"/>
+                                
+                                <!-- Close Button -->
+                                <Button Content="✕" 
+                                        FontSize="14" 
+                                        Foreground="{DynamicResource TextSecondaryColor}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Width="28" Height="28"
+                                        Cursor="Hand"
+                                        Click="CloseButton_Click"
+                                        ToolTip="Close"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Report Statistics View -->
+                    <Grid x:Name="ReportView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Top Control Bar -->
+                        <Border Grid.Row="0" 
+                                Background="#2A2A2A" 
+                                BorderBrush="#404040"
+                                BorderThickness="0,0,0,1"
+                                Padding="16,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Counting Type Dropdown -->
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="Counting Type" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,8,0"/>
+                                    <Border Background="#1A1A1A" 
+                                            BorderBrush="#404040" 
+                                            BorderThickness="1" 
+                                            CornerRadius="0" 
+                                            Padding="8,4" 
+                                            Width="100" 
+                                            Height="28">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="By Day" 
+                                                       Foreground="White" 
+                                                       FontSize="12" 
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text=" ▼" 
+                                                       Foreground="#888888" 
+                                                       FontSize="10" 
+                                                       Margin="4,0,0,0" 
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+
+                                <!-- Date Range -->
+                                <StackPanel Grid.Column="1" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center"
+                                            Margin="24,0,0,0">
+                                    <TextBlock Text="2025-08-25" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text=" ~ " 
+                                               Foreground="#888888" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Margin="4,0"/>
+                                    <TextBlock Text="2025-08-31" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text=" 📅" 
+                                               FontSize="12" 
+                                               Foreground="#888888"
+                                               VerticalAlignment="Center"
+                                               Margin="4,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Quick Date Buttons -->
+                                <StackPanel Grid.Column="2" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center"
+                                            Margin="24,0,0,0">
+                                    <Button Content="Today" 
+                                            Style="{StaticResource LinkButtonStyle}"
+                                            Click="Today_Click"/>
+                                    <Button Content="Last 7 days" 
+                                            Style="{StaticResource LinkButtonStyle}"
+                                            Click="Last7Days_Click"/>
+                                    <Button Content="Last 30 days" 
+                                            Style="{StaticResource LinkButtonStyle}"
+                                            Click="Last30Days_Click"/>
+                                </StackPanel>
+
+                                <!-- Count Button -->
+                                <Button Grid.Column="4" 
+                                        Content="Count" 
+                                        Style="{StaticResource ReportButtonStyle}"
+                                        Click="Count_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Main Content Area -->
+                        <Border Grid.Row="1" 
+                                Background="#1A1A1A"
+                                Margin="0">
+                            <Grid>
+                                <!-- Empty content area for charts/statistics -->
+                                <TextBlock Text="" 
+                                           Foreground="#666666" 
+                                           FontSize="14" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Bottom Table Section -->
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Export and Details Controls -->
+                            <Border Grid.Row="0" 
+                                    Background="#2A2A2A" 
+                                    BorderBrush="#404040"
+                                    BorderThickness="0,1,0,0"
+                                    Padding="16,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="📤 Export" 
+                                            Style="{StaticResource ExportButtonStyle}"
+                                            Click="Export_Click"/>
+                                    <CheckBox Content="Details" 
+                                              Foreground="White"
+                                              FontSize="12"
+                                              Margin="16,0,0,0"
+                                              VerticalAlignment="Center"
+                                              IsChecked="False"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Table Header -->
+                            <Border Grid.Row="1" 
+                                    Background="#2A2A2A" 
+                                    BorderBrush="#404040"
+                                    BorderThickness="0,1,0,0"
+                                    Padding="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" 
+                                               Text="Statistics Time" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Padding="8,12"/>
+                                    
+                                    <TextBlock Grid.Column="1" 
+                                               Text="People Entered" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Padding="8,12"/>
+                                    
+                                    <TextBlock Grid.Column="2" 
+                                               Text="People Left" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Padding="8,12"/>
+                                    
+                                    <TextBlock Grid.Column="3" 
+                                               Text="People Present" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Padding="8,12"/>
+                                    
+                                    <TextBlock Grid.Column="4" 
+                                               Text="Result" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="Medium"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Padding="8,12"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
