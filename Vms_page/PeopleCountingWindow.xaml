@@ -272,7 +272,7 @@
                                        FontSize="10" 
                                        FontWeight="Medium"
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"
+                                       VerticalAlignment="Bottom"
                                        Padding="4,3"/>
                         </Border>
                     </Grid>
@@ -684,7 +684,7 @@
                                 Background="#2A2A2A" 
                                 BorderBrush="#404040"
                                 BorderThickness="0,0,0,1"
-                                Padding="16,12">
+                                Padding="8,6">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -698,26 +698,26 @@
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                     <TextBlock Text="Counting Type" 
                                                Foreground="White" 
-                                               FontSize="12" 
+                                               FontSize="10" 
                                                FontWeight="Medium"
                                                VerticalAlignment="Center"
-                                               Margin="0,0,8,0"/>
+                                               Margin="0,0,6,0"/>
                                     <Border Background="#1A1A1A" 
                                             BorderBrush="#404040" 
                                             BorderThickness="1" 
                                             CornerRadius="0" 
-                                            Padding="8,4" 
-                                            Width="100" 
-                                            Height="28">
+                                            Padding="6,2" 
+                                            Width="90" 
+                                            Height="24">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="By Day" 
                                                        Foreground="White" 
-                                                       FontSize="12" 
+                                                       FontSize="10" 
                                                        VerticalAlignment="Center"/>
                                             <TextBlock Text=" ▼" 
                                                        Foreground="#888888" 
-                                                       FontSize="10" 
-                                                       Margin="4,0,0,0" 
+                                                       FontSize="9" 
+                                                       Margin="3,0,0,0" 
                                                        VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Border>
@@ -727,153 +727,149 @@
                                 <StackPanel Grid.Column="1" 
                                             Orientation="Horizontal" 
                                             VerticalAlignment="Center"
-                                            Margin="24,0,0,0">
+                                            Margin="16,0,0,0">
                                     <TextBlock Text="2025-08-25" 
                                                Foreground="White" 
-                                               FontSize="12" 
+                                               FontSize="10" 
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" ~ " 
                                                Foreground="#888888" 
-                                               FontSize="12" 
+                                               FontSize="10" 
                                                VerticalAlignment="Center"
-                                               Margin="4,0"/>
+                                               Margin="3,0"/>
                                     <TextBlock Text="2025-08-31" 
                                                Foreground="White" 
-                                               FontSize="12" 
+                                               FontSize="10" 
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" 📅" 
-                                               FontSize="12" 
+                                               FontSize="10" 
                                                Foreground="#888888"
                                                VerticalAlignment="Center"
-                                               Margin="4,0,0,0"/>
+                                               Margin="3,0,0,0"/>
                                 </StackPanel>
 
                                 <!-- Quick Date Buttons -->
                                 <StackPanel Grid.Column="2" 
                                             Orientation="Horizontal" 
                                             VerticalAlignment="Center"
-                                            Margin="24,0,0,0">
+                                            Margin="16,0,0,0">
                                     <Button Content="Today" 
                                             Style="{StaticResource LinkButtonStyle}"
-                                            Click="Today_Click"/>
+                                            Click="Today_Click"
+                                            FontSize="10"
+                                            Padding="6,2"/>
                                     <Button Content="Last 7 days" 
                                             Style="{StaticResource LinkButtonStyle}"
-                                            Click="Last7Days_Click"/>
+                                            Click="Last7Days_Click"
+                                            FontSize="10"
+                                            Padding="6,2"/>
                                     <Button Content="Last 30 days" 
                                             Style="{StaticResource LinkButtonStyle}"
-                                            Click="Last30Days_Click"/>
+                                            Click="Last30Days_Click"
+                                            FontSize="10"
+                                            Padding="6,2"/>
                                 </StackPanel>
 
                                 <!-- Count Button -->
                                 <Button Grid.Column="4" 
                                         Content="Count" 
                                         Style="{StaticResource ReportButtonStyle}"
-                                        Click="Count_Click"/>
+                                        Click="Count_Click"
+                                        FontSize="11"
+                                        Padding="12,6"/>
                             </Grid>
                         </Border>
 
-                        <!-- Main Content Area -->
+                        <!-- Main Content Area - Centered Table -->
                         <Border Grid.Row="1" 
                                 Background="#1A1A1A"
                                 Margin="0">
                             <Grid>
-                                <!-- Empty content area for charts/statistics -->
-                                <TextBlock Text="" 
-                                           Foreground="#666666" 
-                                           FontSize="14" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center"/>
+                                <StackPanel HorizontalAlignment="Stretch" 
+                                            VerticalAlignment="Center" 
+                                            Margin="0">
+                                    <!-- Export and Details Controls -->
+                                    <Border Background="#2A2A2A" 
+                                            BorderBrush="#404040"
+                                            BorderThickness="0,1,0,0"
+                                            Padding="12,6"
+                                            Margin="0,0,0,6">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="📤 Export" 
+                                                    Style="{StaticResource ExportButtonStyle}"
+                                                    Click="Export_Click"/>
+                                            <CheckBox Content="Details" 
+                                                      Foreground="White"
+                                                      FontSize="11"
+                                                      Margin="12,0,0,0"
+                                                      VerticalAlignment="Center"
+                                                      IsChecked="False"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Table Header -->
+                                    <Border Background="#2A2A2A" 
+                                            BorderBrush="#404040"
+                                            BorderThickness="1"
+                                            Padding="0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" 
+                                                       Text="Statistics Time" 
+                                                       Foreground="White" 
+                                                       FontSize="11" 
+                                                       FontWeight="Medium"
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Padding="6,10"/>
+                                            
+                                            <TextBlock Grid.Column="1" 
+                                                       Text="People Entered" 
+                                                       Foreground="White" 
+                                                       FontSize="11" 
+                                                       FontWeight="Medium"
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Padding="6,10"/>
+                                            
+                                            <TextBlock Grid.Column="2" 
+                                                       Text="People Left" 
+                                                       Foreground="White" 
+                                                       FontSize="11" 
+                                                       FontWeight="Medium"
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Padding="6,10"/>
+                                            
+                                            <TextBlock Grid.Column="3" 
+                                                       Text="People Present" 
+                                                       Foreground="White" 
+                                                       FontSize="11" 
+                                                       FontWeight="Medium"
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Padding="6,10"/>
+                                            
+                                            <TextBlock Grid.Column="4" 
+                                                       Text="Result" 
+                                                       Foreground="White" 
+                                                       FontSize="11" 
+                                                       FontWeight="Medium"
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Padding="6,10"/>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
                             </Grid>
                         </Border>
-
-                        <!-- Bottom Table Section -->
-                        <Grid Grid.Row="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Export and Details Controls -->
-                            <Border Grid.Row="0" 
-                                    Background="#2A2A2A" 
-                                    BorderBrush="#404040"
-                                    BorderThickness="0,1,0,0"
-                                    Padding="16,8">
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Content="📤 Export" 
-                                            Style="{StaticResource ExportButtonStyle}"
-                                            Click="Export_Click"/>
-                                    <CheckBox Content="Details" 
-                                              Foreground="White"
-                                              FontSize="12"
-                                              Margin="16,0,0,0"
-                                              VerticalAlignment="Center"
-                                              IsChecked="False"/>
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Table Header -->
-                            <Border Grid.Row="1" 
-                                    Background="#2A2A2A" 
-                                    BorderBrush="#404040"
-                                    BorderThickness="0,1,0,0"
-                                    Padding="0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Grid.Column="0" 
-                                               Text="Statistics Time" 
-                                               Foreground="White" 
-                                               FontSize="12" 
-                                               FontWeight="Medium"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Padding="8,12"/>
-                                    
-                                    <TextBlock Grid.Column="1" 
-                                               Text="People Entered" 
-                                               Foreground="White" 
-                                               FontSize="12" 
-                                               FontWeight="Medium"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Padding="8,12"/>
-                                    
-                                    <TextBlock Grid.Column="2" 
-                                               Text="People Left" 
-                                               Foreground="White" 
-                                               FontSize="12" 
-                                               FontWeight="Medium"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Padding="8,12"/>
-                                    
-                                    <TextBlock Grid.Column="3" 
-                                               Text="People Present" 
-                                               Foreground="White" 
-                                               FontSize="12" 
-                                               FontWeight="Medium"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Padding="8,12"/>
-                                    
-                                    <TextBlock Grid.Column="4" 
-                                               Text="Result" 
-                                               Foreground="White" 
-                                               FontSize="12" 
-                                               FontWeight="Medium"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Padding="8,12"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

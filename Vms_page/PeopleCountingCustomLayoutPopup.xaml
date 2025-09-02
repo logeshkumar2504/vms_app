@@ -242,75 +242,9 @@
                     Padding="12">
                 <StackPanel>
                     <!-- Preview Icon -->
-                    <Border Width="60" Height="60" 
-                            Background="#1A1A1A" 
-                            BorderBrush="#FF9500"
-                            BorderThickness="1"
-                            Margin="0,0,0,8">
-                        <Grid x:Name="PreviewIcon">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <!-- Default 2x2 preview -->
-                            <Border Grid.Row="0" Grid.Column="0" 
-                                    Background="#1A1A1A" 
-                                    BorderBrush="#FF9500"
-                                    BorderThickness="0.5"
-                                    Margin="0.5">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                    <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                    <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                    <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                </Grid>
-                            </Border>
-                            <Border Grid.Row="0" Grid.Column="1" 
-                                    Background="#1A1A1A" 
-                                    BorderBrush="#FF9500"
-                                    BorderThickness="0.5"
-                                    Margin="0.5">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Border Grid.Row="0" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                    <Border Grid.Row="1" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="0.3" Margin="0.3"/>
-                                </Grid>
-                            </Border>
-                            <Border Grid.Row="1" Grid.Column="0" 
-                                    Background="#1A1A1A" 
-                                    BorderBrush="#FF9500"
-                                    BorderThickness="0.5"
-                                    Margin="0.5"/>
-                            <Border Grid.Row="1" Grid.Column="1" 
-                                    Background="#1A1A1A" 
-                                    BorderBrush="#FF9500"
-                                    BorderThickness="0.5"
-                                    Margin="0.5"/>
-                        </Grid>
-                    </Border>
-                    
+                    <Grid x:Name="PreviewIcon" Width="80" Height="60" Margin="0,0,0,8"/>
+
                     <!-- Layout Number -->
-                    <TextBlock Text="10" 
-                               Foreground="White" 
-                               FontSize="16" 
-                               FontWeight="Bold"
-                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
 
