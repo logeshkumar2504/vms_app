@@ -187,6 +187,11 @@ namespace Vms_page
                     var peopleCountingWindow = new PeopleCountingWindow();
                     peopleCountingWindow.Show();
                 }
+                else if (item.Name == "Sequence Resource")
+                {
+                    var seqWindow = new SequenceResourceWindow();
+                    seqWindow.Show();
+                }
                 else
                 {
                     // Show alert for other cards
