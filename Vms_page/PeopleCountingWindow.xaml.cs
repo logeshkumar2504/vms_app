@@ -143,19 +143,42 @@ namespace Vms_page
 
         private void GridLayout_Click(object sender, RoutedEventArgs e)
         {
-            // Open the grid layout selection popup
-            var layoutPopup = new GridLayoutPopup();
-            layoutPopup.Owner = this;
-            
-            if (layoutPopup.ShowDialog() == true)
+            // Toggle the dropdown popup
+            GridLayoutDropdownPopup.IsOpen = !GridLayoutDropdownPopup.IsOpen;
+        }
+
+        private void SelectLayout_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string layout)
             {
                 // Apply the selected layout
-                currentLayout = layoutPopup.SelectedLayout;
-                System.Diagnostics.Debug.WriteLine($"Layout popup returned: {currentLayout}");
+                currentLayout = layout;
+                System.Diagnostics.Debug.WriteLine($"Layout selected: {currentLayout}");
                 
-                // Show a message to confirm the layout is being applied
-                MessageBox.Show($"Applying layout: {currentLayout}", "Layout Applied", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Close the dropdown
+                GridLayoutDropdownPopup.IsOpen = false;
                 
+                // Apply the layout
+                ApplyGridLayout(currentLayout);
+            }
+        }
+
+        private void CustomLayout_Click(object sender, RoutedEventArgs e)
+        {
+            // Close the dropdown first
+            GridLayoutDropdownPopup.IsOpen = false;
+            
+            // Open the custom layout designer popup directly
+            var customLayoutPopup = new PeopleCountingCustomLayoutPopup();
+            customLayoutPopup.Owner = this;
+            
+            if (customLayoutPopup.ShowDialog() == true)
+            {
+                // Apply the custom layout
+                currentLayout = customLayoutPopup.CustomLayout;
+                System.Diagnostics.Debug.WriteLine($"Custom layout popup returned: {currentLayout}");
+                
+                // Apply the layout
                 ApplyGridLayout(currentLayout);
             }
         }

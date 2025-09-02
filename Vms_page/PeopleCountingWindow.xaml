@@ -175,6 +175,43 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Grid Layout Button Style -->
+        <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#404040"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF9500"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -471,17 +508,154 @@
                             <StackPanel Orientation="Horizontal" 
                                         HorizontalAlignment="Right">
                                 
-                                <!-- Grid Layout Button -->
-                                <Button Content="⊞" 
-                                        FontSize="14" 
-                                        Foreground="{DynamicResource TextSecondaryColor}"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Width="28" Height="28"
-                                        Margin="0,0,6,0"
-                                        Cursor="Hand"
-                                        Click="GridLayout_Click"
-                                        ToolTip="Change grid layout"/>
+                                <!-- Grid Layout Button with Dropdown -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="GridLayoutButton" 
+                                            Content="⊞" 
+                                            FontSize="14" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="28" Height="28"
+                                            Margin="0,0,6,0"
+                                            Cursor="Hand"
+                                            Click="GridLayout_Click"
+                                            ToolTip="Change grid layout"/>
+                                    
+                                    <!-- Grid Layout Dropdown Popup -->
+                                    <Popup x:Name="GridLayoutDropdownPopup" 
+                                           PlacementTarget="{Binding ElementName=GridLayoutButton}" 
+                                           Placement="Top" 
+                                           IsOpen="False" 
+                                           AllowsTransparency="True"
+                                           StaysOpen="False">
+                                        <Border Background="#2A2A2A" 
+                                                CornerRadius="8" 
+                                                BorderBrush="#40FFFFFF" 
+                                                BorderThickness="1" 
+                                                Padding="16" 
+                                                Margin="0,0,0,8" 
+                                                MaxWidth="600" 
+                                                MaxHeight="400">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                                                          HorizontalScrollBarVisibility="Auto">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    
+                                                    <!-- Custom Section -->
+                                                    <StackPanel Grid.Row="0" Margin="0,0,0,12">
+                                                        <TextBlock Text="Custom" 
+                                                                   Foreground="White" 
+                                                                   FontSize="12" 
+                                                                   FontWeight="Bold" 
+                                                                   Margin="0,0,0,8"/>
+                                                        <Button Content="✏️ Edit" 
+                                                                Background="Transparent" 
+                                                                Foreground="White" 
+                                                                BorderThickness="0" 
+                                                                FontSize="11" 
+                                                                Padding="8,4" 
+                                                                HorizontalAlignment="Left"
+                                                                Cursor="Hand"
+                                                                Click="CustomLayout_Click"/>
+                                                    </StackPanel>
+                                                    
+                                                    <!-- Default Section -->
+                                                    <StackPanel Grid.Row="1" Margin="0,0,0,12">
+                                                        <TextBlock Text="Default" 
+                                                                   Foreground="White" 
+                                                                   FontSize="12" 
+                                                                   FontWeight="Bold" 
+                                                                   Margin="0,0,0,8"/>
+                                                        
+                                                        <!-- Grid Layout Options -->
+                                                        <UniformGrid Columns="9" Rows="2">
+                                                            <!-- Row 1 -->
+                                                            <Button Content="1" 
+                                                                    Tag="1x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="3" 
+                                                                    Tag="3x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="4" 
+                                                                    Tag="2x2" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="4" 
+                                                                    Tag="4x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="5" 
+                                                                    Tag="5x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="6" 
+                                                                    Tag="2x3" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="7" 
+                                                                    Tag="7x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="8" 
+                                                                    Tag="2x4" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="9" 
+                                                                    Tag="3x3" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            
+                                                            <!-- Row 2 -->
+                                                            <Button Content="10" 
+                                                                    Tag="2x5" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="10" 
+                                                                    Tag="10x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="13" 
+                                                                    Tag="13x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="16" 
+                                                                    Tag="4x4" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="17" 
+                                                                    Tag="17x1" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="25" 
+                                                                    Tag="5x5" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="32" 
+                                                                    Tag="4x8" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="36" 
+                                                                    Tag="6x6" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                            <Button Content="64" 
+                                                                    Tag="8x8" 
+                                                                    Style="{StaticResource GridLayoutButtonStyle}" 
+                                                                    Click="SelectLayout_Click"/>
+                                                        </UniformGrid>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </Popup>
+                                </StackPanel>
                                 
                                 <!-- Close Button -->
                                 <Button Content="✕" 
