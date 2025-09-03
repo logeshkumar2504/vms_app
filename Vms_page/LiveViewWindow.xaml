@@ -128,12 +128,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left Sidebar -->
         <Border Grid.Column="0" 
+                x:Name="Sidebar"
                 Background="{DynamicResource SidebarColor}" 
                 BorderBrush="{DynamicResource BorderColor}" 
                 BorderThickness="0,0,1,0">
@@ -253,7 +254,7 @@
                                     MouseEnter="VideoIcon_MouseEnter"
                                     MouseLeave="VideoIcon_MouseLeave"
                                     ToolTip="Video"
-                                    Width="180"
+                                    Width="130"
                                     Height="32"
                                     x:Name="VideoIconBorder">
                                 <Grid>
@@ -287,7 +288,7 @@
                                     MouseEnter="ViewIcon_MouseEnter"
                                     MouseLeave="ViewIcon_MouseLeave"
                                     ToolTip="View"
-                                    Width="180"
+                                    Width="130"
                                     Height="32"
                                     x:Name="ViewIconBorder">
                                 <Grid>
@@ -320,7 +321,7 @@
                                     MouseEnter="SequenceResourcesIcon_MouseEnter"
                                     MouseLeave="SequenceResourcesIcon_MouseLeave"
                                     ToolTip="Sequence Resources"
-                                    Width="180"
+                                    Width="130"
                                     Height="32"
                                     x:Name="SequenceResourcesIconBorder">
                                 <Grid>
@@ -357,11 +358,11 @@
                 Background="{DynamicResource CardBackgroundColor}">
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
 
 
@@ -503,9 +504,9 @@
                                                   VerticalAlignment="Center"
                                                   Margin="8,8,0,0"/>
                                         </Grid>
-                                    </Border>
+                        </Border>
                                 </Grid>
-                            </Border>
+        </Border>
 
                             <!-- Bottom Right Video Feed (Selected) -->
                             <Border Grid.Row="1" Grid.Column="1" 
@@ -545,30 +546,113 @@
                                                   Margin="8,8,0,0"/>
                                         </Grid>
                                     </Border>
-                                </Grid>
-                            </Border>
-                        </Grid>
+                </Grid>
+            </Border>
+        </Grid>
 
                         <!-- Bottom Controls for Video View -->
                         <Border Grid.Row="1" 
                                 Background="Transparent" 
-                                Padding="8,4,8,8">
-                            <StackPanel Orientation="Horizontal" 
-                                        HorizontalAlignment="Right">
+                                Padding="8,2,8,4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <!-- Grid Layout Button with Dropdown -->
-                                <StackPanel Orientation="Horizontal">
+                                <!-- Left Side - Action Icons -->
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <!-- Grid Layout Button (moved to first position) -->
                                     <Button x:Name="GridLayoutButton" 
-                                            Content="⊞" 
-                                            FontSize="14" 
+                                            Content="⚏" 
+                                            FontSize="12" 
                                             Foreground="{DynamicResource TextSecondaryColor}"
                                             Background="Transparent"
                                             BorderThickness="0"
-                                            Width="28" Height="28"
-                                            Margin="0,0,6,0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
                                             Cursor="Hand"
                                             Click="GridLayout_Click"
                                             ToolTip="Change grid layout"/>
+
+                                    <!-- Save View Icon -->
+                                    <Button x:Name="SaveViewButton" 
+                                            Content="💾" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="SaveViewButton_Click"
+                                            ToolTip="Save View"/>
+
+                                    <!-- Close All Windows Icon -->
+                                    <Button x:Name="CloseAllWindowsButton" 
+                                            Content="🗙" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="CloseAllWindowsButton_Click"
+                                            ToolTip="Close All Windows"/>
+
+                                    <!-- Snapshot All Icon -->
+                                    <Button x:Name="SnapshotAllButton" 
+                                            Content="📸" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="SnapshotAllButton_Click"
+                                            ToolTip="Snapshot All"/>
+
+                                    <!-- Start Recording All Icon -->
+                                    <Button x:Name="StartRecordingAllButton" 
+                                            Content="🔴" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="StartRecordingAllButton_Click"
+                                            ToolTip="Start Recording All"/>
+
+                                    <!-- Stop Recording All Icon -->
+                                    <Button x:Name="StopRecordingAllButton" 
+                                            Content="⏹" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="StopRecordingAllButton_Click"
+                                            ToolTip="Stop Recording All"/>
+
+                                    <!-- Broadcast List Icon -->
+                                    <Button x:Name="BroadcastListButton" 
+                                            Content="📡" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,6,0"
+                                            Cursor="Hand"
+                                            Click="BroadcastListButton_Click"
+                                            ToolTip="Broadcast List"/>
 
                                     <!-- Grid Layout Dropdown Popup -->
                                     <Popup x:Name="GridLayoutDropdownPopup" 
@@ -587,12 +671,12 @@
                                                 MaxHeight="400">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto" 
                                                           HorizontalScrollBarVisibility="Auto">
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="Auto"/>
-                                                    </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
                                                     <!-- Custom Section -->
                                                     <StackPanel Grid.Row="0" Margin="0,0,0,12">
@@ -610,7 +694,7 @@
                                                                 HorizontalAlignment="Left"
                                                                 Cursor="Hand"
                                                                 Click="CustomLayout_Click"/>
-                                                    </StackPanel>
+                                        </StackPanel>
 
                                                     <!-- Default Section -->
                                                     <StackPanel Grid.Row="1" Margin="0,0,0,12">
@@ -698,24 +782,81 @@
                                                                     Style="{StaticResource GridLayoutButtonStyle}" 
                                                                     Click="SelectLayout_Click"/>
                                                         </UniformGrid>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </ScrollViewer>
-                                        </Border>
-                                    </Popup>
-                                </StackPanel>
+                                            </StackPanel>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+                </StackPanel>
 
-                                <!-- Close Button -->
-                                <Button Content="✕" 
-                                        FontSize="14" 
-                                        Foreground="{DynamicResource TextSecondaryColor}"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Width="28" Height="28"
-                                        Cursor="Hand"
-                                        Click="CloseButton_Click"
-                                        ToolTip="Close"/>
-                            </StackPanel>
+                                <!-- Center - Media Control Icons -->
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Previous Button -->
+                                    <Button x:Name="PreviousButton" 
+                                            Content="⏮" 
+                                            FontSize="14" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="28" Height="28"
+                                            Margin="4,0"
+                                            Cursor="Hand"
+                                            Click="PreviousButton_Click"
+                                            ToolTip="Previous"/>
+
+                                    <!-- Play/Pause Button -->
+                                    <Button x:Name="PlayPauseButton" 
+                                            Content="▶" 
+                                            FontSize="16" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="32" Height="32"
+                                            Margin="4,0"
+                                            Cursor="Hand"
+                                            Click="PlayPauseButton_Click"
+                                            ToolTip="Play/Pause"/>
+
+                                    <!-- Next Button -->
+                                    <Button x:Name="NextButton" 
+                                            Content="⏭" 
+                                            FontSize="14" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="28" Height="28"
+                                            Margin="4,0"
+                                            Cursor="Hand"
+                                            Click="NextButton_Click"
+                                            ToolTip="Next"/>
+                                </StackPanel>
+                
+                                <!-- Right Side - Full Screen and Close Button -->
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <!-- Full Screen Button -->
+                                    <Button x:Name="FullScreenButton" 
+                                            Content="⛶" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Margin="0,0,4,0"
+                                            Cursor="Hand"
+                                            Click="FullScreenButton_Click"
+                                            ToolTip="Full Screen"/>
+
+                                    <Button Content="✕" 
+                                            FontSize="12" 
+                                            Foreground="{DynamicResource TextSecondaryColor}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Width="24" Height="24"
+                                            Cursor="Hand"
+                                            Click="CloseButton_Click"
+                                            ToolTip="Close"/>
+                                </StackPanel>
+                            </Grid>
                         </Border>
                     </Grid>
                 </Grid>

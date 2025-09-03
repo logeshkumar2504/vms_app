@@ -11,6 +11,10 @@ namespace Vms_page
         private bool isVideoTabActive = true;
         private bool isSearchFocused = false;
         private string currentLayout = "2x2";
+        private bool isFullScreen = false;
+        private WindowState previousWindowState;
+        private WindowStyle previousWindowStyle;
+        private bool previousTopmost;
 
         public LiveViewWindow()
         {
@@ -18,6 +22,10 @@ namespace Vms_page
             
             // Apply the current theme
             ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
+            
+            // Add key down event handler for escape key
+            this.KeyDown += LiveViewWindow_KeyDown;
+            this.Focusable = true;
         }
 
         private void VideoTab_Click(object sender, MouseButtonEventArgs e)
@@ -613,8 +621,12 @@ namespace Vms_page
 
         private void AddIcon_Click(object sender, MouseButtonEventArgs e)
         {
-            // Handle add icon click
-            MessageBox.Show("Add icon clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Open Sequence Resource Info popup as modal dialog
+            var infoPopup = new AddSequenceResourcePopup();
+            infoPopup.Owner = this;
+            infoPopup.ShowInTaskbar = false;
+            infoPopup.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            infoPopup.ShowDialog();
         }
 
         private void EditIcon_Click(object sender, MouseButtonEventArgs e)
@@ -684,6 +696,185 @@ namespace Vms_page
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle previous button click
+            MessageBox.Show("Previous button clicked", "Media Control", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle play/pause button click
+            var button = sender as Button;
+            if (button != null)
+            {
+                // Toggle between play and pause icons
+                if (button.Content.ToString() == "▶")
+                {
+                    button.Content = "⏸";
+                    MessageBox.Show("Video paused", "Media Control", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    button.Content = "▶";
+                    MessageBox.Show("Video playing", "Media Control", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle next button click
+            MessageBox.Show("Next button clicked", "Media Control", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // New event handlers for bottom bar icons
+        private void SaveViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle save view button click
+            MessageBox.Show("Save View clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CloseAllWindowsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle close all windows button click
+            MessageBox.Show("Close All Windows clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SnapshotAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle snapshot all button click
+            MessageBox.Show("Snapshot All clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void StartRecordingAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle start recording all button click
+            MessageBox.Show("Start Recording All clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void StopRecordingAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle stop recording all button click
+            MessageBox.Show("Stop Recording All clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BroadcastListButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle broadcast list button click
+            MessageBox.Show("Broadcast List clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleFullScreen();
+        }
+
+        private void LiveViewWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape && isFullScreen)
+            {
+                ExitFullScreen();
+                e.Handled = true;
+            }
+        }
+
+        private void ToggleFullScreen()
+        {
+            if (!isFullScreen)
+            {
+                EnterFullScreen();
+            }
+            else
+            {
+                ExitFullScreen();
+            }
+        }
+
+        private void EnterFullScreen()
+        {
+            // Store current window properties
+            previousWindowState = this.WindowState;
+            previousWindowStyle = this.WindowStyle;
+            previousTopmost = this.Topmost;
+
+            // Hide sidebar
+            var sidebar = this.FindName("Sidebar") as Border;
+            if (sidebar != null)
+            {
+                sidebar.Visibility = Visibility.Collapsed;
+            }
+
+            // Make the main content area span the full width by setting the first column width to 0
+            var mainGrid = this.Content as Grid;
+            if (mainGrid != null && mainGrid.ColumnDefinitions.Count >= 2)
+            {
+                mainGrid.ColumnDefinitions[0].Width = new GridLength(0);
+            }
+
+            // Hide the bottom controls by finding the VideoView grid and hiding its bottom row
+            var videoView = this.FindName("VideoView") as Grid;
+            if (videoView != null && videoView.RowDefinitions.Count > 1)
+            {
+                // Store the original height of the bottom row
+                videoView.RowDefinitions[1].Height = new GridLength(0);
+            }
+
+            // Set window to full screen
+            this.WindowStyle = WindowStyle.None;
+            this.WindowState = WindowState.Maximized;
+            this.Topmost = true;
+            this.isFullScreen = true;
+
+            // Update button icon to show exit full screen
+            if (FullScreenButton != null)
+            {
+                FullScreenButton.Content = "⛶";
+                FullScreenButton.ToolTip = "Exit Full Screen";
+            }
+
+            // Focus the window to receive key events
+            this.Focus();
+        }
+
+        private void ExitFullScreen()
+        {
+            // Restore window properties
+            this.WindowStyle = previousWindowStyle;
+            this.WindowState = previousWindowState;
+            this.Topmost = previousTopmost;
+            this.isFullScreen = false;
+
+            // Show sidebar
+            var sidebar = this.FindName("Sidebar") as Border;
+            if (sidebar != null)
+            {
+                sidebar.Visibility = Visibility.Visible;
+            }
+
+            // Restore the main content area column width
+            var mainGrid = this.Content as Grid;
+            if (mainGrid != null && mainGrid.ColumnDefinitions.Count >= 2)
+            {
+                mainGrid.ColumnDefinitions[0].Width = new GridLength(150); // Restore original sidebar width
+            }
+
+            // Show the bottom controls by restoring the VideoView grid bottom row
+            var videoView = this.FindName("VideoView") as Grid;
+            if (videoView != null && videoView.RowDefinitions.Count > 1)
+            {
+                // Restore the bottom row height
+                videoView.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Auto);
+            }
+
+            // Update button icon to show enter full screen
+            if (FullScreenButton != null)
+            {
+                FullScreenButton.Content = "⛶";
+                FullScreenButton.ToolTip = "Full Screen";
+            }
         }
     }
 }
