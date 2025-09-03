@@ -163,7 +163,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Remarks:" Style="{StaticResource LabelText}" Margin="10,6,10,4"/>
+                <TextBlock Text="Remarks:" Style="{StaticResource LabelText}" Margin="20,0,10,0"/>
                 <TextBox Grid.Row="1" x:Name="RemarksBox" Style="{StaticResource InputBox}" Margin="10,5,0,15" BorderThickness="1" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
             </Grid>
         </Border>

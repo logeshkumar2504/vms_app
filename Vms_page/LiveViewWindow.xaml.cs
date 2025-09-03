@@ -1,567 +1,689 @@
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
-using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Shapes;
 
 namespace Vms_page
 {
     public partial class LiveViewWindow : Window
     {
-        private int currentRows = 1;
-        private int currentColumns = 1;
-        private List<Border> cameraCells = new List<Border>();
-        private Border selectedCameraCell = null;
-        private int selectedCameraNumber = 0;
+        private bool isVideoTabActive = true;
+        private bool isSearchFocused = false;
+        private string currentLayout = "2x2";
 
         public LiveViewWindow()
         {
             InitializeComponent();
             
-            // Ensure window respects taskbar
-            this.SourceInitialized += LiveViewWindow_SourceInitialized;
-            
-            // Initialize with default 1x1 grid
-            GenerateDynamicGrid(1, 1);
-            
-            // Set initial active button
-            UpdateButtonStyles(1, 1);
-            
-            // Subscribe to theme changes
-            this.Loaded += LiveViewWindow_Loaded;
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
         }
 
-        private void LiveViewWindow_Loaded(object sender, RoutedEventArgs e)
+        private void VideoTab_Click(object sender, MouseButtonEventArgs e)
         {
-            // Refresh camera cells to ensure proper theme colors
-            RefreshCameraCellColors();
-        }
-
-        private void RefreshCameraCellColors()
-        {
-            foreach (var cell in cameraCells)
+            if (!isVideoTabActive)
             {
-                if (cell.Child is Grid grid && grid.Children.Count >= 2)
+                // Switch to Video tab
+                isVideoTabActive = true;
+                
+                // Update tab appearances
+                var videoTab = sender as Border;
+                var parentGrid = videoTab.Parent as Grid;
+                var channelTab = parentGrid.Children[1] as Border;
+                var viewTab = parentGrid.Children[2] as Border;
+                
+                videoTab.Background = Application.Current.Resources["MenuHoverColor"] as SolidColorBrush;
+                channelTab.Background = Brushes.Transparent;
+                viewTab.Background = Brushes.Transparent;
+                
+                // Update text colors
+                var videoText = videoTab.Child as TextBlock;
+                var channelText = channelTab.Child as TextBlock;
+                var viewText = viewTab.Child as TextBlock;
+                
+                videoText.Foreground = Application.Current.Resources["TextPrimaryColor"] as SolidColorBrush;
+                channelText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+                viewText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+            }
+        }
+
+        private void ChannelTab_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (isVideoTabActive)
+            {
+                // Switch to Channel tab
+                isVideoTabActive = false;
+                
+                // Update tab appearances
+                var channelTab = sender as Border;
+                var parentGrid = channelTab.Parent as Grid;
+                var videoTab = parentGrid.Children[0] as Border;
+                var viewTab = parentGrid.Children[2] as Border;
+                
+                channelTab.Background = Application.Current.Resources["MenuHoverColor"] as SolidColorBrush;
+                videoTab.Background = Brushes.Transparent;
+                viewTab.Background = Brushes.Transparent;
+                
+                // Update text colors
+                var channelText = channelTab.Child as TextBlock;
+                var videoText = videoTab.Child as TextBlock;
+                var viewText = viewTab.Child as TextBlock;
+                
+                channelText.Foreground = Application.Current.Resources["TextPrimaryColor"] as SolidColorBrush;
+                videoText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+                viewText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+            }
+        }
+
+        private void ViewTab_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (isVideoTabActive)
+            {
+                // Switch to View tab
+                isVideoTabActive = false;
+                
+                // Update tab appearances
+                var viewTab = sender as Border;
+                var parentGrid = viewTab.Parent as Grid;
+                var videoTab = parentGrid.Children[0] as Border;
+                var channelTab = parentGrid.Children[1] as Border;
+                
+                viewTab.Background = Application.Current.Resources["MenuHoverColor"] as SolidColorBrush;
+                videoTab.Background = Brushes.Transparent;
+                channelTab.Background = Brushes.Transparent;
+                
+                // Update text colors
+                var viewText = viewTab.Child as TextBlock;
+                var videoText = videoTab.Child as TextBlock;
+                var channelText = channelTab.Child as TextBlock;
+                
+                viewText.Foreground = Application.Current.Resources["TextPrimaryColor"] as SolidColorBrush;
+                videoText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+                channelText.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+            }
+        }
+
+
+
+        private void VideoFeed_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Clear previous selection
+            ClearVideoFeedSelection();
+            
+            // Set new selection
+            if (sender is Border border)
+            {
+                border.BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)); // Orange border
+            }
+        }
+
+        private void ClearVideoFeedSelection()
+        {
+            // Clear all video feed selections
+            var mainGrid = FindName("MainVideoGrid") as Grid;
+            if (mainGrid != null)
+            {
+                foreach (var child in mainGrid.Children)
                 {
-                    // Update icon color
-                    if (grid.Children[0] is TextBlock icon)
+                    if (child is Border border)
                     {
-                        icon.Foreground = Brushes.White;
-                    }
-                    
-                    // Update label color
-                    if (grid.Children[1] is TextBlock label)
-                    {
-                        label.Foreground = Brushes.White;
+                        border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)); // Gray border
                     }
                 }
             }
         }
 
-        // Allow window dragging
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-
-        // Dynamic Grid Generation
-        private void GenerateDynamicGrid(int rows, int columns)
-        {
-            currentRows = rows;
-            currentColumns = columns;
-            
-            // Clear existing grid
-            DynamicGridContainer.Children.Clear();
-            DynamicGridContainer.RowDefinitions.Clear();
-            DynamicGridContainer.ColumnDefinitions.Clear();
-            cameraCells.Clear();
-            selectedCameraCell = null;
-            selectedCameraNumber = 0;
-            UpdateSelectedCameraText();
-
-            // Create grid definitions
-            for (int i = 0; i < rows; i++)
-            {
-                DynamicGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            }
-            
-            for (int j = 0; j < columns; j++)
-            {
-                DynamicGridContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            }
-
-            // Create camera cells
-            int cameraNumber = 1;
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    var cameraCell = CreateCameraCell(cameraNumber, rows, columns);
-                    Grid.SetRow(cameraCell, i);
-                    Grid.SetColumn(cameraCell, j);
-                    DynamicGridContainer.Children.Add(cameraCell);
-                    cameraCells.Add(cameraCell);
-                    cameraNumber++;
-                }
-            }
-            
-            // Ensure camera cells use current theme colors
-            RefreshCameraCellColors();
-        }
-
-        private Border CreateCameraCell(int cameraNumber, int totalRows, int totalColumns)
-        {
-            // Calculate appropriate font sizes based on grid size - Made smaller
-            int iconSize = totalRows * totalColumns <= 4 ? 36 : 
-                          totalRows * totalColumns <= 9 ? 24 : 
-                          totalRows * totalColumns <= 16 ? 18 : 12;
-            
-            int textSize = totalRows * totalColumns <= 4 ? 14 : 
-                          totalRows * totalColumns <= 9 ? 10 : 
-                          totalRows * totalColumns <= 16 ? 8 : 6;
-
-            var border = new Border
-            {
-                Style = (Style)FindResource("CameraCellStyle"),
-                Margin = new Thickness(totalRows * totalColumns <= 4 ? 8 : 
-                                     totalRows * totalColumns <= 9 ? 6 : 
-                                     totalRows * totalColumns <= 16 ? 4 : 2)
-            };
-
-            var grid = new Grid();
-            
-            var icon = new TextBlock
-            {
-                Text = "📹",
-                FontSize = iconSize,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            var label = new TextBlock
-            {
-                Text = $"Camera {cameraNumber}",
-                FontSize = textSize,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, iconSize * 0.25, 0, 0),
-                FontWeight = FontWeights.Medium
-            };
-
-            grid.Children.Add(icon);
-            grid.Children.Add(label);
-            border.Child = grid;
-
-            // Add click event for camera selection
-            border.MouseLeftButtonDown += (sender, e) => OnCameraCellClicked(border, cameraNumber);
-
-            return border;
-        }
-
-        private void OnCameraCellClicked(Border cameraCell, int cameraNumber)
-        {
-            // Deselect previously selected camera
-            if (selectedCameraCell != null)
-            {
-                selectedCameraCell.Style = (Style)FindResource("CameraCellStyle");
-            }
-
-            // Select new camera
-            selectedCameraCell = cameraCell;
-            selectedCameraNumber = cameraNumber;
-            cameraCell.Style = (Style)FindResource("SelectedCameraCellStyle");
-
-            // Update selected camera text
-            UpdateSelectedCameraText();
-        }
-
-        private void UpdateSelectedCameraText()
-        {
-            // Camera selection display removed - no action needed
-            // This method is kept for future use if needed
-        }
-
-        // Grid View Change Methods
-        private void View1x1_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(1, 1);
-            UpdateButtonStyles(1, 1);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        private void View2x2_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(2, 2);
-            UpdateButtonStyles(2, 2);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        private void View3x3_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(3, 3);
-            UpdateButtonStyles(3, 3);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        private void View4x4_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(4, 4);
-            UpdateButtonStyles(4, 4);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        private void View5x5_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(5, 5);
-            UpdateButtonStyles(5, 5);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        private void View8x8_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(8, 8);
-            UpdateButtonStyles(8, 8);
-            ViewDropdownPopup.IsOpen = false; // Close dropdown after selection
-        }
-
-        // Dropdown Toggle Method
-        private void ViewDropdownButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewDropdownPopup.IsOpen = !ViewDropdownPopup.IsOpen;
-        }
-
-        private void UpdateButtonStyles(int rows, int columns)
-        {
-            // Update the View dropdown button to show current selection
-            if (rows == 1 && columns == 1)
-                ViewDropdownButton.Content = "View (1×1)";
-            else if (rows == 2 && columns == 2)
-                ViewDropdownButton.Content = "View (2×2)";
-            else if (rows == 3 && columns == 3)
-                ViewDropdownButton.Content = "View (3×3)";
-            else if (rows == 4 && columns == 4)
-                ViewDropdownButton.Content = "View (4×4)";
-            else if (rows == 5 && columns == 5)
-                ViewDropdownButton.Content = "View (5×5)";
-            else if (rows == 8 && columns == 8)
-                ViewDropdownButton.Content = "View (8×8)";
-            else
-                ViewDropdownButton.Content = $"View ({rows}×{columns})";
-        }
-
-        // Customize Button Click Event
-        private void CustomizeButton_Click(object sender, RoutedEventArgs e)
+        private void GridLayout_Click(object sender, RoutedEventArgs e)
         {
             // Toggle the dropdown popup
-            CustomGridDropdownPopup.IsOpen = !CustomGridDropdownPopup.IsOpen;
+            GridLayoutDropdownPopup.IsOpen = !GridLayoutDropdownPopup.IsOpen;
         }
 
-        // Apply Custom Grid Layout
-        private void ApplyCustomGridLayout(int rows, int columns, List<GridCellInfo> customLayout)
+        private void SelectLayout_Click(object sender, RoutedEventArgs e)
         {
-            currentRows = rows;
-            currentColumns = columns;
-            
-            // Clear existing grid
-            DynamicGridContainer.Children.Clear();
-            DynamicGridContainer.RowDefinitions.Clear();
-            DynamicGridContainer.ColumnDefinitions.Clear();
-            cameraCells.Clear();
-            selectedCameraCell = null;
-            selectedCameraNumber = 0;
-            UpdateSelectedCameraText();
-
-            // Create grid definitions
-            for (int i = 0; i < rows; i++)
+            if (sender is Button button && button.Tag is string layout)
             {
-                DynamicGridContainer.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                // Apply the selected layout
+                currentLayout = layout;
+                System.Diagnostics.Debug.WriteLine($"Layout selected: {currentLayout}");
+                
+                // Close the dropdown
+                GridLayoutDropdownPopup.IsOpen = false;
+                
+                // Apply the layout
+                ApplyGridLayout(currentLayout);
             }
-            
-            for (int j = 0; j < columns; j++)
-            {
-                DynamicGridContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            }
-
-            // Create camera cells based on custom layout
-            int cameraNumber = 1;
-            foreach (var cellInfo in customLayout)
-            {
-                var cameraCell = CreateCustomCameraCell(cameraNumber, cellInfo);
-                Grid.SetRow(cameraCell, cellInfo.Row);
-                Grid.SetColumn(cameraCell, cellInfo.Column);
-                Grid.SetRowSpan(cameraCell, cellInfo.RowSpan);
-                Grid.SetColumnSpan(cameraCell, cellInfo.ColumnSpan);
-                DynamicGridContainer.Children.Add(cameraCell);
-                cameraCells.Add(cameraCell);
-                cameraNumber++;
-            }
-            
-            // Ensure camera cells use current theme colors
-            RefreshCameraCellColors();
         }
 
-        private Border CreateCustomCameraCell(int cameraNumber, GridCellInfo cellInfo)
+        private void CustomLayout_Click(object sender, RoutedEventArgs e)
         {
-            // Calculate appropriate font sizes based on grid size
-            int iconSize = cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 36 : 
-                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 24 : 
-                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 18 : 12;
+            // Close the dropdown first
+            GridLayoutDropdownPopup.IsOpen = false;
             
-            int textSize = cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 14 : 
-                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 10 : 
-                          cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 8 : 6;
+            // Open the custom layout designer popup directly
+            var customLayoutPopup = new PeopleCountingCustomLayoutPopup();
+            customLayoutPopup.Owner = this;
+            
+            if (customLayoutPopup.ShowDialog() == true)
+            {
+                // Apply the custom layout
+                currentLayout = customLayoutPopup.CustomLayout;
+                System.Diagnostics.Debug.WriteLine($"Custom layout popup returned: {currentLayout}");
+                
+                // Apply the layout
+                ApplyGridLayout(currentLayout);
+            }
+        }
 
+        private void ApplyGridLayout(string layout)
+        {
+            // Debug: Show what layout is being applied
+            System.Diagnostics.Debug.WriteLine($"Applying Layout: {layout}");
+            
+            // Find the main grid container
+            var mainGrid = FindName("MainVideoGrid") as Grid;
+            if (mainGrid == null)
+            {
+                // If we can't find the named grid, find it by traversing the visual tree
+                mainGrid = FindVideoGrid(this);
+            }
+
+            if (mainGrid != null)
+            {
+                // Clear existing children
+                mainGrid.Children.Clear();
+                mainGrid.RowDefinitions.Clear();
+                mainGrid.ColumnDefinitions.Clear();
+
+                // Check if it's a custom layout with combined cells
+                if (layout.StartsWith("custom_") && layout.Contains("_combined"))
+                {
+                    System.Diagnostics.Debug.WriteLine("Applying custom combined layout");
+                    ApplyCustomCombinedLayout(mainGrid, layout);
+                }
+                else if (layout.StartsWith("custom_") && !layout.Contains("_combined"))
+                {
+                    System.Diagnostics.Debug.WriteLine("Applying custom regular layout");
+                    ApplyCustomRegularLayout(mainGrid, layout);
+                }
+                else
+                {
+                    // Parse regular layout (e.g., "2x2", "3x3", etc.)
+                    var parts = layout.Split('x');
+                    if (parts.Length == 2 && 
+                        int.TryParse(parts[0], out int rows) && 
+                        int.TryParse(parts[1], out int cols))
+                    {
+                        // Create row definitions
+                        for (int i = 0; i < rows; i++)
+                        {
+                            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                        }
+
+                        // Create column definitions
+                        for (int i = 0; i < cols; i++)
+                        {
+                            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                        }
+
+                        // Create video feed borders
+                        for (int row = 0; row < rows; row++)
+                        {
+                            for (int col = 0; col < cols; col++)
+                            {
+                                var border = CreateVideoFeedBorder(row, col, rows, cols);
+                                Grid.SetRow(border, row);
+                                Grid.SetColumn(border, col);
+                                mainGrid.Children.Add(border);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ApplyCustomRegularLayout(Grid mainGrid, string layout)
+        {
+            System.Diagnostics.Debug.WriteLine($"Applying custom regular layout: {layout}");
+            
+            // Parse custom layout: custom_4x4, custom_3x5, custom_6x2, etc. - works for ANY size
+            var parts = layout.Split('_');
+            if (parts.Length >= 2)
+            {
+                // Get grid dimensions - flexible parsing
+                var dimensions = parts[1].Split('x');
+                if (dimensions.Length == 2 && 
+                    int.TryParse(dimensions[0], out int rows) && 
+                    int.TryParse(dimensions[1], out int cols) &&
+                    rows > 0 && cols > 0) // Validate dimensions
+                {
+                    System.Diagnostics.Debug.WriteLine($"Creating {rows}x{cols} regular grid (any size supported)");
+                    
+                    // Create row definitions - works for any number of rows
+                    for (int i = 0; i < rows; i++)
+                    {
+                        mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create column definitions - works for any number of columns
+                    for (int i = 0; i < cols; i++)
+                    {
+                        mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create individual cells - works for any grid size
+                    for (int row = 0; row < rows; row++)
+                    {
+                        for (int col = 0; col < cols; col++)
+                        {
+                            var border = CreateVideoFeedBorder(row, col, rows, cols);
+                            Grid.SetRow(border, row);
+                            Grid.SetColumn(border, col);
+                            mainGrid.Children.Add(border);
+                        }
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Invalid grid dimensions in layout: {layout}");
+                    ApplyFallbackLayout(mainGrid);
+                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Invalid layout format: {layout}");
+                ApplyFallbackLayout(mainGrid);
+            }
+        }
+
+        private void ApplyCustomCombinedLayout(Grid mainGrid, string layout)
+        {
+            System.Diagnostics.Debug.WriteLine($"Applying custom combined layout: {layout}");
+            
+            // Parse custom layout: custom_4x4_combined_0_0_2_2_2_2_1_1 - works for ANY grid size and ANY combinations
+            var parts = layout.Split('_');
+            if (parts.Length >= 3)
+            {
+                // Get grid dimensions - flexible for any size
+                var dimensions = parts[1].Split('x');
+                if (dimensions.Length == 2 && 
+                    int.TryParse(dimensions[0], out int rows) && 
+                    int.TryParse(dimensions[1], out int cols) &&
+                    rows > 0 && cols > 0) // Validate dimensions
+                {
+                    System.Diagnostics.Debug.WriteLine($"Creating {rows}x{cols} grid with combined cells (any size supported)");
+                    
+                    // Create row definitions - works for any number of rows
+                    for (int i = 0; i < rows; i++)
+                    {
+                        mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create column definitions - works for any number of columns
+                    for (int i = 0; i < cols; i++)
+                    {
+                        mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    }
+
+                    // Create a grid to track which cells are occupied
+                    var occupied = new bool[rows, cols];
+
+                    // Parse combined cells - works for any number of combinations
+                    if (parts.Length > 3 && parts[2] == "combined")
+                    {
+                        for (int i = 3; i < parts.Length; i += 4)
+                        {
+                            if (i + 3 < parts.Length &&
+                                int.TryParse(parts[i], out int startRow) &&
+                                int.TryParse(parts[i + 1], out int startCol) &&
+                                int.TryParse(parts[i + 2], out int rowSpan) &&
+                                int.TryParse(parts[i + 3], out int colSpan) &&
+                                startRow >= 0 && startCol >= 0 && 
+                                startRow < rows && startCol < cols &&
+                                rowSpan > 0 && colSpan > 0 &&
+                                startRow + rowSpan <= rows && startCol + colSpan <= cols) // Validate bounds
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Creating combined cell: {startRow},{startCol} span {rowSpan}x{colSpan}");
+                                
+                                // Mark cells as occupied
+                                for (int r = startRow; r < startRow + rowSpan && r < rows; r++)
+                                {
+                                    for (int c = startCol; c < startCol + colSpan && c < cols; c++)
+                                    {
+                                        occupied[r, c] = true;
+                                    }
+                                }
+
+                                // Create combined cell
+                                var border = CreateCombinedVideoFeedBorder(startRow, startCol, rowSpan, colSpan);
+                                Grid.SetRow(border, startRow);
+                                Grid.SetColumn(border, startCol);
+                                Grid.SetRowSpan(border, rowSpan);
+                                Grid.SetColumnSpan(border, colSpan);
+                                mainGrid.Children.Add(border);
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Invalid combined cell parameters at index {i}");
+                            }
+                        }
+                    }
+
+                    // Create individual cells for unoccupied positions
+                    for (int row = 0; row < rows; row++)
+                    {
+                        for (int col = 0; col < cols; col++)
+                        {
+                            if (!occupied[row, col])
+                            {
+                                var border = CreateVideoFeedBorder(row, col, rows, cols);
+                                Grid.SetRow(border, row);
+                                Grid.SetColumn(border, col);
+                                mainGrid.Children.Add(border);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Invalid grid dimensions in combined layout: {layout}");
+                    ApplyFallbackLayout(mainGrid);
+                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Invalid combined layout format: {layout}");
+                ApplyFallbackLayout(mainGrid);
+            }
+        }
+
+        private void ApplyFallbackLayout(Grid mainGrid)
+        {
+            System.Diagnostics.Debug.WriteLine("Applying fallback 2x2 layout");
+            
+            // Create a simple 2x2 grid as fallback
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // Create 4 regular video cells
+            for (int row = 0; row < 2; row++)
+            {
+                for (int col = 0; col < 2; col++)
+                {
+                    var border = CreateVideoFeedBorder(row, col, 2, 2);
+                    Grid.SetRow(border, row);
+                    Grid.SetColumn(border, col);
+                    mainGrid.Children.Add(border);
+                }
+            }
+        }
+
+        private Border CreateCombinedVideoFeedBorder(int row, int col, int rowSpan, int colSpan)
+        {
             var border = new Border
             {
-                Style = (Style)FindResource("CameraCellStyle"),
-                Margin = new Thickness(cellInfo.RowSpan * cellInfo.ColumnSpan <= 4 ? 8 : 
-                                     cellInfo.RowSpan * cellInfo.ColumnSpan <= 9 ? 6 : 
-                                     cellInfo.RowSpan * cellInfo.ColumnSpan <= 16 ? 4 : 2)
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderThickness = new Thickness(2),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)), // Orange border for combined cells
+                CornerRadius = new CornerRadius(0),
+                Margin = new Thickness(1),
+                Cursor = Cursors.Hand
             };
 
             var grid = new Grid();
             
-            var icon = new TextBlock
-            {
-                Text = "📹",
-                FontSize = iconSize,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            var label = new TextBlock
-            {
-                Text = $"Camera {cameraNumber}",
-                FontSize = textSize,
-                Foreground = Brushes.White,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, iconSize * 0.25, 0, 0),
-                FontWeight = FontWeights.Medium
-            };
-
-            grid.Children.Add(icon);
-            grid.Children.Add(label);
+            // Create CCTV Camera Icon for combined cells
+            var cameraIcon = CreateCCTVCameraIcon(rowSpan, colSpan);
+            grid.Children.Add(cameraIcon);
+            
             border.Child = grid;
 
-            // Add click event for camera selection
-            border.MouseLeftButtonDown += (sender, e) => OnCameraCellClicked(border, cameraNumber);
+            // Add click handler
+            border.MouseLeftButtonDown += VideoFeed_Click;
 
             return border;
         }
 
-        // Grid selection methods for dropdown popup
-        private void Grid1x1_Click(object sender, RoutedEventArgs e)
+        private Grid FindVideoGrid(DependencyObject parent)
         {
-            GenerateDynamicGrid(1, 1);
-            UpdateButtonStyles(1, 1);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid3Col_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(1, 3);
-            UpdateButtonStyles(1, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid2x2_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(2, 2);
-            UpdateButtonStyles(2, 2);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid4Pane_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(2, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid5Pane_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 2, RowSpan = 2, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(2, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid6Pane_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(2, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid7Pane_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(2, 4, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 2, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 3, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 3, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(2, 4);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid8Pane_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(2, 3, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 1, ColumnSpan = 3 },
-                new GridCellInfo { Row = 1, Column = 0, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(2, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid3x3_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(3, 3);
-            UpdateButtonStyles(3, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid10Top_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(3, 3, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 1, ColumnSpan = 3 },
-                new GridCellInfo { Row = 1, Column = 0, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 2, Column = 0, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 2, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 2, Column = 2, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(3, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid10Left_Click(object sender, RoutedEventArgs e)
-        {
-            ApplyCustomGridLayout(3, 3, new List<GridCellInfo>
-            {
-                new GridCellInfo { Row = 0, Column = 0, RowSpan = 3, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 0, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 1, Column = 2, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 2, Column = 1, RowSpan = 1, ColumnSpan = 1 },
-                new GridCellInfo { Row = 2, Column = 2, RowSpan = 1, ColumnSpan = 1 }
-            });
-            UpdateButtonStyles(3, 3);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid13Pane_Click(object sender, RoutedEventArgs e)
-        {
-            var layout = new List<GridCellInfo>();
-            
-            // Add outer cells
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is Grid grid && grid.Children.Count > 0)
                 {
-                    if ((i == 0 || i == 4 || j == 0 || j == 4))
+                    // Check if this grid contains video feeds
+                    var hasVideoFeeds = false;
+                    foreach (var childElement in grid.Children)
                     {
-                        layout.Add(new GridCellInfo { Row = i, Column = j, RowSpan = 1, ColumnSpan = 1 });
+                        if (childElement is Border border && border.Child is Grid innerGrid)
+                        {
+                            foreach (var innerChild in innerGrid.Children)
+                            {
+                                if (innerChild is TextBlock textBlock && textBlock.Text == "📹")
+                                {
+                                    hasVideoFeeds = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (hasVideoFeeds) break;
                     }
+                    if (hasVideoFeeds) return grid;
                 }
+                
+                var result = FindVideoGrid(child);
+                if (result != null) return result;
             }
-            
-            // Add center merged cell
-            layout.Add(new GridCellInfo { Row = 1, Column = 1, RowSpan = 3, ColumnSpan = 3 });
-            
-            ApplyCustomGridLayout(5, 5, layout);
-            UpdateButtonStyles(5, 5);
-            CustomGridDropdownPopup.IsOpen = false;
+            return null;
         }
 
-        private void Grid4x4_Click(object sender, RoutedEventArgs e)
+        private Border CreateVideoFeedBorder(int row, int col, int totalRows, int totalCols)
         {
-            GenerateDynamicGrid(4, 4);
-            UpdateButtonStyles(4, 4);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid25_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(5, 5);
-            UpdateButtonStyles(5, 5);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid32_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(8, 4);
-            UpdateButtonStyles(8, 4);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid36_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(6, 6);
-            UpdateButtonStyles(6, 6);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void Grid64_Click(object sender, RoutedEventArgs e)
-        {
-            GenerateDynamicGrid(8, 8);
-            UpdateButtonStyles(8, 8);
-            CustomGridDropdownPopup.IsOpen = false;
-        }
-
-        private void LiveViewWindow_SourceInitialized(object sender, EventArgs e)
-        {
-            // Ensure window respects taskbar by setting appropriate window style
-            // This prevents the window from covering the taskbar
-            var helper = new System.Windows.Interop.WindowInteropHelper(this);
-            var source = System.Windows.Interop.HwndSource.FromHwnd(helper.Handle);
-            if (source?.Handle != IntPtr.Zero)
+            var border = new Border
             {
-                // Set window style to respect taskbar
-                var style = NativeMethods.GetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE);
-                style |= NativeMethods.WS_EX_APPWINDOW;
-                style &= ~NativeMethods.WS_EX_TOOLWINDOW;
-                NativeMethods.SetWindowLong(source.Handle, NativeMethods.GWL_EXSTYLE, style);
+                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                BorderThickness = new Thickness(1),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
+                CornerRadius = new CornerRadius(0),
+                Margin = new Thickness(0),
+                Cursor = Cursors.Hand
+            };
+
+            // Set orange border for the last cell (bottom-right equivalent)
+            if (row == totalRows - 1 && col == totalCols - 1)
+            {
+                border.BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00));
+                border.Name = "SelectedFeed";
             }
+
+            var grid = new Grid();
+            
+            // Create CCTV Camera Icon
+            var cameraIcon = CreateCCTVCameraIcon(totalRows, totalCols);
+            grid.Children.Add(cameraIcon);
+            
+            border.Child = grid;
+
+            // Add click handler
+            border.MouseLeftButtonDown += VideoFeed_Click;
+
+            return border;
+        }
+
+        private Border CreateCCTVCameraIcon(int totalRows, int totalCols)
+        {
+            var iconSize = GetOptimalIconSize(totalRows, totalCols);
+            var iconColor = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66));
+            
+            var cameraBorder = new Border
+            {
+                Width = iconSize,
+                Height = iconSize,
+                Background = Brushes.Transparent,
+                BorderBrush = iconColor,
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(iconSize / 2)
+            };
+
+            var cameraGrid = new Grid();
+            
+            // Camera Body
+            var cameraBody = new Rectangle
+            {
+                Width = iconSize * 0.4,
+                Height = iconSize * 0.27,
+                Fill = iconColor,
+                RadiusX = 2,
+                RadiusY = 2
+            };
+            Grid.SetColumn(cameraBody, 0);
+            Grid.SetRow(cameraBody, 0);
+            cameraGrid.Children.Add(cameraBody);
+            
+            // Camera Lens
+            var cameraLens = new Ellipse
+            {
+                Width = iconSize * 0.13,
+                Height = iconSize * 0.13,
+                Fill = iconColor
+            };
+            Grid.SetColumn(cameraLens, 0);
+            Grid.SetRow(cameraLens, 0);
+            cameraGrid.Children.Add(cameraLens);
+            
+            // Mounting Arm
+            var mountingArm = new Path
+            {
+                Data = Geometry.Parse($"M {iconSize * 0.13},{iconSize * 0.13} L {iconSize * 0.2},{iconSize * 0.2} L {iconSize * 0.2},{iconSize * 0.27} L {iconSize * 0.13},{iconSize * 0.27} Z"),
+                Fill = iconColor
+            };
+            Grid.SetColumn(mountingArm, 0);
+            Grid.SetRow(mountingArm, 0);
+            cameraGrid.Children.Add(mountingArm);
+            
+            cameraBorder.Child = cameraGrid;
+            return cameraBorder;
+        }
+
+        private double GetOptimalIconSize(int rows, int cols)
+        {
+            var totalCells = rows * cols;
+            if (totalCells <= 1) return 80;
+            if (totalCells <= 4) return 60;
+            if (totalCells <= 9) return 40;
+            if (totalCells <= 16) return 30;
+            return 20;
+        }
+
+        private double GetOptimalFontSize(int rows, int cols)
+        {
+            // Calculate optimal font size based on grid size
+            var totalCells = rows * cols;
+            if (totalCells <= 1) return 60;
+            if (totalCells <= 4) return 40;
+            if (totalCells <= 9) return 25;
+            if (totalCells <= 16) return 18;
+            return 12;
+        }
+
+
+
+        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!isSearchFocused)
+            {
+                isSearchFocused = true;
+                SearchTextBox.Text = "";
+                SearchTextBox.Foreground = Application.Current.Resources["TextPrimaryColor"] as SolidColorBrush;
+            }
+        }
+
+        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                isSearchFocused = false;
+                SearchTextBox.Text = "Enter Keywords";
+                SearchTextBox.Foreground = Application.Current.Resources["TextSecondaryColor"] as SolidColorBrush;
+            }
+        }
+
+        private void AddIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle add icon click
+            MessageBox.Show("Add icon clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void EditIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle edit icon click
+            MessageBox.Show("Edit icon clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void DeleteIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle delete icon click
+            MessageBox.Show("Delete icon clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void VideoIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle video icon click
+            MessageBox.Show("Video icon clicked", "Navigation", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+
+        private void ViewIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle view icon click
+            MessageBox.Show("View icon clicked", "Navigation", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SequenceResourcesIcon_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Handle sequence resources icon click
+            MessageBox.Show("Sequence Resources icon clicked", "Navigation", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void VideoIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            VideoLabel.Opacity = 1;
+        }
+
+        private void VideoIcon_MouseLeave(object sender, MouseEventArgs e)
+        {
+            VideoLabel.Opacity = 0;
+        }
+
+
+
+        private void ViewIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ViewLabel.Opacity = 1;
+        }
+
+        private void ViewIcon_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ViewLabel.Opacity = 0;
+        }
+
+        private void SequenceResourcesIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SequenceResourcesLabel.Opacity = 1;
+        }
+
+        private void SequenceResourcesIcon_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SequenceResourcesLabel.Opacity = 0;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

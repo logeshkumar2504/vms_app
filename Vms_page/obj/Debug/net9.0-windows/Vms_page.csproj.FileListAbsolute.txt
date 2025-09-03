@@ -39,3 +39,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GridL
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GridLayoutPopup.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddSequenceResourcePopup.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddSequenceResourcePopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.g.cs
