@@ -397,33 +397,7 @@
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
-                                    <!-- CCTV Camera Icon -->
-                                    <Border Width="60" Height="60" 
-                                            Background="Transparent"
-                                            BorderBrush="#666666"
-                                            BorderThickness="2"
-                                            CornerRadius="30">
-                                        <Grid>
-                                            <!-- Camera Body -->
-                                            <Rectangle Width="24" Height="16" 
-                                                       Fill="#666666" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"
-                                                       RadiusX="2" RadiusY="2"/>
-                                            <!-- Camera Lens -->
-                                            <Ellipse Width="8" Height="8" 
-                                                     Fill="#666666" 
-                                                     HorizontalAlignment="Center" 
-                                                     VerticalAlignment="Center"
-                                                     Margin="-8,0,0,0"/>
-                                            <!-- Mounting Arm -->
-                                            <Path Data="M 8,8 L 12,12 L 12,16 L 8,16 Z" 
-                                                  Fill="#666666" 
-                                                  HorizontalAlignment="Center" 
-                                                  VerticalAlignment="Center"
-                                                  Margin="8,8,0,0"/>
-                                        </Grid>
-                                    </Border>
+                                    <!-- Empty grid - no camera icon -->
                                 </Grid>
                             </Border>
 
@@ -437,33 +411,7 @@
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
-                                    <!-- CCTV Camera Icon -->
-                                    <Border Width="60" Height="60" 
-                                            Background="Transparent"
-                                            BorderBrush="#666666"
-                                            BorderThickness="2"
-                                            CornerRadius="30">
-                                        <Grid>
-                                            <!-- Camera Body -->
-                                            <Rectangle Width="24" Height="16" 
-                                                       Fill="#666666" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"
-                                                       RadiusX="2" RadiusY="2"/>
-                                            <!-- Camera Lens -->
-                                            <Ellipse Width="8" Height="8" 
-                                                     Fill="#666666" 
-                                                     HorizontalAlignment="Center" 
-                                                     VerticalAlignment="Center"
-                                                     Margin="-8,0,0,0"/>
-                                            <!-- Mounting Arm -->
-                                            <Path Data="M 8,8 L 12,12 L 12,16 L 8,16 Z" 
-                                                  Fill="#666666" 
-                                                  HorizontalAlignment="Center" 
-                                                  VerticalAlignment="Center"
-                                                  Margin="8,8,0,0"/>
-                                        </Grid>
-                                    </Border>
+                                    <!-- Empty grid - no camera icon -->
                                 </Grid>
                             </Border>
 

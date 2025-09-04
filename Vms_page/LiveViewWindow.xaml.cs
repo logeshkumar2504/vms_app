@@ -443,7 +443,7 @@ namespace Vms_page
 
             var grid = new Grid();
             
-            // Create CCTV Camera Icon for combined cells
+            // Create CCTV Camera Icon using cctv.png for combined cells
             var cameraIcon = CreateCCTVCameraIcon(rowSpan, colSpan);
             grid.Children.Add(cameraIcon);
             
@@ -462,19 +462,18 @@ namespace Vms_page
                 var child = VisualTreeHelper.GetChild(parent, i);
                 if (child is Grid grid && grid.Children.Count > 0)
                 {
-                    // Check if this grid contains video feeds
+                    // Check if this grid contains video feeds (empty grids with borders)
                     var hasVideoFeeds = false;
                     foreach (var childElement in grid.Children)
                     {
                         if (childElement is Border border && border.Child is Grid innerGrid)
                         {
-                            foreach (var innerChild in innerGrid.Children)
+                            // Check if this looks like a video feed cell (has the right background color)
+                            if (border.Background is SolidColorBrush brush && 
+                                brush.Color.R == 0x1A && brush.Color.G == 0x1A && brush.Color.B == 0x1A)
                             {
-                                if (innerChild is TextBlock textBlock && textBlock.Text == "📹")
-                                {
-                                    hasVideoFeeds = true;
-                                    break;
-                                }
+                                hasVideoFeeds = true;
+                                break;
                             }
                         }
                         if (hasVideoFeeds) break;
@@ -509,7 +508,7 @@ namespace Vms_page
 
             var grid = new Grid();
             
-            // Create CCTV Camera Icon
+            // Create CCTV Camera Icon using cctv.png
             var cameraIcon = CreateCCTVCameraIcon(totalRows, totalCols);
             grid.Children.Add(cameraIcon);
             
@@ -524,55 +523,26 @@ namespace Vms_page
         private Border CreateCCTVCameraIcon(int totalRows, int totalCols)
         {
             var iconSize = GetOptimalIconSize(totalRows, totalCols);
-            var iconColor = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66));
             
             var cameraBorder = new Border
             {
                 Width = iconSize,
                 Height = iconSize,
-                Background = Brushes.Transparent,
-                BorderBrush = iconColor,
-                BorderThickness = new Thickness(2),
-                CornerRadius = new CornerRadius(iconSize / 2)
+                Background = Brushes.Transparent
             };
 
-            var cameraGrid = new Grid();
-            
-            // Camera Body
-            var cameraBody = new Rectangle
+            // Create Image control for cctv.png
+            var cameraImage = new System.Windows.Controls.Image
             {
-                Width = iconSize * 0.4,
-                Height = iconSize * 0.27,
-                Fill = iconColor,
-                RadiusX = 2,
-                RadiusY = 2
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Assets/Icons/cctv.png")),
+                Width = iconSize,
+                Height = iconSize,
+                Stretch = System.Windows.Media.Stretch.Uniform,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
-            Grid.SetColumn(cameraBody, 0);
-            Grid.SetRow(cameraBody, 0);
-            cameraGrid.Children.Add(cameraBody);
             
-            // Camera Lens
-            var cameraLens = new Ellipse
-            {
-                Width = iconSize * 0.13,
-                Height = iconSize * 0.13,
-                Fill = iconColor
-            };
-            Grid.SetColumn(cameraLens, 0);
-            Grid.SetRow(cameraLens, 0);
-            cameraGrid.Children.Add(cameraLens);
-            
-            // Mounting Arm
-            var mountingArm = new Path
-            {
-                Data = Geometry.Parse($"M {iconSize * 0.13},{iconSize * 0.13} L {iconSize * 0.2},{iconSize * 0.2} L {iconSize * 0.2},{iconSize * 0.27} L {iconSize * 0.13},{iconSize * 0.27} Z"),
-                Fill = iconColor
-            };
-            Grid.SetColumn(mountingArm, 0);
-            Grid.SetRow(mountingArm, 0);
-            cameraGrid.Children.Add(mountingArm);
-            
-            cameraBorder.Child = cameraGrid;
+            cameraBorder.Child = cameraImage;
             return cameraBorder;
         }
 
@@ -765,6 +735,12 @@ namespace Vms_page
         {
             // Handle broadcast list button click
             MessageBox.Show("Broadcast List clicked", "Action", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void LeftIconButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle left icon button click
+            MessageBox.Show("Left icon button clicked", "Navigation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void FullScreenButton_Click(object sender, RoutedEventArgs e)

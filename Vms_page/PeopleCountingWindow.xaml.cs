@@ -538,15 +538,18 @@ namespace Vms_page
             };
 
             var grid = new Grid();
-            var textBlock = new TextBlock
+            
+            // Create Image control for cctv.png
+            var cameraImage = new System.Windows.Controls.Image
             {
-                Text = "📹",
-                FontSize = 12,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Assets/Icons/cctv.png")),
+                Width = 16,
+                Height = 16,
+                Stretch = System.Windows.Media.Stretch.Uniform,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
-            grid.Children.Add(textBlock);
+            grid.Children.Add(cameraImage);
             border.Child = grid;
 
             // Add click handler
@@ -568,15 +571,11 @@ namespace Vms_page
             };
 
             var grid = new Grid();
-            var textBlock = new TextBlock
-            {
-                Text = "📹",
-                FontSize = GetOptimalFontSize(rowSpan, colSpan),
-                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            grid.Children.Add(textBlock);
+            
+            // Create CCTV Camera Icon using cctv.png for combined cells
+            var cameraIcon = CreateCCTVCameraIcon(rowSpan, colSpan);
+            grid.Children.Add(cameraIcon);
+            
             border.Child = grid;
 
             // Add click handler
@@ -638,21 +637,27 @@ namespace Vms_page
             }
 
             var grid = new Grid();
-            var textBlock = new TextBlock
-            {
-                Text = "📹",
-                FontSize = GetOptimalFontSize(totalRows, totalCols),
-                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            grid.Children.Add(textBlock);
+            
+            // Create CCTV Camera Icon using cctv.png
+            var cameraIcon = CreateCCTVCameraIcon(totalRows, totalCols);
+            grid.Children.Add(cameraIcon);
+            
             border.Child = grid;
 
             // Add click handler
             border.MouseLeftButtonDown += VideoFeed_Click;
 
             return border;
+        }
+
+        private double GetOptimalIconSize(int rows, int cols)
+        {
+            var totalCells = rows * cols;
+            if (totalCells <= 1) return 80;
+            if (totalCells <= 4) return 60;
+            if (totalCells <= 9) return 40;
+            if (totalCells <= 16) return 30;
+            return 20;
         }
 
         private double GetOptimalFontSize(int rows, int cols)
@@ -664,6 +669,32 @@ namespace Vms_page
             if (totalCells <= 9) return 25;
             if (totalCells <= 16) return 18;
             return 12;
+        }
+
+        private Border CreateCCTVCameraIcon(int totalRows, int totalCols)
+        {
+            var iconSize = GetOptimalIconSize(totalRows, totalCols);
+            
+            var cameraBorder = new Border
+            {
+                Width = iconSize,
+                Height = iconSize,
+                Background = Brushes.Transparent
+            };
+
+            // Create Image control for cctv.png
+            var cameraImage = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Assets/Icons/cctv.png")),
+                Width = iconSize,
+                Height = iconSize,
+                Stretch = System.Windows.Media.Stretch.Uniform,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            cameraBorder.Child = cameraImage;
+            return cameraBorder;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
