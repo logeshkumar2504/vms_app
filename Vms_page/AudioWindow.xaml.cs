@@ -32,21 +32,33 @@ namespace Vms_page
             {
                 SetActiveButton(button);
                 
-                // Handle different navigation options
-                switch (button.Name)
+                // Toggle main content views
+                if (TwoWayView != null && BroadcastView != null)
                 {
-                    case "TwoWayAudioBtn":
-                        // Handle Two-way Audio functionality
-                        System.Diagnostics.Debug.WriteLine("Two-way Audio selected");
-                        break;
-                    case "BroadcastBtn":
-                        // Handle Broadcast functionality
-                        System.Diagnostics.Debug.WriteLine("Broadcast selected");
-                        break;
-                    case "AudioFileManagementBtn":
-                        // Handle Audio File Management functionality
-                        System.Diagnostics.Debug.WriteLine("Audio File Management selected");
-                        break;
+                    switch (button.Name)
+                    {
+                        case "TwoWayAudioBtn":
+                            TwoWayView.Visibility = Visibility.Visible;
+                            BroadcastView.Visibility = Visibility.Collapsed;
+                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
+                            if (BottomBar != null) BottomBar.Visibility = Visibility.Visible;
+                            System.Diagnostics.Debug.WriteLine("Two-way Audio selected");
+                            break;
+                        case "BroadcastBtn":
+                            TwoWayView.Visibility = Visibility.Collapsed;
+                            BroadcastView.Visibility = Visibility.Visible;
+                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
+                            if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
+                            System.Diagnostics.Debug.WriteLine("Broadcast selected");
+                            break;
+                        case "AudioFileManagementBtn":
+                            TwoWayView.Visibility = Visibility.Collapsed;
+                            BroadcastView.Visibility = Visibility.Collapsed;
+                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Visible;
+                            if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
+                            System.Diagnostics.Debug.WriteLine("Audio File Management selected");
+                            break;
+                    }
                 }
             }
         }
@@ -87,5 +99,27 @@ namespace Vms_page
                 SearchTextBox.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
             }
         }
+
+        private void SpeakerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle speaker mute/unmute
+            System.Diagnostics.Debug.WriteLine("Speaker button clicked");
+            // Add your speaker toggle logic here
+        }
+
+        private void MicrophoneBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle microphone mute/unmute
+            System.Diagnostics.Debug.WriteLine("Microphone button clicked");
+            // Add your microphone toggle logic here
+        }
+
+        private void MutedMicrophoneBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle muted microphone control
+            System.Diagnostics.Debug.WriteLine("Muted microphone button clicked");
+            // Add your muted microphone logic here
+        }
+
     }
 }
