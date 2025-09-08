@@ -1,0 +1,110 @@
+<Window x:Class="Vms_page.AudioWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Audio" Height="700" Width="1000"
+        Background="#FF1A1A1A" 
+        WindowStyle="SingleBorderWindow" 
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Top Navigation Bar -->
+        <Border Grid.Row="0" Background="#FF2D2D2D" BorderBrush="#FF404040" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0">
+                <Button Name="TwoWayAudioBtn" Content="Two-way Audio" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="#FF4A9EFF" 
+                        FontSize="12" 
+                        FontWeight="SemiBold"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+                <Button Name="BroadcastBtn" Content="Broadcast" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="#FFB0B0B0" 
+                        FontSize="12" 
+                        FontWeight="Normal"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+                <Button Name="AudioFileManagementBtn" Content="Audio File Management" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="#FFB0B0B0" 
+                        FontSize="12" 
+                        FontWeight="Normal"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar -->
+            <Border Grid.Column="0" Background="#FF252525" BorderBrush="#FF404040" BorderThickness="0,0,1,0">
+                <StackPanel Margin="15">
+                    <!-- Audio Channel Heading -->
+                    <TextBlock Text="Audio Channel" 
+                               FontSize="14" 
+                               FontWeight="SemiBold" 
+                               Foreground="#FFB0B0B0" 
+                               Margin="0,0,0,15"/>
+                    
+                    <!-- Search Bar -->
+                    <Border Background="#FF1A1A1A" 
+                            BorderBrush="#FF404040" 
+                            BorderThickness="1" 
+                            CornerRadius="3"
+                            Height="28">
+                        <Grid>
+                            <TextBlock Text="🔍" 
+                                       FontSize="12" 
+                                       Foreground="#FF666666" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Left" 
+                                       Margin="8,0"/>
+                            <TextBox Name="SearchTextBox"
+                                     Background="Transparent" 
+                                     BorderThickness="0" 
+                                     Foreground="#FFB0B0B0" 
+                                     VerticalAlignment="Center" 
+                                     Margin="25,0,8,0"
+                                     FontSize="12"
+                                     Text="Enter Keywords"
+                                     GotFocus="SearchTextBox_GotFocus"
+                                     LostFocus="SearchTextBox_LostFocus"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Main Content Area -->
+            <Border Grid.Column="1" Background="#FF1A1A1A">
+                <Grid>
+                    <!-- Voice Icon - Centered -->
+                    <Image Source="/Assets/Icons/voice.png" 
+                           Width="100" 
+                           Height="100" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center"
+                           Stretch="Uniform"
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

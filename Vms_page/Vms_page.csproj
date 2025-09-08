@@ -30,6 +30,7 @@
     <Resource Include="Assets\Icons\peopel-counting.png" />
     <Resource Include="Assets\Icons\VCA.png" />
     <Resource Include="Assets\Icons\cctv.png" />
+    <Resource Include="Assets\Icons\voice.png" />
   </ItemGroup>
 
 </Project>

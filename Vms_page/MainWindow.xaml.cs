@@ -192,6 +192,11 @@ namespace Vms_page
                     var seqWindow = new SequenceResourceWindow();
                     seqWindow.Show();
                 }
+                else if (item.Name == "Audio")
+                {
+                    var audioWindow = new AudioWindow();
+                    audioWindow.Show();
+                }
                 else
                 {
                     // Show alert for other cards
