@@ -45,3 +45,5 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\refin
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.genruntimeconfig.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ref\Vms_page.dll
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.g.cs

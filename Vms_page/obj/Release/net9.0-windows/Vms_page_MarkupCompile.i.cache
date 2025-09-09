@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
-13-1637550472
+1488013987
 
-201037851517
+211567595711
 200366931479
-AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AudioWindow.xaml;CustomGridLayoutPopup.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;SequenceResourceWindow.xaml;UserManagementWindow.xaml;ViewWindow.xaml;
+AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AudioWindow.xaml;CustomGridLayoutPopup.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;SequenceResourceWindow.xaml;UserManagementWindow.xaml;VcaWindow.xaml;ViewWindow.xaml;
 
 False
 

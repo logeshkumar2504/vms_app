@@ -1,0 +1,650 @@
+<Window x:Class="Vms_page.VcaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VCA" Height="700" Width="1200"
+        Background="{DynamicResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Custom ComboBox Style -->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Path x:Name="Arrow"
+                                                  Fill="Black"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,4,0"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Style="{x:Null}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="{TemplateBinding Padding}"
+                                     Focusable="True"
+                                     Background="Transparent"
+                                     Foreground="Black"
+                                     Visibility="Hidden"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="#F5F5F5"
+                                            BorderThickness="1"
+                                            BorderBrush="#CCCCCC"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom ComboBoxItem Style -->
+        <Style x:Key="CustomComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E0E0E0"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#D0D0D0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern Tab Button -->
+        <Style x:Key="TabButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="Margin" Value="0,0,2,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8,8,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Active Tab Button -->
+        <Style x:Key="ActiveTabButton" TargetType="Button" BasedOn="{StaticResource TabButton}">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Grid Layout Button Style -->
+        <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#404040"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF9500"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <!-- Top Navigation Bar -->
+        <Border DockPanel.Dock="Top" 
+                Height="35" 
+                Background="{DynamicResource TopBarColor}" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="15,0">
+                <Button Name="RetailMonitoringBtn" 
+                        Content="Retail Monitoring" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="{DynamicResource PrimaryColor}" 
+                        FontSize="12" 
+                        FontWeight="SemiBold"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+                <Button Name="BehaviorSearchBtn" 
+                        Content="Behavior Search" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="{DynamicResource TextSecondaryColor}" 
+                        FontSize="12" 
+                        FontWeight="Normal"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+                <Button Name="HeatMapBtn" 
+                        Content="Heat Map" 
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Foreground="{DynamicResource TextSecondaryColor}" 
+                        FontSize="12" 
+                        FontWeight="Normal"
+                        Padding="10,5"
+                        Cursor="Hand"
+                        Click="NavigationButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+    <Grid Background="{DynamicResource BackgroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="160"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar -->
+            <Border Grid.Row="0" Grid.Column="0" 
+                    Background="{DynamicResource SidebarColor}" 
+                    BorderBrush="{DynamicResource BorderColor}" 
+                    BorderThickness="0,0,1,0">
+                <StackPanel Margin="15">
+                    <!-- Retail Monitoring Heading -->
+                    <TextBlock Text="Retail Monitoring" 
+                               FontSize="14" 
+                               FontWeight="SemiBold" 
+                               Foreground="{DynamicResource TextPrimaryColor}" 
+                               Margin="0,0,0,15"/>
+
+                    <!-- Search Bar -->
+                    <Border Background="{DynamicResource SurfaceColor}" 
+                            BorderBrush="{DynamicResource BorderColor}" 
+                            BorderThickness="1" 
+                            CornerRadius="3"
+                            Height="28">
+                        <Grid>
+                            <TextBlock Text="🔍" 
+                                       FontSize="12" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Left" 
+                                       Margin="8,0"/>
+                            <TextBox Name="SearchTextBox"
+                                     Background="Transparent" 
+                                     BorderThickness="0" 
+                                     Foreground="{DynamicResource TextPrimaryColor}" 
+                                     VerticalAlignment="Center" 
+                                     Margin="25,0,8,0"
+                                     FontSize="12"
+                                     Text="Enter Keywords"
+                                     GotFocus="SearchTextBox_GotFocus"
+                                     LostFocus="SearchTextBox_LostFocus"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Main Content Area -->
+            <Border Grid.Row="0" Grid.Column="1" Background="{DynamicResource SurfaceColor}">
+                <Grid>
+                    <!-- Default Retail Monitoring View -->
+                    <Grid x:Name="RetailMonitoringView" Visibility="Visible">
+                        <!-- Single Camera View -->
+                        <Grid x:Name="SingleCameraView" Visibility="Visible">
+                            <Border Background="#1A1A1A" 
+                                    CornerRadius="0"
+                                    BorderThickness="2"
+                                    BorderBrush="#FF9500"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click"
+                                    x:Name="SingleCameraFeed">
+                                <Grid>
+                                    <Image Source="/Assets/Icons/cctv.png" 
+                                           Width="120" 
+                                           Height="120" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Stretch="Uniform"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <!-- 4-Camera Grid View -->
+                        <Grid x:Name="FourCameraView" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Top Left Camera -->
+                            <Border Grid.Row="0" Grid.Column="0" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="2"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <Image Source="/Assets/Icons/cctv.png" 
+                                           Width="60" 
+                                           Height="60" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Stretch="Uniform"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Top Right Camera -->
+                            <Border Grid.Row="0" Grid.Column="1" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="2"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <Image Source="/Assets/Icons/cctv.png" 
+                                           Width="60" 
+                                           Height="60" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Stretch="Uniform"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Bottom Left Camera -->
+                            <Border Grid.Row="1" Grid.Column="0" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="2"
+                                    BorderThickness="1"
+                                    BorderBrush="#333333"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <Image Source="/Assets/Icons/cctv.png" 
+                                           Width="60" 
+                                           Height="60" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Stretch="Uniform"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Bottom Right Camera -->
+                            <Border Grid.Row="1" Grid.Column="1" 
+                                    Background="#1A1A1A" 
+                                    CornerRadius="0" 
+                                    Margin="2"
+                                    BorderThickness="1"
+                                    BorderBrush="#FF9500"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="VideoFeed_Click">
+                                <Grid>
+                                    <Image Source="/Assets/Icons/cctv.png" 
+                                           Width="60" 
+                                           Height="60" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Stretch="Uniform"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+
+                    <!-- Behavior Search View -->
+                    <Grid x:Name="BehaviorSearchView" Visibility="Collapsed" Background="{DynamicResource SurfaceColor}">
+                        <StackPanel HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="Behavior Search" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="18" 
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="Advanced behavior analysis tools" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Heat Map View -->
+                    <Grid x:Name="HeatMapView" Visibility="Collapsed" Background="{DynamicResource SurfaceColor}">
+                        <StackPanel HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="Heat Map" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="18" 
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="Visual heat map analytics" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Right Sidebar -->
+            <Border Grid.Row="0" Grid.Column="2" 
+                    Background="#1E1E1E" 
+                    BorderBrush="#333333" 
+                    BorderThickness="1,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Top Bar with Dropdowns -->
+                    <Border Grid.Row="0" 
+                            Background="#2A2A2A" 
+                            BorderBrush="#404040"
+                            BorderThickness="0,0,0,1"
+                            Padding="8,6,8,6">
+                        <StackPanel>
+                            <!-- Alarms Dropdown -->
+                            <ComboBox x:Name="AlarmsComboBox"
+                                      Style="{StaticResource CustomComboBoxStyle}"
+                                      Margin="0,0,0,4">
+                                <ComboBoxItem Content="All Alarms" IsSelected="True" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Critical" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Warning" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Info" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                            </ComboBox>
+
+                            <!-- Objects Dropdown -->
+                            <ComboBox x:Name="ObjectsComboBox"
+                                      Style="{StaticResource CustomComboBoxStyle}"
+                                      Margin="0,0,0,4">
+                                <ComboBoxItem Content="All Objects" IsSelected="True" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="People" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Vehicles" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Animals" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                            </ComboBox>
+
+                            <!-- Pause Button -->
+                            <Button Background="Transparent" 
+                                    BorderBrush="#666666" 
+                                    BorderThickness="1" 
+                                    Width="24" Height="24" 
+                                    Cursor="Hand"
+                                    Click="PauseButton_Click"
+                                    ToolTip="Pause Monitoring">
+                                <TextBlock Text="⏸" 
+                                           FontSize="10" 
+                                           Foreground="White" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Content Area -->
+                    <Border Grid.Row="1" 
+                            Background="#1E1E1E" 
+                            Padding="8">
+                        <StackPanel>
+                            <!-- Header -->
+                            <TextBlock Text="Alarm Events" 
+                                       Foreground="White" 
+                                       FontSize="11" 
+                                       FontWeight="SemiBold" 
+                                       Margin="0,0,0,6"/>
+                            
+                            <!-- Status Indicator -->
+                            <Border Background="#0F4C3C" 
+                                    BorderBrush="#10B981" 
+                                    BorderThickness="1" 
+                                    CornerRadius="2" 
+                                    Padding="4,2" 
+                                    Margin="0,0,0,8">
+                                <TextBlock Text="● System Active" 
+                                           Foreground="#10B981" 
+                                           FontSize="9" 
+                                           FontWeight="Medium"/>
+                            </Border>
+                            
+                            <!-- Alarm List -->
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                                          Height="200">
+                                <StackPanel>
+                                    <!-- Sample alarm items -->
+                                    <Border Background="#2A2A2A" 
+                                            BorderBrush="#404040" 
+                                            BorderThickness="1" 
+                                            CornerRadius="2" 
+                                            Padding="6,4" 
+                                            Margin="0,0,0,3">
+                                        <StackPanel>
+                                            <TextBlock Text="Motion Detected" 
+                                                       Foreground="White" 
+                                                       FontSize="9" 
+                                                       FontWeight="Medium"/>
+                                            <TextBlock Text="Camera 1 - 14:23" 
+                                                       Foreground="#888888" 
+                                                       FontSize="8"/>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <Border Background="#2A2A2A" 
+                                            BorderBrush="#404040" 
+                                            BorderThickness="1" 
+                                            CornerRadius="2" 
+                                            Padding="6,4" 
+                                            Margin="0,0,0,3">
+                                        <StackPanel>
+                                            <TextBlock Text="Object Detected" 
+                                                       Foreground="White" 
+                                                       FontSize="9" 
+                                                       FontWeight="Medium"/>
+                                            <TextBlock Text="Camera 2 - 14:21" 
+                                                       Foreground="#888888" 
+                                                       FontSize="8"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Bottom Bar -->
+            <Border Grid.Row="1" Grid.ColumnSpan="3"
+                    Background="#2A2A2A" 
+                    BorderBrush="#FF9500"
+                    BorderThickness="0,1,0,0"
+                    Height="30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left side - Status info -->
+                    <StackPanel Grid.Column="0" 
+                                Orientation="Horizontal" 
+                                VerticalAlignment="Center" 
+                                Margin="12,0"/>
+
+                    <!-- Center - Control icons -->
+                    <StackPanel Grid.Column="1" 
+                                Orientation="Horizontal" 
+                                VerticalAlignment="Center" 
+                                Margin="0,0,20,0">
+                        
+                        <!-- Single Square Icon -->
+                        <Button Content="□" 
+                                FontSize="16" 
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Width="24" Height="24"
+                                Margin="0,0,8,0"
+                                Cursor="Hand"
+                                Click="SingleView_Click"
+                                ToolTip="Single Camera View"/>
+                        
+                        <!-- Grid Icon -->
+                        <Button Content="⊞" 
+                                FontSize="14" 
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Width="24" Height="24"
+                                Margin="0,0,8,0"
+                                Cursor="Hand"
+                                Click="GridView_Click"
+                                ToolTip="4-Camera Grid View"/>
+                        
+                        <!-- Close Icon -->
+                        <Button Content="✕" 
+                                FontSize="14" 
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Width="24" Height="24"
+                                Cursor="Hand"
+                                Click="CloseWindow_Click"
+                                ToolTip="Close Window"/>
+                    </StackPanel>
+
+                    <!-- Right side - Time -->
+                    <StackPanel Grid.Column="2" 
+                                Orientation="Horizontal" 
+                                VerticalAlignment="Center" 
+                                Margin="0,0,12,0">
+                        <TextBlock Text="5:23 12:31" 
+                                   Foreground="White" 
+                                   FontSize="11" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+    </Grid>
+    </DockPanel>
+</Window>

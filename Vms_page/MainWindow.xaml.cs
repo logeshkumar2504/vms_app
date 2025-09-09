@@ -123,6 +123,11 @@ namespace Vms_page
                     var userManagementWindow = new UserManagementWindow();
                     userManagementWindow.Show();
                 }
+                else if (item.Name == "VCA")
+                {
+                    var vcaWindow = new VcaWindow();
+                    vcaWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -187,6 +192,11 @@ namespace Vms_page
                     var peopleCountingWindow = new PeopleCountingWindow();
                     peopleCountingWindow.Show();
                 }
+                else if (item.Name == "VCA")
+                {
+                    var vcaWindow = new VcaWindow();
+                    vcaWindow.Show();
+                }
                 else if (item.Name == "Sequence Resource")
                 {
                     var seqWindow = new SequenceResourceWindow();
@@ -196,6 +206,11 @@ namespace Vms_page
                 {
                     var audioWindow = new AudioWindow();
                     audioWindow.Show();
+                }
+                else if (item.Name == "VCA")
+                {
+                    var vcaWindow = new VcaWindow();
+                    vcaWindow.Show();
                 }
                 else
                 {
