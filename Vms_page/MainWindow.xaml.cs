@@ -123,6 +123,11 @@ namespace Vms_page
                     var userManagementWindow = new UserManagementWindow();
                     userManagementWindow.Show();
                 }
+                else if (item.Name == "Alarm Records")
+                {
+                    var alarmRecordsWindow = new AlarmRecordsWindow();
+                    alarmRecordsWindow.Show();
+                }
                 else if (item.Name == "VCA")
                 {
                     var vcaWindow = new VcaWindow();
@@ -185,6 +190,12 @@ namespace Vms_page
                 {
                     var userManagementWindow = new UserManagementWindow();
                     userManagementWindow.Show();
+                }
+                // Check if it's Alarm Records and open the Alarm Records window
+                else if (item.Name == "Alarm Records")
+                {
+                    var alarmRecordsWindow = new AlarmRecordsWindow();
+                    alarmRecordsWindow.Show();
                 }
                 // Check if it's People Counting and open the People Counting window
                 else if (item.Name == "People Counting")

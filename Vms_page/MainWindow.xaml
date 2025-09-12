@@ -475,7 +475,7 @@
                 Opacity="0.6"/>
 
         <!-- Main Content Grid -->
-        <Grid Margin="12" Background="{DynamicResource BackgroundColor}">
+        <Grid Margin="0,12,0,12" Background="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="237*"/>
                 <RowDefinition Height="388*"/>
@@ -489,7 +489,7 @@
             <Border Grid.Column="0" 
                     Background="{DynamicResource SidebarColor}" 
                     CornerRadius="0" 
-                    Margin="-13,-13,0,-11"
+                    Margin="0,-13,0,-11"
                     Grid.RowSpan="2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Disabled"
@@ -809,7 +809,7 @@
             <Border Grid.Column="1" 
                     Background="{DynamicResource CardBackgroundColor}" 
                     CornerRadius="0" 
-                    Margin="0,-13,-13,-11"
+                    Margin="0,-13,0,-11"
                     Style="{StaticResource CardStyle}" Grid.RowSpan="2">
                 <Grid x:Name="DropTargetGrid"
                       AllowDrop="True"
