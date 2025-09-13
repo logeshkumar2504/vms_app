@@ -89,6 +89,14 @@ namespace Vms_page
             LatestAlarmButton.Style = (Style)FindResource("SelectedNavbarButtonStyle");
             HistoryAlarmButton.Style = (Style)FindResource("NavbarButtonStyle");
             
+            // Show Latest Alarm content, hide History Alarm content
+            LatestAlarmContent.Visibility = Visibility.Visible;
+            HistoryAlarmContent.Visibility = Visibility.Collapsed;
+            
+            // Show the main filter section and table headers for Latest Alarm
+            MainFilterSection.Visibility = Visibility.Visible;
+            MainTableHeaders.Visibility = Visibility.Visible;
+            
             // Load latest alarm content
             InitializeAlarmData();
         }
@@ -99,8 +107,16 @@ namespace Vms_page
             HistoryAlarmButton.Style = (Style)FindResource("SelectedNavbarButtonStyle");
             LatestAlarmButton.Style = (Style)FindResource("NavbarButtonStyle");
             
-            // Load history alarm content (same as latest alarm for now)
-            InitializeAlarmData();
+            // Show History Alarm content, hide Latest Alarm content
+            LatestAlarmContent.Visibility = Visibility.Collapsed;
+            HistoryAlarmContent.Visibility = Visibility.Visible;
+            
+            // Hide the main filter section and table headers for Latest Alarm
+            MainFilterSection.Visibility = Visibility.Collapsed;
+            MainTableHeaders.Visibility = Visibility.Collapsed;
+            
+            // Clear data for history (empty for now)
+            AlarmRecords.Clear();
         }
     }
 
