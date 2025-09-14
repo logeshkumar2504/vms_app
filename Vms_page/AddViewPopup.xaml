@@ -2,30 +2,20 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="View Info" Height="600" Width="900"
-        Background="#0F1419" WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
+        Background="{DynamicResource BackgroundColor}" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
 
     <Window.Resources>
-        <!-- Modern color scheme -->
-        <SolidColorBrush x:Key="PrimaryBackground" Color="#0F1419"/>
-        <SolidColorBrush x:Key="SecondaryBackground" Color="#1A1F2A"/>
-        <SolidColorBrush x:Key="CardBackground" Color="#1E2330"/>
-        <SolidColorBrush x:Key="BorderColor" Color="#2A2F3A"/>
-        <SolidColorBrush x:Key="TextPrimary" Color="#E0E6ED"/>
-        <SolidColorBrush x:Key="TextSecondary" Color="#B0BEC5"/>
-        <SolidColorBrush x:Key="AccentBlue" Color="#4A9EFF"/>
-        <SolidColorBrush x:Key="AccentRed" Color="#E74C3C"/>
-        <SolidColorBrush x:Key="SuccessGreen" Color="#2ECC71"/>
-        <SolidColorBrush x:Key="WarningOrange" Color="#F39C12"/>
 
         <!-- Input Box Style -->
         <Style x:Key="InputBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#1E2330"/>
-            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="28"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -39,7 +29,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -49,12 +39,13 @@
 
         <!-- ComboBox Style -->
         <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="#1E2330"/>
-            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="28"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -87,7 +78,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -97,7 +88,7 @@
 
         <!-- Button Styles -->
         <Style x:Key="ActionButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4A9EFF"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="20,10"/>
@@ -115,7 +106,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#3A8EEF"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -125,9 +116,9 @@
 
         <Style x:Key="CancelButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="Padding" Value="20,10"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="Normal"/>
@@ -143,7 +134,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2A2F3A"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -154,9 +145,9 @@
         <!-- Grid Layout Button Style -->
         <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="Padding" Value="4"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -174,12 +165,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2A2F3A"/>
-                                <Setter Property="BorderBrush" Value="#FF9500"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource WarningColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FF9500"/>
-                                <Setter Property="BorderBrush" Value="#FF9500"/>
+                                <Setter Property="Background" Value="{DynamicResource WarningColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource WarningColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -190,7 +181,7 @@
         <!-- Icon Button Style -->
         <Style x:Key="IconButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="FontSize" Value="16"/>
@@ -206,8 +197,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2A2F3A"/>
-                                <Setter Property="Foreground" Value="#E0E6ED"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -216,7 +207,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Background="#0F1419">
+    <Grid Background="{DynamicResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -224,11 +215,11 @@
         </Grid.RowDefinitions>
 
         <!-- Top Section - Name Input -->
-        <Border Grid.Row="0" Background="#1A1F2A" Margin="0,0,0,10" Padding="16">
+        <Border Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" Margin="0,0,0,10" Padding="16">
             <StackPanel>
-                <TextBlock Text="Name" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,12"/>
+                <TextBlock Text="Name" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" FontWeight="Bold" Margin="0,0,0,12"/>
                 <TextBox x:Name="NameInputBox" Style="{StaticResource InputBoxStyle}" 
-                         Text="Enter view name..." Foreground="Gray" Height="32"/>
+                         Text="Enter view name..." Foreground="{DynamicResource TextSecondaryColor}"/>
             </StackPanel>
         </Border>
 
@@ -240,52 +231,52 @@
             </Grid.ColumnDefinitions>
 
             <!-- Left Sidebar -->
-            <Border Grid.Column="0" Background="#1A1F2A" Margin="-11,-23,6,0">
+            <Border Grid.Column="0" Background="{DynamicResource CardBackgroundColor}" Margin="-11,-23,6,0">
                 <StackPanel Margin="16">
                     <!-- Video Channel Section -->
                     <StackPanel Margin="0,0,0,24">
                         <Grid Margin="0,0,0,12">
-                            <TextBlock Text="Video Channel" Foreground="White" FontSize="12" FontWeight="Bold" 
+                            <TextBlock Text="Video Channel" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" FontWeight="Bold" 
                                        VerticalAlignment="Center"/>
                             <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
                                     Background="Transparent" BorderThickness="0" Padding="4" Cursor="Hand">
-                                <TextBlock Text="⊞" FontSize="12" Foreground="#B0BEC5"/>
+                                <TextBlock Text="⊞" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}"/>
                             </Button>
                         </Grid>
 
                         <!-- Search Box -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0BEC5"/>
+                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource TextSecondaryColor}"/>
                             <TextBox x:Name="VideoChannelSearchBox" Style="{StaticResource InputBoxStyle}" 
-                                     Text="Enter Keywords" Foreground="Gray" Height="28" Width="135"/>
+                                     Text="Enter Keywords" Foreground="{DynamicResource TextSecondaryColor}" Width="135"/>
                         </StackPanel>
 
                         <!-- Video Channel Content Area -->
                     </StackPanel>
 
                     <!-- Divider Line -->
-                    <Border Height="1" Background="#3A3F4A" Margin="0,0,0,24"/>
+                    <Border Height="1" Background="{DynamicResource BorderColor}" Margin="0,0,0,24"/>
 
                     <!-- Sequence Resource Section -->
                     <StackPanel>
                         <Grid Margin="0,0,0,12">
-                            <TextBlock Text="Sequence Resource" Foreground="White" FontSize="10" FontWeight="Bold" 
+                            <TextBlock Text="Sequence Resource" Foreground="{DynamicResource TextPrimaryColor}" FontSize="10" FontWeight="Bold" 
                                        VerticalAlignment="Center"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Button Content="+" Background="Transparent" BorderThickness="0" Padding="4" 
-                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="#B0BEC5" RenderTransformOrigin="1.111,0.591"/>
+                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" RenderTransformOrigin="1.111,0.591"/>
                                 <Button Content="✏" Background="Transparent" BorderThickness="0" Padding="4" 
-                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="#B0BEC5"/>
+                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}"/>
                                 <Button Content="🗑" Background="Transparent" BorderThickness="0" Padding="4" 
-                                        Cursor="Hand" FontSize="10" Foreground="#B0BEC5"/>
+                                        Cursor="Hand" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}"/>
                             </StackPanel>
                         </Grid>
 
                         <!-- Search Box -->
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0BEC5"/>
+                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource TextSecondaryColor}"/>
                             <TextBox x:Name="SequenceResourceSearchBox" Style="{StaticResource InputBoxStyle}" 
-                                     Text="Enter Keywords" Foreground="Gray" Height="28"/>
+                                     Text="Enter Keywords" Foreground="{DynamicResource TextSecondaryColor}"/>
                         </StackPanel>
 
                         <!-- Sequence Resource Content Area -->
@@ -294,7 +285,7 @@
             </Border>
 
             <!-- Right Panel - Camera Preview and Controls -->
-            <Border Background="#1A1F2A" Margin="194,-23,-12,0" Grid.ColumnSpan="2">
+            <Border Background="{DynamicResource CardBackgroundColor}" Margin="194,-23,-12,0" Grid.ColumnSpan="2">
                 <Grid Margin="0,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -304,7 +295,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- Camera Preview Area with Orange Border -->
-                    <Border Grid.Row="0" Background="Black" BorderBrush="#FF9500" BorderThickness="3" 
+                    <Border Grid.Row="0" Background="Black" BorderBrush="{DynamicResource WarningColor}" BorderThickness="3" 
                             Margin="12,12,27,12" CornerRadius="4">
                         <Grid x:Name="CameraPreviewGrid">
                             <!-- Default 2x2 Grid Layout -->
@@ -318,19 +309,19 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- Camera Cells -->
-                            <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
@@ -417,42 +408,42 @@
                                 <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="3" Grid.Column="3" Stretch="Uniform"/>
                             </Grid>
                         </Button>
-                        <Button Background="Transparent" BorderThickness="1" BorderBrush="#404040" 
+                        <Button Background="Transparent" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}" 
                                 Width="32" Height="24" Margin="2" Cursor="Hand">
-                            <TextBlock Text="▼" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="▼" FontSize="10" Foreground="{DynamicResource TextPrimaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
                     <!-- Table Header -->
-                    <Border Grid.Row="2" Background="#2A2F3A" Height="32" Margin="12,0,12,8">
+                    <Border Grid.Row="2" Background="{DynamicResource SurfaceColor}" Height="32" Margin="12,0,12,8">
                         <Grid Margin="12,0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="241"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="Channel Name" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,210,0" Height="16"/>
-                            <TextBlock Grid.Column="1" Text="Stream" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="16"/>
-                            <TextBlock Grid.Column="2" Text="Preset" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="34"/>
+                            <TextBlock Grid.Column="0" Text="Channel Name" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="1" Text="Stream" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="Preset" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Remarks Section -->
                     <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12">
-                        <TextBlock Text="Remarks:" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="Remarks:" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBox x:Name="RemarksTextBox" Style="{StaticResource InputBoxStyle}" 
-                                 Text="Enter remarks..." Foreground="Gray" Height="24" Width="200"/>
+                                 Text="Enter remarks..." Foreground="{DynamicResource TextSecondaryColor}" Width="200"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </Grid>
 
         <!-- Bottom Action Buttons -->
-        <Border Grid.Row="1" Background="#1A1F2A" Margin="0,402,0,0">
+        <Border Grid.Row="1" Background="{DynamicResource CardBackgroundColor}" Margin="0,402,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
         </Border>
     </Grid>
