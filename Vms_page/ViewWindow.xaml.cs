@@ -1,16 +1,14 @@
+using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Controls; // Added for TextBlock
-using System; // Added for EventArgs
-using System.Windows.Interop; // Added for WindowInteropHelper
-using System.Runtime.InteropServices; // Added for DllImport
+using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace Vms_page
 {
     public partial class ViewWindow : Window
     {
-
-        
         public ViewWindow()
         {
             InitializeComponent();
@@ -30,19 +28,31 @@ namespace Vms_page
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement edit functionality
-            MessageBox.Show("Edit button clicked", "Edit View", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("No views available to edit", "No Data", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement delete functionality
-            var result = MessageBox.Show("Are you sure you want to delete the selected view?", "Delete View", 
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            MessageBox.Show("No views available to delete", "No Data", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchBox.Text == "Search views...")
             {
-                // TODO: Implement actual deletion logic
-                MessageBox.Show("View deleted successfully", "Delete View", MessageBoxButton.OK, MessageBoxImage.Information);
+                SearchBox.Text = "";
+                SearchBox.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
+
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
+            {
+                SearchBox.Text = "Search views...";
+                SearchBox.Foreground = System.Windows.Media.Brushes.Gray;
             }
         }
 
@@ -69,6 +79,4 @@ namespace Vms_page
             }
         }
     }
-
-
 }
