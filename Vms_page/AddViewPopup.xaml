@@ -47,6 +47,54 @@
             </Setter>
         </Style>
 
+        <!-- ComboBox Style -->
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#1E2330"/>
+            <Setter Property="Foreground" Value="#E0E6ED"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="0"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ToggleButton x:Name="ToggleButton" 
+                                            Grid.Column="2" 
+                                            Focusable="false" 
+                                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                            ClickMode="Press">
+                                    <Path x:Name="Arrow" 
+                                          Fill="{TemplateBinding Foreground}" 
+                                          HorizontalAlignment="Right" 
+                                          Margin="0,0,8,0" 
+                                          VerticalAlignment="Center" 
+                                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                </ToggleButton>
+                                <ContentPresenter x:Name="ContentSite" 
+                                                IsHitTestVisible="False" 
+                                                Content="{TemplateBinding SelectionBoxItem}" 
+                                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                                Margin="{TemplateBinding Padding}" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- Button Styles -->
         <Style x:Key="ActionButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#4A9EFF"/>
@@ -108,15 +156,18 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="24"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="0"
+                                CornerRadius="2"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -124,10 +175,11 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#2A2F3A"/>
+                                <Setter Property="BorderBrush" Value="#FF9500"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#4A9EFF"/>
-                                <Setter Property="BorderBrush" Value="#4A9EFF"/>
+                                <Setter Property="Background" Value="#FF9500"/>
+                                <Setter Property="BorderBrush" Value="#FF9500"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -166,117 +218,242 @@
 
     <Grid Background="#0F1419">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Main Content Area -->
-        <Border Grid.Row="0" Background="#0F1419" CornerRadius="0,0,0,0" Margin="12,12,12,0">
-            <Grid Margin="0,0,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Left Column - Grid Layout Selection -->
-                <StackPanel Grid.Column="0" Margin="12,12,6,12">
-                    <!-- Section Header -->
-                    <TextBlock Text="Grid Layout" Foreground="White" FontSize="16" FontWeight="Bold" 
-                               Margin="0,0,0,12"/>
-                    
-                    <!-- Grid Layout Buttons -->
-                    <WrapPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Button x:Name="Grid1x1Btn" Content="1×1" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Margin="0,0,8,8" Padding="16,10" Click="Grid1x1Btn_Click"/>
-                        <Button x:Name="Grid2x2Btn" Content="2×2" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Margin="0,0,8,8" Padding="16,10" Click="Grid2x2Btn_Click"/>
-                        <Button x:Name="Grid3x3Btn" Content="3×3" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Margin="0,0,8,8" Padding="16,10" Click="Grid3x3Btn_Click"/>
-                        <Button x:Name="Grid4x4Btn" Content="4×4" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Margin="0,0,8,8" Padding="16,10" Click="Grid4x4Btn_Click"/>
-                        <Button x:Name="GridCustomBtn" Content="Custom" Style="{StaticResource GridLayoutButtonStyle}" 
-                                Margin="0,0,8,8" Padding="16,10" Click="GridCustomBtn_Click"/>
-                    </WrapPanel>
-                    
-                    <!-- Dynamic Grid Preview Area -->
-                    <Border Background="#1A1F2A" Height="160" CornerRadius="0" Margin="0,0,0,12">
-                        <Grid x:Name="GridPreviewContainer" Background="#1A1F2A">
-                            <!-- Default preview text when no grid is selected -->
-                            <TextBlock Text="Select a grid layout to preview" Foreground="#B0BEC5" FontSize="13" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
-                        </Grid>
-                    </Border>
-                    
-                    <!-- Table Header -->
-                    <Border Background="#1A1F2A" Height="32" CornerRadius="0" Margin="0,0,0,6">
-                        <Grid Margin="12,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="80"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Grid.Column="0" Text="Camera Name" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="Status" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="Actions" Foreground="White" FontSize="12" 
-                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </Border>
-                    
-                    <!-- Table Content Area -->
-                    <Border Background="#1A1F2A" Height="100" CornerRadius="0">
-                        <TextBlock Text="No data available" Foreground="#B0BEC5" FontSize="12" 
-                                   HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
-                    </Border>
-                </StackPanel>
-
-                <!-- Right Column - Camera Selection -->
-                <StackPanel Grid.Column="1" Margin="6,12,12,12">
-                    <!-- Section Header -->
-                    <TextBlock Text="Camera Selection" Foreground="White" FontSize="16" FontWeight="Bold" 
-                               Margin="0,0,0,12"/>
-                    
-                    <!-- Search Box -->
-                    <TextBox x:Name="SearchBox" Style="{StaticResource InputBoxStyle}" 
-                             Margin="0,0,0,12" Text="Search cameras..." Foreground="Gray"/>
-                    
-                    <!-- Camera List -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200" Margin="0,0,0,12">
-                        <StackPanel x:Name="CameraListContainer">
-                            <!-- Camera items will be added here dynamically -->
-                        </StackPanel>
-                    </ScrollViewer>
-                    
-                    <!-- Add Camera Button -->
-                    <Button x:Name="AddCameraBtn" Content="+ Add Camera" Style="{StaticResource ActionButtonStyle}" 
-                            HorizontalAlignment="Stretch" Margin="0,0,0,12" Click="AddCameraBtn_Click"/>
-                    
-                    <!-- Camera Details -->
-                    <Expander Header="Camera Details" IsExpanded="False" Foreground="White" 
-                              FontWeight="SemiBold" Margin="0,0,0,12">
-                        <StackPanel Margin="0,8,0,0">
-                            <TextBox x:Name="CameraNameBox" Style="{StaticResource InputBoxStyle}" 
-                                     Margin="0,0,0,8" Text="Camera Name" Foreground="Gray"/>
-                            <TextBox x:Name="CameraUrlBox" Style="{StaticResource InputBoxStyle}" 
-                                     Margin="0,0,0,8" Text="Camera URL" Foreground="Gray"/>
-                            <ComboBox x:Name="CameraTypeCombo" Style="{StaticResource InputBoxStyle}" 
-                                      Margin="0,0,0,8" Text="Camera Type" Foreground="Gray"/>
-                        </StackPanel>
-                    </Expander>
-                </StackPanel>
-            </Grid>
+        <!-- Top Section - Name Input -->
+        <Border Grid.Row="0" Background="#1A1F2A" Margin="0,0,0,10" Padding="16">
+            <StackPanel>
+                <TextBlock Text="Name" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,12"/>
+                <TextBox x:Name="NameInputBox" Style="{StaticResource InputBoxStyle}" 
+                         Text="Enter view name..." Foreground="Gray" Height="32"/>
+            </StackPanel>
         </Border>
 
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1" Margin="12,6,12,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar -->
+            <Border Grid.Column="0" Background="#1A1F2A" Margin="-11,-23,6,0">
+                <StackPanel Margin="16">
+                    <!-- Video Channel Section -->
+                    <StackPanel Margin="0,0,0,24">
+                        <Grid Margin="0,0,0,12">
+                            <TextBlock Text="Video Channel" Foreground="White" FontSize="12" FontWeight="Bold" 
+                                       VerticalAlignment="Center"/>
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                    Background="Transparent" BorderThickness="0" Padding="4" Cursor="Hand">
+                                <TextBlock Text="⊞" FontSize="12" Foreground="#B0BEC5"/>
+                            </Button>
+                        </Grid>
+
+                        <!-- Search Box -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0BEC5"/>
+                            <TextBox x:Name="VideoChannelSearchBox" Style="{StaticResource InputBoxStyle}" 
+                                     Text="Enter Keywords" Foreground="Gray" Height="28" Width="135"/>
+                        </StackPanel>
+
+                        <!-- Video Channel Content Area -->
+                    </StackPanel>
+
+                    <!-- Divider Line -->
+                    <Border Height="1" Background="#3A3F4A" Margin="0,0,0,24"/>
+
+                    <!-- Sequence Resource Section -->
+                    <StackPanel>
+                        <Grid Margin="0,0,0,12">
+                            <TextBlock Text="Sequence Resource" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Button Content="+" Background="Transparent" BorderThickness="0" Padding="4" 
+                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="#B0BEC5" RenderTransformOrigin="1.111,0.591"/>
+                                <Button Content="✏" Background="Transparent" BorderThickness="0" Padding="4" 
+                                        Margin="0,0,4,0" Cursor="Hand" FontSize="10" Foreground="#B0BEC5"/>
+                                <Button Content="🗑" Background="Transparent" BorderThickness="0" Padding="4" 
+                                        Cursor="Hand" FontSize="10" Foreground="#B0BEC5"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Search Box -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0BEC5"/>
+                            <TextBox x:Name="SequenceResourceSearchBox" Style="{StaticResource InputBoxStyle}" 
+                                     Text="Enter Keywords" Foreground="Gray" Height="28"/>
+                        </StackPanel>
+
+                        <!-- Sequence Resource Content Area -->
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Right Panel - Camera Preview and Controls -->
+            <Border Background="#1A1F2A" Margin="194,-23,-12,0" Grid.ColumnSpan="2">
+                <Grid Margin="0,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Camera Preview Area with Orange Border -->
+                    <Border Grid.Row="0" Background="Black" BorderBrush="#FF9500" BorderThickness="3" 
+                            Margin="12,12,27,12" CornerRadius="4">
+                        <Grid x:Name="CameraPreviewGrid">
+                            <!-- Default 2x2 Grid Layout -->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Camera Cells -->
+                            <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                                <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                                <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                                <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" BorderBrush="#404040" BorderThickness="1" Margin="2" CornerRadius="2">
+                                <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Grid Layout Selection Buttons -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
+                        <Button Tag="1x1" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="SelectLayout_Click" Margin="2" Width="32" Height="24">
+                            <Image Source="/Assets/Icons/cctv.png" Width="16" Height="16" Stretch="Uniform"/>
+                        </Button>
+                        <Button Tag="2x2" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="SelectLayout_Click" Margin="2" Width="32" Height="24">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/Icons/cctv.png" Width="6" Height="6" Grid.Row="0" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="6" Height="6" Grid.Row="0" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="6" Height="6" Grid.Row="1" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="6" Height="6" Grid.Row="1" Grid.Column="1" Stretch="Uniform"/>
+                            </Grid>
+                        </Button>
+                        <Button Tag="3x3" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="SelectLayout_Click" Margin="2" Width="32" Height="24">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="0" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="0" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="0" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="1" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="1" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="1" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="2" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="2" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="4" Height="4" Grid.Row="2" Grid.Column="2" Stretch="Uniform"/>
+                            </Grid>
+                        </Button>
+                        <Button Tag="4x4" Style="{StaticResource GridLayoutButtonStyle}" 
+                                Click="SelectLayout_Click" Margin="2" Width="32" Height="24">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="0" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="0" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="0" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="0" Grid.Column="3" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="1" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="1" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="1" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="1" Grid.Column="3" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="2" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="2" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="2" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="2" Grid.Column="3" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="3" Grid.Column="0" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="3" Grid.Column="1" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="3" Grid.Column="2" Stretch="Uniform"/>
+                                <Image Source="/Assets/Icons/cctv.png" Width="3" Height="3" Grid.Row="3" Grid.Column="3" Stretch="Uniform"/>
+                            </Grid>
+                        </Button>
+                        <Button Background="Transparent" BorderThickness="1" BorderBrush="#404040" 
+                                Width="32" Height="24" Margin="2" Cursor="Hand">
+                            <TextBlock Text="▼" FontSize="10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Table Header -->
+                    <Border Grid.Row="2" Background="#2A2F3A" Height="32" Margin="12,0,12,8">
+                        <Grid Margin="12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="241"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Channel Name" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,210,0" Height="16"/>
+                            <TextBlock Grid.Column="1" Text="Stream" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="16"/>
+                            <TextBlock Grid.Column="2" Text="Preset" Foreground="White" FontSize="12" 
+                                       FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="34"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Remarks Section -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12">
+                        <TextBlock Text="Remarks:" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="RemarksTextBox" Style="{StaticResource InputBoxStyle}" 
+                                 Text="Enter remarks..." Foreground="Gray" Height="24" Width="200"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
         <!-- Bottom Action Buttons -->
-        <Border Grid.Row="1" Background="#1A1F2A" CornerRadius="0,0,0,0" Margin="12,0,12,12">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
-                <Button x:Name="CancelButton" Style="{StaticResource CancelButtonStyle}" 
-                        Content="Cancel" Margin="0,0,8,0" Click="CancelButton_Click"/>
-                <Button x:Name="SaveButton" Style="{StaticResource ActionButtonStyle}" 
-                        Content="Save View" Click="SaveButton_Click"/>
-            </StackPanel>
+        <Border Grid.Row="1" Background="#1A1F2A" Margin="0,402,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
         </Border>
     </Grid>
 </Window>

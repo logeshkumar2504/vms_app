@@ -21,13 +21,13 @@
             <Setter Property="Foreground" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
             <Setter Property="Margin" Value="8,0"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Height" Value="10"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="MinHeight" Value="30"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -52,13 +52,13 @@
             <Setter Property="Foreground" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
             <Setter Property="Margin" Value="8,0"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Height" Value="10"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="MinHeight" Value="30"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -83,13 +83,13 @@
             <Setter Property="Foreground" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#3A3F4A"/>
-            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
             <Setter Property="Margin" Value="8,0"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Height" Value="10"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="MinHeight" Value="30"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -137,7 +137,7 @@
 
     <DockPanel LastChildFill="True">
         <!-- Top Bar -->
-        <Border DockPanel.Dock="Top" Height="60" Background="#1E2330">
+        <Border DockPanel.Dock="Top" Height="52" Background="#1E2330">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -164,7 +164,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
                         <TextBlock Text="🔍" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0BEC5"/>
                         <TextBox x:Name="SearchBox" Style="{StaticResource SearchBoxStyle}" 
-                                 Width="200" Text="Enter Keywords" Foreground="#B0BEC5" RenderTransformOrigin="0.5,0.5">
+                                 Width="200" Text="Enter Keywords" Foreground="#B0BEC5" RenderTransformOrigin="0.5,0.5" Height="26">
                             <TextBox.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -183,21 +183,24 @@
 
         <!-- Main Content Area -->
         <Grid Grid.Row="1" Background="#0F1419">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Left Panel - Table View -->
-            <Border Grid.Column="0" Background="#0F1419" Margin="12,12,6,12">
+            <!-- Table View -->
+            <Border Background="#0F1419" Margin="12,12,12,12">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="563*"/>
                     </Grid.RowDefinitions>
 
                     <!-- Table Header -->
-                    <Border Grid.Row="0" Background="#1A1F2A" Height="40" CornerRadius="0,0,0,0">
+                    <Border Grid.Row="0" Background="#1A1F2A" CornerRadius="0,0,0,0" Margin="-21,-14,-37,1" RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="9.419"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="1.434"/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
                         <Grid Margin="20,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -205,14 +208,14 @@
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Grid.Column="0" Text="View Name" Foreground="White" FontSize="13" 
+
+                            <TextBlock Grid.Column="0" Text="View Name" Foreground="White" FontSize="16" 
                                        FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="Grid Layout" Foreground="White" FontSize="13" 
+                            <TextBlock Grid.Column="1" Text="Grid Layout" Foreground="White" FontSize="16" 
                                        FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="Created Date" Foreground="White" FontSize="13" 
+                            <TextBlock Grid.Column="2" Text="Created Date" Foreground="White" FontSize="16" 
                                        FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Text="Actions" Foreground="White" FontSize="13" 
+                            <TextBlock Grid.Column="3" Text="Actions" Foreground="White" FontSize="16" 
                                        FontWeight="SemiBold" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
@@ -226,7 +229,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Empty Table Area -->
-                            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" Margin="1,0,1,1" CornerRadius="0,0,0,0">
+                            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" Margin="-18,-12,-17,-18" CornerRadius="0,0,0,0" Grid.RowSpan="2">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="No data available" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" 
                                                HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
@@ -237,48 +240,9 @@
                             </Border>
 
                             <!-- Bottom Status Bar -->
-                            <Border Grid.Row="1" Height="28" Background="{DynamicResource BorderColor}" CornerRadius="0,0,0,0">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0">
-                                    <TextBlock Text="⚠" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}" Margin="0,0,6,0"/>
-                                    <TextBlock Text="0 views found" Foreground="{DynamicResource TextSecondaryColor}" FontSize="11"/>
-                                </StackPanel>
-                            </Border>
                         </Grid>
                     </Border>
                 </Grid>
-            </Border>
-
-            <!-- Right Panel - Quick Actions -->
-            <Border Grid.Column="1" Background="#1A1F2A" CornerRadius="0,0,0,0" Margin="6,12,12,12">
-                <StackPanel Margin="16">
-                    <!-- Panel Header -->
-                    <TextBlock Text="Quick Actions" Foreground="White" FontSize="16" FontWeight="Bold" 
-                               Margin="0,0,0,16"/>
-                    
-                    <!-- Action Buttons -->
-                    <Button Content="+ Create New View" Style="{StaticResource ActionButtonStyle}" 
-                            HorizontalAlignment="Stretch" Margin="0,0,0,8" Padding="16,10"/>
-                    <Button Content="📁 Import Views" Style="{StaticResource ActionButtonStyle}" 
-                            HorizontalAlignment="Stretch" Margin="0,0,0,8" Padding="16,10"/>
-                    <Button Content="⚙️ View Settings" Style="{StaticResource ActionButtonStyle}" 
-                            HorizontalAlignment="Stretch" Margin="0,0,0,8" Padding="16,10"/>
-                    
-                    <!-- Divider -->
-                    <Border Height="1" Background="#3A3F4A" Margin="0,16,0,16"/>
-                    
-                    <!-- Recent Views -->
-                    <TextBlock Text="Recent Views" Foreground="White" FontSize="14" FontWeight="SemiBold" 
-                               Margin="0,0,0,12"/>
-                    
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
-                        <StackPanel>
-                            <!-- Recent view items will be added here dynamically -->
-                            <TextBlock Text="No recent views" Foreground="#B0BEC5" FontSize="12" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                       Margin="0,20,0,0" Opacity="0.6"/>
-                        </StackPanel>
-                    </ScrollViewer>
-                </StackPanel>
             </Border>
         </Grid>
     </DockPanel>
