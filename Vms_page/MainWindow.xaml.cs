@@ -218,6 +218,12 @@ namespace Vms_page
                     var audioWindow = new AudioWindow();
                     audioWindow.Show();
                 }
+                // Check if it's E-map and open the E-map window
+                else if (item.Name == "E-map")
+                {
+                    var emapWindow = new EMapWindow();
+                    emapWindow.Show();
+                }
                 else if (item.Name == "VCA")
                 {
                     var vcaWindow = new VcaWindow();
