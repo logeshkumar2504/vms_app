@@ -1,5 +1,5 @@
 ﻿Vms_page
-
+1.0.0.0
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
 19-720210405
 
-24-234343011
+26-516298790
 200366931479
 AddMapWindow.xaml;AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AlarmRecordsWindow.xaml;AudioWindow.xaml;CustomGridLayoutPopup.xaml;EMapWindow.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;PictureManagementWindow.xaml;RecordingScheduleWindow.xaml;SequenceResourceWindow.xaml;UserManagementWindow.xaml;VcaWindow.xaml;ViewWindow.xaml;
 

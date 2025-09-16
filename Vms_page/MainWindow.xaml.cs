@@ -133,6 +133,11 @@ namespace Vms_page
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
                 }
+                else if (item.Name == "Recording Schedule")
+                {
+                    var rsWindow = new RecordingScheduleWindow();
+                    rsWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -228,6 +233,11 @@ namespace Vms_page
                 {
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
+                }
+                else if (item.Name == "Recording Schedule")
+                {
+                    var rsWindow = new RecordingScheduleWindow();
+                    rsWindow.Show();
                 }
                 else
                 {
