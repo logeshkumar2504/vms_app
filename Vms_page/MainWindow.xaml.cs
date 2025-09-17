@@ -138,6 +138,11 @@ namespace Vms_page
                     var rsWindow = new RecordingScheduleWindow();
                     rsWindow.Show();
                 }
+                else if (item.Name == "Operation Log")
+                {
+                    var logWindow = new OperationLogWindow();
+                    logWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -238,6 +243,11 @@ namespace Vms_page
                 {
                     var rsWindow = new RecordingScheduleWindow();
                     rsWindow.Show();
+                }
+                else if (item.Name == "Operation Log")
+                {
+                    var logWindow = new OperationLogWindow();
+                    logWindow.Show();
                 }
                 else
                 {
