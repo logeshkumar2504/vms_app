@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Operation Log" Height="500" Width="800"
         Background="{DynamicResource BackgroundColor}">
-    <Border Margin="12" Padding="12" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+    <Border Padding="12" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -12,7 +12,7 @@
             </Grid.RowDefinitions>
 
 			<!-- Header Filters -->
-			<Border Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12" Margin="0,0,0,12">
+			<Border Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12" Margin="0,0,-13,12">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
@@ -56,8 +56,28 @@
 				</Grid>
 			</Border>
 
-			<!-- Content Area (empty for now) -->
-			<Grid Grid.Row="1"/>
+			<!-- Content Area with actions below the filter section -->
+			<Grid Grid.Row="1" Margin="0,0,-13,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!-- Secondary actions toolbar -->
+				<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,8,0,8">
+					<Button x:Name="DetailsButton" Content="Details" Width="84" Height="24" Margin="0,0,8,0" Style="{StaticResource OutlinedButtonStyle}"/>
+					<Button x:Name="ExportButton" Content="Export" Width="84" Height="24" Style="{StaticResource OutlinedButtonStyle}"/>
+				</StackPanel>
+				<!-- Log table -->
+				<DataGrid Grid.Row="1" x:Name="OperationLogGrid" Margin="-12,0,0,-11"
+					  ItemsSource="{Binding OperationLogs, RelativeSource={RelativeSource AncestorType=Window}}"
+					  IsReadOnly="True">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Log Time" Binding="{Binding LogTime, StringFormat=yyyy-MM-dd HH:mm:ss}" Width="160"/>
+						<DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="120"/>
+						<DataGridTextColumn Header="Log Description" Binding="{Binding LogDescription}" Width="*"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
         </Grid>
     </Border>
 </Window>
