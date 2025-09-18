@@ -43,7 +43,14 @@ namespace Vms_page
 
         private void VideoFeed_Click(object sender, MouseButtonEventArgs e)
         {
-            // Placeholder handler for video tiles
+            // Clear previous selection
+            ClearCameraTileSelection();
+
+            // Highlight the clicked tile
+            if (sender is Border border)
+            {
+                border.BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)); // Orange
+            }
         }
 
         private void SetLayout_Click(object sender, RoutedEventArgs e)
@@ -108,6 +115,19 @@ namespace Vms_page
                 border.Child = grid;
                 border.MouseLeftButtonDown += VideoFeed_Click;
                 CameraTilesHost.Children.Add(border);
+            }
+        }
+
+        private void ClearCameraTileSelection()
+        {
+            if (CameraTilesHost == null) return;
+
+            foreach (var child in CameraTilesHost.Children)
+            {
+                if (child is Border border)
+                {
+                    border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)); // Gray
+                }
             }
         }
 
