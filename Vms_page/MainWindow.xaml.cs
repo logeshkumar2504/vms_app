@@ -133,6 +133,11 @@ namespace Vms_page
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
                 }
+                else if (item.Name == "Face Recognition")
+                {
+                    var frWindow = new FaceRecognitionWindow();
+                    frWindow.Show();
+                }
                 else if (item.Name == "Recording Schedule")
                 {
                     var rsWindow = new RecordingScheduleWindow();
@@ -238,6 +243,11 @@ namespace Vms_page
                 {
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
+                }
+                else if (item.Name == "Face Recognition")
+                {
+                    var frWindow = new FaceRecognitionWindow();
+                    frWindow.Show();
                 }
                 else if (item.Name == "Recording Schedule")
                 {
