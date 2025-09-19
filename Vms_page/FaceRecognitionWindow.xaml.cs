@@ -3,6 +3,8 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Vms_page
 {
@@ -11,6 +13,10 @@ namespace Vms_page
         public FaceRecognitionWindow()
         {
             InitializeComponent();
+            
+            // Set default view to Realtime Monitoring
+            SetDefaultView();
+            
             // Ensure placeholder is set if empty on load
             if (VideoChannelInput != null && string.IsNullOrWhiteSpace(VideoChannelInput.Text))
             {
@@ -21,22 +27,57 @@ namespace Vms_page
             SetLayout(1);
         }
 
+        private void SetDefaultView()
+        {
+            // Show sidebar for Realtime Monitoring
+            if (LeftSidebar != null)
+            {
+                LeftSidebar.Visibility = Visibility.Visible;
+            }
+
+            // Show appropriate sections in sidebar
+            if (VideoChannelSection != null && FaceLibrarySection != null)
+            {
+                VideoChannelSection.Visibility = Visibility.Visible;
+                FaceLibrarySection.Visibility = Visibility.Collapsed;
+            }
+
+            // Show Realtime Monitoring view by default
+            if (RealtimeGrid != null && FaceLibraryGrid != null && EmptyState != null)
+            {
+                RealtimeGrid.Visibility = Visibility.Visible;
+                FaceLibraryGrid.Visibility = Visibility.Collapsed;
+                EmptyState.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is FrameworkElement fe && fe.Tag is string tag)
             {
-                // Show sidebar only for Realtime Monitoring
+                // Show sidebar for Realtime Monitoring and Face Library Management
                 if (LeftSidebar != null)
                 {
-                    LeftSidebar.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
+                    var showSidebar = tag == "Realtime Monitoring" || tag == "Face Library Management";
+                    LeftSidebar.Visibility = showSidebar ? Visibility.Visible : Visibility.Collapsed;
+                }
+
+                // Show appropriate sections in sidebar
+                if (VideoChannelSection != null && FaceLibrarySection != null)
+                {
+                    VideoChannelSection.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
+                    FaceLibrarySection.Visibility = tag == "Face Library Management" ? Visibility.Visible : Visibility.Collapsed;
                 }
 
                 // Toggle main views
-                if (RealtimeGrid != null && EmptyState != null)
+                if (RealtimeGrid != null && FaceLibraryGrid != null && EmptyState != null)
                 {
                     var isRealtime = tag == "Realtime Monitoring";
+                    var isFaceLibrary = tag == "Face Library Management";
+                    
                     RealtimeGrid.Visibility = isRealtime ? Visibility.Visible : Visibility.Collapsed;
-                    EmptyState.Visibility = isRealtime ? Visibility.Collapsed : Visibility.Visible;
+                    FaceLibraryGrid.Visibility = isFaceLibrary ? Visibility.Visible : Visibility.Collapsed;
+                    EmptyState.Visibility = (isRealtime || isFaceLibrary) ? Visibility.Collapsed : Visibility.Visible;
                 }
             }
         }
@@ -154,7 +195,73 @@ namespace Vms_page
                 }
             }
         }
+
+        // Face Library Management event handlers
+        private void BatchAdd_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Batch Add functionality will be implemented here.", "Batch Add", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BatchDelete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Batch Delete functionality will be implemented here.", "Batch Delete", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Import functionality will be implemented here.", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Export functionality will be implemented here.", "Export", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void GenerateTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Generate Template functionality will be implemented here.", "Generate Template", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ViewToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string viewType)
+            {
+                // Keep the same visual state as the image - no style switching
+                // Grid button stays blue (active), List button stays gray (inactive)
+                MessageBox.Show($"Switched to {viewType} view", "View Toggle", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        // Face Library Search/Filter event handlers
+        private void FaceLibrarySearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Search functionality will be implemented here.", "Face Library Search", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void FaceLibraryResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Reset functionality will be implemented here.", "Face Library Reset", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // Helper method to find visual children
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
     }
 }
-
-
