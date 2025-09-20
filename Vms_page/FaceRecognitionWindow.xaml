@@ -1069,7 +1069,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-
+                                
                                 <!-- Top Action Bar -->
                                 <Border Grid.Row="0" 
                                         Background="{DynamicResource SurfaceColor}" 
@@ -1081,7 +1081,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-
+                                        
                                         <!-- Page Title -->
                                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                             <TextBlock Text="🚨" 
@@ -1094,7 +1094,7 @@
                                                        FontWeight="SemiBold" 
                                                        VerticalAlignment="Center"/>
                                         </StackPanel>
-
+                                        
                                         <!-- Export Button -->
                                         <Button Grid.Column="1" 
                                                 Style="{StaticResource PrimaryButton}" 
@@ -1115,7 +1115,7 @@
                                         </Button>
                                     </Grid>
                                 </Border>
-
+                                
                                 <!-- Content Area -->
                                 <Grid Grid.Row="1" Background="{DynamicResource CardBackgroundColor}">
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -1136,6 +1136,483 @@
                                     </StackPanel>
                                 </Grid>
                             </Grid>
+                        </Border>
+
+                        <!-- Pass Thru Record Filter Bar - Matching Image Design -->
+                        <Border x:Name="PassThruRecordFilterBar" Grid.Row="0" Grid.Column="1"
+                                Background="{DynamicResource TopBarColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="0,0,0,1"
+                                Padding="16,12"
+                                Visibility="Collapsed">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <!-- Main Filter Row -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.5*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Alarm Time Section -->
+                                    <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,20,0">
+                                        <TextBlock Text="Alarm Time" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                                   FontSize="11" 
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,0,0,6"/>
+                                        
+                                        <!-- Date Range Inputs -->
+                                        <Grid Margin="0,0,0,6">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <Border Grid.Column="0" Style="{StaticResource InputContainerStyle}" Margin="0,0,6,0">
+                                                <TextBlock Text="2025-09-15 00:00:0" 
+                                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                                           FontSize="10" 
+                                                           Padding="8,4"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            
+                                            <Border Grid.Column="1" Style="{StaticResource InputContainerStyle}" Margin="0,0,6,0">
+                                                <TextBlock Text="2025-09-15 23:59:5" 
+                                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                                           FontSize="10" 
+                                                           Padding="8,4"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            
+                                            <TextBlock Grid.Column="2" Text="📅" FontSize="12" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        
+                                        <!-- Quick Date Links -->
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Today" 
+                                                       Foreground="{DynamicResource PrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="Medium"
+                                                       Margin="0,0,16,0" 
+                                                       Cursor="Hand"
+                                                       TextDecorations="Underline"/>
+                                            <TextBlock Text="Last 7 days" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="Medium"
+                                                       Margin="0,0,16,0" 
+                                                       Cursor="Hand"
+                                                       TextDecorations="Underline"/>
+                                            <TextBlock Text="Last 30 days" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="Medium"
+                                                       Cursor="Hand"
+                                                       TextDecorations="Underline"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <!-- Mask Status Section -->
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,0,20,0">
+                                        <TextBlock Text="Mask Status" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                                   FontSize="11" 
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,0,0,6"/>
+                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <RadioButton Content="All" 
+                                                         Foreground="{DynamicResource TextPrimaryColor}" 
+                                                         FontSize="10" 
+                                                         FontWeight="Medium"
+                                                         Margin="0,0,12,0" 
+                                                         IsChecked="True"/>
+                                            <RadioButton Content="No mask" 
+                                                         Foreground="{DynamicResource TextPrimaryColor}" 
+                                                         FontSize="10" 
+                                                         FontWeight="Medium"
+                                                         Margin="0,0,12,0"/>
+                                            <RadioButton Content="Mask" 
+                                                         Foreground="{DynamicResource TextPrimaryColor}" 
+                                                         FontSize="10" 
+                                                         FontWeight="Medium"
+                                                         Margin="0,0,12,0"/>
+                                            <RadioButton Content="Unknown" 
+                                                         Foreground="{DynamicResource TextPrimaryColor}" 
+                                                         FontSize="10" 
+                                                         FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <!-- Temperature Section -->
+                                    <StackPanel Grid.Column="2" Orientation="Vertical" Margin="0,0,20,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                            <CheckBox Foreground="{DynamicResource TextPrimaryColor}" 
+                                                      FontSize="10" 
+                                                      Margin="0,0,6,0"/>
+                                            <TextBlock Text="Temperature" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="11" 
+                                                       FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                        
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <Border Grid.Column="0" Style="{StaticResource InputContainerStyle}" Margin="0,0,6,0">
+                                                <TextBlock Text="35.5" 
+                                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                                           FontSize="10" 
+                                                           Padding="8,4"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            
+                                            <Border Grid.Column="1" Style="{StaticResource InputContainerStyle}" Margin="0,0,6,0">
+                                                <TextBlock Text="39.5" 
+                                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                                           FontSize="10" 
+                                                           Padding="8,4"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            
+                                            <TextBlock Grid.Column="2" Text="°C" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="Medium"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <!-- Action Buttons -->
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                        <Button Content="Search" 
+                                                Style="{StaticResource PrimaryButton}" 
+                                                Width="70" 
+                                                Height="28" 
+                                                FontSize="11" 
+                                                FontWeight="SemiBold"
+                                                Margin="0,0,8,0"/>
+                                        <Button Content="Reset" 
+                                                Style="{StaticResource SecondaryButton}" 
+                                                Width="70" 
+                                                Height="28" 
+                                                FontSize="11" 
+                                                FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Grid>
+                                
+                                <!-- Export Button Row -->
+                                <Border Grid.Row="1" 
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,1,0,0"
+                                        Margin="0,8,0,0"
+                                        Padding="16,8">
+                                    <Button Style="{StaticResource SecondaryButton}" 
+                                            Width="80" 
+                                            Height="24"
+                                            FontSize="10"
+                                            FontWeight="SemiBold"
+                                            HorizontalAlignment="Left">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="📤" 
+                                                           FontSize="10" 
+                                                           Margin="0,0,4,0" 
+                                                           VerticalAlignment="Center"/>
+                                                <TextBlock Text="Export" 
+                                                           FontSize="10" 
+                                                           VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Pass Thru Record Main Content Area - Clean Design -->
+                        <Border x:Name="PassThruRecordMainContent" Grid.Row="1" Grid.Column="1"
+                                Background="{DynamicResource CardBackgroundColor}"
+                                Margin="0,0,0,0"
+                                Visibility="Collapsed">
+                            <!-- Empty content area - clean and minimal -->
+                        </Border>
+
+                        <!-- Search by Image Filter Bar - Compact Design -->
+                        <Border x:Name="SearchByImageFilterBar" Grid.Row="0" Grid.Column="1"
+                                Background="{DynamicResource TopBarColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="0,0,0,1"
+                                Padding="16,12"
+                                Visibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.8*"/>
+                                    <ColumnDefinition Width="2.5*"/>
+                                    <ColumnDefinition Width="1.2*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Image Upload Section - Compact -->
+                                <Border Grid.Column="0" 
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="12,10"
+                                        Margin="0,0,12,0"
+                                        Effect="{StaticResource CardShadow}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <TextBlock Text="📷" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Image Upload" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="11" 
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        
+                                        <!-- Upload Buttons -->
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <Button Style="{StaticResource SecondaryButton}" 
+                                                    Width="100" 
+                                                    Height="24" 
+                                                    FontSize="9" 
+                                                    FontWeight="Medium"
+                                                    Margin="0,0,6,0">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="📚" FontSize="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Library" FontSize="9" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button Style="{StaticResource SecondaryButton}" 
+                                                    Width="100" 
+                                                    Height="24" 
+                                                    FontSize="9" 
+                                                    FontWeight="Medium">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="💾" FontSize="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Local" FontSize="9" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                        <!-- Image Placeholder - Compact -->
+                                        <Border Background="{DynamicResource CardBackgroundColor}" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="1"
+                                                CornerRadius="6"
+                                                Height="60"
+                                                Width="80"
+                                                Margin="0,0,0,8">
+                                            <StackPanel Orientation="Vertical" 
+                                                        HorizontalAlignment="Center" 
+                                                        VerticalAlignment="Center">
+                                                <Border Background="{DynamicResource PrimaryColor}" 
+                                                        Width="24" 
+                                                        Height="24" 
+                                                        CornerRadius="12" 
+                                                        Margin="0,0,0,2">
+                                                    <TextBlock Text="👤" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="?" FontSize="10" Opacity="0.6" HorizontalAlignment="Center" Margin="0,-1,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                        
+                                        <TextBlock Text="Note: Only one image allowed" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   FontSize="8" 
+                                                   FontStyle="Italic"
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                
+                                <!-- Search Parameters Section - Compact -->
+                                <Border Grid.Column="1" 
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="12,10"
+                                        Margin="0,0,12,0"
+                                        Effect="{StaticResource CardShadow}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <TextBlock Text="🔍" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Search Parameters" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="11" 
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        
+                                        <!-- Search Time - Compact -->
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,12">
+                                            <TextBlock Text="Search Time" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,0,6"/>
+                                            
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Border Grid.Column="0" 
+                                                        Background="{DynamicResource CardBackgroundColor}" 
+                                                        BorderBrush="{DynamicResource BorderColor}" 
+                                                        BorderThickness="1"
+                                                        CornerRadius="4"
+                                                        Margin="0,0,6,0">
+                                                    <TextBlock Text="2025-09-17 00:00:0 ~ 2025-09-17 23:59:5" 
+                                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                                               FontSize="9" 
+                                                               Padding="8,4"
+                                                               VerticalAlignment="Center"/>
+                                                </Border>
+                                                
+                                                <Button Grid.Column="1" 
+                                                        Style="{StaticResource SecondaryButton}" 
+                                                        Width="24" 
+                                                        Height="24"
+                                                        Margin="0,0,6,0">
+                                                    <TextBlock Text="📅" FontSize="10"/>
+                                                </Button>
+                                                
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                    <TextBlock Text="Today" 
+                                                               Foreground="{DynamicResource PrimaryColor}" 
+                                                               FontSize="9" 
+                                                               FontWeight="Medium"
+                                                               Margin="0,0,12,0" 
+                                                               Cursor="Hand"
+                                                               TextDecorations="Underline"/>
+                                                    <TextBlock Text="Last 7 days" 
+                                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                                               FontSize="9" 
+                                                               FontWeight="Medium"
+                                                               Margin="0,0,12,0" 
+                                                               Cursor="Hand"
+                                                               TextDecorations="Underline"/>
+                                                    <TextBlock Text="Last 30 days" 
+                                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                                               FontSize="9" 
+                                                               FontWeight="Medium"
+                                                               Cursor="Hand"
+                                                               TextDecorations="Underline"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <!-- Match Percentage - Compact -->
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="Match Percentage" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="10" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,0,6"/>
+                                            
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Slider Grid.Column="0" 
+                                                        Value="80" 
+                                                        Minimum="0" 
+                                                        Maximum="100" 
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,8,0"
+                                                        Height="16"/>
+                                                
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                    <Border Background="{DynamicResource CardBackgroundColor}" 
+                                                            BorderBrush="{DynamicResource BorderColor}" 
+                                                            BorderThickness="1"
+                                                            CornerRadius="4"
+                                                            Width="40" 
+                                                            Margin="0,0,4,0">
+                                                        <TextBlock Text="80%" 
+                                                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                                                   FontSize="9" 
+                                                                   FontWeight="SemiBold"
+                                                                   Padding="6,2"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <Button Width="12" Height="8" FontSize="6" Content="▲" 
+                                                                Style="{StaticResource SecondaryButton}" 
+                                                                Padding="0" Margin="0,0,0,1"/>
+                                                        <Button Width="12" Height="8" FontSize="6" Content="▼" 
+                                                                Style="{StaticResource SecondaryButton}" 
+                                                                Padding="0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                
+                                <!-- Action Buttons - Compact -->
+                                <StackPanel Grid.Column="2" 
+                                            Orientation="Vertical" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center">
+                                    <Button Style="{StaticResource PrimaryButton}" 
+                                            Width="80" 
+                                            Height="32" 
+                                            FontSize="10" 
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,0,8">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🔍" FontSize="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Search" FontSize="10" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Style="{StaticResource SecondaryButton}" 
+                                            Width="80" 
+                                            Height="32" 
+                                            FontSize="10" 
+                                            FontWeight="SemiBold">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🔄" FontSize="10" Margin="0,0,4,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Reset" FontSize="10" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Search by Image Main Content Area - Empty -->
+                        <Border x:Name="SearchByImageMainContent" Grid.Row="1" Grid.Column="1"
+                                Background="{DynamicResource CardBackgroundColor}"
+                                Margin="0,0,0,0"
+                                Visibility="Collapsed">
+                            <!-- Empty content area - clean and minimal -->
                         </Border>
 
                         <!-- Complete Table for Monitoring Task -->

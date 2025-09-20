@@ -64,7 +64,7 @@ namespace Vms_page
 
                 if (MonitoringTaskSidebar != null)
                 {
-                    var showMonitoringSidebar = tag == "Monitoring Task" || tag == "Alarm Records";
+                    var showMonitoringSidebar = tag == "Monitoring Task" || tag == "Alarm Records" || tag == "Pass Thru Records" || tag == "Search by Image";
                     MonitoringTaskSidebar.Visibility = showMonitoringSidebar ? Visibility.Visible : Visibility.Collapsed;
                 }
 
@@ -82,6 +82,8 @@ namespace Vms_page
                     var isFaceLibrary = tag == "Face Library Management";
                     var isMonitoringTask = tag == "Monitoring Task";
                     var isAlarmRecords = tag == "Alarm Records";
+                    var isPassThruRecord = tag == "Pass Thru Records";
+                    var isSearchByImage = tag == "Search by Image";
                     
                     RealtimeGrid.Visibility = isRealtime ? Visibility.Visible : Visibility.Collapsed;
                     FaceLibraryGrid.Visibility = isFaceLibrary ? Visibility.Visible : Visibility.Collapsed;
@@ -115,6 +117,28 @@ namespace Vms_page
                         AlarmRecordsMainContent.Visibility = isAlarmRecords ? Visibility.Visible : Visibility.Collapsed;
                     }
                     
+                    // Show/hide Pass Thru Record filter bar and main content based on selected tab
+                    if (PassThruRecordFilterBar != null)
+                    {
+                        PassThruRecordFilterBar.Visibility = isPassThruRecord ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    if (PassThruRecordMainContent != null)
+                    {
+                        PassThruRecordMainContent.Visibility = isPassThruRecord ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    // Show/hide Search by Image filter bar and main content based on selected tab
+                    if (SearchByImageFilterBar != null)
+                    {
+                        SearchByImageFilterBar.Visibility = isSearchByImage ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    if (SearchByImageMainContent != null)
+                    {
+                        SearchByImageMainContent.Visibility = isSearchByImage ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
                     // For Monitoring Task, show completely empty state
                     if (isMonitoringTask)
                     {
@@ -125,6 +149,18 @@ namespace Vms_page
                     if (isAlarmRecords)
                     {
                         SetAlarmRecordsEmptyState();
+                    }
+                    
+                    // For Pass Thru Record, show completely blank state
+                    if (isPassThruRecord)
+                    {
+                        SetPassThruRecordEmptyState();
+                    }
+                    
+                    // For Search by Image, show completely blank state
+                    if (isSearchByImage)
+                    {
+                        SetSearchByImageEmptyState();
                     }
                 }
             }
@@ -410,6 +446,92 @@ namespace Vms_page
                     if (element.Name != "MonitoringTaskSidebar" && 
                         element.Name != "AlarmRecordsFilterBar" && 
                         element.Name != "AlarmRecordsMainContent")
+                    {
+                        element.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        private void SetPassThruRecordEmptyState()
+        {
+            if (EmptyState == null) return;
+
+            // Hide the filter bar for Pass Thru Record
+            if (FilterBar != null)
+            {
+                FilterBar.Visibility = Visibility.Collapsed;
+            }
+
+            // Show the sidebar for Pass Thru Record
+            if (MonitoringTaskSidebar != null)
+            {
+                MonitoringTaskSidebar.Visibility = Visibility.Visible;
+            }
+
+            // Show the Pass Thru Record filter bar and main content
+            if (PassThruRecordFilterBar != null)
+            {
+                PassThruRecordFilterBar.Visibility = Visibility.Visible;
+            }
+
+            if (PassThruRecordMainContent != null)
+            {
+                PassThruRecordMainContent.Visibility = Visibility.Visible;
+            }
+
+            // Hide all children of EmptyState except the sidebar, filter bar, and main content
+            foreach (var child in EmptyState.Children)
+            {
+                if (child is FrameworkElement element)
+                {
+                    // Keep the sidebar, filter bar, and main content visible, hide everything else
+                    if (element.Name != "MonitoringTaskSidebar" && 
+                        element.Name != "PassThruRecordFilterBar" && 
+                        element.Name != "PassThruRecordMainContent")
+                    {
+                        element.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        private void SetSearchByImageEmptyState()
+        {
+            if (EmptyState == null) return;
+
+            // Hide the filter bar for Search by Image
+            if (FilterBar != null)
+            {
+                FilterBar.Visibility = Visibility.Collapsed;
+            }
+
+            // Show the sidebar for Search by Image
+            if (MonitoringTaskSidebar != null)
+            {
+                MonitoringTaskSidebar.Visibility = Visibility.Visible;
+            }
+
+            // Show the Search by Image filter bar and main content
+            if (SearchByImageFilterBar != null)
+            {
+                SearchByImageFilterBar.Visibility = Visibility.Visible;
+            }
+
+            if (SearchByImageMainContent != null)
+            {
+                SearchByImageMainContent.Visibility = Visibility.Visible;
+            }
+
+            // Hide all children of EmptyState except the sidebar, filter bar, and main content
+            foreach (var child in EmptyState.Children)
+            {
+                if (child is FrameworkElement element)
+                {
+                    // Keep the sidebar, filter bar, and main content visible, hide everything else
+                    if (element.Name != "MonitoringTaskSidebar" && 
+                        element.Name != "SearchByImageFilterBar" && 
+                        element.Name != "SearchByImageMainContent")
                     {
                         element.Visibility = Visibility.Collapsed;
                     }

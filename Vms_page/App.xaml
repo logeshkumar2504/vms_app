@@ -1,7 +1,7 @@
 ﻿<Application x:Class="Vms_page.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="FaceRecognitionWindow.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- Global Theme Colors (Default: Dark Theme) -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#10B981"/>
