@@ -74,10 +74,23 @@ namespace Vms_page
                 {
                     var isRealtime = tag == "Realtime Monitoring";
                     var isFaceLibrary = tag == "Face Library Management";
+                    var isMonitoringTask = tag == "Monitoring Task";
                     
                     RealtimeGrid.Visibility = isRealtime ? Visibility.Visible : Visibility.Collapsed;
                     FaceLibraryGrid.Visibility = isFaceLibrary ? Visibility.Visible : Visibility.Collapsed;
                     EmptyState.Visibility = (isRealtime || isFaceLibrary) ? Visibility.Collapsed : Visibility.Visible;
+                    
+                    // Show/hide filter bar based on selected tab
+                    if (FilterBar != null)
+                    {
+                        FilterBar.Visibility = (isRealtime || isFaceLibrary) ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    // For Monitoring Task, show completely empty state
+                    if (isMonitoringTask)
+                    {
+                        SetMonitoringTaskEmptyState();
+                    }
                 }
             }
         }
@@ -199,7 +212,11 @@ namespace Vms_page
         // Face Library Management event handlers
         private void BatchAdd_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Batch Add functionality will be implemented here.", "Batch Add", MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new SelectFaceLibraryDialog
+            {
+                Owner = this
+            };
+            dialog.ShowDialog();
         }
 
         private void BatchDelete_Click(object sender, RoutedEventArgs e)
@@ -209,7 +226,11 @@ namespace Vms_page
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Import functionality will be implemented here.", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new SelectFaceLibraryDialog
+            {
+                Owner = this
+            };
+            dialog.ShowDialog();
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
@@ -241,6 +262,42 @@ namespace Vms_page
         private void FaceLibraryResetButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Reset functionality will be implemented here.", "Face Library Reset", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // Monitoring Task action button handlers
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add functionality will be implemented here.", "Add", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Delete functionality will be implemented here.", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Copy functionality will be implemented here.", "Copy", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SetMonitoringTaskEmptyState()
+        {
+            if (EmptyState == null) return;
+
+            // Hide the filter bar for Monitoring Task
+            if (FilterBar != null)
+            {
+                FilterBar.Visibility = Visibility.Collapsed;
+            }
+
+            // Hide all children of EmptyState to make it completely empty
+            foreach (var child in EmptyState.Children)
+            {
+                if (child is FrameworkElement element)
+                {
+                    element.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         // Helper method to find visual children

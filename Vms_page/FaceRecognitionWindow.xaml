@@ -94,9 +94,10 @@
                                       MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="200">
                                     <Border x:Name="DropDownBorder"
-                                            Background="White"
+                                            Background="#2A2A2A"
                                             BorderThickness="1"
-                                            BorderBrush="#CCCCCC"/>
+                                            BorderBrush="#555555"
+                                            CornerRadius="4"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
@@ -117,19 +118,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!-- Force dropdown items to black text for readability -->
+        <!-- Dark themed dropdown items for better visibility -->
         <Style x:Key="SidebarComboBoxItem" TargetType="ComboBoxItem">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#2A2A2A"/>
             <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Padding" Value="8,6"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#E6F0FF"/>
+                    <Setter Property="Background" Value="#3A3A3A"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#DBEAFE"/>
-                    <Setter Property="Foreground" Value="#1E3A8A"/>
+                    <Setter Property="Background" Value="#2563EB"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -256,11 +258,11 @@
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderBrush" Value="#404040"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Padding" Value="12,6"/>
             <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Height" Value="24"/>
-            <Setter Property="Width" Value="80"/>
-            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -292,11 +294,11 @@
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="BorderBrush" Value="#555555"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
             <Setter Property="Height" Value="32"/>
-            <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -304,7 +306,7 @@
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
+                                CornerRadius="4">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -315,16 +317,16 @@
                                 <Path Grid.Column="0" 
                                       Data="M 3 2 L 3 6 L 1 6 L 4 9 L 7 6 L 5 6 L 5 2 L 3 2 Z" 
                                       Fill="{TemplateBinding Foreground}" 
-                                      Width="14" 
-                                      Height="14" 
+                                      Width="12" 
+                                      Height="12" 
                                       VerticalAlignment="Center" 
-                                      Margin="0,0,8,0"/>
+                                      Margin="0,0,6,0"/>
                                 
                                 <!-- Text -->
                                 <TextBlock Grid.Column="1" 
                                            Text="Generate Template" 
                                            Foreground="{TemplateBinding Foreground}" 
-                                           FontSize="12" 
+                                           FontSize="11" 
                                            FontWeight="Medium"
                                            VerticalAlignment="Center" 
                                            HorizontalAlignment="Left"/>
@@ -546,14 +548,14 @@
                     </Grid.RowDefinitions>
 
                     <!-- Top filter bar -->
-                    <Border Grid.Row="0" Background="{DynamicResource TopBarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
+                    <Border x:Name="FilterBar" Grid.Row="0" Background="{DynamicResource TopBarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
                         <Grid Margin="8,6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*" MaxWidth="200"/>
                                 <ColumnDefinition Width="16"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*" MaxWidth="200"/>
                                 <ColumnDefinition Width="24"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -585,22 +587,21 @@
 
                             <!-- Actions -->
                             <StackPanel Grid.Column="9" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Grid.Column="1" 
-         x:Name="FaceLibrarySearchButton" 
-         Content="Search" 
-         Style="{StaticResource PrimaryButton}"
-         Width="80"
-         Height="32"
-         Click="FaceLibrarySearchButton_Click"/>
+                                <Button x:Name="FaceLibrarySearchButton" 
+                                        Content="Search" 
+                                        Style="{StaticResource PrimaryButton}"
+                                        Width="80"
+                                        Height="32"
+                                        Margin="0,0,8,0"
+                                        Click="FaceLibrarySearchButton_Click"/>
 
                                 <!-- Reset Button -->
-                                <Button Grid.Column="3" 
-         x:Name="FaceLibraryResetButton" 
-         Content="Reset" 
-         Style="{StaticResource SecondaryButton}"
-         Width="80"
-         Height="32"
-         Click="FaceLibraryResetButton_Click"/>
+                                <Button x:Name="FaceLibraryResetButton" 
+                                        Content="Reset" 
+                                        Style="{StaticResource SecondaryButton}"
+                                        Width="80"
+                                        Height="32"
+                                        Click="FaceLibraryResetButton_Click"/>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -624,7 +625,7 @@
                         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
                                 Background="{DynamicResource SidebarColor}"
                                 BorderBrush="{DynamicResource BorderColor}"
-                                BorderThickness="1,0,0,0">
+                                BorderThickness="1,0,0,0" Margin="0,0,0,-10">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="36"/>
@@ -709,8 +710,8 @@
                         <Border Grid.Row="2" Grid.Column="0"
                                 Background="#2A2A2A"
                                 BorderBrush="#404040"
-                                BorderThickness="1,1,1,1">
-                            <Grid>
+                                BorderThickness="1,1,1,1" Margin="0,5,0,-10">
+                            <Grid Margin="0,0,0,-14">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
@@ -752,13 +753,12 @@
                                 Padding="8,6">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Left: Batch operation buttons -->
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                <!-- Left: Batch operation buttons with wrapping -->
+                                <WrapPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                     <Button Content="+ Batch Add" 
                                             Style="{StaticResource BatchOperationButtonStyle}"
                                             Click="BatchAdd_Click"/>
@@ -772,12 +772,12 @@
                                             Style="{StaticResource BatchOperationButtonStyle}"
                                             Click="Export_Click"/>
                                     <Button Content="📥 Generate Template" 
-                                            Style="{StaticResource BatchOperationButtonStyle}"
+                                            Style="{StaticResource GenerateTemplateButtonStyle}"
                                             Click="GenerateTemplate_Click"/>
-                                </StackPanel>
+                                </WrapPanel>
 
                                 <!-- Right: View toggle -->
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                     <Button x:Name="GridViewButton" 
                                             Content="⊞" 
                                             Style="{StaticResource ViewToggleButtonStyle}"
@@ -796,7 +796,7 @@
                         </Border>
 
                         <!-- Search/Filter Bar with Search and Reset buttons -->
-               
+
 
                         <!-- Content area placeholder -->
                         <Border Grid.Row="2" 
@@ -819,7 +819,32 @@
 
                     <!-- Empty state for other tabs -->
                     <Grid x:Name="EmptyState" Grid.Row="1" Visibility="Collapsed">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Action buttons bar for Monitoring Task -->
+                        <Border Grid.Row="0" 
+                                Background="{DynamicResource TopBarColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="0,0,0,1"
+                                Padding="8,6">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="Add" 
+                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                        Click="Add_Click"/>
+                                <Button Content="Delete" 
+                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                        Click="Delete_Click"/>
+                                <Button Content="Copy" 
+                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                        Click="Copy_Click"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Content area -->
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
                             <TextBlock Text="🧪" FontSize="44" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center"/>
                             <TextBlock Text="Content will appear here" Foreground="{DynamicResource TextSecondaryColor}" FontSize="13" HorizontalAlignment="Center" Margin="0,10,0,0"/>
                         </StackPanel>

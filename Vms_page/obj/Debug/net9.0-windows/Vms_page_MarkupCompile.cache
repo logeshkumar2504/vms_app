@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
-2111177325
+23-1844203874
 
-26-1874643584
+28-1167973604
 200366931479
-AddMapWindow.xaml;AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AlarmRecordsWindow.xaml;AudioWindow.xaml;CustomGridLayoutPopup.xaml;EMapWindow.xaml;FaceRecognitionWindow.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;OperationLogWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;PictureManagementWindow.xaml;RecordingScheduleWindow.xaml;SequenceResourceWindow.xaml;UserManagementWindow.xaml;VcaWindow.xaml;ViewWindow.xaml;
+AddMapWindow.xaml;AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AlarmRecordsWindow.xaml;AudioWindow.xaml;BatchAddDialog.xaml;CustomGridLayoutPopup.xaml;EMapWindow.xaml;FaceRecognitionWindow.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;MainWindow.xaml;OperationLogWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;PictureManagementWindow.xaml;RecordingScheduleWindow.xaml;SelectFaceLibraryDialog.xaml;SequenceResourceWindow.xaml;UserManagementWindow.xaml;VcaWindow.xaml;ViewWindow.xaml;
 
 False
 
