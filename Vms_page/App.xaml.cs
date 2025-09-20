@@ -11,10 +11,18 @@ namespace Vms_page
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            
-            // Apply dark theme by default
-            ThemeManager.ApplyTheme("Dark");
+            try
+            {
+                base.OnStartup(e);
+                
+                // Apply dark theme by default
+                ThemeManager.ApplyTheme("Dark");
+            }
+            catch (System.Exception ex)
+            {
+                // Log the error and continue with default theme
+                System.Diagnostics.Debug.WriteLine($"Error applying theme: {ex.Message}");
+            }
         }
     }
 }

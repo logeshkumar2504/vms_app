@@ -312,7 +312,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <!-- Download icon - exact match to image -->
                                 <Path Grid.Column="0" 
                                       Data="M 3 2 L 3 6 L 1 6 L 4 9 L 7 6 L 5 6 L 5 2 L 3 2 Z" 
@@ -321,7 +321,7 @@
                                       Height="12" 
                                       VerticalAlignment="Center" 
                                       Margin="0,0,6,0"/>
-                                
+
                                 <!-- Text -->
                                 <TextBlock Grid.Column="1" 
                                            Text="Generate Template" 
@@ -617,6 +617,24 @@
                                      LostFocus="MonitoringTaskVideoChannelInput_LostFocus"/>
                         </Grid>
                     </Border>
+
+                    <!-- Channel Dropdown -->
+                    <TextBlock Text="Channel" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               FontSize="11" 
+                               FontWeight="SemiBold"
+                               Margin="0,12,0,6"/>
+                    <ComboBox x:Name="ChannelDropdown"
+                              Style="{StaticResource SidebarComboBox}" 
+                              ItemContainerStyle="{StaticResource SidebarComboBoxItem}"
+                              MinHeight="28"
+                              Margin="0,0,0,8">
+                        <ComboBoxItem Content="All Channels"/>
+                        <ComboBoxItem Content="Channel 1"/>
+                        <ComboBoxItem Content="Channel 2"/>
+                        <ComboBoxItem Content="Channel 3"/>
+                        <ComboBoxItem Content="Channel 4"/>
+                    </ComboBox>
                 </StackPanel>
             </Border>
 
@@ -766,10 +784,10 @@
                         </Border>
 
                         <!-- Snapshots panel under camera area -->
-                        <Border Grid.Row="1" Grid.Column="0"
+                        <Border Grid.Column="0"
                                 Background="#1A1A1A"
                                 BorderBrush="#404040"
-                                BorderThickness="1,1,1,1">
+                                BorderThickness="1,1,1,1" Margin="0,395,0,31" Grid.RowSpan="3">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="28"/>
@@ -904,7 +922,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <!-- Action buttons bar for Monitoring Task -->
                         <Border x:Name="MonitoringTaskHeader" Grid.Row="0"
                                 Background="{DynamicResource TopBarColor}" 
@@ -923,6 +941,201 @@
                                         Style="{StaticResource MonitoringTaskButtonStyle}"
                                         Click="Copy_Click"/>
                             </StackPanel>
+                        </Border>
+
+                        <!-- Alarm Records Filter Bar -->
+                        <Border x:Name="AlarmRecordsFilterBar" Grid.Row="0"
+                                Background="{DynamicResource TopBarColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="0,0,0,1"
+                                Padding="8,4"
+                                Visibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="6"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="6"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Monitoring Type -->
+                                <TextBlock Grid.Column="0" 
+                                           Text="Monitoring Type" 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="10" 
+                                           VerticalAlignment="Center" 
+                                           Margin="0,0,6,0"/>
+                                <ComboBox Grid.Column="1" 
+                                          Style="{StaticResource SidebarComboBox}" 
+                                          ItemContainerStyle="{StaticResource SidebarComboBoxItem}"
+                                          SelectedIndex="0"
+                                          Height="24"
+                                          FontSize="10">
+                                    <ComboBoxItem Content="Match Alarm"/>
+                                    <ComboBoxItem Content="Face Recognition"/>
+                                    <ComboBoxItem Content="Motion Detection"/>
+                                </ComboBox>
+
+                                <!-- Alarm Time -->
+                                <TextBlock Grid.Column="3" 
+                                           Text="Alarm Time" 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="10" 
+                                           VerticalAlignment="Center" 
+                                           Margin="0,0,6,0"/>
+                                <Border Grid.Column="4" 
+                                        Style="{StaticResource InputContainerStyle}" 
+                                        MinHeight="24">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" 
+                                                   Text="2025-09-15 00:00:0 ~ 2025-09-15 23:59:5" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                                   FontSize="10" 
+                                                   VerticalAlignment="Center" 
+                                                   Margin="6,0"/>
+                                        <TextBlock Grid.Column="1" 
+                                                   Text="📅" 
+                                                   FontSize="10" 
+                                                   VerticalAlignment="Center" 
+                                                   Margin="0,0,6,0"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Quick Date Links -->
+                                <StackPanel Grid.Column="6" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Today" 
+                                               Foreground="{DynamicResource PrimaryColor}" 
+                                               FontSize="10" 
+                                               Margin="0,0,12,0" 
+                                               Cursor="Hand"/>
+                                    <TextBlock Text="Last 7 days" 
+                                               Foreground="{DynamicResource PrimaryColor}" 
+                                               FontSize="10" 
+                                               Margin="0,0,12,0" 
+                                               Cursor="Hand"/>
+                                    <TextBlock Text="Last 30 days" 
+                                               Foreground="{DynamicResource PrimaryColor}" 
+                                               FontSize="10" 
+                                               Cursor="Hand"/>
+                                </StackPanel>
+
+                                <!-- Action Buttons -->
+                                <StackPanel Grid.Column="8" 
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right">
+                                    <Button Content="Search" 
+                                            Style="{StaticResource PrimaryButton}" 
+                                            Width="60" 
+                                            Height="24" 
+                                            FontSize="10"
+                                            Margin="0,0,6,0"/>
+                                    <Button Content="Reset" 
+                                            Style="{StaticResource SecondaryButton}" 
+                                            Width="60" 
+                                            Height="24" 
+                                            FontSize="10"
+                                            Margin="0,0,6,0"/>
+                                    <Button Content="Show ▼" 
+                                            Style="{StaticResource SecondaryButton}" 
+                                            Width="60" 
+                                            Height="24" 
+                                            FontSize="10"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Alarm Records Main Content Area -->
+                        <Border x:Name="AlarmRecordsMainContent" Grid.Row="1" Grid.Column="1"
+                                Background="{DynamicResource CardBackgroundColor}"
+                                Margin="0,0,0,0"
+                                Visibility="Collapsed">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Top Action Bar -->
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Padding="12,8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Page Title -->
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="🚨" 
+                                                       FontSize="16" 
+                                                       Margin="0,0,8,0" 
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text="Alarm Records" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="14" 
+                                                       FontWeight="SemiBold" 
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <!-- Export Button -->
+                                        <Button Grid.Column="1" 
+                                                Style="{StaticResource PrimaryButton}" 
+                                                Width="90" 
+                                                Height="28"
+                                                FontSize="11">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="📤" 
+                                                               FontSize="12" 
+                                                               Margin="0,0,6,0" 
+                                                               VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Export" 
+                                                               FontSize="11" 
+                                                               VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Content Area -->
+                                <Grid Grid.Row="1" Background="{DynamicResource CardBackgroundColor}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="📊" 
+                                                   FontSize="48" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   HorizontalAlignment="Center" 
+                                                   Margin="0,0,0,16"/>
+                                        <TextBlock Text="No alarm records found" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   FontSize="16" 
+                                                   HorizontalAlignment="Center" 
+                                                   Margin="0,0,0,8"/>
+                                        <TextBlock Text="Alarm records will appear here when available" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   FontSize="12" 
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
                         </Border>
 
                         <!-- Complete Table for Monitoring Task -->
@@ -950,7 +1163,7 @@
                                     <ColumnDefinition Width="120"/>
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <!-- Header Row -->
                                 <Border Grid.Row="0" Grid.ColumnSpan="7"
                                         Background="{DynamicResource TopBarColor}" 
@@ -967,7 +1180,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <!-- Task Name Header -->
                                         <Border Grid.Column="0" Grid.ColumnSpan="2" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
@@ -984,7 +1197,7 @@
                                                            VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
-                                        
+
                                         <!-- Alarm Threshold Header -->
                                         <Border Grid.Column="2" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
@@ -996,7 +1209,7 @@
                                                        FontWeight="SemiBold"
                                                        VerticalAlignment="Center"/>
                                         </Border>
-                                        
+
                                         <!-- Remarks Header -->
                                         <Border Grid.Column="3" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
@@ -1008,7 +1221,7 @@
                                                        FontWeight="SemiBold"
                                                        VerticalAlignment="Center"/>
                                         </Border>
-                                        
+
                                         <!-- Face Library Header -->
                                         <Border Grid.Column="4" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
@@ -1020,7 +1233,7 @@
                                                        FontWeight="SemiBold"
                                                        VerticalAlignment="Center"/>
                                         </Border>
-                                        
+
                                         <!-- Monitoring Type Header -->
                                         <Border Grid.Column="5" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
@@ -1032,7 +1245,7 @@
                                                        FontWeight="SemiBold"
                                                        VerticalAlignment="Center"/>
                                         </Border>
-                                        
+
                                         <!-- Operation Header -->
                                         <Border Grid.Column="6" 
                                                 Padding="8,0">
@@ -1044,7 +1257,7 @@
                                         </Border>
                                     </Grid>
                                 </Border>
-                                
+
                                 <!-- Data Rows -->
                                 <!-- Row 1 -->
                                 <Border Grid.Row="1" Grid.ColumnSpan="7"
@@ -1062,7 +1275,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="Task 1" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                         <TextBlock Grid.Column="2" Text="80%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
@@ -1072,7 +1285,7 @@
                                         <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                     </Grid>
                                 </Border>
-                                
+
                                 <!-- Row 2 -->
                                 <Border Grid.Row="2" Grid.ColumnSpan="7"
                                         Background="{DynamicResource SurfaceColor}" 
@@ -1089,7 +1302,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="Task 2" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                         <TextBlock Grid.Column="2" Text="60%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
@@ -1099,7 +1312,7 @@
                                         <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                     </Grid>
                                 </Border>
-                                
+
                                 <!-- Row 3 -->
                                 <Border Grid.Row="3" Grid.ColumnSpan="7"
                                         Background="{DynamicResource CardBackgroundColor}" 
@@ -1116,7 +1329,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="Task 3" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                         <TextBlock Grid.Column="2" Text="90%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
@@ -1126,7 +1339,7 @@
                                         <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                     </Grid>
                                 </Border>
-                                
+
                                 <!-- Row 4 -->
                                 <Border Grid.Row="4" Grid.ColumnSpan="7"
                                         Background="{DynamicResource SurfaceColor}" 
@@ -1143,7 +1356,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="Task 4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                         <TextBlock Grid.Column="2" Text="70%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
@@ -1153,7 +1366,7 @@
                                         <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                     </Grid>
                                 </Border>
-                                
+
                                 <!-- Row 5 -->
                                 <Border Grid.Row="5" Grid.ColumnSpan="7"
                                         Background="{DynamicResource CardBackgroundColor}" 
@@ -1168,7 +1381,7 @@
                                             <ColumnDefinition Width="120"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="Task 5" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
                                         <TextBlock Grid.Column="2" Text="85%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
@@ -1180,7 +1393,7 @@
                                 </Border>
                             </Grid>
                         </Border>
-                        
+
                         <!-- Content area -->
                         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
                             <TextBlock Text="🧪" FontSize="44" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center"/>

@@ -8,6 +8,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddSe
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddViewPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AlarmRecordsWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AudioWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\CustomGridLayoutPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\EMapWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\FaceRecognitionWindow.baml
@@ -18,6 +19,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Peopl
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PictureManagementWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ViewWindow.baml
@@ -28,6 +30,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddUs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddViewPopup.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AlarmRecordsWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AudioWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\CustomGridLayoutPopup.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\EMapWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\FaceRecognitionWindow.g.cs
@@ -39,6 +42,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Peopl
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PictureManagementWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\UserManagementWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.g.cs
@@ -61,7 +65,3 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\refin
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.genruntimeconfig.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ref\Vms_page.dll
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.g.cs
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.g.cs

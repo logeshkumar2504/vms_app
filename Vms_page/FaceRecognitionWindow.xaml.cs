@@ -64,7 +64,7 @@ namespace Vms_page
 
                 if (MonitoringTaskSidebar != null)
                 {
-                    var showMonitoringSidebar = tag == "Monitoring Task";
+                    var showMonitoringSidebar = tag == "Monitoring Task" || tag == "Alarm Records";
                     MonitoringTaskSidebar.Visibility = showMonitoringSidebar ? Visibility.Visible : Visibility.Collapsed;
                 }
 
@@ -81,6 +81,7 @@ namespace Vms_page
                     var isRealtime = tag == "Realtime Monitoring";
                     var isFaceLibrary = tag == "Face Library Management";
                     var isMonitoringTask = tag == "Monitoring Task";
+                    var isAlarmRecords = tag == "Alarm Records";
                     
                     RealtimeGrid.Visibility = isRealtime ? Visibility.Visible : Visibility.Collapsed;
                     FaceLibraryGrid.Visibility = isFaceLibrary ? Visibility.Visible : Visibility.Collapsed;
@@ -103,10 +104,27 @@ namespace Vms_page
                         MonitoringTaskTable.Visibility = isMonitoringTask ? Visibility.Visible : Visibility.Collapsed;
                     }
                     
+                    // Show/hide Alarm Records filter bar and export button based on selected tab
+                    if (AlarmRecordsFilterBar != null)
+                    {
+                        AlarmRecordsFilterBar.Visibility = isAlarmRecords ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    if (AlarmRecordsMainContent != null)
+                    {
+                        AlarmRecordsMainContent.Visibility = isAlarmRecords ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
                     // For Monitoring Task, show completely empty state
                     if (isMonitoringTask)
                     {
                         SetMonitoringTaskEmptyState();
+                    }
+                    
+                    // For Alarm Records, show completely blank state
+                    if (isAlarmRecords)
+                    {
+                        SetAlarmRecordsEmptyState();
                     }
                 }
             }
@@ -349,6 +367,49 @@ namespace Vms_page
                 {
                     // Keep the headers visible, hide everything else
                     if (element.Name != "MonitoringTaskHeader" && element.Name != "MonitoringTaskTable")
+                    {
+                        element.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        private void SetAlarmRecordsEmptyState()
+        {
+            if (EmptyState == null) return;
+
+            // Hide the filter bar for Alarm Records
+            if (FilterBar != null)
+            {
+                FilterBar.Visibility = Visibility.Collapsed;
+            }
+
+            // Show the sidebar for Alarm Records
+            if (MonitoringTaskSidebar != null)
+            {
+                MonitoringTaskSidebar.Visibility = Visibility.Visible;
+            }
+
+            // Show the Alarm Records filter bar and export button
+            if (AlarmRecordsFilterBar != null)
+            {
+                AlarmRecordsFilterBar.Visibility = Visibility.Visible;
+            }
+
+            if (AlarmRecordsMainContent != null)
+            {
+                AlarmRecordsMainContent.Visibility = Visibility.Visible;
+            }
+
+            // Hide all children of EmptyState except the sidebar, filter bar, and main content
+            foreach (var child in EmptyState.Children)
+            {
+                if (child is FrameworkElement element)
+                {
+                    // Keep the sidebar, filter bar, and main content visible, hide everything else
+                    if (element.Name != "MonitoringTaskSidebar" && 
+                        element.Name != "AlarmRecordsFilterBar" && 
+                        element.Name != "AlarmRecordsMainContent")
                     {
                         element.Visibility = Visibility.Collapsed;
                     }
