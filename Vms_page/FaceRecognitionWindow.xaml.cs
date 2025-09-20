@@ -55,11 +55,17 @@ namespace Vms_page
         {
             if (sender is FrameworkElement fe && fe.Tag is string tag)
             {
-                // Show sidebar for Realtime Monitoring and Face Library Management
+                // Show appropriate sidebar based on selected tab
                 if (LeftSidebar != null)
                 {
-                    var showSidebar = tag == "Realtime Monitoring" || tag == "Face Library Management";
-                    LeftSidebar.Visibility = showSidebar ? Visibility.Visible : Visibility.Collapsed;
+                    var showLeftSidebar = tag == "Realtime Monitoring" || tag == "Face Library Management";
+                    LeftSidebar.Visibility = showLeftSidebar ? Visibility.Visible : Visibility.Collapsed;
+                }
+
+                if (MonitoringTaskSidebar != null)
+                {
+                    var showMonitoringSidebar = tag == "Monitoring Task";
+                    MonitoringTaskSidebar.Visibility = showMonitoringSidebar ? Visibility.Visible : Visibility.Collapsed;
                 }
 
                 // Show appropriate sections in sidebar
@@ -84,6 +90,17 @@ namespace Vms_page
                     if (FilterBar != null)
                     {
                         FilterBar.Visibility = (isRealtime || isFaceLibrary) ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    // Show/hide Monitoring Task header and table header based on selected tab
+                    if (MonitoringTaskHeader != null)
+                    {
+                        MonitoringTaskHeader.Visibility = isMonitoringTask ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    
+                    if (MonitoringTaskTable != null)
+                    {
+                        MonitoringTaskTable.Visibility = isMonitoringTask ? Visibility.Visible : Visibility.Collapsed;
                     }
                     
                     // For Monitoring Task, show completely empty state
@@ -209,6 +226,30 @@ namespace Vms_page
             }
         }
 
+        private void MonitoringTaskVideoChannelInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox tb)
+            {
+                if (tb.Text == "Enter channel name")
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
+                }
+            }
+        }
+
+        private void MonitoringTaskVideoChannelInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox tb)
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = "Enter channel name";
+                    tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+                }
+            }
+        }
+
         // Face Library Management event handlers
         private void BatchAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -290,12 +331,27 @@ namespace Vms_page
                 FilterBar.Visibility = Visibility.Collapsed;
             }
 
-            // Hide all children of EmptyState to make it completely empty
+            // Show the Monitoring Task header and table header
+            if (MonitoringTaskHeader != null)
+            {
+                MonitoringTaskHeader.Visibility = Visibility.Visible;
+            }
+
+            if (MonitoringTaskTable != null)
+            {
+                MonitoringTaskTable.Visibility = Visibility.Visible;
+            }
+
+            // Hide all children of EmptyState except the headers
             foreach (var child in EmptyState.Children)
             {
                 if (child is FrameworkElement element)
                 {
-                    element.Visibility = Visibility.Collapsed;
+                    // Keep the headers visible, hide everything else
+                    if (element.Name != "MonitoringTaskHeader" && element.Name != "MonitoringTaskTable")
+                    {
+                        element.Visibility = Visibility.Collapsed;
+                    }
                 }
             }
         }

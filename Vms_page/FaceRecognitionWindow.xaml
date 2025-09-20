@@ -423,6 +423,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Monitoring Task button style -->
+        <Style x:Key="MonitoringTaskButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
@@ -536,6 +574,49 @@
                             <ComboBoxItem Content="Blacklist Database"/>
                         </ComboBox>
                     </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Monitoring Task Sidebar (visible only for Monitoring Task) -->
+            <Border x:Name="MonitoringTaskSidebar" Grid.Column="0"
+                    Background="{DynamicResource SidebarColor}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="0,0,1,0"
+                    Visibility="Collapsed">
+                <StackPanel Margin="8">
+                    <TextBlock Text="Video Channel" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               FontSize="11" 
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,6"/>
+                    <Border Style="{StaticResource InputContainerStyle}" MinHeight="28">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="🎦"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="6,0,4,0"
+                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <TextBox Grid.Column="1" x:Name="MonitoringTaskVideoChannelInput"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                     FontSize="11"
+                                     FontWeight="Medium"
+                                     Padding="2,0,2,0"
+                                     Margin="0,0,6,0"
+                                     CaretBrush="{DynamicResource PrimaryColor}"
+                                     VerticalContentAlignment="Center"
+                                     Height="24"
+                                     Text="Enter channel name"
+                                     GotFocus="MonitoringTaskVideoChannelInput_GotFocus"
+                                     LostFocus="MonitoringTaskVideoChannelInput_LostFocus"/>
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </Border>
 
@@ -825,22 +906,279 @@
                         </Grid.RowDefinitions>
                         
                         <!-- Action buttons bar for Monitoring Task -->
-                        <Border Grid.Row="0" 
+                        <Border x:Name="MonitoringTaskHeader" Grid.Row="0"
                                 Background="{DynamicResource TopBarColor}" 
                                 BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,0,1"
-                                Padding="8,6">
+                                Padding="8,4"
+                                Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Button Content="Add" 
-                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                <Button Content="+ Add" 
+                                        Style="{StaticResource MonitoringTaskButtonStyle}"
                                         Click="Add_Click"/>
-                                <Button Content="Delete" 
-                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                <Button Content="🗑 Delete" 
+                                        Style="{StaticResource MonitoringTaskButtonStyle}"
                                         Click="Delete_Click"/>
-                                <Button Content="Copy" 
-                                        Style="{StaticResource BatchOperationButtonStyle}"
+                                <Button Content="Copy To" 
+                                        Style="{StaticResource MonitoringTaskButtonStyle}"
                                         Click="Copy_Click"/>
                             </StackPanel>
+                        </Border>
+
+                        <!-- Complete Table for Monitoring Task -->
+                        <Border x:Name="MonitoringTaskTable" Grid.Row="0" Grid.RowSpan="2"
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="1"
+                                Margin="0,36,0,0"
+                                Visibility="Collapsed">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Header Row -->
+                                <Border Grid.Row="0" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource TopBarColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <!-- Task Name Header -->
+                                        <Border Grid.Column="0" Grid.ColumnSpan="2" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="0,0,1,0"
+                                                Padding="8,0">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <CheckBox x:Name="SelectAllCheckBox" 
+                                                          Margin="0,0,8,0"
+                                                          VerticalAlignment="Center"/>
+                                                <TextBlock Text="Task Name" 
+                                                           Foreground="{DynamicResource TextPrimaryColor}"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold"
+                                                           VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        
+                                        <!-- Alarm Threshold Header -->
+                                        <Border Grid.Column="2" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="0,0,1,0"
+                                                Padding="8,0">
+                                            <TextBlock Text="Alarm Threshold" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Remarks Header -->
+                                        <Border Grid.Column="3" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="0,0,1,0"
+                                                Padding="8,0">
+                                            <TextBlock Text="Remarks" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Face Library Header -->
+                                        <Border Grid.Column="4" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="0,0,1,0"
+                                                Padding="8,0">
+                                            <TextBlock Text="Face Library" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Monitoring Type Header -->
+                                        <Border Grid.Column="5" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
+                                                BorderThickness="0,0,1,0"
+                                                Padding="8,0">
+                                            <TextBlock Text="Monitoring Type" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Operation Header -->
+                                        <Border Grid.Column="6" 
+                                                Padding="8,0">
+                                            <TextBlock Text="Operation" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Data Rows -->
+                                <!-- Row 1 -->
+                                <Border Grid.Row="1" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource CardBackgroundColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="Task 1" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="2" Text="80%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="3" Text="High priority" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="4" Text="Employee DB" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="5" Text="Real-time" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Row 2 -->
+                                <Border Grid.Row="2" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="Task 2" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="2" Text="60%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="3" Text="Medium priority" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="4" Text="Visitor DB" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="5" Text="Scheduled" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Row 3 -->
+                                <Border Grid.Row="3" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource CardBackgroundColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="Task 3" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="2" Text="90%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="3" Text="Critical" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="4" Text="VIP DB" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="5" Text="Real-time" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Row 4 -->
+                                <Border Grid.Row="4" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource SurfaceColor}" 
+                                        BorderBrush="{DynamicResource BorderColor}" 
+                                        BorderThickness="0,0,0,1"
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="Task 4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="2" Text="70%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="3" Text="Low priority" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="4" Text="Blacklist DB" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="5" Text="Batch" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Row 5 -->
+                                <Border Grid.Row="5" Grid.ColumnSpan="7"
+                                        Background="{DynamicResource CardBackgroundColor}" 
+                                        Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <CheckBox Grid.Column="0" Margin="8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="Task 5" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="2" Text="85%" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="3" Text="High priority" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="4" Text="Employee DB" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="5" Text="Real-time" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                        <TextBlock Grid.Column="6" Text="Edit" Foreground="{DynamicResource PrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
                         </Border>
                         
                         <!-- Content area -->
