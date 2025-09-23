@@ -133,6 +133,11 @@ namespace Vms_page
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
                 }
+                else if (item.Name == "LPR")
+                {
+                    var lprWindow = new LprWindow();
+                    lprWindow.Show();
+                }
                 else if (item.Name == "Face Recognition")
                 {
                     var frWindow = new FaceRecognitionWindow();
@@ -222,6 +227,11 @@ namespace Vms_page
                 {
                     var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
+                }
+                else if (item.Name == "LPR")
+                {
+                    var lprWindow = new LprWindow();
+                    lprWindow.Show();
                 }
                 else if (item.Name == "Sequence Resource")
                 {
