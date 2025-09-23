@@ -252,6 +252,79 @@
 			</Setter>
 		</Style>
 
+		<!-- Dark Combo style made global for reuse across views (e.g., HeatMap) -->
+		<Style x:Key="DarkCombo" TargetType="ComboBox">
+			<Setter Property="Background" Value="#111111"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderBrush" Value="#404040"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Padding" Value="8,4"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ComboBox">
+						<Border x:Name="MainBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<ContentPresenter x:Name="ContentSite" Grid.Column="0" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+								<ToggleButton x:Name="ToggleButton" Grid.Column="1" Focusable="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Background="Transparent" BorderThickness="0" Width="24" Height="24" Margin="0,0,4,0">
+									<Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="White" Stretch="Uniform" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+										<Path.RenderTransform>
+											<RotateTransform Angle="0"/>
+										</Path.RenderTransform>
+									</Path>
+								</ToggleButton>
+								<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
+									<Border Background="#111111" BorderBrush="#404040" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+										<ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+											<StackPanel IsItemsHost="True"/>
+										</ScrollViewer>
+									</Border>
+								</Popup>
+							</Grid>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsDropDownOpen" Value="True">
+								<Setter TargetName="Arrow" Property="RenderTransform">
+									<Setter.Value>
+										<RotateTransform Angle="180"/>
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="ItemContainerStyle">
+				<Setter.Value>
+					<Style TargetType="ComboBoxItem">
+						<Setter Property="Foreground" Value="White"/>
+						<Setter Property="Background" Value="#111111"/>
+						<Setter Property="Padding" Value="8,6"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="ComboBoxItem">
+									<Border x:Name="ItemBg" Background="{TemplateBinding Background}">
+										<ContentPresenter Margin="8,4"/>
+									</Border>
+									<ControlTemplate.Triggers>
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter TargetName="ItemBg" Property="Background" Value="#1A1A1A"/>
+										</Trigger>
+										<Trigger Property="IsSelected" Value="True">
+											<Setter TargetName="ItemBg" Property="Background" Value="#2A2A2A"/>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
 		<!-- Global button styles so they are available throughout the window -->
 		<Style x:Key="PrimaryButton" TargetType="Button">
 			<Setter Property="Background" Value="#3B82F6"/>
@@ -558,8 +631,8 @@
 													<Path x:Name="ArrowIcon"
 														  Data="M 0 0 L 4 4 L 8 0 Z"
 														  Fill="{DynamicResource TextSecondaryColor}"
-														  Stretch="Uniform"
-														  Width="8" Height="4"
+													  Stretch="Uniform" 
+													  Width="8" Height="4" 
 														  RenderTransformOrigin="0.5,0.5">
 															<Path.RenderTransform>
 																<RotateTransform Angle="0"/>
@@ -605,14 +678,14 @@
 											<Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource SurfaceColor}"/>
 											<Setter TargetName="MainBorder" Property="BorderThickness" Value="1.5"/>
 										</Trigger>
-											<Trigger Property="IsDropDownOpen" Value="True">
+										<Trigger Property="IsDropDownOpen" Value="True">
 												<Setter TargetName="ArrowIcon" Property="RenderTransform">
-													<Setter.Value>
-														<RotateTransform Angle="180"/>
-													</Setter.Value>
-												</Setter>
+												<Setter.Value>
+													<RotateTransform Angle="180"/>
+												</Setter.Value>
+											</Setter>
 												<Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
-											</Trigger>
+										</Trigger>
 									</ControlTemplate.Triggers>
 								</ControlTemplate>
 							</ComboBox.Template>
@@ -976,14 +1049,272 @@
 							</Grid.RowDefinitions>
 							<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="8,8,0,0">
 								<Button Content="Add" Style="{StaticResource PrimaryButton}"/>
-							</StackPanel>
+					</StackPanel>
 							<Grid Grid.Row="1"/>
 						</Grid>
 					</DockPanel>
 				</Border>
 			</Grid>
 			<Grid x:Name="HeatMapView" Visibility="Collapsed">
-				<!-- empty placeholder -->
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="170"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Left Sidebar replicated from Behaviour Search -->
+				<Border Grid.Column="0"
+						Background="{DynamicResource SidebarColor}"
+						BorderBrush="{DynamicResource BorderColor}"
+						BorderThickness="0,0,1,0">
+					<StackPanel Margin="14">
+						<TextBlock Text="Channel"
+								   FontSize="12"
+								   Foreground="{DynamicResource TextPrimaryColor}"
+								   Margin="0,0,0,6"/>
+						<ComboBox Width="140" 
+							  Margin="0,0,0,12"
+							  Background="{DynamicResource SurfaceColor}"
+							  Foreground="{DynamicResource TextPrimaryColor}"
+							  BorderBrush="{DynamicResource BorderColor}"
+							  BorderThickness="1"
+							  Padding="12,8"
+							  FontSize="12"
+							  Height="36">
+							<ComboBox.Template>
+								<ControlTemplate TargetType="ComboBox">
+									<Border x:Name="MainBorder" 
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											CornerRadius="6">
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*"/>
+													<ColumnDefinition Width="Auto"/>
+												</Grid.ColumnDefinitions>
+												<TextBlock x:Name="PlaceholderText"
+													   Text="Select Channel"
+													   Foreground="{DynamicResource TextSecondaryColor}"
+													   FontSize="12"
+													   Margin="12,8,8,8"
+													   VerticalAlignment="Center"
+													   HorizontalAlignment="Left"
+													   IsHitTestVisible="False">
+														<TextBlock.Style>
+															<Style TargetType="TextBlock">
+																<Setter Property="Visibility" Value="Collapsed"/>
+																<Style.Triggers>
+																	<DataTrigger Binding="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+																		<Setter Property="Visibility" Value="Visible"/>
+																	</DataTrigger>
+																	<DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+																		<Setter Property="Visibility" Value="Visible"/>
+																	</DataTrigger>
+																</Style.Triggers>
+															</Style>
+														</TextBlock.Style>
+												</TextBlock>
+												<ContentPresenter x:Name="ContentSite" 
+														Grid.Column="0"
+														IsHitTestVisible="False" 
+														Content="{TemplateBinding SelectionBoxItem}" 
+														ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+														ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+														Margin="12,8,8,8" 
+														VerticalAlignment="Center" 
+														HorizontalAlignment="Left"/>
+												<ToggleButton x:Name="ToggleButton" 
+														Grid.Column="1"
+														Focusable="False"
+														IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+														ClickMode="Press" 
+														Background="Transparent" 
+														BorderThickness="0"
+														Width="24"
+														Height="24"
+														Margin="0,0,4,0">
+													<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+														<Path x:Name="ArrowIcon"
+															  Data="M 0 0 L 4 4 L 8 0 Z"
+															  Fill="{DynamicResource TextSecondaryColor}"
+															  Stretch="Uniform" 
+															  Width="8" Height="4" 
+															  RenderTransformOrigin="0.5,0.5">
+															<Path.RenderTransform>
+																<RotateTransform Angle="0"/>
+															</Path.RenderTransform>
+															</Path>
+													</Grid>
+												</ToggleButton>
+												<Popup x:Name="Popup" 
+													   Placement="Bottom" 
+													   IsOpen="{TemplateBinding IsDropDownOpen}" 
+													   AllowsTransparency="True" 
+													   Focusable="False" 
+													   PopupAnimation="Fade">
+													<Border Background="{DynamicResource SurfaceColor}" 
+															BorderBrush="{DynamicResource BorderColor}" 
+															BorderThickness="1" 
+															CornerRadius="6"
+															MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+														<Border.Effect>
+															<DropShadowEffect Color="Black" 
+																			Direction="270" 
+																			ShadowDepth="4" 
+																			BlurRadius="8" 
+																			Opacity="0.3"/>
+														</Border.Effect>
+														<ScrollViewer Margin="0" 
+																  VerticalScrollBarVisibility="Auto"
+																  HorizontalScrollBarVisibility="Disabled">
+															<StackPanel IsItemsHost="True"/>
+														</ScrollViewer>
+													</Border>
+												</Popup>
+											</Grid>
+										</Border>
+										<ControlTemplate.Triggers>
+											<Trigger Property="IsMouseOver" Value="True">
+												<Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+												<Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource SurfaceColor}"/>
+											</Trigger>
+											<Trigger Property="IsKeyboardFocusWithin" Value="True">
+												<Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+												<Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource SurfaceColor}"/>
+												<Setter TargetName="MainBorder" Property="BorderThickness" Value="1.5"/>
+											</Trigger>
+											<Trigger Property="IsDropDownOpen" Value="True">
+												<Setter TargetName="ArrowIcon" Property="RenderTransform">
+													<Setter.Value>
+														<RotateTransform Angle="180"/>
+													</Setter.Value>
+												</Setter>
+												<Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</ComboBox.Template>
+								<ComboBoxItem Content="Channel 1"/>
+								<ComboBoxItem Content="Channel 2"/>
+								<ComboBoxItem Content="Channel 3"/>
+								<ComboBoxItem Content="Channel 4"/>
+							</ComboBox>
+					</StackPanel>
+				</Border>
+
+				<!-- Main area for Heat Map -->
+				<Border Grid.Column="1" Background="{DynamicResource SurfaceColor}">
+					<DockPanel LastChildFill="True">
+						<!-- Top filter/header section -->
+						<Border DockPanel.Dock="Top"
+								Background="{DynamicResource BackgroundColor}"
+								BorderBrush="{DynamicResource BorderColor}"
+								BorderThickness="0,0,0,1"
+								Padding="8,6">
+								<Border.Resources>
+									<!-- Themed DatePicker for heat map header -->
+										<Style x:Key="ThemedDatePickerHM" TargetType="DatePicker">
+											<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+											<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+										<Setter Property="BorderBrush" Value="Transparent"/>
+										<Setter Property="BorderThickness" Value="0"/>
+										<Setter Property="Padding" Value="0"/>
+										<Setter Property="CalendarStyle">
+											<Setter.Value>
+												<Style TargetType="Calendar">
+													<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+													<Setter Property="Foreground" Value="{DynamicResource DatePickerTextColor}"/>
+												</Style>
+											</Setter.Value>
+										</Setter>
+										<Style.Resources>
+												<Style TargetType="{x:Type DatePickerTextBox}">
+													<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+													<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+												<Setter Property="BorderBrush" Value="Transparent"/>
+												<Setter Property="BorderThickness" Value="0"/>
+													<Setter Property="Padding" Value="6,1,22,1"/>
+													<Setter Property="MinHeight" Value="20"/>
+													<Setter Property="FontSize" Value="10"/>
+												<Setter Property="VerticalContentAlignment" Value="Center"/>
+													<Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryColor}"/>
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="DatePickerTextBox">
+																<Grid Background="{TemplateBinding Background}">
+																	<ScrollViewer x:Name="PART_ContentHost" Margin="6,1,22,1"/>
+															</Grid>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Style.Resources>
+									</Style>
+
+									<!-- Link-like small button -->
+									<Style x:Key="LinkButtonHM" TargetType="Button">
+										<Setter Property="Background" Value="Transparent"/>
+										<Setter Property="BorderThickness" Value="0"/>
+										<Setter Property="Padding" Value="4,2"/>
+										<Setter Property="Margin" Value="8,0,0,0"/>
+										<Setter Property="Foreground" Value="#3B82F6"/>
+										<Setter Property="Cursor" Value="Hand"/>
+									</Style>
+								</Border.Resources>
+
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+
+									<!-- Left side controls -->
+									<WrapPanel Grid.Column="0" VerticalAlignment="Center">
+										<TextBlock Text="Channel" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,6,0"/>
+										<ComboBox Width="160" Height="26" Style="{StaticResource DarkCombo}" Margin="0,0,8,0">
+											<ComboBoxItem Content="Channel 1"/>
+											<ComboBoxItem Content="Channel 2"/>
+											<ComboBoxItem Content="Channel 3"/>
+											<ComboBoxItem Content="Channel 4"/>
+										</ComboBox>
+
+										<TextBlock Text="Statistics Time" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="6,0,6,0"/>
+										<ComboBox Width="100" Height="26" Style="{StaticResource DarkCombo}" Margin="0,0,6,0">
+											<ComboBoxItem Content="By Day" IsSelected="True"/>
+											<ComboBoxItem Content="By Week"/>
+											<ComboBoxItem Content="By Month"/>
+										</ComboBox>
+
+										<DatePicker Width="124" Height="24" SelectedDateFormat="Short" Margin="0,0,6,0" Style="{StaticResource ThemedDatePickerHM}"/>
+										<Button Content="Today" Style="{StaticResource LinkButtonHM}"/>
+									</WrapPanel>
+
+									<!-- Right side actions -->
+									<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+										<Button Content="Count" Style="{StaticResource PrimaryButton}" Height="30" MinWidth="80" Padding="14,6" Margin="0,0,8,0"/>
+										<Button Content="Reset" Style="{StaticResource SecondaryButton}" Height="30" MinWidth="80" Padding="14,6"/>
+									</StackPanel>
+								</Grid>
+							</Border>
+
+						<!-- Content body with left-aligned Export button -->
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="8,8,0,0">
+								<Button Style="{StaticResource SecondaryButton}" Height="30" Padding="12,6" MinWidth="88">
+									<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+										<TextBlock Text="" FontFamily="Segoe MDL2 Assets" Margin="0,0,6,0"/>
+										<TextBlock Text="Export"/>
+									</StackPanel>
+								</Button>
+							</StackPanel>
+							<Grid Grid.Row="1"/>
+						</Grid>
+					</DockPanel>
+				</Border>
 			</Grid>
 		</Grid>
 	</DockPanel>
