@@ -27,11 +27,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2563EB"/>
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1D4ED8"/>
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -41,9 +41,9 @@
         </Style>
         <!-- Grid layout button style for bottom toolbar (replicated) -->
         <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#3A3A3A"/>
-            <Setter Property="Foreground" Value="#E2E8F0"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="Width" Value="28"/>
@@ -61,14 +61,81 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#4A4A4A"/>
-                                <Setter Property="BorderBrush" Value="#666666"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#5A5A5A"/>
-                                <Setter Property="BorderBrush" Value="#777777"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Common button styles used by toolbar -->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinWidth" Value="96"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="MinWidth" Value="96"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -126,54 +193,77 @@
                     BorderBrush="{DynamicResource BorderColor}"
                     BorderThickness="0,0,1,0">
                 <StackPanel Margin="12">
-                    <TextBlock Text="Video Channel"
-                               Foreground="{DynamicResource TextPrimaryColor}"
-                               FontSize="11"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,6"/>
-                    <Border Background="{DynamicResource SurfaceColor}"
-                            BorderBrush="{DynamicResource BorderColor}"
-                            BorderThickness="1"
-                            CornerRadius="6"
-                            Padding="8,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="22"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="🔍" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="VideoChannelInput" Grid.Column="1"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     Foreground="{DynamicResource TextPrimaryColor}"
-                                     FontSize="11"
-                                     Padding="0,6,8,6"
-                                     CaretBrush="{DynamicResource PrimaryColor}"
-                                     VerticalContentAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     Height="32"
-                                     TextWrapping="NoWrap"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                     MinWidth="200"
-                                     HorizontalContentAlignment="Left"
-                                     AcceptsReturn="False"
-                                     Text="Enter channel name"
-                                     GotFocus="VideoChannelInput_GotFocus"
-                                     LostFocus="VideoChannelInput_LostFocus"/>
-                        </Grid>
-                    </Border>
+                    <!-- Realtime Monitoring sidebar section -->
+                    <StackPanel x:Name="VideoChannelSection">
+                        <TextBlock Text="Video Channel"
+                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,6"/>
+                        <Border Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="8,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🔍" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBox x:Name="VideoChannelInput" Grid.Column="1"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="{DynamicResource TextPrimaryColor}"
+                                         FontSize="11"
+                                         Padding="0,6,8,6"
+                                         CaretBrush="{DynamicResource PrimaryColor}"
+                                         VerticalContentAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Height="32"
+                                         TextWrapping="NoWrap"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                         MinWidth="200"
+                                         HorizontalContentAlignment="Left"
+                                         AcceptsReturn="False"
+                                         Text="Enter channel name"
+                                         GotFocus="VideoChannelInput_GotFocus"
+                                         LostFocus="VideoChannelInput_LostFocus"/>
+                            </Grid>
+                        </Border>
 
-                    <!-- Simple filters -->
-                    <StackPanel Margin="0,18,0,0">
-                        <TextBlock Text="Filters" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryColor}" Margin="0,0,0,6"/>
-                        <TextBlock Text="All Alarms" Foreground="{DynamicResource TextSecondaryColor}" FontSize="11"/>
+                        <!-- Simple filters -->
+                        <StackPanel Margin="0,18,0,0">
+                            <TextBlock Text="Filters" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryColor}" Margin="0,0,0,6"/>
+                            <TextBlock Text="All Alarms" Foreground="{DynamicResource TextSecondaryColor}" FontSize="11"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Vehicle Library Management sidebar section -->
+                    <StackPanel x:Name="VehicleLibrarySection" Visibility="Collapsed">
+                        <TextBlock Text="Vehicle Library"
+                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,6"/>
+                        <ComboBox Height="28"
+                                  Background="{DynamicResource SurfaceColor}"
+                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                  BorderBrush="{DynamicResource BorderColor}"
+                                  BorderThickness="1">
+                            <ComboBoxItem Content="All Libraries" IsSelected="True"/>
+                            <ComboBoxItem Content="Default"/>
+                            <ComboBoxItem Content="VIP"/>
+                        </ComboBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <!-- Right Content: camera grid with bottom controls -->
-            <DockPanel Grid.Column="1">
+            <!-- Right Content area: switch between Realtime and Vehicle Library views -->
+            <Grid Grid.Column="1">
+                <!-- Realtime Monitoring view -->
+                <DockPanel x:Name="RealtimeView">
                 <!-- Bottom controls -->
                 <Border x:Name="BottomBar" DockPanel.Dock="Bottom" Height="36" Background="{DynamicResource TopBarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0">
@@ -202,11 +292,133 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Grid area -->
-                <Border x:Name="CameraGridContainer" Background="#000000">
-                    <UniformGrid x:Name="CameraTilesHost" Rows="2" Columns="2"/>
-                </Border>
-            </DockPanel>
+                    <!-- Grid area -->
+                    <Border x:Name="CameraGridContainer" Background="#000000">
+                        <UniformGrid x:Name="CameraTilesHost" Rows="2" Columns="2"/>
+                    </Border>
+                </DockPanel>
+
+                <!-- Vehicle Library Management view -->
+                <Grid x:Name="VehicleLibraryView" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Toolbar -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8,6,8,6">
+                        <Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4" Margin="0,0,6,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="+" FontSize="12" Margin="0,0,6,0"/>
+                                <TextBlock Text="Add"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4" Margin="0,0,6,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🗑" FontSize="12" Margin="0,0,6,0"/>
+                                <TextBlock Text="Delete"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4" Margin="0,0,6,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📥" FontSize="12" Margin="0,0,6,0"/>
+                                <TextBlock Text="Import"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4" Margin="0,0,6,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📤" FontSize="12" Margin="0,0,6,0"/>
+                                <TextBlock Text="Export"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⬇" FontSize="12" Margin="0,0,6,0"/>
+                                <TextBlock Text="Download Template"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Table with two columns: Plate No. and Operation (edge-aligned like reference) -->
+                    <Border Grid.Row="1" Background="{DynamicResource BackgroundColor}" BorderBrush="Transparent" BorderThickness="0" Margin="0,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="36"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <Grid Grid.Row="0" Background="{DynamicResource TopBarColor}" SnapsToDevicePixels="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="36"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1"/>
+                                <CheckBox Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Plate No." Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Operation" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Body: empty list placeholder now, styled for future data -->
+                            <ListView Grid.Row="1"
+                                      Background="{DynamicResource BackgroundColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderThickness="0"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListView.Resources>
+                                    <!-- Hide ListView GridView header to avoid double headers -->
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Setter Property="Height" Value="0"/>
+                                    </Style>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+                                        <Setter Property="Padding" Value="8,8"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Width="36">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Plate No." Width="350" DisplayMemberBinding="{Binding PlateNo}"/>
+                                        <GridViewColumn Header="Operation" Width="240">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                        <Button Style="{StaticResource SecondaryButton}" Height="24" Padding="10,2" MinWidth="72" Margin="0,0,6,0" Content="Edit"/>
+                                                        <Button Style="{StaticResource SecondaryButton}" Height="24" Padding="10,2" MinWidth="72" Content="Delete"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                                <!-- Empty for now; headers show and body scrolls -->
+                            </ListView>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

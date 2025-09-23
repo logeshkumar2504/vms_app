@@ -24,11 +24,17 @@ namespace Vms_page
 		{
 			if (sender is Button btn && btn.Tag is string tag)
 			{
-				// Show sidebar only for relevant tabs (Realtime Monitoring and Library Management)
+				// Toggle sidebar sections
 				if (LeftSidebar != null)
 				{
 					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management") ? Visibility.Visible : Visibility.Collapsed;
 				}
+				if (VideoChannelSection != null) VideoChannelSection.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
+				if (VehicleLibrarySection != null) VehicleLibrarySection.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
+
+				// Toggle right-side views
+				if (RealtimeView != null) RealtimeView.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
+				if (VehicleLibraryView != null) VehicleLibraryView.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
 				Title = $"LPR - {tag}";
 			}
 		}
