@@ -257,6 +257,47 @@
                             <ComboBoxItem Content="VIP"/>
                         </ComboBox>
                     </StackPanel>
+
+                    <!-- Monitoring Task sidebar section -->
+                    <StackPanel x:Name="MonitoringTaskSection" Visibility="Collapsed">
+                        <TextBlock Text="Video Channel"
+                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,6"/>
+                        <Border Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="8,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="22"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="🔍" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBox x:Name="MonitoringTaskChannelInput" Grid.Column="1"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="{DynamicResource TextPrimaryColor}"
+                                         FontSize="11"
+                                         Padding="0,6,8,6"
+                                         CaretBrush="{DynamicResource PrimaryColor}"
+                                         VerticalContentAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Height="32"
+                                         TextWrapping="NoWrap"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                         MinWidth="200"
+                                         HorizontalContentAlignment="Left"
+                                         AcceptsReturn="False"
+                                         Text="Enter channel name"
+                                         GotFocus="MonitoringTaskChannelInput_GotFocus"
+                                         LostFocus="MonitoringTaskChannelInput_LostFocus"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
@@ -417,6 +458,115 @@
                             </ListView>
                         </Grid>
                     </Border>
+                </Grid>
+
+                <!-- Monitoring Task view -->
+                <Grid x:Name="MonitoringTaskView" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+					<!-- Toolbar -->
+					<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8,6,8,6">
+						<Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4" Margin="0,0,6,0">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="+" FontSize="12" Margin="0,0,6,0"/>
+								<TextBlock Text="Add"/>
+							</StackPanel>
+						</Button>
+						<Button Style="{StaticResource SecondaryButton}" Height="28" Padding="10,4">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="🗑" FontSize="12" Margin="0,0,6,0"/>
+								<TextBlock Text="Delete"/>
+							</StackPanel>
+						</Button>
+					</StackPanel>
+
+					<!-- Table: checkbox, Name, Remarks, Alarm Type, Operation -->
+					<Border Grid.Row="1" Background="{DynamicResource BackgroundColor}" BorderBrush="Transparent" BorderThickness="0" Margin="0,0,0,0">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="36"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<!-- Header -->
+							<Grid Grid.Row="0" Background="{DynamicResource TopBarColor}" SnapsToDevicePixels="True">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="36"/>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="220"/>
+								</Grid.ColumnDefinitions>
+								<Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1"/>
+								<CheckBox Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+								<TextBlock Grid.Column="1" Text="Name" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+								<TextBlock Grid.Column="2" Text="Remarks" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+								<TextBlock Grid.Column="3" Text="Alarm Type" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+								<TextBlock Grid.Column="4" Text="Operation" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+							</Grid>
+
+							<!-- Body -->
+							<ListView Grid.Row="1"
+									  Background="{DynamicResource BackgroundColor}"
+									  Foreground="{DynamicResource TextPrimaryColor}"
+									  BorderThickness="0"
+									  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+									  ScrollViewer.VerticalScrollBarVisibility="Auto">
+								<ListView.Resources>
+									<!-- Hide ListView GridView header to avoid double headers -->
+									<Style TargetType="GridViewColumnHeader">
+										<Setter Property="Visibility" Value="Collapsed"/>
+										<Setter Property="Height" Value="0"/>
+									</Style>
+									<Style TargetType="ListViewItem">
+										<Setter Property="Background" Value="Transparent"/>
+										<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+										<Setter Property="BorderThickness" Value="0,0,0,1"/>
+										<Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+										<Setter Property="Padding" Value="8,8"/>
+										<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+										<Style.Triggers>
+											<Trigger Property="IsMouseOver" Value="True">
+												<Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+											</Trigger>
+											<Trigger Property="IsSelected" Value="True">
+												<Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+												<Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</ListView.Resources>
+								<ListView.View>
+									<GridView AllowsColumnReorder="False">
+										<GridViewColumn Width="36">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<CheckBox HorizontalAlignment="Center"/>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn Header="Name" Width="320" DisplayMemberBinding="{Binding Name}"/>
+										<GridViewColumn Header="Remarks" Width="320" DisplayMemberBinding="{Binding Remarks}"/>
+										<GridViewColumn Header="Alarm Type" Width="220" DisplayMemberBinding="{Binding AlarmType}"/>
+										<GridViewColumn Header="Operation" Width="220">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+														<Button Style="{StaticResource SecondaryButton}" Height="24" Padding="10,2" MinWidth="72" Margin="0,0,6,0" Content="Edit"/>
+														<Button Style="{StaticResource SecondaryButton}" Height="24" Padding="10,2" MinWidth="72" Content="Delete"/>
+													</StackPanel>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+									</GridView>
+								</ListView.View>
+								<!-- Items can be bound later -->
+							</ListView>
+						</Grid>
+					</Border>
                 </Grid>
             </Grid>
         </Grid>

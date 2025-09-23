@@ -27,14 +27,16 @@ namespace Vms_page
 				// Toggle sidebar sections
 				if (LeftSidebar != null)
 				{
-					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management") ? Visibility.Visible : Visibility.Collapsed;
+					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management" || tag == "Monitoring Task") ? Visibility.Visible : Visibility.Collapsed;
 				}
 				if (VideoChannelSection != null) VideoChannelSection.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibrarySection != null) VehicleLibrarySection.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
+				if (MonitoringTaskSection != null) MonitoringTaskSection.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
 
 				// Toggle right-side views
 				if (RealtimeView != null) RealtimeView.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibraryView != null) VehicleLibraryView.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
+				if (MonitoringTaskView != null) MonitoringTaskView.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
 				Title = $"LPR - {tag}";
 			}
 		}
@@ -141,6 +143,32 @@ namespace Vms_page
 		}
 
 		private void VideoChannelInput_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb)
+			{
+				if (string.IsNullOrWhiteSpace(tb.Text))
+				{
+					tb.Text = "Enter channel name";
+					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+				}
+			}
+		}
+
+		private void MonitoringTaskChannelInput_GotFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb)
+			{
+				if (tb.Text == "Enter channel name")
+				{
+					tb.Text = string.Empty;
+					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
+					// Ensure caret is visible at end; prevent auto scroll to start
+					tb.CaretIndex = tb.Text.Length;
+				}
+			}
+		}
+
+		private void MonitoringTaskChannelInput_LostFocus(object sender, RoutedEventArgs e)
 		{
 			if (sender is TextBox tb)
 			{
