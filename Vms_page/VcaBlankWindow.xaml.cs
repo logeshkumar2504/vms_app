@@ -2,9 +2,9 @@ using System.Windows;
 
 namespace Vms_page
 {
-	public partial class VcaBlankWindow : Window
-	{
-		public VcaBlankWindow()
+    public partial class VcaWindow : Window
+    {
+        public VcaWindow()
 		{
 			InitializeComponent();
 			ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());

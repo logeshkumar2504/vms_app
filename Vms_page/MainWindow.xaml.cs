@@ -130,7 +130,7 @@ namespace Vms_page
                 }
                 else if (item.Name == "VCA")
                 {
-                    var vcaWindow = new VcaBlankWindow();
+                    var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
                 }
                 else if (item.Name == "Face Recognition")
@@ -220,7 +220,7 @@ namespace Vms_page
                 }
                 else if (item.Name == "VCA")
                 {
-                    var vcaWindow = new VcaBlankWindow();
+                    var vcaWindow = new VcaWindow();
                     vcaWindow.Show();
                 }
                 else if (item.Name == "Sequence Resource")
@@ -239,11 +239,7 @@ namespace Vms_page
                     var emapWindow = new EMapWindow();
                     emapWindow.Show();
                 }
-                else if (item.Name == "VCA")
-                {
-                    var vcaWindow = new VcaWindow();
-                    vcaWindow.Show();
-                }
+                
                 else if (item.Name == "Face Recognition")
                 {
                     var frWindow = new FaceRecognitionWindow();
