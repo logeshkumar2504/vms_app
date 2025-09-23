@@ -27,6 +27,9 @@ namespace Vms_page
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x8E, 0x8E, 0x93));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0xE5, 0xE5, 0xEA));
                     appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    // DatePicker colors for light mode
+                    appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
                     break;
                     
                 case "Dark":
@@ -45,6 +48,9 @@ namespace Vms_page
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x94, 0xA3, 0xB8));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0x3B, 0x3B, 0x4F)); // Subtle border for cards
                     appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0x4A, 0x4A, 0x5E)); // Hover color for menu items and cards
+                    // DatePicker colors for dark mode
+                    appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
+                    appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
                     break;
                     
                 case "Blue":
@@ -59,6 +65,9 @@ namespace Vms_page
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x1E, 0x3A, 0x8A));
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x64, 0x74, 0x8B));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0));
+                    // DatePicker colors for blue theme (light-like defaults)
+                    appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
                     break;
             }
             

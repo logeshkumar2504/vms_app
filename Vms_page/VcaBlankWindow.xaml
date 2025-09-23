@@ -251,6 +251,28 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+
+		<!-- Global button styles so they are available throughout the window -->
+		<Style x:Key="PrimaryButton" TargetType="Button">
+			<Setter Property="Background" Value="#3B82F6"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderBrush" Value="#3B82F6"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Padding" Value="18,8"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="MinWidth" Value="96"/>
+			<Setter Property="Height" Value="36"/>
+		</Style>
+
+		<Style x:Key="SecondaryButton" TargetType="Button">
+			<Setter Property="Background" Value="#1F2937"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderBrush" Value="#4B5563"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Padding" Value="18,8"/>
+			<Setter Property="MinWidth" Value="96"/>
+			<Setter Property="Height" Value="36"/>
+		</Style>
 	</Window.Resources>
 
     <DockPanel LastChildFill="True">
@@ -282,7 +304,7 @@
 
 		<!-- Content area -->
         <Grid Background="{DynamicResource BackgroundColor}">
-            <Grid x:Name="RealtimeMonitoringView" Visibility="Visible">
+            <Grid x:Name="RealtimeMonitoringView" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition x:Name="RM_SidebarColumn" Width="170"/>
                     <ColumnDefinition x:Name="RM_MainColumn" Width="*"/>
@@ -449,8 +471,516 @@
                 </Border>
 				</DockPanel>
 			</Grid>
-			<Grid x:Name="BehaviourSearchView" Visibility="Collapsed">
-				<!-- empty placeholder -->
+            <Grid x:Name="BehaviourSearchView" Visibility="Visible">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="170"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Left Sidebar for Behavior Search -->
+				<Border Grid.Column="0"
+						Background="{DynamicResource SidebarColor}"
+						BorderBrush="{DynamicResource BorderColor}"
+						BorderThickness="0,0,1,0">
+					<StackPanel Margin="14">
+						<TextBlock Text="Channel"
+								   FontSize="12"
+								   Foreground="{DynamicResource TextPrimaryColor}"
+								   Margin="0,0,0,6"/>
+						<ComboBox x:Name="ChannelComboBox"
+								  Width="140" 
+								  Margin="0,0,0,12"
+								  Background="{DynamicResource SurfaceColor}"
+								  Foreground="{DynamicResource TextPrimaryColor}"
+								  BorderBrush="{DynamicResource BorderColor}"
+								  BorderThickness="1"
+								  Padding="12,8"
+								  FontSize="12"
+								  Height="36">
+							<ComboBox.Template>
+								<ControlTemplate TargetType="ComboBox">
+									<Border x:Name="MainBorder" 
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											CornerRadius="6">
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
+											
+											<!-- Placeholder text -->
+											<TextBlock x:Name="PlaceholderText"
+													   Text="Select Channel"
+													   Foreground="{DynamicResource TextSecondaryColor}"
+													   FontSize="12"
+													   Margin="12,8,8,8"
+													   VerticalAlignment="Center"
+													   HorizontalAlignment="Left"
+													   IsHitTestVisible="False">
+												<TextBlock.Style>
+													<Style TargetType="TextBlock">
+														<Setter Property="Visibility" Value="Collapsed"/>
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+																<Setter Property="Visibility" Value="Visible"/>
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+																<Setter Property="Visibility" Value="Visible"/>
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</TextBlock.Style>
+											</TextBlock>
+											
+											<ContentPresenter x:Name="ContentSite" 
+															  Grid.Column="0"
+															  IsHitTestVisible="False" 
+															  Content="{TemplateBinding SelectionBoxItem}" 
+															  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+															  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+															  Margin="12,8,8,8" 
+															  VerticalAlignment="Center" 
+															  HorizontalAlignment="Left"/>
+											
+											<ToggleButton x:Name="ToggleButton" 
+														  Grid.Column="1"
+														  Focusable="False"
+														  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+														  ClickMode="Press" 
+														  Background="Transparent" 
+														  BorderThickness="0"
+														  Width="24"
+														  Height="24"
+														  Margin="0,0,4,0">
+												<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+													<Path x:Name="ArrowIcon"
+														  Data="M 0 0 L 4 4 L 8 0 Z"
+														  Fill="{DynamicResource TextSecondaryColor}"
+														  Stretch="Uniform"
+														  Width="8" Height="4"
+														  RenderTransformOrigin="0.5,0.5">
+															<Path.RenderTransform>
+																<RotateTransform Angle="0"/>
+															</Path.RenderTransform>
+														</Path>
+												</Grid>
+											</ToggleButton>
+											
+											<Popup x:Name="Popup" 
+												   Placement="Bottom" 
+												   IsOpen="{TemplateBinding IsDropDownOpen}" 
+												   AllowsTransparency="True" 
+												   Focusable="False" 
+												   PopupAnimation="Fade">
+												<Border Background="{DynamicResource SurfaceColor}" 
+														BorderBrush="{DynamicResource BorderColor}" 
+														BorderThickness="1" 
+														CornerRadius="6"
+														MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+													<Border.Effect>
+														<DropShadowEffect Color="Black" 
+																		Direction="270" 
+																		ShadowDepth="4" 
+																		BlurRadius="8" 
+																		Opacity="0.3"/>
+													</Border.Effect>
+													<ScrollViewer Margin="0" 
+																  VerticalScrollBarVisibility="Auto"
+																  HorizontalScrollBarVisibility="Disabled">
+														<StackPanel IsItemsHost="True"/>
+													</ScrollViewer>
+												</Border>
+											</Popup>
+										</Grid>
+									</Border>
+									<ControlTemplate.Triggers>
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+											<Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource SurfaceColor}"/>
+										</Trigger>
+										<Trigger Property="IsKeyboardFocusWithin" Value="True">
+											<Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+											<Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource SurfaceColor}"/>
+											<Setter TargetName="MainBorder" Property="BorderThickness" Value="1.5"/>
+										</Trigger>
+											<Trigger Property="IsDropDownOpen" Value="True">
+												<Setter TargetName="ArrowIcon" Property="RenderTransform">
+													<Setter.Value>
+														<RotateTransform Angle="180"/>
+													</Setter.Value>
+												</Setter>
+												<Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
+											</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</ComboBox.Template>
+							<ComboBoxItem Content="Channel 1"/>
+							<ComboBoxItem Content="Channel 2"/>
+							<ComboBoxItem Content="Channel 3"/>
+							<ComboBoxItem Content="Channel 4"/>
+						</ComboBox>
+					</StackPanel>
+				</Border>
+
+				<!-- Main content area for Behavior Search -->
+				<Border Grid.Column="1" 
+						Background="{DynamicResource SurfaceColor}">
+					<DockPanel LastChildFill="True">
+						<!-- Top filter/header section -->
+						<Border DockPanel.Dock="Top"
+								Background="{DynamicResource BackgroundColor}"
+								BorderBrush="{DynamicResource BorderColor}"
+								BorderThickness="0,0,0,1"
+								Padding="8,6">
+							<Border.Resources>
+								<!-- Themed DatePicker style using DatePickerBackgroundColor and DatePickerTextColor -->
+								<Style x:Key="ThemedDatePicker" TargetType="DatePicker">
+									<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+									<Setter Property="Foreground" Value="{DynamicResource DatePickerTextColor}"/>
+									<Setter Property="BorderBrush" Value="Transparent"/>
+									<Setter Property="BorderThickness" Value="0"/>
+									<Setter Property="Padding" Value="0"/>
+									<Setter Property="CalendarStyle">
+										<Setter.Value>
+											<Style TargetType="Calendar">
+												<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+												<Setter Property="Foreground" Value="{DynamicResource DatePickerTextColor}"/>
+											</Style>
+										</Setter.Value>
+									</Setter>
+									<Style.Resources>
+										<!-- Style the inner text box of the DatePicker -->
+										<Style TargetType="{x:Type DatePickerTextBox}">
+											<Setter Property="Background" Value="{DynamicResource DatePickerBackgroundColor}"/>
+											<Setter Property="Foreground" Value="{DynamicResource DatePickerTextColor}"/>
+											<Setter Property="BorderBrush" Value="Transparent"/>
+											<Setter Property="BorderThickness" Value="0"/>
+											<Setter Property="Padding" Value="10,4,40,4"/>
+											<Setter Property="MinHeight" Value="26"/>
+											<Setter Property="FontSize" Value="11"/>
+											<Setter Property="VerticalContentAlignment" Value="Center"/>
+											<Setter Property="CaretBrush" Value="{DynamicResource DatePickerTextColor}"/>
+											<Setter Property="Template">
+												<Setter.Value>
+													<ControlTemplate TargetType="DatePickerTextBox">
+														<Grid Background="{TemplateBinding Background}">
+															<ScrollViewer x:Name="PART_ContentHost" Margin="10,4,40,4"/>
+														</Grid>
+													</ControlTemplate>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</Style.Resources>
+								</Style>
+								<!-- Link-like small button -->
+								<Style x:Key="LinkButton" TargetType="Button">
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="BorderThickness" Value="0"/>
+									<Setter Property="Padding" Value="4,2"/>
+									<Setter Property="Margin" Value="8,0,0,0"/>
+									<Setter Property="Foreground" Value="#3B82F6"/>
+									<Setter Property="Cursor" Value="Hand"/>
+								</Style>
+
+								<!-- Chip toggle button for category selection -->
+								<Style x:Key="ChipToggle" TargetType="ToggleButton">
+									<Setter Property="Background" Value="#2A2A2A"/>
+									<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+									<Setter Property="BorderBrush" Value="#404040"/>
+									<Setter Property="BorderThickness" Value="1"/>
+									<Setter Property="Padding" Value="10,6"/>
+									<Setter Property="Margin" Value="6,0,0,0"/>
+									<Setter Property="FontSize" Value="12"/>
+									<Setter Property="Cursor" Value="Hand"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="ToggleButton">
+												<Border x:Name="ChipBg" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+													<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter TargetName="ChipBg" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+													</Trigger>
+													<Trigger Property="IsChecked" Value="True">
+														<Setter TargetName="ChipBg" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+														<Setter Property="Foreground" Value="White"/>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+
+								<!-- Single-select chip radio style -->
+								<Style x:Key="ChipRadio" TargetType="RadioButton">
+									<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="BorderThickness" Value="0"/>
+									<Setter Property="Padding" Value="0"/>
+									<Setter Property="Margin" Value="10,0,0,0"/>
+									<Setter Property="FontSize" Value="12"/>
+									<Setter Property="Cursor" Value="Hand"/>
+									<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="RadioButton">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto"/>
+														<RowDefinition Height="2"/>
+													</Grid.RowDefinitions>
+													<ContentPresenter x:Name="LabelContent" Grid.Row="0" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+													<Border x:Name="Underline" Grid.Row="1" Background="Transparent" HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=LabelContent}"/>
+												</Grid>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter Property="Foreground" Value="#3B82F6"/>
+													</Trigger>
+													<Trigger Property="IsChecked" Value="True">
+														<Setter Property="Foreground" Value="#3B82F6"/>
+														<Setter TargetName="Underline" Property="Background" Value="#3B82F6"/>
+														<Setter Property="FontWeight" Value="SemiBold"/>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+
+								<!-- Dark Combo style for black background + white text including popup -->
+								<Style x:Key="DarkCombo" TargetType="ComboBox">
+									<Setter Property="Background" Value="#111111"/>
+									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="BorderBrush" Value="#404040"/>
+									<Setter Property="BorderThickness" Value="1"/>
+									<Setter Property="Padding" Value="8,4"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="ComboBox">
+												<Border x:Name="MainBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="*"/>
+															<ColumnDefinition Width="Auto"/>
+														</Grid.ColumnDefinitions>
+														<ContentPresenter x:Name="ContentSite" Grid.Column="0" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+														<ToggleButton x:Name="ToggleButton" Grid.Column="1" Focusable="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Background="Transparent" BorderThickness="0" Width="24" Height="24" Margin="0,0,4,0">
+															<Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="White" Stretch="Uniform" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+																<Path.RenderTransform>
+																	<RotateTransform Angle="0"/>
+																</Path.RenderTransform>
+															</Path>
+														</ToggleButton>
+														<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
+															<Border Background="#111111" BorderBrush="#404040" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+																<ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+																	<StackPanel IsItemsHost="True"/>
+																</ScrollViewer>
+															</Border>
+														</Popup>
+													</Grid>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsDropDownOpen" Value="True">
+														<Setter TargetName="Arrow" Property="RenderTransform">
+															<Setter.Value>
+																<RotateTransform Angle="180"/>
+															</Setter.Value>
+														</Setter>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+									<Setter Property="ItemContainerStyle">
+										<Setter.Value>
+											<Style TargetType="ComboBoxItem">
+												<Setter Property="Foreground" Value="White"/>
+												<Setter Property="Background" Value="#111111"/>
+												<Setter Property="Padding" Value="8,6"/>
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="ComboBoxItem">
+															<Border x:Name="ItemBg" Background="{TemplateBinding Background}">
+																<ContentPresenter Margin="8,4"/>
+															</Border>
+															<ControlTemplate.Triggers>
+																<Trigger Property="IsMouseOver" Value="True">
+																	<Setter TargetName="ItemBg" Property="Background" Value="#1A1A1A"/>
+																</Trigger>
+																<Trigger Property="IsSelected" Value="True">
+																	<Setter TargetName="ItemBg" Property="Background" Value="#2A2A2A"/>
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Setter.Value>
+									</Setter>
+								</Style>
+
+								<!-- Button styles for Search/Reset -->
+								<Style x:Key="PrimaryButton" TargetType="Button">
+									<Setter Property="Background" Value="#3B82F6"/>
+									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="BorderBrush" Value="#3B82F6"/>
+									<Setter Property="BorderThickness" Value="1"/>
+									<Setter Property="Padding" Value="18,8"/>
+									<Setter Property="FontWeight" Value="SemiBold"/>
+									<Setter Property="MinWidth" Value="96"/>
+									<Setter Property="Height" Value="36"/>
+								</Style>
+								<Style x:Key="SecondaryButton" TargetType="Button">
+									<Setter Property="Background" Value="#1F2937"/>
+									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="BorderBrush" Value="#4B5563"/>
+									<Setter Property="BorderThickness" Value="1"/>
+									<Setter Property="Padding" Value="18,8"/>
+									<Setter Property="MinWidth" Value="96"/>
+									<Setter Property="Height" Value="36"/>
+								</Style>
+							</Border.Resources>
+
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+
+								<!-- Row 1: Alarm Type -->
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+									<TextBlock Text="Alarm Type" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+									<ComboBox Width="200" Height="32" Style="{StaticResource DarkCombo}">
+										<ComboBoxItem Content="All" IsSelected="True"/>
+										<ComboBoxItem Content="Intrusion"/>
+										<ComboBoxItem Content="Line Crossing"/>
+										<ComboBoxItem Content="Motion"/>
+									</ComboBox>
+								</StackPanel>
+
+								<!-- Row 2: Alarm Time with quick ranges -->
+								<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,6,0,0" VerticalAlignment="Center">
+									<TextBlock Text="Alarm Time" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+									<DatePicker Width="230" Height="28" SelectedDateFormat="Short" Margin="0,0,6,0" Style="{StaticResource ThemedDatePicker}"/>
+									<TextBlock Text="~" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+									<DatePicker Width="230" Height="28" SelectedDateFormat="Short" Style="{StaticResource ThemedDatePicker}"/>
+									<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+										<Button Content="Today" Style="{StaticResource LinkButton}"/>
+										<Button Content="Last 3 days" Style="{StaticResource LinkButton}"/>
+										<Button Content="Last 7 days" Style="{StaticResource LinkButton}"/>
+									</StackPanel>
+								</StackPanel>
+
+								<!-- Row 3: Search Object on left, conditional dropdowns inline, actions on right -->
+								<WrapPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,6,0,0">
+									<TextBlock Text="Search Object" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+									<RadioButton Content="All" IsChecked="True" GroupName="SearchObject" Style="{StaticResource ChipRadio}"/>
+									<RadioButton x:Name="PedestrianRadio" Content="Pedestrian" GroupName="SearchObject" Style="{StaticResource ChipRadio}"/>
+									<RadioButton x:Name="NonMotorRadio" Content="Non-Motor Vehicle" GroupName="SearchObject" Style="{StaticResource ChipRadio}"/>
+									<RadioButton x:Name="MotorRadio" Content="Motor Vehicle" GroupName="SearchObject" Style="{StaticResource ChipRadio}"/>
+
+									<!-- Conditional garment color dropdowns -->
+									<StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
+										<StackPanel.Style>
+											<Style TargetType="StackPanel">
+												<Setter Property="Visibility" Value="Collapsed"/>
+												<Style.Triggers>
+													<MultiDataTrigger>
+														<MultiDataTrigger.Conditions>
+															<Condition Binding="{Binding IsChecked, ElementName=PedestrianRadio}" Value="True"/>
+														</MultiDataTrigger.Conditions>
+														<Setter Property="Visibility" Value="Visible"/>
+													</MultiDataTrigger>
+													<MultiDataTrigger>
+														<MultiDataTrigger.Conditions>
+															<Condition Binding="{Binding IsChecked, ElementName=NonMotorRadio}" Value="True"/>
+														</MultiDataTrigger.Conditions>
+														<Setter Property="Visibility" Value="Visible"/>
+													</MultiDataTrigger>
+											</Style.Triggers>
+											</Style>
+										</StackPanel.Style>
+										<TextBlock Text="Upper Garment Color" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+										<ComboBox Width="140" Height="28" Style="{StaticResource DarkCombo}" Margin="0,0,12,0">
+											<ComboBoxItem Content="All" IsSelected="True"/>
+											<ComboBoxItem Content="Black"/>
+											<ComboBoxItem Content="White"/>
+											<ComboBoxItem Content="Blue"/>
+										</ComboBox>
+										<TextBlock Text="Lower Garment Color" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+										<ComboBox Width="140" Height="28" Style="{StaticResource DarkCombo}">
+											<ComboBoxItem Content="All" IsSelected="True"/>
+											<ComboBoxItem Content="Black"/>
+											<ComboBoxItem Content="White"/>
+											<ComboBoxItem Content="Blue"/>
+										</ComboBox>
+									</StackPanel>
+
+									<!-- Conditional vehicle/plate color dropdowns for Motor Vehicle -->
+									<WrapPanel Margin="16,0,0,0" VerticalAlignment="Center">
+										<WrapPanel.Style>
+											<Style TargetType="WrapPanel">
+												<Setter Property="Visibility" Value="Collapsed"/>
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding IsChecked, ElementName=MotorRadio}" Value="True">
+														<Setter Property="Visibility" Value="Visible"/>
+													</DataTrigger>
+												</Style.Triggers>
+										</Style>
+										</WrapPanel.Style>
+
+										<StackPanel Orientation="Horizontal" Margin="0,0,12,6" VerticalAlignment="Center">
+											<TextBlock Text="Vehicle Color" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+											<ComboBox Width="140" Height="28" Style="{StaticResource DarkCombo}">
+											<ComboBoxItem Content="All" IsSelected="True"/>
+											<ComboBoxItem Content="Black"/>
+											<ComboBoxItem Content="White"/>
+											<ComboBoxItem Content="Red"/>
+											</ComboBox>
+										</StackPanel>
+
+										<StackPanel Orientation="Horizontal" Margin="0,0,0,6" VerticalAlignment="Center">
+											<TextBlock Text="Plate Color" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+											<ComboBox Width="140" Height="28" Style="{StaticResource DarkCombo}">
+											<ComboBoxItem Content="All" IsSelected="True"/>
+											<ComboBoxItem Content="Black"/>
+											<ComboBoxItem Content="White"/>
+											<ComboBoxItem Content="Blue"/>
+											</ComboBox>
+										</StackPanel>
+									</WrapPanel>
+								</WrapPanel>
+
+								<!-- Right actions in same row -->
+								<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12,10,0,0">
+									<Button Content="Search" Style="{StaticResource PrimaryButton}" Margin="0,0,10,0"/>
+									<Button Content="Reset" Style="{StaticResource SecondaryButton}"/>
+								</StackPanel>
+							</Grid>
+						</Border>
+
+						<!-- Content body placeholder with a left-aligned action button -->
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="8,8,0,0">
+								<Button Content="Add" Style="{StaticResource PrimaryButton}"/>
+							</StackPanel>
+							<Grid Grid.Row="1"/>
+						</Grid>
+					</DockPanel>
+				</Border>
 			</Grid>
 			<Grid x:Name="HeatMapView" Visibility="Collapsed">
 				<!-- empty placeholder -->

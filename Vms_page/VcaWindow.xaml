@@ -261,38 +261,64 @@
                     BorderBrush="{DynamicResource BorderColor}" 
                     BorderThickness="0,0,1,0">
                 <StackPanel Margin="15">
-                    <!-- Retail Monitoring Heading -->
-                    <TextBlock Text="Retail Monitoring" 
-                               FontSize="14" 
-                               FontWeight="SemiBold" 
-                               Foreground="{DynamicResource TextPrimaryColor}" 
-                               Margin="0,0,0,15"/>
+                    <!-- Retail sidebar -->
+                    <StackPanel x:Name="RetailSidebarPanel" Visibility="Visible">
+                        <!-- Retail Monitoring Heading -->
+                        <TextBlock Text="Retail Monitoring" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   Margin="0,0,0,15"/>
 
-                    <!-- Search Bar -->
-                    <Border Background="{DynamicResource SurfaceColor}" 
-                            BorderBrush="{DynamicResource BorderColor}" 
-                            BorderThickness="1" 
-                            CornerRadius="3"
-                            Height="28">
-                        <Grid>
-                            <TextBlock Text="🔍" 
-                                       FontSize="12" 
-                                       Foreground="{DynamicResource TextSecondaryColor}" 
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Left" 
-                                       Margin="8,0"/>
-                            <TextBox Name="SearchTextBox"
-                                     Background="Transparent" 
-                                     BorderThickness="0" 
-                                     Foreground="{DynamicResource TextPrimaryColor}" 
-                                     VerticalAlignment="Center" 
-                                     Margin="25,0,8,0"
-                                     FontSize="12"
-                                     Text="Enter Keywords"
-                                     GotFocus="SearchTextBox_GotFocus"
-                                     LostFocus="SearchTextBox_LostFocus"/>
-                        </Grid>
-                    </Border>
+                        <!-- Search Bar -->
+                        <Border Background="{DynamicResource SurfaceColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="1" 
+                                CornerRadius="3"
+                                Height="28">
+                            <Grid>
+                                <TextBlock Text="🔍" 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           VerticalAlignment="Center" 
+                                           HorizontalAlignment="Left" 
+                                           Margin="8,0"/>
+                                <TextBox Name="SearchTextBox"
+                                         Background="Transparent" 
+                                         BorderThickness="0" 
+                                         Foreground="{DynamicResource TextPrimaryColor}" 
+                                         VerticalAlignment="Center" 
+                                         Margin="25,0,8,0"
+                                         FontSize="12"
+                                         Text="Enter Keywords"
+                                         GotFocus="SearchTextBox_GotFocus"
+                                         LostFocus="SearchTextBox_LostFocus"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Behaviour Research sidebar -->
+                    <StackPanel x:Name="BehaviorSidebarPanel" Visibility="Collapsed">
+                        <TextBlock Text="Behaviour Research" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   Margin="0,0,0,15"/>
+                        <TextBlock Text="Channel" 
+                                   FontSize="11" 
+                                   FontWeight="Medium" 
+                                   Foreground="White" 
+                                   Margin="0,0,0,6"/>
+                        <ComboBox x:Name="BehaviorSidebarChannelComboBox"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  Width="150"
+                                  Height="28">
+                            <ComboBoxItem Content="Select Channel" IsSelected="True" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="Channel 1" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="Channel 2" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                            <ComboBoxItem Content="Channel 3" Style="{StaticResource CustomComboBoxItemStyle}"/>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
