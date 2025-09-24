@@ -399,10 +399,11 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="12"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="12"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
@@ -489,15 +490,14 @@
                                            FontSize="11"/>
                             </WrapPanel>
 
-                            <!-- Action buttons and view toggle -->
-                            <StackPanel Grid.Row="0" Grid.Column="6"
+                            <!-- Action buttons aligned like Pass Thru (bottom-right) -->
+                            <StackPanel Grid.Row="2" Grid.Column="7"
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
-                                        Margin="8,0,0,0">
+                                        HorizontalAlignment="Right"
+                                        Margin="8,8,0,0">
                                 <Button x:Name="SearchButton" Style="{StaticResource PrimaryButton}" Height="24" MinWidth="72" Padding="10,2" Content="Search" Click="SearchButton_Click"/>
-                                <Button x:Name="ResetButton" Style="{StaticResource SecondaryButton}" Height="24" MinWidth="72" Padding="10,2" Margin="8,0,8,0" Content="Reset" Click="ResetButton_Click"/>
-                                <Button Style="{StaticResource GridLayoutButtonStyle}" ToolTip="Grid View"><TextBlock Text="▦"/></Button>
-                                <Button Style="{StaticResource GridLayoutButtonStyle}" ToolTip="List View"><TextBlock Text="≣"/></Button>
+                                <Button x:Name="ResetButton" Style="{StaticResource SecondaryButton}" Height="24" MinWidth="72" Padding="10,2" Margin="8,0,0,0" Content="Reset" Click="ResetButton_Click"/>
                             </StackPanel>
 
                             <!-- Row 2: Plate Color + Plate No -->
@@ -611,15 +611,9 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="🚨" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Alarm Records" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                </StackPanel>
-
-                                <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Height="28" MinWidth="90" Padding="12,4">
+                                <Button Grid.Column="0" Style="{StaticResource PrimaryButton}" Height="28" MinWidth="90" Padding="12,4" HorizontalAlignment="Left">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="📤" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
