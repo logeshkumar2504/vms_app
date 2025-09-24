@@ -21,7 +21,6 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Pictu
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ViewWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\App.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddMapWindow.g.cs
@@ -45,7 +44,6 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Recor
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\UserManagementWindow.g.cs
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ViewWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GeneratedInternalTypeHelper.g.cs

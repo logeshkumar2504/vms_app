@@ -4,7 +4,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- Global Theme Colors (Default: Dark Theme) -->
-        <SolidColorBrush x:Key="PrimaryColor" Color="#10B981"/>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#2563EB"/>
         <SolidColorBrush x:Key="SecondaryColor" Color="#5E5CE6"/>
         <SolidColorBrush x:Key="SuccessColor" Color="#30D158"/>
         <SolidColorBrush x:Key="WarningColor" Color="#FF9F0A"/>
@@ -198,12 +198,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#14C89B"/>
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="#14C89B"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#1D4ED8"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#0EA371"/>
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="#0EA371"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#1E40AF"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#1E40AF"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Bd" Property="Opacity" Value="0.6"/>
@@ -233,7 +233,7 @@
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#1A2F2A"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#13213D"/>
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">

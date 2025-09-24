@@ -298,6 +298,25 @@
                             </Grid>
                         </Border>
                     </StackPanel>
+
+                    <!-- Alarm Records sidebar section -->
+                    <StackPanel x:Name="AlarmRecordsSection" Visibility="Collapsed">
+                        <TextBlock Text="Channel"
+                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,6"/>
+                        <ComboBox Height="28"
+                                  Background="{DynamicResource SurfaceColor}"
+                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                  BorderBrush="{DynamicResource BorderColor}"
+                                  BorderThickness="1">
+                            <ComboBoxItem Content="All Alarms" IsSelected="True"/>
+                            <ComboBoxItem Content="Critical"/>
+                            <ComboBoxItem Content="Warning"/>
+                            <ComboBoxItem Content="Info"/>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
@@ -338,6 +357,328 @@
                         <UniformGrid x:Name="CameraTilesHost" Rows="2" Columns="2"/>
                     </Border>
                 </DockPanel>
+
+                <!-- Alarm Records view -->
+                <Grid x:Name="AlarmRecordsView" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filters toolbar (Face Recognition style) -->
+                    <Border Grid.Row="0"
+                            Background="{DynamicResource TopBarColor}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,0,0,1"
+                            Padding="8,6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Monitoring Type -->
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,0,8,0"
+                                       Text="Monitoring Type"/>
+                            <ComboBox x:Name="AlarmTypeCombo"
+                                      Grid.Row="0" Grid.Column="1"
+                                      Height="24"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="120"
+                                      FontSize="11">
+                                <ComboBoxItem Content="Match Alarm" IsSelected="True"/>
+                                <ComboBoxItem Content="All"/>
+                                <ComboBoxItem Content="Intrusion"/>
+                                <ComboBoxItem Content="Line Crossing"/>
+                                <ComboBoxItem Content="Motion"/>
+                            </ComboBox>
+
+                            <!-- Alarm Time -->
+                            <TextBlock Grid.Row="0" Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,0,8,0"
+                                       Text="Alarm Time"/>
+
+                            <!-- Compact range display with calendar icon -->
+                            <Border Grid.Row="0" Grid.Column="4"
+                                    Background="{DynamicResource SurfaceColor}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinHeight="24"
+                                    Padding="6,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="DateRangeLabel" Grid.Column="0"
+                                               Text=""
+                                               Foreground="{DynamicResource TextPrimaryColor}"
+                                               FontSize="11"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="📅"
+                                               FontSize="11"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0,2,0"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Quick time selectors -->
+                            <WrapPanel Grid.Row="0" Grid.Column="5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="16,0,0,0">
+                                <TextBlock Text="Today"
+                                           Foreground="{DynamicResource PrimaryColor}"
+                                           Cursor="Hand"
+                                           MouseLeftButtonUp="QuickPickToday_Click"
+                                           Margin="0,0,12,0"
+                                           FontSize="11"/>
+                                <TextBlock Text="Last 7 days"
+                                           Foreground="{DynamicResource PrimaryColor}"
+                                           Cursor="Hand"
+                                           MouseLeftButtonUp="QuickPick7_Click"
+                                           Margin="0,0,12,0"
+                                           FontSize="11"/>
+                                <TextBlock Text="Last 30 days"
+                                           Foreground="{DynamicResource PrimaryColor}"
+                                           Cursor="Hand"
+                                           MouseLeftButtonUp="QuickPick30_Click"
+                                           Margin="0,0,0,0"
+                                           FontSize="11"/>
+                            </WrapPanel>
+
+                            <!-- Action buttons and view toggle -->
+                            <StackPanel Grid.Row="0" Grid.Column="6"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        Margin="8,0,0,0">
+                                <Button x:Name="SearchButton" Style="{StaticResource PrimaryButton}" Height="24" MinWidth="72" Padding="10,2" Content="Search" Click="SearchButton_Click"/>
+                                <Button x:Name="ResetButton" Style="{StaticResource SecondaryButton}" Height="24" MinWidth="72" Padding="10,2" Margin="8,0,8,0" Content="Reset" Click="ResetButton_Click"/>
+                                <Button Style="{StaticResource GridLayoutButtonStyle}" ToolTip="Grid View"><TextBlock Text="▦"/></Button>
+                                <Button Style="{StaticResource GridLayoutButtonStyle}" ToolTip="List View"><TextBlock Text="≣"/></Button>
+                            </StackPanel>
+
+                            <!-- Row 2: Plate Color + Plate No -->
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Plate Color"/>
+                            <ComboBox x:Name="PlateColorCombo"
+                                      Grid.Row="1" Grid.Column="1"
+                                      Height="24"
+                                      Margin="0,8,0,0"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="120"
+                                      FontSize="11">
+                                <ComboBoxItem Content="All" IsSelected="True"/>
+                                <ComboBoxItem Content="Blue"/>
+                                <ComboBoxItem Content="Yellow"/>
+                                <ComboBoxItem Content="White"/>
+                                <ComboBoxItem Content="Black"/>
+                                <ComboBoxItem Content="Green"/>
+                            </ComboBox>
+
+                            <TextBlock Grid.Row="1" Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Plate No"/>
+                            <TextBox x:Name="PlateNoInput"
+                                     Grid.Row="1" Grid.Column="4"
+                                     Height="24"
+                                     Margin="0,8,0,0"
+                                     Background="{DynamicResource SurfaceColor}"
+                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                     BorderBrush="{DynamicResource BorderColor}"
+                                     BorderThickness="1"
+                                     Padding="6,1"
+                                     Text="Enter plate number"
+                                     GotFocus="PlateNoInput_GotFocus"
+                                     LostFocus="PlateNoInput_LostFocus"/>
+
+                            <!-- Row 3: Vehicle Color + Cause -->
+                            <TextBlock Grid.Row="2" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Vehicle Color"/>
+                            <ComboBox x:Name="VehicleColorCombo"
+                                      Grid.Row="2" Grid.Column="1"
+                                      Height="24"
+                                      Margin="0,8,0,0"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="120"
+                                      FontSize="11">
+                                <ComboBoxItem Content="All" IsSelected="True"/>
+                                <ComboBoxItem Content="Black"/>
+                                <ComboBoxItem Content="White"/>
+                                <ComboBoxItem Content="Silver"/>
+                                <ComboBoxItem Content="Blue"/>
+                                <ComboBoxItem Content="Red"/>
+                                <ComboBoxItem Content="Green"/>
+                            </ComboBox>
+
+                            <TextBlock Grid.Row="2" Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Cause"/>
+                            <ComboBox x:Name="CauseCombo"
+                                      Grid.Row="2" Grid.Column="4"
+                                      Height="24"
+                                      Margin="0,8,0,0"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="120"
+                                      FontSize="11">
+                                <ComboBoxItem Content="All" IsSelected="True"/>
+                                <ComboBoxItem Content="Match"/>
+                                <ComboBoxItem Content="Intrusion"/>
+                                <ComboBoxItem Content="Line Crossing"/>
+                                <ComboBoxItem Content="Motion"/>
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+
+                    <!-- Main content: title + export, then results -->
+                    <Grid Grid.Row="1" Background="{DynamicResource BackgroundColor}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Page header -->
+                        <Border Grid.Row="0"
+                                Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="0,0,0,1"
+                                Padding="12,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="🚨" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Alarm Records" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Height="28" MinWidth="90" Padding="12,4">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="📤" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Export" FontSize="11" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <!-- Results list -->
+                        <Border Grid.Row="1" Background="{DynamicResource BackgroundColor}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="36"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Custom header row to match Monitoring Task design -->
+                                <Grid Grid.Row="0" Background="{DynamicResource TopBarColor}" SnapsToDevicePixels="True">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="170"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1"/>
+                                    <TextBlock Grid.Column="0" Text="Time" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="Plate No." Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="Plate Color" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="Vehicle Color" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="4" Text="Cause" Foreground="{DynamicResource TextPrimaryColor}" Margin="10,0" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <!-- Body: hide GridView headers, use divider rows like Monitoring Task -->
+                                <ListView Grid.Row="1"
+                                          x:Name="AlarmRecordsList"
+                                          Margin="0,0,0,0"
+                                          Background="{DynamicResource BackgroundColor}"
+                                          Foreground="{DynamicResource TextPrimaryColor}"
+                                          BorderThickness="0"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.Resources>
+                                        <Style TargetType="GridViewColumnHeader">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Setter Property="Height" Value="0"/>
+                                        </Style>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+                                            <Setter Property="Padding" Value="8,6"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Width="170" DisplayMemberBinding="{Binding Time}"/>
+                                            <GridViewColumn Width="150" DisplayMemberBinding="{Binding PlateNo}"/>
+                                            <GridViewColumn Width="110" DisplayMemberBinding="{Binding PlateColor}"/>
+                                            <GridViewColumn Width="120" DisplayMemberBinding="{Binding VehicleColor}"/>
+                                            <GridViewColumn Width="160" DisplayMemberBinding="{Binding Cause}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
 
                 <!-- Vehicle Library Management view -->
                 <Grid x:Name="VehicleLibraryView" Visibility="Collapsed">

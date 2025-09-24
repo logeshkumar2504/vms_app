@@ -33,8 +33,8 @@ namespace Vms_page
                     break;
                     
                 case "Dark":
-                    // User-specified dark palette
-                    appResources["PrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x10, 0xB9, 0x81)); // Accent
+                    // User-specified dark palette (updated to blue accent)
+                    appResources["PrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x25, 0x63, 0xEB)); // #2563EB
                     appResources["SecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x5E, 0x5C, 0xE6));
                     appResources["SuccessColor"] = new SolidColorBrush(Color.FromRgb(0x30, 0xD1, 0x58));
                     appResources["WarningColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x9F, 0x0A));

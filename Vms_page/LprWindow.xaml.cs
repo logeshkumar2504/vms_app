@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,6 +9,8 @@ namespace Vms_page
 {
 	public partial class LprWindow : Window
 	{
+		private DateTime _startDate = DateTime.Today;
+		private DateTime _endDate = DateTime.Today;
 		public LprWindow()
 		{
 			InitializeComponent();
@@ -17,6 +20,11 @@ namespace Vms_page
 				VideoChannelInput.Text = "Enter channel name";
 				VideoChannelInput.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
 			}
+			if (PlateNoInput != null)
+			{
+				PlateNoInput.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+			}
+			UpdateDateRangeLabel();
 			SetLayout(1);
 		}
 
@@ -27,17 +35,78 @@ namespace Vms_page
 				// Toggle sidebar sections
 				if (LeftSidebar != null)
 				{
-					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management" || tag == "Monitoring Task") ? Visibility.Visible : Visibility.Collapsed;
+					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management" || tag == "Monitoring Task" || tag == "Alarm Records") ? Visibility.Visible : Visibility.Collapsed;
 				}
 				if (VideoChannelSection != null) VideoChannelSection.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibrarySection != null) VehicleLibrarySection.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
 				if (MonitoringTaskSection != null) MonitoringTaskSection.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
+				if (AlarmRecordsSection != null) AlarmRecordsSection.Visibility = tag == "Alarm Records" ? Visibility.Visible : Visibility.Collapsed;
 
 				// Toggle right-side views
 				if (RealtimeView != null) RealtimeView.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibraryView != null) VehicleLibraryView.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
 				if (MonitoringTaskView != null) MonitoringTaskView.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
+				if (AlarmRecordsView != null) AlarmRecordsView.Visibility = tag == "Alarm Records" ? Visibility.Visible : Visibility.Collapsed;
 				Title = $"LPR - {tag}";
+			}
+		}
+
+		private void QuickPickToday_Click(object sender, MouseButtonEventArgs e)
+		{
+			var today = DateTime.Today;
+			_startDate = today;
+			_endDate = today;
+			UpdateDateRangeLabel();
+		}
+
+		private void QuickPick3_Click(object sender, MouseButtonEventArgs e)
+		{
+			_endDate = DateTime.Today;
+			_startDate = DateTime.Today.AddDays(-2);
+			UpdateDateRangeLabel();
+		}
+
+		private void QuickPick7_Click(object sender, MouseButtonEventArgs e)
+		{
+			_endDate = DateTime.Today;
+			_startDate = DateTime.Today.AddDays(-6);
+			UpdateDateRangeLabel();
+		}
+
+		private void QuickPick30_Click(object sender, MouseButtonEventArgs e)
+		{
+			_endDate = DateTime.Today;
+			_startDate = DateTime.Today.AddDays(-29);
+			UpdateDateRangeLabel();
+		}
+
+		private void ResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (AlarmTypeCombo != null) AlarmTypeCombo.SelectedIndex = 0;
+			_startDate = DateTime.Today;
+			_endDate = DateTime.Today;
+			UpdateDateRangeLabel();
+			if (AlarmRecordsList != null) AlarmRecordsList.Items.Clear();
+		}
+
+		private void SearchButton_Click(object sender, RoutedEventArgs e)
+		{
+			// Placeholder demo results; can be replaced with real data later
+			if (AlarmRecordsList == null) return;
+			AlarmRecordsList.Items.Clear();
+			for (int i = 0; i < 10; i++)
+			{
+				AlarmRecordsList.Items.Add(new { Time = DateTime.Now.AddMinutes(-i).ToString("yyyy-MM-dd HH:mm:ss"), PlateNo = $"XYZ{i:000}", PlateColor = "Blue", VehicleColor = "Black", Cause = "Match" });
+			}
+		}
+
+		private void UpdateDateRangeLabel()
+		{
+			if (DateRangeLabel != null)
+			{
+				var startStr = _startDate.Date.AddHours(0).AddMinutes(0).AddSeconds(0).ToString("yyyy-MM-dd HH:mm:ss");
+				var endStr = _endDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString("yyyy-MM-dd HH:mm:ss");
+				DateRangeLabel.Text = $"{startStr} ~ {endStr}";
 			}
 		}
 
@@ -177,6 +246,25 @@ namespace Vms_page
 					tb.Text = "Enter channel name";
 					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
 				}
+			}
+		}
+
+		private void PlateNoInput_GotFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb && tb.Text == "Enter plate number")
+			{
+				tb.Text = string.Empty;
+				tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
+				tb.CaretIndex = 0;
+			}
+		}
+
+		private void PlateNoInput_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb && string.IsNullOrWhiteSpace(tb.Text))
+			{
+				tb.Text = "Enter plate number";
+				tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
 			}
 		}
 
