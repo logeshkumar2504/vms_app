@@ -183,7 +183,7 @@
         <!-- Realtime Monitoring layout replicated from Face Recognition -->
         <Grid Background="{DynamicResource BackgroundColor}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftColumn" Width="280"/>
+                <ColumnDefinition x:Name="LeftColumn" Width="200"/>
                 <ColumnDefinition x:Name="MainColumn" Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -315,6 +315,26 @@
                             <ComboBoxItem Content="Critical"/>
                             <ComboBoxItem Content="Warning"/>
                             <ComboBoxItem Content="Info"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Pass Thru Records sidebar section -->
+                    <StackPanel x:Name="PassThruRecordsSection" Visibility="Collapsed">
+                        <TextBlock Text="Channel"
+                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,6"/>
+                        <ComboBox x:Name="PassThruChannelCombo"
+                                  Height="28"
+                                  Background="{DynamicResource SurfaceColor}"
+                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                  BorderBrush="{DynamicResource BorderColor}"
+                                  BorderThickness="1">
+                            <ComboBoxItem Content="All Channels" IsSelected="True"/>
+                            <ComboBoxItem Content="Channel 1"/>
+                            <ComboBoxItem Content="Channel 2"/>
+                            <ComboBoxItem Content="Channel 3"/>
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
@@ -799,6 +819,248 @@
                             </ListView>
                         </Grid>
                     </Border>
+                </Grid>
+
+                <!-- Pass Thru Records view -->
+                <Grid x:Name="PassThruRecordsView" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Toolbar with Alarm Time From / To pickers -->
+                    <Border Grid.Row="0"
+                            Background="{DynamicResource TopBarColor}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,0,0,1"
+                            Padding="8,6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Alarm Time label -->
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,0,8,0"
+                                       Text="Alarm Time"/>
+
+                            <!-- From datetime input -->
+                            <Border Grid.Row="0" Grid.Column="1"
+                                    Background="{DynamicResource SurfaceColor}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinHeight="24"
+                                    Padding="6,1"
+                                    HorizontalAlignment="Left">
+                                <TextBox x:Name="PassThruStartDateTimeInput"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="White"
+                                         FontSize="11"
+                                         MinWidth="140"
+                                         VerticalContentAlignment="Center"
+                                         LostFocus="PassThruDateTimeInput_LostFocus"
+                                         ToolTip="Format: yyyy-MM-dd HH:mm"/>
+                            </Border>
+
+                            <!-- to separator -->
+                            <TextBlock Grid.Row="0" Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,0,8,0"
+                                       Text="to"/>
+
+                            <!-- To datetime input -->
+                            <Border Grid.Row="0" Grid.Column="4"
+                                    Background="{DynamicResource SurfaceColor}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinHeight="24"
+                                    Padding="6,1"
+                                    HorizontalAlignment="Left">
+                                <TextBox x:Name="PassThruEndDateTimeInput"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="White"
+                                         FontSize="11"
+                                         MinWidth="140"
+                                         VerticalContentAlignment="Center"
+                                         LostFocus="PassThruDateTimeInput_LostFocus"
+                                         ToolTip="Format: yyyy-MM-dd HH:mm"/>
+                            </Border>
+
+                            <!-- Quick picks and actions -->
+                            <StackPanel Grid.Row="0" Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                                <TextBlock Text="Today" Foreground="{DynamicResource PrimaryColor}" Cursor="Hand" MouseLeftButtonUp="PassThruQuickPickToday_Click" Margin="0,0,12,0" FontSize="11"/>
+                                <TextBlock Text="Last 7 days" Foreground="{DynamicResource PrimaryColor}" Cursor="Hand" MouseLeftButtonUp="PassThruQuickPick7_Click" Margin="0,0,12,0" FontSize="11"/>
+                                <TextBlock Text="Last 30 days" Foreground="{DynamicResource PrimaryColor}" Cursor="Hand" MouseLeftButtonUp="PassThruQuickPick30_Click" FontSize="11"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,8,0,0" HorizontalAlignment="Right">
+                                <Button x:Name="PassThruSearchButton" Style="{StaticResource PrimaryButton}" Height="24" MinWidth="72" Padding="10,2" Content="Search" Click="PassThruSearchButton_Click"/>
+                                <Button x:Name="PassThruResetButton" Style="{StaticResource SecondaryButton}" Height="24" MinWidth="72" Padding="10,2" Margin="8,0,0,0" Content="Reset" Click="PassThruResetButton_Click"/>
+                            </StackPanel>
+
+                            <!-- Row 2: Plate No and Plate Color -->
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Plate No"/>
+                            <Border Grid.Row="1" Grid.Column="1"
+                                    Background="{DynamicResource SurfaceColor}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinHeight="24"
+                                    Padding="6,1"
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Left">
+                                <TextBox x:Name="PassThruPlateNoInput"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="White"
+                                         FontSize="11"
+                                         MinWidth="140"
+                                         VerticalContentAlignment="Center"
+                                         Text="Enter plate number"
+                                         GotFocus="PassThruPlateNoInput_GotFocus"
+                                         LostFocus="PassThruPlateNoInput_LostFocus"/>
+                            </Border>
+
+                            <TextBlock Grid.Row="1" Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Plate Color"/>
+                            <ComboBox x:Name="PassThruPlateColorCombo"
+                                      Grid.Row="1" Grid.Column="4"
+                                      Height="24"
+                                      Margin="0,8,0,0"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="140"
+                                      FontSize="11">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Padding" Value="8,4"/>
+                                        <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                                <ComboBoxItem Content="All" IsSelected="True"/>
+                                <ComboBoxItem Content="Blue"/>
+                                <ComboBoxItem Content="Yellow"/>
+                                <ComboBoxItem Content="White"/>
+                                <ComboBoxItem Content="Black"/>
+                                <ComboBoxItem Content="Green"/>
+                            </ComboBox>
+
+                            <!-- Row 3: Vehicle Color -->
+                            <TextBlock Grid.Row="2" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       FontSize="12"
+                                       Margin="0,8,8,0"
+                                       Text="Vehicle Color"/>
+                            <ComboBox x:Name="PassThruVehicleColorCombo"
+                                      Grid.Row="2" Grid.Column="1"
+                                      Height="24"
+                                      Margin="0,8,0,0"
+                                      Background="{DynamicResource SurfaceColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      MinWidth="140"
+                                      FontSize="11">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Padding" Value="8,4"/>
+                                        <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                                <ComboBoxItem Content="All" IsSelected="True"/>
+                                <ComboBoxItem Content="Black"/>
+                                <ComboBoxItem Content="White"/>
+                                <ComboBoxItem Content="Silver"/>
+                                <ComboBoxItem Content="Blue"/>
+                                <ComboBoxItem Content="Red"/>
+                                <ComboBoxItem Content="Green"/>
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+
+                    <!-- Export section -->
+                    <Border Grid.Row="1"
+                            Background="{DynamicResource SurfaceColor}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,0,0,1"
+                            Padding="12,8">
+                        <Grid>
+                            <Button Style="{StaticResource PrimaryButton}" Height="28" MinWidth="90" Padding="12,4" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="📤" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Export" FontSize="11" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Body placeholder -->
+                    <Border Grid.Row="2" Background="{DynamicResource BackgroundColor}">
+                        <Grid/>
+                    </Border>
+
+                    <!-- Hidden placeholders for code-behind references used elsewhere -->
+                    <StackPanel Visibility="Collapsed">
+                        <TextBlock x:Name="PassThruDateRangeLabel" Text=""/>
+                        <ComboBox x:Name="PassThruDirectionCombo"/>
+                        <ListView x:Name="PassThruRecordsList"/>
+                    </StackPanel>
                 </Grid>
 
                 <!-- Monitoring Task view -->

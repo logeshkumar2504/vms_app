@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,22 +10,42 @@ namespace Vms_page
 {
 	public partial class LprWindow : Window
 	{
+		// Common date range for Alarm Records
 		private DateTime _startDate = DateTime.Today;
 		private DateTime _endDate = DateTime.Today;
+
+		// Pass Thru Records date range
+		private DateTime _passThruStartDate = DateTime.Today;
+		private DateTime _passThruEndDate = DateTime.Today;
+
+		// Fullscreen state
+		private WindowState _prevWindowState;
+		private WindowStyle _prevWindowStyle;
+		private ResizeMode _prevResizeMode;
+		private bool _isFullscreen = false;
+
 		public LprWindow()
 		{
 			InitializeComponent();
-			// Default placeholder and layout similar to FaceRecognition
+
+			// Default placeholders/foregrounds
 			if (VideoChannelInput != null && string.IsNullOrWhiteSpace(VideoChannelInput.Text))
 			{
 				VideoChannelInput.Text = "Enter channel name";
-				VideoChannelInput.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+				VideoChannelInput.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
 			}
 			if (PlateNoInput != null)
 			{
-				PlateNoInput.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+				PlateNoInput.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
 			}
+			if (PassThruPlateNoInput != null)
+			{
+				PassThruPlateNoInput.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
+			}
+
 			UpdateDateRangeLabel();
+			InitializePassThruDateTimeInputs();
+			UpdatePassThruDateRangeLabel();
 			SetLayout(1);
 		}
 
@@ -32,25 +53,29 @@ namespace Vms_page
 		{
 			if (sender is Button btn && btn.Tag is string tag)
 			{
-				// Toggle sidebar sections
+				// Left sidebar
 				if (LeftSidebar != null)
 				{
-					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management" || tag == "Monitoring Task" || tag == "Alarm Records") ? Visibility.Visible : Visibility.Collapsed;
+					LeftSidebar.Visibility = (tag == "Realtime Monitoring" || tag == "Plate Library Management" || tag == "Monitoring Task" || tag == "Alarm Records" || tag == "Pass Thru Records") ? Visibility.Visible : Visibility.Collapsed;
 				}
 				if (VideoChannelSection != null) VideoChannelSection.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibrarySection != null) VehicleLibrarySection.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
 				if (MonitoringTaskSection != null) MonitoringTaskSection.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
 				if (AlarmRecordsSection != null) AlarmRecordsSection.Visibility = tag == "Alarm Records" ? Visibility.Visible : Visibility.Collapsed;
+				if (PassThruRecordsSection != null) PassThruRecordsSection.Visibility = tag == "Pass Thru Records" ? Visibility.Visible : Visibility.Collapsed;
 
-				// Toggle right-side views
+				// Right views
 				if (RealtimeView != null) RealtimeView.Visibility = tag == "Realtime Monitoring" ? Visibility.Visible : Visibility.Collapsed;
 				if (VehicleLibraryView != null) VehicleLibraryView.Visibility = tag == "Plate Library Management" ? Visibility.Visible : Visibility.Collapsed;
 				if (MonitoringTaskView != null) MonitoringTaskView.Visibility = tag == "Monitoring Task" ? Visibility.Visible : Visibility.Collapsed;
 				if (AlarmRecordsView != null) AlarmRecordsView.Visibility = tag == "Alarm Records" ? Visibility.Visible : Visibility.Collapsed;
+				if (PassThruRecordsView != null) PassThruRecordsView.Visibility = tag == "Pass Thru Records" ? Visibility.Visible : Visibility.Collapsed;
+
 				Title = $"LPR - {tag}";
 			}
 		}
 
+		// Alarm Records quick picks
 		private void QuickPickToday_Click(object sender, MouseButtonEventArgs e)
 		{
 			var today = DateTime.Today;
@@ -91,7 +116,6 @@ namespace Vms_page
 
 		private void SearchButton_Click(object sender, RoutedEventArgs e)
 		{
-			// Placeholder demo results; can be replaced with real data later
 			if (AlarmRecordsList == null) return;
 			AlarmRecordsList.Items.Clear();
 			for (int i = 0; i < 10; i++)
@@ -110,6 +134,7 @@ namespace Vms_page
 			}
 		}
 
+		// Camera grid interactions
 		private void VideoFeed_Click(object sender, MouseButtonEventArgs e)
 		{
 			ClearCameraTileSelection();
@@ -121,9 +146,7 @@ namespace Vms_page
 
 		private void SetLayout_Click(object sender, RoutedEventArgs e)
 		{
-			if (CameraTilesHost == null || sender is not FrameworkElement fe || fe.Tag is not string tag)
-				return;
-
+			if (CameraTilesHost == null || sender is not FrameworkElement fe || fe.Tag is not string tag) return;
 			int tileCount = tag switch
 			{
 				"1" => 1,
@@ -131,15 +154,12 @@ namespace Vms_page
 				"4" => 4,
 				_ => 4
 			};
-
 			SetLayout(tileCount);
 		}
 
 		private void SetLayout(int tileCount)
 		{
 			if (CameraTilesHost == null) return;
-
-			// Map tileCount to rows/cols similar to FaceRecognition
 			switch (tileCount)
 			{
 				case 1:
@@ -170,7 +190,7 @@ namespace Vms_page
 				var grid = new Grid();
 				var image = new Image
 				{
-					Source = new BitmapImage(new System.Uri("/Assets/Icons/cctv.png", System.UriKind.Relative)),
+					Source = new BitmapImage(new Uri("/Assets/Icons/cctv.png", UriKind.Relative)),
 					Width = 60,
 					Height = 60,
 					HorizontalAlignment = HorizontalAlignment.Center,
@@ -197,6 +217,7 @@ namespace Vms_page
 			}
 		}
 
+		// Input helpers
 		private void VideoChannelInput_GotFocus(object sender, RoutedEventArgs e)
 		{
 			if (sender is TextBox tb)
@@ -204,8 +225,7 @@ namespace Vms_page
 				if (tb.Text == "Enter channel name")
 				{
 					tb.Text = string.Empty;
-					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
-					// Ensure caret is visible at end; prevent auto scroll to start
+					tb.Foreground = (Brush)Application.Current.Resources["TextPrimaryColor"];
 					tb.CaretIndex = tb.Text.Length;
 				}
 			}
@@ -218,7 +238,7 @@ namespace Vms_page
 				if (string.IsNullOrWhiteSpace(tb.Text))
 				{
 					tb.Text = "Enter channel name";
-					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+					tb.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
 				}
 			}
 		}
@@ -230,8 +250,7 @@ namespace Vms_page
 				if (tb.Text == "Enter channel name")
 				{
 					tb.Text = string.Empty;
-					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
-					// Ensure caret is visible at end; prevent auto scroll to start
+					tb.Foreground = (Brush)Application.Current.Resources["TextPrimaryColor"];
 					tb.CaretIndex = tb.Text.Length;
 				}
 			}
@@ -244,7 +263,7 @@ namespace Vms_page
 				if (string.IsNullOrWhiteSpace(tb.Text))
 				{
 					tb.Text = "Enter channel name";
-					tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+					tb.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
 				}
 			}
 		}
@@ -254,7 +273,7 @@ namespace Vms_page
 			if (sender is TextBox tb && tb.Text == "Enter plate number")
 			{
 				tb.Text = string.Empty;
-				tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryColor"];
+				tb.Foreground = (Brush)Application.Current.Resources["TextPrimaryColor"];
 				tb.CaretIndex = 0;
 			}
 		}
@@ -264,15 +283,11 @@ namespace Vms_page
 			if (sender is TextBox tb && string.IsNullOrWhiteSpace(tb.Text))
 			{
 				tb.Text = "Enter plate number";
-				tb.Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextSecondaryColor"];
+				tb.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
 			}
 		}
 
-		private WindowState _prevWindowState;
-		private WindowStyle _prevWindowStyle;
-		private ResizeMode _prevResizeMode;
-		private bool _isFullscreen = false;
-
+		// Fullscreen
 		private void Fullscreen_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_isFullscreen)
@@ -318,7 +333,7 @@ namespace Vms_page
 			this.WindowState = _prevWindowState;
 		}
 
-		private void LprWindow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		private void LprWindow_PreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Escape && _isFullscreen)
 			{
@@ -328,7 +343,130 @@ namespace Vms_page
 				e.Handled = true;
 			}
 		}
+
+		// Pass Thru Records
+		private void PassThruQuickPickToday_Click(object sender, MouseButtonEventArgs e)
+		{
+			var today = DateTime.Today;
+			_passThruStartDate = today;
+			_passThruEndDate = today;
+			InitializePassThruDateTimeInputs();
+			UpdatePassThruDateRangeLabel();
+		}
+
+		private void PassThruQuickPick7_Click(object sender, MouseButtonEventArgs e)
+		{
+			_passThruEndDate = DateTime.Today;
+			_passThruStartDate = DateTime.Today.AddDays(-6);
+			if (PassThruStartDateTimeInput != null) PassThruStartDateTimeInput.Text = _passThruStartDate.ToString("yyyy-MM-dd HH:mm");
+			if (PassThruEndDateTimeInput != null) PassThruEndDateTimeInput.Text = _passThruEndDate.ToString("yyyy-MM-dd HH:mm");
+			UpdatePassThruDateRangeLabel();
+		}
+
+		private void PassThruQuickPick30_Click(object sender, MouseButtonEventArgs e)
+		{
+			_passThruEndDate = DateTime.Today;
+			_passThruStartDate = DateTime.Today.AddDays(-29);
+			if (PassThruStartDateTimeInput != null) PassThruStartDateTimeInput.Text = _passThruStartDate.ToString("yyyy-MM-dd HH:mm");
+			if (PassThruEndDateTimeInput != null) PassThruEndDateTimeInput.Text = _passThruEndDate.ToString("yyyy-MM-dd HH:mm");
+			UpdatePassThruDateRangeLabel();
+		}
+
+		private void PassThruResetButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (PassThruPlateColorCombo != null) PassThruPlateColorCombo.SelectedIndex = 0;
+			if (PassThruVehicleColorCombo != null) PassThruVehicleColorCombo.SelectedIndex = 0;
+			if (PassThruDirectionCombo != null) PassThruDirectionCombo.SelectedIndex = 0;
+			InitializePassThruDateTimeInputs();
+			UpdatePassThruRangeFromInputs();
+			if (PassThruRecordsList != null) PassThruRecordsList.Items.Clear();
+		}
+
+		private void PassThruSearchButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (PassThruRecordsList == null) return;
+			PassThruRecordsList.Items.Clear();
+			for (int i = 0; i < 10; i++)
+			{
+				PassThruRecordsList.Items.Add(new {
+					Time = DateTime.Now.AddMinutes(-i).ToString("yyyy-MM-dd HH:mm:ss"),
+					PlateNo = $"ABC{i:000}",
+					PlateColor = "Blue",
+					VehicleColor = "Black",
+					Direction = i % 2 == 0 ? "In" : "Out",
+					Channel = $"Channel {(i % 5) + 1}"
+				});
+			}
+		}
+
+		private void UpdatePassThruDateRangeLabel()
+		{
+			if (PassThruDateRangeLabel != null)
+			{
+				var startStr = _passThruStartDate.Date.AddHours(0).AddMinutes(0).AddSeconds(0).ToString("yyyy-MM-dd HH:mm:ss");
+				var endStr = _passThruEndDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString("yyyy-MM-dd HH:mm:ss");
+				PassThruDateRangeLabel.Text = $"{startStr} ~ {endStr}";
+			}
+		}
+
+		private void PassThruPlateNoInput_GotFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb && tb.Text == "Enter plate number")
+			{
+				tb.Text = string.Empty;
+				tb.Foreground = (Brush)Application.Current.Resources["TextPrimaryColor"];
+				tb.CaretIndex = 0;
+			}
+		}
+
+		private void PassThruPlateNoInput_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if (sender is TextBox tb && string.IsNullOrWhiteSpace(tb.Text))
+			{
+				tb.Text = "Enter plate number";
+				tb.Foreground = (Brush)Application.Current.Resources["TextSecondaryColor"];
+			}
+		}
+
+		private void InitializePassThruDateTimeInputs()
+		{
+			var start = DateTime.Today.AddHours(0).AddMinutes(0);
+			var end = DateTime.Today.AddHours(23).AddMinutes(59);
+			_passThruStartDate = start;
+			_passThruEndDate = end;
+			if (PassThruStartDateTimeInput != null) PassThruStartDateTimeInput.Text = start.ToString("yyyy-MM-dd HH:mm");
+			if (PassThruEndDateTimeInput != null) PassThruEndDateTimeInput.Text = end.ToString("yyyy-MM-dd HH:mm");
+		}
+
+		private void UpdatePassThruRangeFromInputs()
+		{
+			if (TryParseDateTime(PassThruStartDateTimeInput?.Text, out var s)) _passThruStartDate = s;
+			if (TryParseDateTime(PassThruEndDateTimeInput?.Text, out var e)) _passThruEndDate = e;
+			UpdatePassThruDateRangeLabel();
+		}
+
+		private static bool TryParseDateTime(string? text, out DateTime value)
+		{
+			if (!string.IsNullOrWhiteSpace(text))
+			{
+				if (DateTime.TryParseExact(text.Trim(), "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out value))
+				{
+					return true;
+				}
+			}
+			value = DateTime.Today;
+			return false;
+		}
+
+		private void PassThruDateTimeInput_LostFocus(object sender, RoutedEventArgs e)
+		{
+			UpdatePassThruRangeFromInputs();
+		}
 	}
 }
+
+
+
+
 
 
