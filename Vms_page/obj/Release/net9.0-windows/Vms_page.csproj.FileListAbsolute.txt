@@ -71,3 +71,5 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\Ala
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\AlarmConfigurationWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\VideoWallWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\VideoWallWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\DxVideoWallDialog.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\DxVideoWallDialog.g.cs

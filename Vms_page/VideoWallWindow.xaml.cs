@@ -46,12 +46,25 @@ namespace Vms_page
 
         private void AddDxVideoWall_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add Dx Video Wall selected.", "Video Wall", MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new DxVideoWallDialog
+            {
+                Owner = this
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                // You can consume dialog data here if needed
+                // e.g., dialog.VideoWallName, dialog.SizeX, dialog.SizeY, dialog.Resolution, dialog.AutoBind
+            }
         }
 
         private void AddDecodingCardVideoWall_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add Decoding Card Video Wall selected.", "Video Wall", MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new DxVideoWallDialog
+            {
+                Owner = this,
+                Title = "Decoding Card Video Wall Info"
+            };
+            dialog.ShowDialog();
         }
 
         private void OperationOneButton_Click(object sender, RoutedEventArgs e)
