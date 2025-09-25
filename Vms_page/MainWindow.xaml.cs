@@ -158,6 +158,11 @@ namespace Vms_page
                     var logWindow = new OperationLogWindow();
                     logWindow.Show();
                 }
+                else if (item.Name == "Video Wall")
+                {
+                    var vwWindow = new VideoWallWindow();
+                    vwWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -274,6 +279,11 @@ namespace Vms_page
                 {
                     var logWindow = new OperationLogWindow();
                     logWindow.Show();
+                }
+                else if (item.Name == "Video Wall")
+                {
+                    var vwWindow = new VideoWallWindow();
+                    vwWindow.Show();
                 }
                 else
                 {
