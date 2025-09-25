@@ -1,0 +1,495 @@
+<Window x:Class="Vms_page.AlarmConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Alarm Configuration" Height="650" Width="1100"
+        Background="{DynamicResource BackgroundColor}"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Navbar Button Styles consistent with AlarmRecordsWindow -->
+        <Style x:Key="NavbarButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="0" Padding="{TemplateBinding Padding}" Margin="{TemplateBinding Margin}">
+                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" TextWrapping="NoWrap" TextTrimming="None"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SelectedNavbarButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NavbarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="3,0,0,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+        </Style>
+
+        <!-- Sidebar label style -->
+        <Style x:Key="SidebarLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Action Button Style - Application Theme -->
+        <Style x:Key="ActionButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Delete Button Style - Application Theme -->
+        <Style x:Key="DeleteButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4A1F1F"/>
+                    <Setter Property="BorderBrush" Value="#DC2626"/>
+                    <Setter Property="Foreground" Value="#FF6B6B"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#3A1515"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Table Header Style -->
+        <Style x:Key="TableHeaderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2D3035"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Table Header Text Style -->
+        <Style x:Key="TableHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Navbar -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource SurfaceColor}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1"
+                Padding="0"
+                Height="40">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
+            <Button x:Name="CameraAlarmTab" Content="Camera Alarm" Style="{StaticResource SelectedNavbarButtonStyle}" Width="145" Height="32" Click="CameraAlarmTab_Click"/>
+            <Button x:Name="DeviceAlarmTab" Content="Device Alarm" Style="{StaticResource NavbarButtonStyle}" Width="145" Height="32" Click="DeviceAlarmTab_Click"/>
+            <Button x:Name="PeopleCountingAlarmTab" Content="People Counting Alarm" Style="{StaticResource NavbarButtonStyle}" Width="170" Height="32" Click="PeopleCountingAlarmTab_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <Border Grid.Column="0" Background="{DynamicResource SidebarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                <StackPanel>
+                    <TextBlock Text="Camera" Style="{StaticResource SidebarLabel}" Margin="12,12,12,6"/>
+                    <Border Margin="8,0,8,8" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Height="26">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="🔍" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}" FontSize="10"/>
+                            <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" Foreground="{DynamicResource TextSecondaryColor}" Padding="0,4,6,4" CaretBrush="{DynamicResource TextPrimaryColor}" x:Name="CameraSearchTextBox" Text="Enter camera name" FontSize="10" GotFocus="CameraSearchTextBox_GotFocus" LostFocus="CameraSearchTextBox_LostFocus"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Content Panels -->
+            <Grid Grid.Column="1" Background="{DynamicResource BackgroundColor}">
+                <!-- Camera Alarm Content -->
+                <Grid x:Name="CameraAlarmContent" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Camera Alarm Sub Navigation -->
+                    <Border Grid.Row="0" x:Name="CameraSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
+                            <Button x:Name="CameraAlarmParametersTab" Content="Alarm Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="135" Height="26" Click="CameraAlarmParametersTab_Click"/>
+                            <Button x:Name="CameraTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="160" Height="26" Click="CameraTriggerActionTab_Click"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Camera Alarm Content -->
+                    <Grid Grid.Row="1">
+                        <Grid x:Name="CameraAlarmParametersContent" Visibility="Visible">
+                            <TextBlock Text="Configure camera alarm parameters here" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid x:Name="CameraTriggerActionContent" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Action Buttons Section -->
+                            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="CameraAddButton_Click"/>
+                                    <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="CameraDeleteButton_Click"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Table Header Row -->
+                            <Border Grid.Row="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Height="32">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Checkbox Column -->
+                                    <Border Grid.Column="0" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                    </Border>
+                                    
+                                    <!-- Triggered Camera -->
+                                    <Border Grid.Column="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Triggered Camera" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Live View -->
+                                    <Border Grid.Column="2" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Live View" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Goto Preset -->
+                                    <Border Grid.Column="3" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Goto Preset" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Audio File -->
+                                    <Border Grid.Column="4" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Audio File" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Output Mode -->
+                                    <Border Grid.Column="5" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Output Mode" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Duration/Play Co -->
+                                    <Border Grid.Column="6" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Duration/Play Co" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Alarm Output -->
+                                    <Border Grid.Column="7" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Alarm Output" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- To Video Wall -->
+                                    <Border Grid.Column="8" Background="#2D3035">
+                                        <TextBlock Text="To Video Wall" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            
+                            <!-- Table Content Area -->
+                            <Grid Grid.Row="2" Background="{DynamicResource BackgroundColor}">
+                                <TextBlock Text="Table content will go here" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+                <!-- Device Alarm Content -->
+                <Grid x:Name="DeviceAlarmContent" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Device Alarm Sub Navigation -->
+                    <Border Grid.Row="0" x:Name="DeviceSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
+                            <Button x:Name="DeviceAlarmParametersTab" Content="Alarm Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="135" Height="26" Click="DeviceAlarmParametersTab_Click"/>
+                            <Button x:Name="DeviceTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="160" Height="26" Click="DeviceTriggerActionTab_Click"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Device Alarm Content -->
+                    <Grid Grid.Row="1">
+                        <Grid x:Name="DeviceAlarmParametersContent" Visibility="Visible">
+                            <TextBlock Text="Configure device alarm parameters here" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid x:Name="DeviceTriggerActionContent" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Action Buttons Section -->
+                            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="DeviceAddButton_Click"/>
+                                    <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="DeviceDeleteButton_Click"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Table Header Row -->
+                            <Border Grid.Row="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Height="32">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Checkbox Column -->
+                                    <Border Grid.Column="0" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                    </Border>
+                                    
+                                    <!-- Triggered Camera -->
+                                    <Border Grid.Column="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Triggered Camera" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Live View -->
+                                    <Border Grid.Column="2" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Live View" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Goto Preset -->
+                                    <Border Grid.Column="3" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Goto Preset" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Audio File -->
+                                    <Border Grid.Column="4" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Audio File" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Output Mode -->
+                                    <Border Grid.Column="5" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Output Mode" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Duration/Play Co -->
+                                    <Border Grid.Column="6" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Duration/Play Co" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Alarm Output -->
+                                    <Border Grid.Column="7" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Alarm Output" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- To Video Wall -->
+                                    <Border Grid.Column="8" Background="#2D3035">
+                                        <TextBlock Text="To Video Wall" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            
+                            <!-- Table Content Area -->
+                            <Grid Grid.Row="2" Background="{DynamicResource BackgroundColor}">
+                                <TextBlock Text="Table content will go here" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+                <!-- People Counting Alarm Content -->
+                <Grid x:Name="PeopleCountingAlarmContent" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- People Counting Alarm Sub Navigation -->
+                    <Border Grid.Row="0" x:Name="PeopleCountingSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
+                            <Button x:Name="PeopleCountingTriggerActionTab" Content="Trigger Action" Style="{StaticResource SelectedNavbarButtonStyle}" Width="160" Height="26" Click="PeopleCountingTriggerActionTab_Click"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- People Counting Alarm Content -->
+                    <Grid Grid.Row="1">
+                        <Grid x:Name="PeopleCountingTriggerActionContent" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Action Buttons Section -->
+                            <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="PeopleCountingAddButton_Click"/>
+                                    <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="PeopleCountingDeleteButton_Click"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Table Header Row -->
+                            <Border Grid.Row="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Height="32">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Checkbox Column -->
+                                    <Border Grid.Column="0" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                    </Border>
+                                    
+                                    <!-- Triggered Camera -->
+                                    <Border Grid.Column="1" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Triggered Camera" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Live View -->
+                                    <Border Grid.Column="2" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Live View" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Goto Preset -->
+                                    <Border Grid.Column="3" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Goto Preset" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Audio File -->
+                                    <Border Grid.Column="4" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Audio File" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Output Mode -->
+                                    <Border Grid.Column="5" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Output Mode" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Duration/Play Co -->
+                                    <Border Grid.Column="6" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Duration/Play Co" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- Alarm Output -->
+                                    <Border Grid.Column="7" Background="#2D3035" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+                                        <TextBlock Text="Alarm Output" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                    
+                                    <!-- To Video Wall -->
+                                    <Border Grid.Column="8" Background="#2D3035">
+                                        <TextBlock Text="To Video Wall" Style="{StaticResource TableHeaderTextStyle}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            
+                            <!-- Table Content Area -->
+                            <Grid Grid.Row="2" Background="{DynamicResource BackgroundColor}">
+                                <TextBlock Text="Table content will go here" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+

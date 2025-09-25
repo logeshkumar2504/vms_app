@@ -148,6 +148,11 @@ namespace Vms_page
                     var rsWindow = new RecordingScheduleWindow();
                     rsWindow.Show();
                 }
+                else if (item.Name == "Alarm Configuration")
+                {
+                    var acWindow = new AlarmConfigurationWindow();
+                    acWindow.Show();
+                }
                 else if (item.Name == "Operation Log")
                 {
                     var logWindow = new OperationLogWindow();
@@ -259,6 +264,11 @@ namespace Vms_page
                 {
                     var rsWindow = new RecordingScheduleWindow();
                     rsWindow.Show();
+                }
+                else if (item.Name == "Alarm Configuration")
+                {
+                    var acWindow = new AlarmConfigurationWindow();
+                    acWindow.Show();
                 }
                 else if (item.Name == "Operation Log")
                 {
