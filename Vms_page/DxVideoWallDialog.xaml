@@ -253,10 +253,10 @@
                 </Grid.RowDefinitions>
 
                 <!-- Dynamic preview grid -->
-                <Grid x:Name="PreviewGrid" Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" Margin="0"/>
+                <Grid x:Name="PreviewGrid" Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" Margin="0,6,6,0"/>
 
                 <!-- Bottom icons bar -->
-                <Border Grid.Row="1" Background="{DynamicResource TopBarColor}" Margin="0">
+                <Border Grid.Row="1" Background="{DynamicResource TopBarColor}" Margin="6,0,6,6">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,2">
                         <Button Content="⧉" Width="28" Height="24" Background="Transparent" BorderThickness="0" ToolTip="Action 1"/>
                         <Button Content="🔗" Width="28" Height="24" Background="Transparent" BorderThickness="0" ToolTip="Action 2" Margin="4,0,0,0"/>

@@ -128,6 +128,11 @@ namespace Vms_page
                     var alarmRecordsWindow = new AlarmRecordsWindow();
                     alarmRecordsWindow.Show();
                 }
+                else if (item.Name == "Access Control")
+                {
+                    var accessControlWindow = new AccessControlWindow();
+                    accessControlWindow.Show();
+                }
                 else if (item.Name == "VCA")
                 {
                     var vcaWindow = new VcaWindow();
@@ -232,6 +237,12 @@ namespace Vms_page
                 {
                     var peopleCountingWindow = new PeopleCountingWindow();
                     peopleCountingWindow.Show();
+                }
+                // Check if it's Access Control and open the Access Control window
+                else if (item.Name == "Access Control")
+                {
+                    var accessControlWindow = new AccessControlWindow();
+                    accessControlWindow.Show();
                 }
                 else if (item.Name == "VCA")
                 {
