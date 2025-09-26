@@ -313,9 +313,6 @@ namespace Vms_page
 
         private void EntryExitSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement search functionality for entry/exit records
-            // Search functionality - no popup needed
-            
             // Get selected filters
             var device = AccessControlDeviceComboBox.SelectedItem?.ToString() ?? "All Devices";
             var startTime = StartTimeTextBox.Text;
@@ -324,7 +321,8 @@ namespace Vms_page
             var temperatureEnabled = TemperatureCheckBox.IsChecked ?? false;
             var authEnabled = AuthenticationCheckBox.IsChecked ?? false;
             
-            // Perform search logic here
+            // Reload data with current filters (in a real application, this would filter the data)
+            LoadSampleEntryExitRecords();
         }
 
         private void EntryExitResetButton_Click(object sender, RoutedEventArgs e)
@@ -346,6 +344,9 @@ namespace Vms_page
             AuthenticationCheckBox.IsChecked = false;
             AuthenticationPanel.Visibility = Visibility.Collapsed;
             AuthSucceededRadio.IsChecked = true;
+            
+            // Reload data after reset
+            LoadSampleEntryExitRecords();
         }
 
         private string GetSelectedStatus()
@@ -380,6 +381,9 @@ namespace Vms_page
             TemperatureCheckBox.Unchecked += TemperatureCheckBox_Unchecked;
             AuthenticationCheckBox.Checked += AuthenticationCheckBox_Checked;
             AuthenticationCheckBox.Unchecked += AuthenticationCheckBox_Unchecked;
+
+            // Load sample data
+            LoadSampleEntryExitRecords();
         }
 
         private void TemperatureCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -409,6 +413,261 @@ namespace Vms_page
         {
             // TODO: Implement export functionality for entry/exit records
             // Export functionality - no popup needed
+        }
+
+        private void LoadSampleEntryExitRecords()
+        {
+            // Clear existing data
+            EntryExitRecordsDataPanel.Children.Clear();
+
+            // Show empty message since no data is loaded
+            EmptyTableMessage.Visibility = Visibility.Visible;
+        }
+
+        private void CreateDataRow(string time, string name, string no, string idNo, string idCardNo, 
+                                  string status, string temperature, string deviceName, string snapshot, string libraryPhoto)
+        {
+            // Create row border
+            var rowBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                Height = 40,
+                Margin = new Thickness(0)
+            };
+
+            // Create row grid
+            var rowGrid = new Grid();
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(120, GridUnitType.Pixel), MinWidth = 100 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(120, GridUnitType.Pixel), MinWidth = 100 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60, GridUnitType.Pixel), MinWidth = 50 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(80, GridUnitType.Pixel), MinWidth = 70 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100, GridUnitType.Pixel), MinWidth = 80 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(80, GridUnitType.Pixel), MinWidth = 70 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(80, GridUnitType.Pixel), MinWidth = 70 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(120, GridUnitType.Pixel), MinWidth = 100 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100, GridUnitType.Pixel), MinWidth = 90 });
+            rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100, GridUnitType.Pixel), MinWidth = 90 });
+
+            // Time column
+            var timeBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var timeText = new TextBlock
+            {
+                Text = time,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            timeBorder.Child = timeText;
+            Grid.SetColumn(timeBorder, 0);
+            rowGrid.Children.Add(timeBorder);
+
+            // Name column
+            var nameBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var nameText = new TextBlock
+            {
+                Text = name,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            nameBorder.Child = nameText;
+            Grid.SetColumn(nameBorder, 1);
+            rowGrid.Children.Add(nameBorder);
+
+            // No. column
+            var noBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var noText = new TextBlock
+            {
+                Text = no,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            noBorder.Child = noText;
+            Grid.SetColumn(noBorder, 2);
+            rowGrid.Children.Add(noBorder);
+
+            // ID No. column
+            var idNoBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var idNoText = new TextBlock
+            {
+                Text = idNo,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            idNoBorder.Child = idNoText;
+            Grid.SetColumn(idNoBorder, 3);
+            rowGrid.Children.Add(idNoBorder);
+
+            // ID Card No. column
+            var idCardNoBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var idCardNoText = new TextBlock
+            {
+                Text = idCardNo,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            idCardNoBorder.Child = idCardNoText;
+            Grid.SetColumn(idCardNoBorder, 4);
+            rowGrid.Children.Add(idCardNoBorder);
+
+            // Status column
+            var statusBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var statusText = new TextBlock
+            {
+                Text = status,
+                Foreground = status == "Success" ? 
+                    new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4CAF50")) : 
+                    new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F44336")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            statusBorder.Child = statusText;
+            Grid.SetColumn(statusBorder, 5);
+            rowGrid.Children.Add(statusBorder);
+
+            // Temperature column
+            var temperatureBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var temperatureText = new TextBlock
+            {
+                Text = temperature,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            temperatureBorder.Child = temperatureText;
+            Grid.SetColumn(temperatureBorder, 6);
+            rowGrid.Children.Add(temperatureBorder);
+
+            // Device Name column
+            var deviceNameBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var deviceNameText = new TextBlock
+            {
+                Text = deviceName,
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            deviceNameBorder.Child = deviceNameText;
+            Grid.SetColumn(deviceNameBorder, 7);
+            rowGrid.Children.Add(deviceNameBorder);
+
+            // Snapshot column
+            var snapshotBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                BorderThickness = new Thickness(0, 0, 1, 0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var snapshotButton = new Button
+            {
+                Content = snapshot,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
+                Foreground = new SolidColorBrush(Colors.White),
+                BorderThickness = new Thickness(0),
+                FontSize = 10,
+                Height = 24,
+                Width = 60,
+                Cursor = Cursors.Hand
+            };
+            snapshotButton.Click += (s, e) => {
+                // TODO: Implement snapshot view functionality
+            };
+            snapshotBorder.Child = snapshotButton;
+            Grid.SetColumn(snapshotBorder, 8);
+            rowGrid.Children.Add(snapshotBorder);
+
+            // Library Photo column
+            var libraryPhotoBorder = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(8, 0, 8, 0)
+            };
+            var libraryPhotoButton = new Button
+            {
+                Content = libraryPhoto,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4CAF50")),
+                Foreground = new SolidColorBrush(Colors.White),
+                BorderThickness = new Thickness(0),
+                FontSize = 10,
+                Height = 24,
+                Width = 60,
+                Cursor = Cursors.Hand
+            };
+            libraryPhotoButton.Click += (s, e) => {
+                // TODO: Implement library photo view functionality
+            };
+            libraryPhotoBorder.Child = libraryPhotoButton;
+            Grid.SetColumn(libraryPhotoBorder, 9);
+            rowGrid.Children.Add(libraryPhotoBorder);
+
+            rowBorder.Child = rowGrid;
+            EntryExitRecordsDataPanel.Children.Add(rowBorder);
+            
+            // Hide empty message when data is added
+            EmptyTableMessage.Visibility = Visibility.Collapsed;
         }
     }
 }
