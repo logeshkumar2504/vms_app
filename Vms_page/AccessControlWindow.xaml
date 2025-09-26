@@ -634,93 +634,6 @@
                                     </StackPanel>
                                     
                                     <!-- View Toggle Control -->
-                                    <Border Grid.Column="1" 
-                                            Background="{DynamicResource CardBackgroundColor}"
-                                            BorderBrush="{DynamicResource BorderColor}"
-                                            BorderThickness="1"
-                                            CornerRadius="6"
-                                            VerticalAlignment="Center">
-                                        <Grid Width="52" Height="28">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="26"/>
-                                                <ColumnDefinition Width="26"/>
-                                            </Grid.ColumnDefinitions>
-                                            
-                                            <!-- Grid View Button (Inactive) -->
-                                            <Button x:Name="GridViewButton"
-                                                    Grid.Column="0"
-                                                    Width="26"
-                                                    Height="28"
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
-                                                    Click="GridViewButton_Click"
-                                                    Style="{x:Null}">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                CornerRadius="5,0,0,5"
-                                                                BorderThickness="0">
-                                                            <Grid Width="26" Height="28">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="*"/>
-                                                                </Grid.RowDefinitions>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                </Grid.ColumnDefinitions>
-                                                                <Rectangle Grid.Row="0" Grid.Column="0" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="0" Grid.Column="1" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="0" Grid.Column="2" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="1" Grid.Column="0" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="1" Grid.Column="1" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="1" Grid.Column="2" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="2" Grid.Column="0" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="2" Grid.Column="1" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                                <Rectangle Grid.Row="2" Grid.Column="2" Width="3" Height="3" Fill="{DynamicResource TextSecondaryColor}" Margin="1"/>
-                                                            </Grid>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                            
-                                            <!-- List View Button (Active) -->
-                                            <Button x:Name="ListViewButton"
-                                                    Grid.Column="1"
-                                                    Width="26"
-                                                    Height="28"
-                                                    Background="{DynamicResource PrimaryColor}"
-                                                    BorderThickness="0"
-                                                    Click="ListViewButton_Click"
-                                                    Style="{x:Null}">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                CornerRadius="0,5,5,0"
-                                                                BorderThickness="0">
-                                                            <Grid Width="26" Height="28">
-                                                                <Rectangle Width="12" Height="1.5" Fill="White" Margin="7,8,7,0"/>
-                                                                <Rectangle Width="12" Height="1.5" Fill="White" Margin="7,12.5,7,0"/>
-                                                                <Rectangle Width="12" Height="1.5" Fill="White" Margin="7,17,7,0"/>
-                                                            </Grid>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Button.Template>
-                                            </Button>
-                                        </Grid>
-                                    </Border>
                                 </Grid>
                             </Border>
                             
@@ -1110,21 +1023,381 @@
 
                 <!-- Entry/Exit Records Content -->
                 <Grid x:Name="EntryExitRecordsContent" Visibility="Collapsed">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="Entry/Exit Records" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Filter Panel -->
+                    <Border Grid.Row="0" 
+                            Background="{DynamicResource CardBackgroundColor}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,0,0,1"
+                            Padding="12,12,12,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Top Row: Device and Time -->
+                            <Grid Grid.Row="0" Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="180" MinWidth="150"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Access Control Device Label -->
+                                <TextBlock Grid.Column="0"
+                                           Text="Access Control Device"
+                                           FontSize="12"
+                                           FontWeight="Normal"
                                    Foreground="{DynamicResource TextPrimaryColor}"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,0,0,10"/>
-                        <TextBlock Text="View and manage access logs, entry/exit records, and audit trails." 
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,10,0"/>
+                                
+                                <!-- Access Control Device Dropdown -->
+                                <ComboBox Grid.Column="1"
+                                          x:Name="AccessControlDeviceComboBox"
+                                          Style="{StaticResource AccessControlComboBoxStyle}"
+                                          SelectedIndex="0"
+                                          Margin="0,0,18,0">
+                                    <ComboBoxItem Content="All Devices"/>
+                                    <ComboBoxItem Content="Main Entrance"/>
+                                    <ComboBoxItem Content="Side Door"/>
+                                    <ComboBoxItem Content="Emergency Exit"/>
+                                </ComboBox>
+                                
+                                <!-- Time Label -->
+                                <TextBlock Grid.Column="2"
+                                           Text="Time"
+                                           FontSize="12"
+                                           FontWeight="Normal"
+                                           Foreground="{DynamicResource TextPrimaryColor}"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,10,0"/>
+                                
+                                <!-- Time Range Inputs -->
+                                <StackPanel Grid.Column="3" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,14,0">
+                                    <TextBox x:Name="StartTimeTextBox"
+                                             Text="2025-09-25 00:00:00"
+                                             Width="120"
+                                             Height="24"
                                    FontSize="10" 
+                                             Background="{DynamicResource CardBackgroundColor}"
+                                             Foreground="{DynamicResource TextPrimaryColor}"
+                                             BorderBrush="{DynamicResource BorderColor}"
+                                             BorderThickness="1"
+                                             Padding="4,2"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="~" 
+                                               FontSize="10"
+                                               Foreground="{DynamicResource TextPrimaryColor}"
+                                               VerticalAlignment="Center"
+                                               Margin="2,0"/>
+                                    <TextBox x:Name="EndTimeTextBox"
+                                             Text="2025-09-25 23:59:59"
+                                             Width="120"
+                                             Height="24"
+                                             FontSize="10"
+                                             Background="{DynamicResource CardBackgroundColor}"
+                                             Foreground="{DynamicResource TextPrimaryColor}"
+                                             BorderBrush="{DynamicResource BorderColor}"
+                                             BorderThickness="1"
+                                             Padding="4,2"
+                                             VerticalAlignment="Center"/>
+                                    <Button Background="Transparent"
+                                            BorderThickness="0"
+                                            Padding="4"
+                                            Cursor="Hand"
+                                            Margin="4,0,0,0">
+                                        <TextBlock Text="📅" FontSize="13"/>
+                                    </Button>
+                                </StackPanel>
+                                
+                                <!-- Quick Time Selection -->
+                                <StackPanel Grid.Column="4" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left">
+                                    <Button x:Name="TodayButton"
+                                            Content="Today"
+                                            Background="Transparent"
+                                            Foreground="#0078D4"
+                                            BorderThickness="0"
+                                            FontSize="10"
+                                            Padding="4,1"
+                                            Cursor="Hand"
+                                            Click="QuickTimeButton_Click"/>
+                                    <Button x:Name="Last7DaysButton"
+                                            Content="7 days"
+                                            Background="Transparent"
+                                            Foreground="#0078D4"
+                                            BorderThickness="0"
+                                            FontSize="10"
+                                            Padding="4,1"
+                                            Cursor="Hand"
+                                            Click="QuickTimeButton_Click"/>
+                                    <Button x:Name="Last30DaysButton"
+                                            Content="30 days"
+                                            Background="Transparent"
+                                            Foreground="#0078D4"
+                                            BorderThickness="0"
+                                            FontSize="10"
+                                            Padding="4,1"
+                                            Cursor="Hand"
+                                            Click="QuickTimeButton_Click"/>
+                                </StackPanel>
+
+                                <!-- Temperature (moved to top row) -->
+                                <StackPanel Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <CheckBox x:Name="TemperatureCheckBox"
+                                              Content="Temp (°C)"
+                                              FontSize="10"
+                                              Foreground="{DynamicResource TextPrimaryColor}"/>
+                                    <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="TemperatureRangePanel" Margin="4,0,0,0">
+                                        <TextBox x:Name="TemperatureMinTextBox"
+                                                 Width="50"
+                                                 Height="20"
+                                                 FontSize="9"
+                                                 Background="{DynamicResource CardBackgroundColor}"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"
+                                                 BorderBrush="{DynamicResource BorderColor}"
+                                                 BorderThickness="1"
+                                                 Padding="3,1"
+                                                 VerticalAlignment="Center"/>
+                                        <TextBlock Text="~" 
+                                                   FontSize="9"
+                                                   Foreground="{DynamicResource TextPrimaryColor}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="2,0"/>
+                                        <TextBox x:Name="TemperatureMaxTextBox"
+                                                 Width="50"
+                                                 Height="20"
+                                                 FontSize="9"
+                                                 Background="{DynamicResource CardBackgroundColor}"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"
+                                                 BorderBrush="{DynamicResource BorderColor}"
+                                                 BorderThickness="1"
+                                                 Padding="3,1"
+                                                 VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Authentication Result (moved to top row) -->
+                                <StackPanel Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <CheckBox x:Name="AuthenticationCheckBox"
+                                              Content="Auth Result"
+                                              FontSize="10"
+                                              Foreground="{DynamicResource TextPrimaryColor}"/>
+                                    <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="AuthenticationPanel" Margin="4,0,0,0">
+                                        <RadioButton x:Name="AuthSucceededRadio"
+                                                     Content="Success"
+                                                     GroupName="AuthGroup"
+                                                     IsChecked="True"
+                                                     FontSize="9"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                                     Margin="0,0,6,0"/>
+                                        <RadioButton x:Name="AuthFailedRadio"
+                                                     Content="Failed"
+                                                     GroupName="AuthGroup"
+                                                     FontSize="9"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Spacer to push buttons to right -->
+                                <Border Grid.Column="7"/>
+                                
+                                <!-- Top Row Actions: Search + Reset (attractive primary) -->
+                                <StackPanel Grid.Column="8" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="6,0,0,0">
+                                    <Button x:Name="EntryExitSearchButtonTop"
+                                            Content="Search"
+                                            Width="70"
+                                            Height="26"
+                                            FontSize="11"
+                                            Background="#0078D4"
+                                            Foreground="White"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Click="EntryExitSearchButton_Click"
+                                            Style="{x:Null}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0">
+                                                        <TextBlock Text="🔎" FontSize="11" Margin="0,0,4,0"/>
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#106EBE"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter Property="Background" Value="#005A9E"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="EntryExitResetButtonTop"
+                                            Content="Reset"
+                                            Width="60"
+                                            Height="26"
+                                            FontSize="11"
+                                            Background="{DynamicResource CardBackgroundColor}"
+                                            Foreground="{DynamicResource TextPrimaryColor}"
+                                            BorderBrush="{DynamicResource BorderColor}"
+                                            BorderThickness="1"
+                                            Cursor="Hand"
+                                            Margin="6,0,0,0"
+                                            Click="EntryExitResetButton_Click"
+                                            Style="{x:Null}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="3" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <!-- Bottom Row: Status and Actions -->
+                            <Grid Grid.Row="1" Margin="0,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                     <ColumnDefinition Width="*"/>
+                                     <ColumnDefinition Width="Auto"/>
+                                     <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Status Label and Radio Buttons -->
+                                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,24,0">
+                                    <TextBlock Text="Status"
+                                               FontSize="12"
+                                               FontWeight="Normal"
+                                               Foreground="{DynamicResource TextPrimaryColor}"
+                                               Margin="0,0,0,6"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton x:Name="StatusAllRadio"
+                                                     Content="All"
+                                                     GroupName="StatusGroup"
+                                                     IsChecked="True"
+                                                     FontSize="11"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                                     Margin="0,0,14,0"/>
+                                        <RadioButton x:Name="StatusMaskRadio"
+                                                     Content="Mask"
+                                                     GroupName="StatusGroup"
+                                                     FontSize="11"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                                     Margin="0,0,14,0"/>
+                                        <RadioButton x:Name="StatusNoMaskRadio"
+                                                     Content="No Mask"
+                                                     GroupName="StatusGroup"
+                                                     FontSize="11"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                                     Margin="0,0,14,0"/>
+                                        <RadioButton x:Name="StatusUnknownRadio"
+                                                     Content="Unknown"
+                                                     GroupName="StatusGroup"
+                                                     FontSize="11"
+                                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                
+                                <!-- Temperature and Authentication moved to top row for single-line alignment -->
+                                
+                                <!-- Spacer -->
+                                <Border Grid.Column="3"/>
+                                
+                                <!-- Search and Reset Buttons -->
+                                <!-- Search/Reset moved to top row for visibility -->
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Export Section -->
+                    <Border Grid.Row="1" 
+                            Background="{DynamicResource CardBackgroundColor}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,0,0,1"
+                            Padding="12,8,12,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Export Button -->
+                            <Button x:Name="EntryExitExportButton"
+                                    Grid.Column="0"
+                                    Content="Export"
+                                    Width="80"
+                                    Height="28"
+                                    FontSize="11"
+                                    Background="#0078D4"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="EntryExitExportButton_Click"
+                                    Style="{x:Null}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0">
+                                                <TextBlock Text="📤" FontSize="11" Margin="0,0,4,0"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#106EBE"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Background" Value="#005A9E"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            
+                            <!-- Spacer -->
+                            <Border Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Results Area -->
+                    <Border Grid.Row="2" 
+                            Background="{DynamicResource BackgroundColor}"
+                            Padding="20">
+                        <TextBlock Text="Search results will appear here..."
+                                   FontSize="14"
                                    Foreground="{DynamicResource TextSecondaryColor}"
                                    HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   MaxWidth="300"/>
-                    </StackPanel>
+                                   VerticalAlignment="Center"/>
+                    </Border>
                 </Grid>
             </Grid>
         </Border>

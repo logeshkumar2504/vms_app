@@ -73,6 +73,9 @@ namespace Vms_page
             LibraryManagementContent.Visibility = Visibility.Collapsed;
             RealtimeMonitoringContent.Visibility = Visibility.Collapsed;
             EntryExitRecordsContent.Visibility = Visibility.Visible;
+
+            // Initialize Entry/Exit Records controls
+            InitializeEntryExitRecords();
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -127,26 +130,7 @@ namespace Vms_page
             // Generate Template functionality - no popup needed
         }
 
-        // View Toggle Buttons
-        private void GridViewButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Switch to grid view
-            GridViewButton.Background = (Brush)FindResource("PrimaryColor");
-            ListViewButton.Background = (Brush)FindResource("CardBackgroundColor");
-            
-            // TODO: Switch content to grid view
-            // Switched to Grid View - no popup needed
-        }
-
-        private void ListViewButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Switch to list view
-            ListViewButton.Background = (Brush)FindResource("PrimaryColor");
-            GridViewButton.Background = (Brush)FindResource("CardBackgroundColor");
-            
-            // TODO: Switch content to list view
-            // Switched to List View - no popup needed
-        }
+        // View Toggle Buttons - Removed as buttons were removed from XAML
 
         // Realtime Monitoring Event Handlers (LPR-style)
         private void VideoChannelInput_GotFocus(object sender, RoutedEventArgs e)
@@ -298,6 +282,133 @@ namespace Vms_page
                     }
                 }
             }
+        }
+
+        // Entry/Exit Records Event Handlers
+        private void QuickTimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var today = DateTime.Today;
+                var startOfDay = today;
+                var endOfDay = today.AddDays(1).AddSeconds(-1);
+
+                switch (button.Name)
+                {
+                    case "TodayButton":
+                        StartTimeTextBox.Text = startOfDay.ToString("yyyy-MM-dd HH:mm:ss");
+                        EndTimeTextBox.Text = endOfDay.ToString("yyyy-MM-dd HH:mm:ss");
+                        break;
+                    case "Last7DaysButton":
+                        StartTimeTextBox.Text = today.AddDays(-6).ToString("yyyy-MM-dd HH:mm:ss");
+                        EndTimeTextBox.Text = endOfDay.ToString("yyyy-MM-dd HH:mm:ss");
+                        break;
+                    case "Last30DaysButton":
+                        StartTimeTextBox.Text = today.AddDays(-29).ToString("yyyy-MM-dd HH:mm:ss");
+                        EndTimeTextBox.Text = endOfDay.ToString("yyyy-MM-dd HH:mm:ss");
+                        break;
+                }
+            }
+        }
+
+        private void EntryExitSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Implement search functionality for entry/exit records
+            // Search functionality - no popup needed
+            
+            // Get selected filters
+            var device = AccessControlDeviceComboBox.SelectedItem?.ToString() ?? "All Devices";
+            var startTime = StartTimeTextBox.Text;
+            var endTime = EndTimeTextBox.Text;
+            var status = GetSelectedStatus();
+            var temperatureEnabled = TemperatureCheckBox.IsChecked ?? false;
+            var authEnabled = AuthenticationCheckBox.IsChecked ?? false;
+            
+            // Perform search logic here
+        }
+
+        private void EntryExitResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset all filters to default values
+            AccessControlDeviceComboBox.SelectedIndex = 0;
+            
+            var today = DateTime.Today;
+            StartTimeTextBox.Text = today.ToString("yyyy-MM-dd HH:mm:ss");
+            EndTimeTextBox.Text = today.AddDays(1).AddSeconds(-1).ToString("yyyy-MM-dd HH:mm:ss");
+            
+            StatusAllRadio.IsChecked = true;
+            
+            TemperatureCheckBox.IsChecked = false;
+            TemperatureRangePanel.Visibility = Visibility.Collapsed;
+            TemperatureMinTextBox.Clear();
+            TemperatureMaxTextBox.Clear();
+            
+            AuthenticationCheckBox.IsChecked = false;
+            AuthenticationPanel.Visibility = Visibility.Collapsed;
+            AuthSucceededRadio.IsChecked = true;
+        }
+
+        private string GetSelectedStatus()
+        {
+            if (StatusAllRadio.IsChecked == true) return "All";
+            if (StatusMaskRadio.IsChecked == true) return "Mask";
+            if (StatusNoMaskRadio.IsChecked == true) return "No Mask";
+            if (StatusUnknownRadio.IsChecked == true) return "Unknown";
+            return "All";
+        }
+
+        private void InitializeEntryExitRecords()
+        {
+            // Set default time range to today
+            var today = DateTime.Today;
+            StartTimeTextBox.Text = today.ToString("yyyy-MM-dd HH:mm:ss");
+            EndTimeTextBox.Text = today.AddDays(1).AddSeconds(-1).ToString("yyyy-MM-dd HH:mm:ss");
+
+            // Set default status
+            StatusAllRadio.IsChecked = true;
+
+            // Set default checkbox states
+            TemperatureCheckBox.IsChecked = false;
+            TemperatureRangePanel.Visibility = Visibility.Collapsed;
+            
+            AuthenticationCheckBox.IsChecked = false;
+            AuthenticationPanel.Visibility = Visibility.Collapsed;
+            AuthSucceededRadio.IsChecked = true;
+
+            // Add checkbox event handlers
+            TemperatureCheckBox.Checked += TemperatureCheckBox_Checked;
+            TemperatureCheckBox.Unchecked += TemperatureCheckBox_Unchecked;
+            AuthenticationCheckBox.Checked += AuthenticationCheckBox_Checked;
+            AuthenticationCheckBox.Unchecked += AuthenticationCheckBox_Unchecked;
+        }
+
+        private void TemperatureCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            TemperatureRangePanel.Visibility = Visibility.Visible;
+        }
+
+        private void TemperatureCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TemperatureRangePanel.Visibility = Visibility.Collapsed;
+            TemperatureMinTextBox.Clear();
+            TemperatureMaxTextBox.Clear();
+        }
+
+        private void AuthenticationCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            AuthenticationPanel.Visibility = Visibility.Visible;
+        }
+
+        private void AuthenticationCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            AuthenticationPanel.Visibility = Visibility.Collapsed;
+            AuthSucceededRadio.IsChecked = true;
+        }
+
+        private void EntryExitExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Implement export functionality for entry/exit records
+            // Export functionality - no popup needed
         }
     }
 }
