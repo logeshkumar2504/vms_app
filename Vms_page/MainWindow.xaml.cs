@@ -168,6 +168,11 @@ namespace Vms_page
                     var vwWindow = new VideoWallWindow();
                     vwWindow.Show();
                 }
+                else if (item.Name == "System Configuration")
+                {
+                    var systemConfigWindow = new SystemConfigurationWindow();
+                    systemConfigWindow.Show();
+                }
                 else
                 {
                     // Show alert for other menu items
@@ -295,6 +300,11 @@ namespace Vms_page
                 {
                     var vwWindow = new VideoWallWindow();
                     vwWindow.Show();
+                }
+                else if (item.Name == "System Configuration")
+                {
+                    var systemConfigWindow = new SystemConfigurationWindow();
+                    systemConfigWindow.Show();
                 }
                 else
                 {

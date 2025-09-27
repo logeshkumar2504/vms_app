@@ -1,0 +1,437 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Vms_page"
+        x:Class="Vms_page.SystemConfigurationWindow"
+        Title="System Configuration" Height="600" Width="900"
+        Background="{DynamicResource BackgroundColor}" WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Button Style for Bottom Bar -->
+        <Style x:Key="BottomBarButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1E40AF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1D4ED8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Default Button Style -->
+        <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BottomBarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#6B7280"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#4B5563"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Cancel Button Style -->
+        <Style x:Key="CancelButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BottomBarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#6B7280"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#4B5563"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Apply Button Style -->
+        <Style x:Key="ApplyButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BottomBarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource SuccessColor}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#059669"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#047857"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Sidebar Button Style -->
+        <Style x:Key="SidebarButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderThickness="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Content -->
+                                <ContentPresenter Grid.Column="0"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                VerticalAlignment="Center"/>
+                                
+                                <!-- Chevron Icon -->
+                                <TextBlock Grid.Column="1"
+                                           Text="▶" 
+                                           FontSize="10" 
+                                           Foreground="{TemplateBinding Foreground}"
+                                           VerticalAlignment="Center"
+                                           Margin="8,0,0,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Dropdown Sidebar Button Style -->
+        <Style x:Key="DropdownSidebarButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderThickness="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Content -->
+                                <ContentPresenter Grid.Column="0"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                VerticalAlignment="Center"/>
+                                
+                                <!-- Dropdown Chevron Icon -->
+                                <TextBlock x:Name="ChevronIcon" Grid.Column="1"
+                                           Text="▼" 
+                                           FontSize="10" 
+                                           Foreground="{TemplateBinding Foreground}"
+                                           VerticalAlignment="Center"
+                                           Margin="8,0,0,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Sub-option Button Style -->
+        <Style x:Key="SubOptionButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,8"/>
+            <Setter Property="Margin" Value="0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Active Sidebar Button Style -->
+        <Style x:Key="ActiveSidebarButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SidebarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderThickness="3,0,0,0"
+                                BorderBrush="{DynamicResource PrimaryColor}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Content -->
+                                <ContentPresenter Grid.Column="0"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                VerticalAlignment="Center"/>
+                                
+                                <!-- Chevron Icon -->
+                                <TextBlock Grid.Column="1"
+                                           Text="▶" 
+                                           FontSize="10" 
+                                           Foreground="{TemplateBinding Foreground}"
+                                           VerticalAlignment="Center"
+                                           Margin="8,0,0,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar -->
+            <Border Grid.Column="0" 
+                    Background="{DynamicResource SidebarColor}" 
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="0" Background="Transparent">
+                        <!-- Sidebar Content -->
+                        <TextBlock Text="System Configuration" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="12" 
+                                   FontWeight="SemiBold"
+                                   Margin="12,16,12,8"/>
+                        
+                        <!-- Configuration Options -->
+                        <Button x:Name="AudioVideoButton"
+                                Content="Audio &amp; Video" 
+                                Style="{StaticResource DropdownSidebarButtonStyle}"
+                                Click="AudioVideo_Click"
+                                Tag="AudioVideo"/>
+                        
+                        <!-- Audio & Video Sub-options -->
+                        <StackPanel x:Name="AudioVideoSubOptions" 
+                                    Visibility="Visible">
+                            <Button Content="Video" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Video_Click"
+                                    Tag="Video"/>
+                            <Button Content="Snapshot" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Snapshot_Click"
+                                    Tag="Snapshot"/>
+                            <Button Content="Recording" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Recording_Click"
+                                    Tag="Recording"/>
+                            <Button Content="POS OSD Configuration" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="PosOsdConfig_Click"
+                                    Tag="PosOsdConfig"/>
+                        </StackPanel>
+                        
+                        <Button x:Name="SystemButton"
+                                Content="System" 
+                                Style="{StaticResource DropdownSidebarButtonStyle}"
+                                Click="System_Click"
+                                Tag="System"/>
+                        
+                        <!-- System Sub-options -->
+                        <StackPanel x:Name="SystemSubOptions" 
+                                    Visibility="Collapsed">
+                            <Button Content="Startup" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Startup_Click"
+                                    Tag="Startup"/>
+                            <Button Content="Log" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Log_Click"
+                                    Tag="Log"/>
+                            <Button Content="Maintenance" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Maintenance_Click"
+                                    Tag="Maintenance"/>
+                        </StackPanel>
+                        
+                        <Button x:Name="OperationButton"
+                                Content="Operation" 
+                                Style="{StaticResource DropdownSidebarButtonStyle}"
+                                Click="Operation_Click"
+                                Tag="Operation"/>
+                        
+                        <!-- Operation Sub-options -->
+                        <StackPanel x:Name="OperationSubOptions" 
+                                    Visibility="Collapsed">
+                            <Button Content="Alarm" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Alarm_Click"
+                                    Tag="Alarm"/>
+                            <Button Content="Service" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Service_Click"
+                                    Tag="Service"/>
+                            <Button Content="Email" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="Email_Click"
+                                    Tag="Email"/>
+                            <Button Content="Epidemic Control" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="EpidemicControl_Click"
+                                    Tag="EpidemicControl"/>
+                            <Button Content="Attribute Display" 
+                                    Style="{StaticResource SubOptionButtonStyle}"
+                                    Click="AttributeDisplay_Click"
+                                    Tag="AttributeDisplay"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Right Content Area -->
+            <Border Grid.Column="1" 
+                    Background="{DynamicResource BackgroundColor}">
+                <Grid>
+                    <!-- Main Content Placeholder -->
+                    <TextBlock Text="System Configuration Settings" 
+                               Foreground="{DynamicResource TextPrimaryColor}" 
+                               FontSize="16" 
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Bottom Bar -->
+        <Border Grid.Row="1" 
+                Background="{DynamicResource SurfaceColor}" 
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,1,0,0"
+                Padding="12,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Side - Default Button -->
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Left">
+                    <Button Content="Default" 
+                            Style="{StaticResource DefaultButtonStyle}"
+                            Click="DefaultButton_Click"/>
+                </StackPanel>
+
+                <!-- Right Side - OK, Cancel, Apply Buttons -->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+                    <Button Content="OK" 
+                            Style="{StaticResource BottomBarButtonStyle}"
+                            Click="OKButton_Click"
+                            Margin="0,0,8,0"/>
+                    <Button Content="Cancel" 
+                            Style="{StaticResource CancelButtonStyle}"
+                            Click="CancelButton_Click"
+                            Margin="0,0,8,0"/>
+                    <Button Content="Apply" 
+                            Style="{StaticResource ApplyButtonStyle}"
+                            Click="ApplyButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
