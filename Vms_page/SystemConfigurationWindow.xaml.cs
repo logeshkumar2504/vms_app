@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Vms_page
 {
@@ -127,10 +129,10 @@ namespace Vms_page
 
         private void Snapshot_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Snapshot configuration panel would open here.", 
-                          "Snapshot", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            // Show Snapshot configuration panel in the right content area
+            DefaultPlaceholder.Visibility = Visibility.Collapsed;
+            SnapshotPanel.Visibility = Visibility.Visible;
+            SetActiveButton(AudioVideoButton);
         }
 
         private void Recording_Click(object sender, RoutedEventArgs e)
@@ -213,6 +215,28 @@ namespace Vms_page
                           "Operation Attribute Display", 
                           MessageBoxButton.OK, 
                           MessageBoxImage.Information);
+        }
+
+        private void BrowseSnapshotPath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select Folder",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                ValidateNames = false,
+                FileName = "Select Folder"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var selectedDirectory = Path.GetDirectoryName(dialog.FileName);
+                if (!string.IsNullOrWhiteSpace(selectedDirectory))
+                {
+                    ImageSavePathTextBox.Text = selectedDirectory + (selectedDirectory.EndsWith("\\") ? string.Empty : "\\");
+                }
+            }
         }
     }
 }

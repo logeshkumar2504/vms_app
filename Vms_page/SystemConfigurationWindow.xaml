@@ -40,6 +40,8 @@
             </Setter>
         </Style>
 
+        <!-- Use default/global ComboBox style to match Operation Log -->
+
         <!-- Default Button Style -->
         <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BottomBarButtonStyle}">
             <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
@@ -382,14 +384,84 @@
             <!-- Right Content Area -->
             <Border Grid.Column="1" 
                     Background="{DynamicResource BackgroundColor}">
-                <Grid>
-                    <!-- Main Content Placeholder -->
-                    <TextBlock Text="System Configuration Settings" 
+                <Grid x:Name="RightContentRoot" Margin="12">
+                    <!-- Default Placeholder -->
+                    <TextBlock x:Name="DefaultPlaceholder" Text="System Configuration Settings" 
                                Foreground="{DynamicResource TextPrimaryColor}" 
                                FontSize="16" 
                                FontWeight="SemiBold"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center"/>
+
+                    <!-- Snapshot Panel -->
+                    <Grid x:Name="SnapshotPanel" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Snapshot Mode -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Snapshot Mode" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="6,0,0,6">
+                            <RadioButton x:Name="SnapshotModeAutoRadio" Content="Auto" GroupName="SnapshotMode" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <RadioButton x:Name="SnapshotModeManualRadio" Content="Manual" GroupName="SnapshotMode" Margin="18,0,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </StackPanel>
+
+                        <!-- Continuous Snapshot Interval -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Continuous Snapshot Interval" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="SnapshotIntervalCombo" Width="140" SelectedIndex="0" Margin="6,0,0,6" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="1 second"/>
+                            <ComboBoxItem Content="2 seconds"/>
+                            <ComboBoxItem Content="3 seconds"/>
+                            <ComboBoxItem Content="5 seconds"/>
+                            <ComboBoxItem Content="10 seconds"/>
+                        </ComboBox>
+
+                        <!-- Continuous Snapshots -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Continuous Snapshots" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="ContinuousSnapshotsCombo" Width="140" SelectedIndex="2" Margin="6,0,0,6" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="1 pcs"/>
+                            <ComboBoxItem Content="2 pcs"/>
+                            <ComboBoxItem Content="3 pcs"/>
+                            <ComboBoxItem Content="5 pcs"/>
+                            <ComboBoxItem Content="10 pcs"/>
+                        </ComboBox>
+
+                        <!-- Snapshot Format -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Snapshot Format" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="6,0,0,6">
+                            <RadioButton x:Name="SnapshotFormatJpegRadio" Content="JPEG" GroupName="SnapshotFormat" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <RadioButton x:Name="SnapshotFormatBmpRadio" Content="BMP" GroupName="SnapshotFormat" Margin="18,0,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </StackPanel>
+
+                        <!-- Image Save Path -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Image Save Path" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
+                        <Grid Grid.Row="4" Grid.Column="1" Margin="6,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="ImageSavePathTextBox" Grid.Column="0" MinWidth="300" Text="C:\\Users\\Public\\Guard Station 3\\Snap\\" Margin="0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <Button Grid.Column="1" Content="Browse..." Margin="8,0,0,0" Style="{StaticResource BottomBarButtonStyle}" Click="BrowseSnapshotPath_Click"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>
