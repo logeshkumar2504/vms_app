@@ -401,26 +401,26 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Snapshot Mode -->
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Snapshot Mode" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
-                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="4,0,0,6" HorizontalAlignment="Left">
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,8" HorizontalAlignment="Left">
                             <RadioButton x:Name="SnapshotModeAutoRadio" Content="Auto" GroupName="SnapshotMode" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
                             <RadioButton x:Name="SnapshotModeManualRadio" Content="Manual" GroupName="SnapshotMode" Margin="18,0,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
                         </StackPanel>
 
                         <!-- Continuous Snapshot Interval -->
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Continuous Snapshot Interval" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="SnapshotIntervalCombo" Width="140" Height="24" SelectedIndex="0" Margin="4,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
+                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="SnapshotIntervalCombo" Width="180" Height="24" SelectedIndex="0" Margin="8,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ComboBoxItem}">
                                     <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
@@ -435,7 +435,7 @@
 
                         <!-- Continuous Snapshots -->
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="Continuous Snapshots" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
-                        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="ContinuousSnapshotsCombo" Width="140" Height="24" SelectedIndex="2" Margin="4,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
+                        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="ContinuousSnapshotsCombo" Width="180" Height="24" SelectedIndex="2" Margin="8,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ComboBoxItem}">
                                     <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
@@ -450,14 +450,14 @@
 
                         <!-- Snapshot Format -->
                         <TextBlock Grid.Row="6" Grid.Column="0" Text="Snapshot Format" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
-                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="4,0,0,0" HorizontalAlignment="Left">
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,0" HorizontalAlignment="Left">
                             <RadioButton x:Name="SnapshotFormatJpegRadio" Content="JPEG" GroupName="SnapshotFormat" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
                             <RadioButton x:Name="SnapshotFormatBmpRadio" Content="BMP" GroupName="SnapshotFormat" Margin="18,0,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
                         </StackPanel>
 
                         <!-- Image Save Path -->
                         <TextBlock Grid.Row="8" Grid.Column="0" Text="Image Save Path" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="0"/>
-                        <Grid Grid.Row="8" Grid.Column="1" Margin="4,0,0,0" HorizontalAlignment="Left">
+                        <Grid Grid.Row="8" Grid.Column="1" Margin="8,0,0,0" HorizontalAlignment="Left">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -465,6 +465,92 @@
                             <TextBox x:Name="ImageSavePathTextBox" Grid.Column="0" MinWidth="280" Text="C:\\Users\\Public\\Guard Station 3\\Snap\\" Margin="0" Foreground="{DynamicResource TextPrimaryColor}"/>
                             <Button Grid.Column="1" Content="Browse..." Margin="8,0,0,0" Style="{StaticResource BottomBarButtonStyle}" Click="BrowseSnapshotPath_Click"/>
                         </Grid>
+                    </Grid>
+
+                    <!-- POS OSD Configuration Panel -->
+                    <Grid x:Name="PosOsdConfigPanel" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Display Area -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Display Area" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="0" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="Left"/>
+                            <ComboBoxItem Content="Right"/>
+                            <ComboBoxItem Content="Top"/>
+                            <ComboBoxItem Content="Bottom"/>
+                        </ComboBox>
+
+                        <!-- Font Size -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Font Size" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="1" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="Small"/>
+                            <ComboBoxItem Content="Middle"/>
+                            <ComboBoxItem Content="Large"/>
+                        </ComboBox>
+
+                        <!-- Font Color -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Font Color" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <Grid Grid.Row="4" Grid.Column="1" Margin="6,0,0,0" HorizontalAlignment="Left">
+                            <Border x:Name="FontColorSwatch" Width="66" Height="24" Background="Yellow" CornerRadius="3" MouseDown="FontColorSwatch_Click"/>
+                            <Popup x:Name="FontColorPopup" Placement="Bottom" PlacementTarget="{Binding ElementName=FontColorSwatch}" StaysOpen="False">
+                                <Border Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="4" Padding="6">
+                                    <UniformGrid Rows="2" Columns="6" Margin="2">
+                                        <Border Width="22" Height="22" Background="#FFFFFF" Margin="2" Tag="#FFFFFF" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#FFD700" Margin="2" Tag="#FFD700" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#FF0000" Margin="2" Tag="#FF0000" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#00FF00" Margin="2" Tag="#00FF00" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#00BFFF" Margin="2" Tag="#00BFFF" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#FFA500" Margin="2" Tag="#FFA500" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#808080" Margin="2" Tag="#808080" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#C0C0C0" Margin="2" Tag="#C0C0C0" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#8A2BE2" Margin="2" Tag="#8A2BE2" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#FF69B4" Margin="2" Tag="#FF69B4" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#00CED1" Margin="2" Tag="#00CED1" MouseLeftButtonUp="FontColorOption_Click"/>
+                                        <Border Width="22" Height="22" Background="#FFFF00" Margin="2" Tag="#FFFF00" MouseLeftButtonUp="FontColorOption_Click"/>
+                                    </UniformGrid>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <!-- Duration -->
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Duration" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,0" HorizontalAlignment="Left">
+                            <RadioButton x:Name="DurationAutoRadio" Content="Auto" GroupName="DurationMode" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}" Checked="DurationMode_Changed"/>
+                            <RadioButton x:Name="DurationCustomRadio" Content="Custom" GroupName="DurationMode" Margin="16,0,0,0" Foreground="{DynamicResource TextPrimaryColor}" Checked="DurationMode_Changed"/>
+                            <TextBox x:Name="DurationSecondsTextBox" Width="80" Height="24" Margin="16,0,0,0" IsEnabled="False" Text="5"/>
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextPrimaryColor}" Text="Second"/>
+                        </StackPanel>
+
+                        <!-- POS Function -->
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="POS Function" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,0" HorizontalAlignment="Left">
+                            <RadioButton x:Name="PosFunctionOnRadio" Content="On" GroupName="PosFunction" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <RadioButton x:Name="PosFunctionOffRadio" Content="Off" GroupName="PosFunction" Margin="24,0,0,0" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </Border>

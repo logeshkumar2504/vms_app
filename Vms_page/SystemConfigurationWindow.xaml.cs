@@ -145,10 +145,11 @@ namespace Vms_page
 
         private void PosOsdConfig_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("POS OSD Configuration panel would open here.", 
-                          "POS OSD Configuration", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            // Show POS OSD Configuration panel
+            DefaultPlaceholder.Visibility = Visibility.Collapsed;
+            SnapshotPanel.Visibility = Visibility.Collapsed;
+            PosOsdConfigPanel.Visibility = Visibility.Visible;
+            SetActiveButton(AudioVideoButton);
         }
 
         // System sub-option click handlers
@@ -215,6 +216,36 @@ namespace Vms_page
                           "Operation Attribute Display", 
                           MessageBoxButton.OK, 
                           MessageBoxImage.Information);
+        }
+
+        private void DurationMode_Changed(object sender, RoutedEventArgs e)
+        {
+            if (DurationSecondsTextBox != null && DurationCustomRadio != null)
+            {
+                DurationSecondsTextBox.IsEnabled = DurationCustomRadio.IsChecked == true;
+            }
+        }
+
+        private void FontColorSwatch_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FontColorPopup.IsOpen = true;
+        }
+
+        private void FontColorOption_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender is Border colorCell && colorCell.Tag is string hex)
+            {
+                try
+                {
+                    var brush = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFromString(hex);
+                    FontColorSwatch.Background = brush;
+                }
+                catch
+                {
+                    // ignore invalid
+                }
+            }
+            FontColorPopup.IsOpen = false;
         }
 
         private void BrowseSnapshotPath_Click(object sender, RoutedEventArgs e)
