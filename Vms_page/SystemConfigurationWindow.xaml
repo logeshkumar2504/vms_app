@@ -552,6 +552,127 @@
                             <RadioButton x:Name="PosFunctionOffRadio" Content="Off" GroupName="PosFunction" Margin="24,0,0,0" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
                         </StackPanel>
                     </Grid>
+
+                    <!-- Video Panel -->
+                    <Grid x:Name="VideoPanel" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/> <!-- Play Mode -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Stream Type (two rows) -->
+                            <RowDefinition Height="6"/>
+                            <RowDefinition Height="Auto"/> <!-- Stream Type row 2 -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Playback Mode -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Protocol -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Display Ratio -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Instant Playback -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/> <!-- Options -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Play Mode -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Play Mode" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="0" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="Balanced"/>
+                            <ComboBoxItem Content="Fluent"/>
+                            <ComboBoxItem Content="Clear"/>
+                        </ComboBox>
+
+                        <!-- Stream Type -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Text="Stream Type" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Top"/>
+                        <Grid Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" HorizontalAlignment="Left">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Row 1: Adapt option -->
+                            <RadioButton Grid.Row="0" x:Name="StreamAdaptRadio" Content="Adapt to Screen Layout" GroupName="StreamType" IsChecked="True" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <!-- Row 2: Default option with dropdown -->
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <RadioButton x:Name="StreamDefaultRadio" Content="Use Default Stream Type" GroupName="StreamType" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                <ComboBox x:Name="StreamTypeCombo" Width="120" Height="24" Margin="8,0,0,0"
+                                          IsEnabled="{Binding IsChecked, ElementName=StreamDefaultRadio}"
+                                          SelectedIndex="0"
+                                          Foreground="{DynamicResource TextPrimaryColor}" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch">
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ComboBoxItem}">
+                                            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                    <ComboBoxItem Content="Main"/>
+                                    <ComboBoxItem Content="Sub"/>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Playback Mode -->
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Playback Mode" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="6" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="1" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="SD"/>
+                            <ComboBoxItem Content="HD"/>
+                            <ComboBoxItem Content="Ultra"/>
+                        </ComboBox>
+
+                        <!-- Stream Transmission Protocol -->
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="Stream Transmission Protocol" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="8" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="1" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="UDP"/>
+                            <ComboBoxItem Content="TCP"/>
+                        </ComboBox>
+
+                        <!-- Display Ratio -->
+                        <TextBlock Grid.Row="10" Grid.Column="0" Text="Display Ratio" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="10" Grid.Column="1" Width="180" Height="24" Margin="8,0,0,0" SelectedIndex="0" HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="Full"/>
+                            <ComboBoxItem Content="Fit"/>
+                            <ComboBoxItem Content="Original"/>
+                        </ComboBox>
+
+                        <!-- Instant Playback Time (s) -->
+                        <TextBlock Grid.Row="12" Grid.Column="0" Text="Instant Playback Time (s)" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,0">
+                            <TextBox Width="180" Height="24" Text="330"/>
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}" Text="[10-330]"/>
+                        </StackPanel>
+
+                        <!-- Options -->
+                        <StackPanel Grid.Row="14" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,0,0,0">
+                            <CheckBox Content="Play Main Stream in Maximized Live View Window" Margin="0,0,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <CheckBox Content="Enable Short PTZ Control" Margin="0,8,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <CheckBox Content="Enable VCA Rule" Margin="0,8,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <CheckBox Content="Enable Playback Preview" Margin="0,8,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <CheckBox Content="Enable GPU Mode" Margin="0,8,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

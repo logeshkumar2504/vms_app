@@ -121,10 +121,11 @@ namespace Vms_page
         // Sub-option click handlers
         private void Video_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Video configuration panel would open here.", 
-                          "Video", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            DefaultPlaceholder.Visibility = Visibility.Collapsed;
+            SnapshotPanel.Visibility = Visibility.Collapsed;
+            PosOsdConfigPanel.Visibility = Visibility.Collapsed;
+            VideoPanel.Visibility = Visibility.Visible;
+            SetActiveButton(AudioVideoButton);
         }
 
         private void Snapshot_Click(object sender, RoutedEventArgs e)
