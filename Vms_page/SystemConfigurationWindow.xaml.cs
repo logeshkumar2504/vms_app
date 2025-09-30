@@ -14,6 +14,18 @@ namespace Vms_page
         public SystemConfigurationWindow()
         {
             InitializeComponent();
+            // Ensure only the default placeholder is visible on startup
+            HideAllPanels();
+            DefaultPlaceholder.Visibility = Visibility.Visible;
+        }
+
+        private void HideAllPanels()
+        {
+            // Hide all configuration panels
+            DefaultPlaceholder.Visibility = Visibility.Collapsed;
+            SnapshotPanel.Visibility = Visibility.Collapsed;
+            PosOsdConfigPanel.Visibility = Visibility.Collapsed;
+            VideoPanel.Visibility = Visibility.Collapsed;
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -121,9 +133,7 @@ namespace Vms_page
         // Sub-option click handlers
         private void Video_Click(object sender, RoutedEventArgs e)
         {
-            DefaultPlaceholder.Visibility = Visibility.Collapsed;
-            SnapshotPanel.Visibility = Visibility.Collapsed;
-            PosOsdConfigPanel.Visibility = Visibility.Collapsed;
+            HideAllPanels();
             VideoPanel.Visibility = Visibility.Visible;
             SetActiveButton(AudioVideoButton);
         }
@@ -131,7 +141,7 @@ namespace Vms_page
         private void Snapshot_Click(object sender, RoutedEventArgs e)
         {
             // Show Snapshot configuration panel in the right content area
-            DefaultPlaceholder.Visibility = Visibility.Collapsed;
+            HideAllPanels();
             SnapshotPanel.Visibility = Visibility.Visible;
             SetActiveButton(AudioVideoButton);
         }
@@ -147,8 +157,7 @@ namespace Vms_page
         private void PosOsdConfig_Click(object sender, RoutedEventArgs e)
         {
             // Show POS OSD Configuration panel
-            DefaultPlaceholder.Visibility = Visibility.Collapsed;
-            SnapshotPanel.Visibility = Visibility.Collapsed;
+            HideAllPanels();
             PosOsdConfigPanel.Visibility = Visibility.Visible;
             SetActiveButton(AudioVideoButton);
         }
