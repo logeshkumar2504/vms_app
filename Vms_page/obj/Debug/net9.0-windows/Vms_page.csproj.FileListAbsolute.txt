@@ -1,3 +1,8 @@
+C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.exe
+C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.deps.json
+C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.runtimeconfig.json
+C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.dll
+C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AccessControlWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddMapWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddSequenceResourcePopup.baml
@@ -48,6 +53,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Pictu
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\UserManagementWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VcaBlankWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\VideoWallWindow.g.cs
@@ -56,13 +62,9 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\App.g
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page_MarkupCompile.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page_MarkupCompile.lref
-C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.exe
-C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.deps.json
-C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.runtimeconfig.json
-C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.dll
-C:\Users\workspace\source\repos\Vms_page\Vms_page\bin\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AddUserPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\MainWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\UserManagementWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.g.resources
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.GeneratedMSBuildEditorConfig.editorconfig
@@ -75,5 +77,3 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\refin
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.genruntimeconfig.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ref\Vms_page.dll
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.g.cs
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.baml

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Vms_page"
         x:Class="Vms_page.SystemConfigurationWindow"
-        Title="System Configuration" Height="600" Width="900"
+        Title="System Configuration" Height="700" Width="1200"
         Background="{DynamicResource BackgroundColor}" WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
         FontFamily="Segoe UI">
 
@@ -277,7 +277,7 @@
         <!-- Main Content Area -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -1080,7 +1080,7 @@
                                 BorderThickness="1" 
                                 CornerRadius="6" 
                                 Padding="20"
-                                MaxWidth="420"
+                                MaxWidth="500"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top">
                             <StackPanel>
@@ -1297,9 +1297,9 @@
 
                     <!-- Email Panel -->
                     <ScrollViewer x:Name="EmailPanel" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
-                        <Grid MaxWidth="600" HorizontalAlignment="Left">
+                        <Grid MaxWidth="800" HorizontalAlignment="Left">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -1568,56 +1568,56 @@
                                     HorizontalAlignment="Left"
                                     Margin="0,16,0,0">
                             <Button x:Name="AddAlarmButton"
-                                    Width="70" 
-                                    Height="28" 
+                                    Width="80" 
+                                    Height="32" 
                                     Margin="0,0,8,0"
                                     Style="{StaticResource BottomBarButtonStyle}"
                                     Click="AddAlarm_Click">
                                 <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="+" FontSize="14" Margin="0,0,4,0"/>
-                                        <TextBlock Text="Add"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="+" FontSize="14" Margin="0,0,6,0" Foreground="White"/>
+                                        <TextBlock Text="Add" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
                             
                             <Button x:Name="DeleteAlarmButton"
-                                    Width="70" 
-                                    Height="28" 
+                                    Width="85" 
+                                    Height="32" 
                                     Margin="0,0,8,0"
                                     Style="{StaticResource DefaultButtonStyle}"
                                     Click="DeleteAlarm_Click">
                                 <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="🗑" FontSize="12" Margin="0,0,4,0"/>
-                                        <TextBlock Text="Delete"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="🗑" FontSize="12" Margin="0,0,6,0" Foreground="White"/>
+                                        <TextBlock Text="Delete" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
                             
                             <Button x:Name="EnableAlarmButton"
-                                    Width="70" 
-                                    Height="28" 
+                                    Width="85" 
+                                    Height="32" 
                                     Margin="0,0,8,0"
                                     Style="{StaticResource ApplyButtonStyle}"
                                     Click="EnableAlarm_Click">
                                 <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="▶" FontSize="12" Margin="0,0,4,0"/>
-                                        <TextBlock Text="Enable"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="▶" FontSize="12" Margin="0,0,6,0" Foreground="White"/>
+                                        <TextBlock Text="Enable" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
                             
                             <Button x:Name="PlayCountAlarmButton"
-                                    Width="90" 
-                                    Height="28"
+                                    Width="100" 
+                                    Height="32"
                                     Style="{StaticResource DefaultButtonStyle}"
                                     Click="PlayCountAlarm_Click">
                                 <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="⚙" FontSize="12" Margin="0,0,4,0"/>
-                                        <TextBlock Text="Play Count"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="⚙" FontSize="12" Margin="0,0,6,0" Foreground="White"/>
+                                        <TextBlock Text="Play Count" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -1628,7 +1628,7 @@
                                 Background="{DynamicResource SurfaceColor}"
                                 BorderBrush="{DynamicResource BorderColor}"
                                 BorderThickness="1"
-                                CornerRadius="4"
+                                CornerRadius="6"
                                 Margin="0,20,0,0">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -1638,56 +1638,54 @@
                                 
                                 <!-- Table Header -->
                                 <Border Grid.Row="0" 
-                                        Background="{DynamicResource BackgroundColor}"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        BorderThickness="0,0,0,1"
-                                        CornerRadius="4,4,0,0">
-                                    <Grid Height="32">
+                                        Background="{DynamicResource PrimaryColor}"
+                                        CornerRadius="6,6,0,0">
+                                    <Grid Height="36">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="40"/>
-                                            <ColumnDefinition Width="180"/>
+                                            <ColumnDefinition Width="220"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="140"/>
                                         </Grid.ColumnDefinitions>
                                         
                                         <CheckBox Grid.Column="0" 
                                                   HorizontalAlignment="Center" 
                                                   VerticalAlignment="Center"
-                                                  Foreground="{DynamicResource TextPrimaryColor}"/>
+                                                  Foreground="White"/>
                                         <TextBlock Grid.Column="1" 
                                                    Text="Alarm Type" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="11" 
+                                                   Foreground="White" 
+                                                   FontSize="12" 
                                                    FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    Margin="8,0,0,0"/>
                                         <TextBlock Grid.Column="2" 
                                                    Text="Audio File" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="11" 
+                                                   Foreground="White" 
+                                                   FontSize="12" 
                                                    FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    Margin="8,0,0,0"/>
                                         <TextBlock Grid.Column="3" 
                                                    Text="Play Count" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="11" 
+                                                   Foreground="White" 
+                                                   FontSize="12" 
                                                    FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock Grid.Column="4" 
                                                    Text="Status" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="11" 
+                                                   Foreground="White" 
+                                                   FontSize="12" 
                                                    FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock Grid.Column="5" 
                                                    Text="Operation" 
-                                                   Foreground="{DynamicResource TextSecondaryColor}" 
-                                                   FontSize="11" 
+                                                   Foreground="White" 
+                                                   FontSize="12" 
                                                    FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
@@ -1701,14 +1699,14 @@
                                     <Border Background="Transparent" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,1">
-                                        <Grid Height="32">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -1718,45 +1716,57 @@
                                             <TextBlock Grid.Column="1" 
                                                        Text="Default Alarm" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\default.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="4,0,2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -1766,14 +1776,14 @@
                                     <Border Background="Transparent" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,1">
-                                        <Grid Height="32">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -1781,55 +1791,68 @@
                                                       VerticalAlignment="Center"
                                                       Foreground="{DynamicResource TextPrimaryColor}"/>
                                             <TextBlock Grid.Column="1" 
-                                                       Text="Alarm Input Start..." 
+                                                       Text="Alarm Input Start" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\input_start.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Delete">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Delete"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="#EF4444"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -1839,14 +1862,14 @@
                                     <Border Background="Transparent" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,1">
-                                        <Grid Height="32">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -1856,53 +1879,66 @@
                                             <TextBlock Grid.Column="1" 
                                                        Text="Device Offline" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\device_offline.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Delete">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Delete"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="#EF4444"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -1912,14 +1948,14 @@
                                     <Border Background="{DynamicResource MenuHoverColor}" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,1">
-                                        <Grid Height="32">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -1927,55 +1963,68 @@
                                                       VerticalAlignment="Center"
                                                       Foreground="{DynamicResource TextPrimaryColor}"/>
                                             <TextBlock Grid.Column="1" 
-                                                       Text="Tampering Detec..." 
+                                                       Text="Tampering Detection" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\tampering.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Delete">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Delete"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="#EF4444"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -1985,14 +2034,14 @@
                                     <Border Background="Transparent" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,1">
-                                        <Grid Height="32">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -2000,55 +2049,68 @@
                                                       VerticalAlignment="Center"
                                                       Foreground="{DynamicResource TextPrimaryColor}"/>
                                             <TextBlock Grid.Column="1" 
-                                                       Text="Motion Detection..." 
+                                                       Text="Motion Detection" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\motion.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Delete">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Delete"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="#EF4444"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2058,15 +2120,15 @@
                                     <Border Background="Transparent" 
                                             BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="0,0,0,0"
-                                            CornerRadius="0,0,4,4">
-                                        <Grid Height="32">
+                                            CornerRadius="0,0,6,6">
+                                        <Grid Height="40">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="220"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
                                             
                                             <CheckBox Grid.Column="0" 
@@ -2074,55 +2136,68 @@
                                                       VerticalAlignment="Center"
                                                       Foreground="{DynamicResource TextPrimaryColor}"/>
                                             <TextBlock Grid.Column="1" 
-                                                       Text="Elevator Entranc..." 
+                                                       Text="Elevator Entrance" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        Margin="8,0,0,0"/>
                                             <TextBlock Grid.Column="2" 
-                                                       Text="C:\Users\Publ..." 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       Text="C:\Users\Public\Alarm Sounds\elevator.wav" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="11" 
                                                        VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
+                                                       Margin="8,0,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="3" 
                                                        Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
+                                                       FontSize="12" 
+                                                       FontWeight="Medium"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" 
-                                                       Text="Disabled" 
-                                                       Foreground="{DynamicResource TextPrimaryColor}" 
-                                                       FontSize="11" 
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                            <Border Grid.Column="4" 
+                                                    Background="#EF4444" 
+                                                    CornerRadius="12" 
+                                                    HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"
+                                                    Padding="8,4">
+                                                <TextBlock Text="Disabled" 
+                                                           Foreground="White" 
+                                                           FontSize="10" 
+                                                           FontWeight="SemiBold"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
                                             <StackPanel Grid.Column="5" 
                                                         Orientation="Horizontal" 
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center">
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        ToolTip="Edit">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Edit"
+                                                        Margin="2,0">
                                                     <TextBlock Text="✏" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource PrimaryColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Listen">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Listen"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🎧" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="{DynamicResource SuccessColor}"/>
                                                 </Button>
-                                                <Button Width="24" Height="24" 
-                                                        Background="Transparent" 
-                                                        BorderThickness="0"
-                                                        Margin="4,0,0,0"
-                                                        ToolTip="Delete">
+                                                <Button Width="28" Height="28" 
+                                                        Background="{DynamicResource BackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderColor}"
+                                                        BorderThickness="1"
+                                                        ToolTip="Delete"
+                                                        Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                               Foreground="#EF4444"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2140,7 +2215,7 @@
                                 BorderThickness="1" 
                                 CornerRadius="6" 
                                 Padding="24"
-                                MaxWidth="650"
+                                MaxWidth="800"
                                 HorizontalAlignment="Left">
                             <StackPanel>
                                 <!-- Header -->
