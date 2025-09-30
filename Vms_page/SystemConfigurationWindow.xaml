@@ -673,6 +673,240 @@
                             <CheckBox Content="Enable GPU Mode" Margin="0,8,0,0" Foreground="{DynamicResource TextPrimaryColor}"/>
                         </StackPanel>
                     </Grid>
+
+                    <!-- Recording Panel -->
+                    <ScrollViewer x:Name="RecordingPanel" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Downloaded Recording Section -->
+                            <Border Background="{DynamicResource SurfaceColor}" 
+                                    BorderBrush="{DynamicResource BorderColor}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="4" 
+                                    Padding="16" 
+                                    Margin="0,0,0,16">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="16"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="12"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Section Header -->
+                                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
+                                               Text="Downloaded Recording" 
+                                               Foreground="{DynamicResource TextSecondaryColor}" 
+                                               FontSize="13" 
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,0"/>
+
+                                    <!-- Downloaded Recording Path -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Downloaded Recording Path" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="DownloadedRecordingPathTextBox" 
+                                                 Grid.Column="0" 
+                                                 Text="C:\Users\Public\Guard Station 3\Record\" 
+                                                 Height="28"
+                                                 VerticalContentAlignment="Center"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <Button Grid.Column="1" 
+                                                Content="Browse..." 
+                                                Margin="8,0,0,0" 
+                                                Style="{StaticResource BottomBarButtonStyle}" 
+                                                Click="BrowseDownloadedRecordingPath_Click"/>
+                                    </Grid>
+
+                                    <!-- Downloaded Recording Format -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" 
+                                               Text="Downloaded Recording Format" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <ComboBox Grid.Row="4" Grid.Column="1" 
+                                              x:Name="DownloadedRecordingFormatCombo" 
+                                              Width="180" 
+                                              Height="28" 
+                                              SelectedIndex="0" 
+                                              HorizontalAlignment="Left"
+                                              HorizontalContentAlignment="Stretch">
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                        <ComboBoxItem Content="mp4"/>
+                                        <ComboBoxItem Content="avi"/>
+                                        <ComboBoxItem Content="mkv"/>
+                                    </ComboBox>
+                                </Grid>
+                            </Border>
+
+                            <!-- Local Recording Section -->
+                            <Border Background="{DynamicResource SurfaceColor}" 
+                                    BorderBrush="{DynamicResource BorderColor}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="4" 
+                                    Padding="16">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="16"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="12"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="12"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="12"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="12"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Section Header -->
+                                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
+                                               Text="Local Recording" 
+                                               Foreground="{DynamicResource TextSecondaryColor}" 
+                                               FontSize="13" 
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,0"/>
+
+                                    <!-- Local Recording Path -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                                               Text="Local Recording Path" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="LocalRecordingPathTextBox" 
+                                                 Grid.Column="0" 
+                                                 Text="D:\Record\" 
+                                                 Height="28"
+                                                 VerticalContentAlignment="Center"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <Button Grid.Column="1" 
+                                                Content="Browse..." 
+                                                Margin="8,0,0,0" 
+                                                Style="{StaticResource BottomBarButtonStyle}" 
+                                                Click="BrowseLocalRecordingPath_Click"/>
+                                    </Grid>
+
+                                    <!-- Local Recording Format -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" 
+                                               Text="Local Recording Format" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <ComboBox Grid.Row="4" Grid.Column="1" 
+                                              x:Name="LocalRecordingFormatCombo" 
+                                              Width="180" 
+                                              Height="28" 
+                                              SelectedIndex="0" 
+                                              HorizontalAlignment="Left"
+                                              HorizontalContentAlignment="Stretch">
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ComboBoxItem}">
+                                                <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                        <ComboBoxItem Content="mp4"/>
+                                        <ComboBoxItem Content="avi"/>
+                                        <ComboBoxItem Content="mkv"/>
+                                    </ComboBox>
+
+                                    <!-- When HDD Full -->
+                                    <TextBlock Grid.Row="6" Grid.Column="0" 
+                                               Text="When HDD Full" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <StackPanel Grid.Row="6" Grid.Column="1" 
+                                                Orientation="Horizontal" 
+                                                HorizontalAlignment="Left">
+                                        <RadioButton x:Name="HddFullOverwriteRadio" 
+                                                     Content="Overwrite" 
+                                                     GroupName="HddFull" 
+                                                     IsChecked="True" 
+                                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <RadioButton x:Name="HddFullStopRadio" 
+                                                     Content="Stop" 
+                                                     GroupName="HddFull" 
+                                                     Margin="24,0,0,0" 
+                                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+                                    </StackPanel>
+
+                                    <!-- Recording Space -->
+                                    <TextBlock Grid.Row="8" Grid.Column="0" 
+                                               Text="Recording Space" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <StackPanel Grid.Row="8" Grid.Column="1" 
+                                                Orientation="Horizontal" 
+                                                HorizontalAlignment="Left">
+                                        <TextBox x:Name="RecordingSpaceTextBox" 
+                                                 Width="180" 
+                                                 Height="28" 
+                                                 Text="686"
+                                                 VerticalContentAlignment="Center"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <TextBlock Margin="8,0,0,0" 
+                                                   VerticalAlignment="Center" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   Text="GB [Total: 931 G, Free: 921 G]"/>
+                                    </StackPanel>
+
+                                    <!-- Recording File Size -->
+                                    <TextBlock Grid.Row="10" Grid.Column="0" 
+                                               Text="Recording File Size" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="12" 
+                                               VerticalAlignment="Center"
+                                               Width="200"/>
+                                    <StackPanel Grid.Row="10" Grid.Column="1" 
+                                                Orientation="Horizontal" 
+                                                HorizontalAlignment="Left">
+                                        <TextBox x:Name="RecordingFileSizeTextBox" 
+                                                 Width="180" 
+                                                 Height="28" 
+                                                 Text="200"
+                                                 VerticalContentAlignment="Center"
+                                                 Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <TextBlock Margin="8,0,0,0" 
+                                                   VerticalAlignment="Center" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
+                                                   Text="MB [100-4000]"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

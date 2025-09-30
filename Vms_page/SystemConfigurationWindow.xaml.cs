@@ -26,6 +26,7 @@ namespace Vms_page
             SnapshotPanel.Visibility = Visibility.Collapsed;
             PosOsdConfigPanel.Visibility = Visibility.Collapsed;
             VideoPanel.Visibility = Visibility.Collapsed;
+            RecordingPanel.Visibility = Visibility.Collapsed;
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -148,10 +149,9 @@ namespace Vms_page
 
         private void Recording_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Recording configuration panel would open here.", 
-                          "Recording", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            RecordingPanel.Visibility = Visibility.Visible;
+            SetActiveButton(AudioVideoButton);
         }
 
         private void PosOsdConfig_Click(object sender, RoutedEventArgs e)
@@ -276,6 +276,50 @@ namespace Vms_page
                 if (!string.IsNullOrWhiteSpace(selectedDirectory))
                 {
                     ImageSavePathTextBox.Text = selectedDirectory + (selectedDirectory.EndsWith("\\") ? string.Empty : "\\");
+                }
+            }
+        }
+
+        private void BrowseDownloadedRecordingPath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select Folder",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                ValidateNames = false,
+                FileName = "Select Folder"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var selectedDirectory = Path.GetDirectoryName(dialog.FileName);
+                if (!string.IsNullOrWhiteSpace(selectedDirectory))
+                {
+                    DownloadedRecordingPathTextBox.Text = selectedDirectory + (selectedDirectory.EndsWith("\\") ? string.Empty : "\\");
+                }
+            }
+        }
+
+        private void BrowseLocalRecordingPath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select Folder",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                ValidateNames = false,
+                FileName = "Select Folder"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var selectedDirectory = Path.GetDirectoryName(dialog.FileName);
+                if (!string.IsNullOrWhiteSpace(selectedDirectory))
+                {
+                    LocalRecordingPathTextBox.Text = selectedDirectory + (selectedDirectory.EndsWith("\\") ? string.Empty : "\\");
                 }
             }
         }
