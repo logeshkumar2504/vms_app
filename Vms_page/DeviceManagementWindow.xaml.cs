@@ -7,6 +7,12 @@ namespace Vms_page
     {
         public ObservableCollection<Device> Devices { get; set; }
         public ObservableCollection<OnlineDevice> OnlineDevices { get; set; }
+        public ObservableCollection<Device> DecodingDevices { get; set; }
+        public ObservableCollection<OnlineDevice> DecodingOnlineDevices { get; set; }
+        public ObservableCollection<Device> AccessControlDevices { get; set; }
+        public ObservableCollection<OnlineDevice> AccessControlOnlineDevices { get; set; }
+        public ObservableCollection<Device> IPSpeakerDevices { get; set; }
+        public ObservableCollection<OnlineDevice> IPSpeakerOnlineDevices { get; set; }
 
         public DeviceManagementWindow()
         {
@@ -16,6 +22,12 @@ namespace Vms_page
             SetActiveDeviceType("Encoding Device");
             InitializeDeviceList();
             InitializeOnlineDeviceList();
+            InitializeDecodingDeviceList();
+            InitializeDecodingOnlineDeviceList();
+            InitializeAccessControlDeviceList();
+            InitializeAccessControlOnlineDeviceList();
+            InitializeIPSpeakerDeviceList();
+            InitializeIPSpeakerOnlineDeviceList();
         }
 
         private void InitializeDeviceList()
@@ -34,6 +46,22 @@ namespace Vms_page
             UpdateOnlineDeviceCount();
         }
 
+        private void InitializeDecodingDeviceList()
+        {
+            // Initialize empty decoding device list
+            DecodingDevices = new ObservableCollection<Device>();
+            DecodingDeviceGrid.ItemsSource = DecodingDevices;
+            UpdateDecodingDeviceCount();
+        }
+
+        private void InitializeDecodingOnlineDeviceList()
+        {
+            // Initialize empty decoding online device list
+            DecodingOnlineDevices = new ObservableCollection<OnlineDevice>();
+            DecodingOnlineDeviceGrid.ItemsSource = DecodingOnlineDevices;
+            UpdateDecodingOnlineDeviceCount();
+        }
+
         private void UpdateDeviceCount()
         {
             if (Devices != null)
@@ -47,6 +75,86 @@ namespace Vms_page
             if (OnlineDevices != null)
             {
                 OnlineDeviceCount.Text = $"Online Device({OnlineDevices.Count})";
+            }
+        }
+
+        private void UpdateDecodingDeviceCount()
+        {
+            if (DecodingDevices != null)
+            {
+                DecodingDeviceCount.Text = $"Managed Device({DecodingDevices.Count})";
+            }
+        }
+
+        private void UpdateDecodingOnlineDeviceCount()
+        {
+            if (DecodingOnlineDevices != null)
+            {
+                DecodingOnlineDeviceCount.Text = $"Online Device({DecodingOnlineDevices.Count})";
+            }
+        }
+
+        private void InitializeAccessControlDeviceList()
+        {
+            // Initialize empty access control device list
+            AccessControlDevices = new ObservableCollection<Device>();
+            AccessControlDeviceGrid.ItemsSource = AccessControlDevices;
+            UpdateAccessControlDeviceCount();
+        }
+
+        private void InitializeAccessControlOnlineDeviceList()
+        {
+            // Initialize empty access control online device list
+            AccessControlOnlineDevices = new ObservableCollection<OnlineDevice>();
+            AccessControlOnlineDeviceGrid.ItemsSource = AccessControlOnlineDevices;
+            UpdateAccessControlOnlineDeviceCount();
+        }
+
+        private void UpdateAccessControlDeviceCount()
+        {
+            if (AccessControlDevices != null)
+            {
+                AccessControlDeviceCount.Text = $"Managed Device({AccessControlDevices.Count})";
+            }
+        }
+
+        private void UpdateAccessControlOnlineDeviceCount()
+        {
+            if (AccessControlOnlineDevices != null)
+            {
+                AccessControlOnlineDeviceCount.Text = $"Online Device({AccessControlOnlineDevices.Count})";
+            }
+        }
+
+        private void InitializeIPSpeakerDeviceList()
+        {
+            // Initialize empty IP Speaker device list
+            IPSpeakerDevices = new ObservableCollection<Device>();
+            IPSpeakerDeviceGrid.ItemsSource = IPSpeakerDevices;
+            UpdateIPSpeakerDeviceCount();
+        }
+
+        private void InitializeIPSpeakerOnlineDeviceList()
+        {
+            // Initialize empty IP Speaker online device list
+            IPSpeakerOnlineDevices = new ObservableCollection<OnlineDevice>();
+            IPSpeakerOnlineDeviceGrid.ItemsSource = IPSpeakerOnlineDevices;
+            UpdateIPSpeakerOnlineDeviceCount();
+        }
+
+        private void UpdateIPSpeakerDeviceCount()
+        {
+            if (IPSpeakerDevices != null)
+            {
+                IPSpeakerDeviceCount.Text = $"Managed Device({IPSpeakerDevices.Count})";
+            }
+        }
+
+        private void UpdateIPSpeakerOnlineDeviceCount()
+        {
+            if (IPSpeakerOnlineDevices != null)
+            {
+                IPSpeakerOnlineDeviceCount.Text = $"Online Device({IPSpeakerOnlineDevices.Count})";
             }
         }
 
@@ -183,6 +291,215 @@ namespace Vms_page
             {
                 string searchText = textBox.Text;
                 // TODO: Implement search/filter functionality for online devices here
+            }
+        }
+
+        // Decoding Device toolbar button event handlers
+        private void AddDecodingDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Decoding Device functionality will be implemented here", "Add Decoding Device");
+        }
+
+        private void EditDecodingDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit Decoding Device functionality will be implemented here", "Edit Decoding Device");
+        }
+
+        private void DeleteDecodingDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete Decoding Device functionality will be implemented here", "Delete Decoding Device");
+        }
+
+        private void DecodingConfiguration_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Decoding Device Configuration functionality will be implemented here", "Configuration");
+        }
+
+        private void DecodingDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for decoding devices here
+            }
+        }
+
+
+        // Decoding Online Device toolbar button event handlers
+        private void AddDecodingOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Decoding Online Device functionality will be implemented here", "Add Decoding Online Device");
+        }
+
+        private void RefreshDecodingOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Refresh Decoding Online Devices functionality will be implemented here", "Refresh");
+        }
+
+        private void SearchDecodingConfig_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Search Decoding Config functionality will be implemented here", "Search Config");
+        }
+
+        private void DecodingOnlineDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for decoding online devices here
+            }
+        }
+
+        // Cloud Device button event handlers
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Login functionality will be implemented here", "Login");
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Register functionality will be implemented here", "Register");
+        }
+
+        // Access Control Device toolbar button event handlers
+        private void AddAccessControlDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Access Control Device functionality will be implemented here", "Add Access Control Device");
+        }
+
+        private void EditAccessControlDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit Access Control Device functionality will be implemented here", "Edit Access Control Device");
+        }
+
+        private void DeleteAccessControlDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete Access Control Device functionality will be implemented here", "Delete Access Control Device");
+        }
+
+        private void AccessControlTimeSync_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Access Control Time Sync functionality will be implemented here", "Time Sync");
+        }
+
+        private void AccessControlConfiguration_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Access Control Device Configuration functionality will be implemented here", "Configuration");
+        }
+
+        private void AccessControlDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for access control devices here
+            }
+        }
+
+        // Access Control Device DataGrid operation button event handlers
+        private void EditAccessControlDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit access control device from grid", "Edit Device");
+        }
+
+        private void SettingsAccessControlDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Configure access control device settings", "Device Settings");
+        }
+
+        private void DeleteAccessControlDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete access control device from grid", "Delete Device");
+        }
+
+        // Access Control Online Device toolbar button event handlers
+        private void AddAccessControlOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Access Control Online Device functionality will be implemented here", "Add Online Device");
+        }
+
+        private void RefreshAccessControlOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Refresh Access Control Online Devices functionality will be implemented here", "Refresh");
+        }
+
+        private void SearchAccessControlConfig_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Search Access Control Config functionality will be implemented here", "Search Config");
+        }
+
+        private void AccessControlOnlineDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for access control online devices here
+            }
+        }
+
+        // IP Speaker Device toolbar button event handlers
+        private void AddIPSpeakerDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add IP Speaker Device functionality will be implemented here", "Add IP Speaker Device");
+        }
+
+        private void EditIPSpeakerDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit IP Speaker Device functionality will be implemented here", "Edit IP Speaker Device");
+        }
+
+        private void DeleteIPSpeakerDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete IP Speaker Device functionality will be implemented here", "Delete IP Speaker Device");
+        }
+
+        private void IPSpeakerDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for IP Speaker devices here
+            }
+        }
+
+        // IP Speaker Device DataGrid operation button event handlers
+        private void EditIPSpeakerDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit IP Speaker device from grid", "Edit Device");
+        }
+
+        private void SettingsIPSpeakerDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Configure IP Speaker device settings", "Device Settings");
+        }
+
+        private void DeleteIPSpeakerDeviceGrid_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete IP Speaker device from grid", "Delete Device");
+        }
+
+        // IP Speaker Online Device toolbar button event handlers
+        private void AddIPSpeakerOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add IP Speaker Online Device functionality will be implemented here", "Add Online Device");
+        }
+
+        private void RefreshIPSpeakerOnlineDevice_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Refresh IP Speaker Online Devices functionality will be implemented here", "Refresh");
+        }
+
+        private void SearchIPSpeakerConfig_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Search IP Speaker Config functionality will be implemented here", "Search Config");
+        }
+
+        private void IPSpeakerOnlineDeviceSearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.TextBox textBox)
+            {
+                string searchText = textBox.Text;
+                // TODO: Implement search/filter functionality for IP Speaker online devices here
             }
         }
     }
