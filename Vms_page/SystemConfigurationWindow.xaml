@@ -907,6 +907,272 @@
                             </Border>
                         </StackPanel>
                     </ScrollViewer>
+
+                    <!-- Startup Panel -->
+                    <Grid x:Name="StartupPanel" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Enable Auto Login for VMS -->
+                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" 
+                                  x:Name="EnableAutoLoginVmsCheckBox"
+                                  Content="Enable Auto Login for VMS" 
+                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                  FontSize="12"/>
+
+                        <!-- Enable Auto Login for Windows -->
+                        <CheckBox Grid.Row="2" Grid.ColumnSpan="2" 
+                                  x:Name="EnableAutoLoginWindowsCheckBox"
+                                  Content="Enable Auto Login for Windows" 
+                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                  FontSize="12"/>
+
+                        <!-- Username -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" 
+                                   Text="Username" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="12" 
+                                   VerticalAlignment="Center"
+                                   Width="120"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" 
+                                 x:Name="StartupUsernameTextBox"
+                                 Width="220"
+                                 Height="28"
+                                 HorizontalAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                        <!-- Password -->
+                        <TextBlock Grid.Row="6" Grid.Column="0" 
+                                   Text="Password" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="12" 
+                                   VerticalAlignment="Center"
+                                   Width="120"/>
+                        <PasswordBox Grid.Row="6" Grid.Column="1" 
+                                     x:Name="StartupPasswordBox"
+                                     Width="220"
+                                     Height="28"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Center"
+                                     Background="{DynamicResource BackgroundColor}"
+                                     BorderBrush="{DynamicResource BorderColor}"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Grid>
+
+                    <!-- Log Panel -->
+                    <Grid x:Name="LogPanel" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Save Operation Log For -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Save Operation Log For" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="12" 
+                                   VerticalAlignment="Center"
+                                   Width="180"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" 
+                                  x:Name="SaveOperationLogCombo" 
+                                  Width="220" 
+                                  Height="28" 
+                                  SelectedIndex="1" 
+                                  HorizontalAlignment="Left"
+                                  HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="5 Days"/>
+                            <ComboBoxItem Content="10 Days"/>
+                            <ComboBoxItem Content="15 Days"/>
+                            <ComboBoxItem Content="30 Days"/>
+                            <ComboBoxItem Content="60 Days"/>
+                            <ComboBoxItem Content="90 Days"/>
+                        </ComboBox>
+
+                        <!-- Save Alarm Log For -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                   Text="Save Alarm Log For" 
+                                   Foreground="{DynamicResource TextPrimaryColor}" 
+                                   FontSize="12" 
+                                   VerticalAlignment="Center"
+                                   Width="180"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" 
+                                  x:Name="SaveAlarmLogCombo" 
+                                  Width="220" 
+                                  Height="28" 
+                                  SelectedIndex="1" 
+                                  HorizontalAlignment="Left"
+                                  HorizontalContentAlignment="Stretch">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                            <ComboBoxItem Content="5 Days"/>
+                            <ComboBoxItem Content="10 Days"/>
+                            <ComboBoxItem Content="15 Days"/>
+                            <ComboBoxItem Content="30 Days"/>
+                            <ComboBoxItem Content="60 Days"/>
+                            <ComboBoxItem Content="90 Days"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Maintenance Panel -->
+                    <Grid x:Name="MaintenancePanel" Visibility="Collapsed">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Import Configurations Button -->
+                            <Button x:Name="ImportConfigButton"
+                                    Content="Import Configurations" 
+                                    Width="220"
+                                    Height="32"
+                                    Margin="0,0,0,12"
+                                    Style="{StaticResource BottomBarButtonStyle}"
+                                    Click="ImportConfig_Click"
+                                    HorizontalContentAlignment="Center"/>
+
+                            <!-- Export Configurations Button -->
+                            <Button x:Name="ExportConfigButton"
+                                    Content="Export Configurations" 
+                                    Width="220"
+                                    Height="32"
+                                    Margin="0,0,0,12"
+                                    Style="{StaticResource BottomBarButtonStyle}"
+                                    Click="ExportConfig_Click"
+                                    HorizontalContentAlignment="Center"/>
+
+                            <!-- Export Maintenance Info Button -->
+                            <Button x:Name="ExportMaintenanceInfoButton"
+                                    Content="Export Maintenance Info" 
+                                    Width="220"
+                                    Height="32"
+                                    Margin="0,0,0,0"
+                                    Style="{StaticResource BottomBarButtonStyle}"
+                                    Click="ExportMaintenanceInfo_Click"
+                                    HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Service Panel -->
+                    <Grid x:Name="ServicePanel" Visibility="Collapsed">
+                        <Border Background="{DynamicResource SurfaceColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
+                                BorderThickness="1" 
+                                CornerRadius="6" 
+                                Padding="20"
+                                MaxWidth="420"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                            <StackPanel>
+                                <!-- Section Header -->
+                                <TextBlock Text="Time Synchronization" 
+                                           Foreground="{DynamicResource PrimaryColor}" 
+                                           FontSize="14" 
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,16"/>
+
+                                <!-- Enable Auto Time Sync Checkbox -->
+                                <Border Background="{DynamicResource BackgroundColor}"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="14,10"
+                                        Margin="0,0,0,12">
+                                    <CheckBox x:Name="EnableAutoTimeSyncCheckBox"
+                                              Content="Enable Auto Time Sync" 
+                                              Foreground="{DynamicResource TextPrimaryColor}"
+                                              FontSize="13"
+                                              FontWeight="Medium"
+                                              Checked="EnableAutoTimeSync_Changed"
+                                              Unchecked="EnableAutoTimeSync_Changed"/>
+                                </Border>
+
+                                <!-- Interval Section -->
+                                <Border x:Name="IntervalBorder"
+                                        Background="{DynamicResource BackgroundColor}"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="14">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="8"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Interval Label -->
+                                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                                            <TextBlock Text="⏱" 
+                                                       FontSize="16" 
+                                                       Margin="0,0,8,0"
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Text="Synchronization Interval" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                                       FontSize="12" 
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <!-- Interval Dropdown -->
+                                        <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
+                                                  x:Name="TimeSyncIntervalCombo" 
+                                                  Height="32" 
+                                                  SelectedIndex="2" 
+                                                  HorizontalAlignment="Stretch"
+                                                  HorizontalContentAlignment="Left"
+                                                  IsEnabled="{Binding IsChecked, ElementName=EnableAutoTimeSyncCheckBox}"
+                                                  FontSize="12">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Setter Property="Padding" Value="10,8"/>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                            <ComboBoxItem Content="Every 1 Hour"/>
+                                            <ComboBoxItem Content="Every 2 Hours"/>
+                                            <ComboBoxItem Content="Every 4 Hours"/>
+                                            <ComboBoxItem Content="Every 6 Hours"/>
+                                            <ComboBoxItem Content="Every 8 Hours"/>
+                                            <ComboBoxItem Content="Every 12 Hours"/>
+                                            <ComboBoxItem Content="Every 24 Hours"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Info Text -->
+                                <TextBlock Text="💡 Automatically synchronize system time with the network time server at the specified interval." 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           FontSize="11" 
+                                           TextWrapping="Wrap"
+                                           Margin="0,12,0,0"
+                                           LineHeight="16"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

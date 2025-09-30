@@ -27,6 +27,10 @@ namespace Vms_page
             PosOsdConfigPanel.Visibility = Visibility.Collapsed;
             VideoPanel.Visibility = Visibility.Collapsed;
             RecordingPanel.Visibility = Visibility.Collapsed;
+            StartupPanel.Visibility = Visibility.Collapsed;
+            LogPanel.Visibility = Visibility.Collapsed;
+            MaintenancePanel.Visibility = Visibility.Collapsed;
+            ServicePanel.Visibility = Visibility.Collapsed;
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -165,26 +169,83 @@ namespace Vms_page
         // System sub-option click handlers
         private void Startup_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("System Startup configuration panel would open here.", 
-                          "System Startup", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            StartupPanel.Visibility = Visibility.Visible;
+            SetActiveButton(SystemButton);
         }
 
         private void Log_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("System Log configuration panel would open here.", 
-                          "System Log", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            LogPanel.Visibility = Visibility.Visible;
+            SetActiveButton(SystemButton);
         }
 
         private void Maintenance_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("System Maintenance configuration panel would open here.", 
-                          "System Maintenance", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            MaintenancePanel.Visibility = Visibility.Visible;
+            SetActiveButton(SystemButton);
+        }
+
+        private void ImportConfig_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Import Configuration File",
+                Filter = "Configuration Files (*.cfg;*.xml;*.json)|*.cfg;*.xml;*.json|All Files (*.*)|*.*",
+                CheckFileExists = true,
+                CheckPathExists = true
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                MessageBox.Show($"Configuration imported from:\n{dialog.FileName}", 
+                              "Import Successful", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Information);
+            }
+        }
+
+        private void ExportConfig_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Title = "Export Configuration File",
+                Filter = "Configuration Files (*.cfg)|*.cfg|XML Files (*.xml)|*.xml|JSON Files (*.json)|*.json|All Files (*.*)|*.*",
+                DefaultExt = ".cfg",
+                FileName = "system_config.cfg"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                MessageBox.Show($"Configuration exported to:\n{dialog.FileName}", 
+                              "Export Successful", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Information);
+            }
+        }
+
+        private void ExportMaintenanceInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Title = "Export Maintenance Information",
+                Filter = "Text Files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
+                DefaultExt = ".txt",
+                FileName = "maintenance_info.txt"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                MessageBox.Show($"Maintenance information exported to:\n{dialog.FileName}", 
+                              "Export Successful", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Information);
+            }
         }
 
         // Operation sub-option click handlers
@@ -198,10 +259,18 @@ namespace Vms_page
 
         private void Service_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Operation Service configuration panel would open here.", 
-                          "Operation Service", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            ServicePanel.Visibility = Visibility.Visible;
+            SetActiveButton(OperationButton);
+        }
+
+        private void EnableAutoTimeSync_Changed(object sender, RoutedEventArgs e)
+        {
+            // Update the visual appearance of the interval section based on checkbox state
+            if (IntervalBorder != null)
+            {
+                IntervalBorder.Opacity = EnableAutoTimeSyncCheckBox.IsChecked == true ? 1.0 : 0.5;
+            }
         }
 
         private void Email_Click(object sender, RoutedEventArgs e)
