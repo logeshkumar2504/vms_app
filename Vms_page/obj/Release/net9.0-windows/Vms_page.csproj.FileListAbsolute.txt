@@ -77,3 +77,5 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\Acc
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\AccessControlWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\SystemConfigurationWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\SystemConfigurationWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\DeviceManagementWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Release\net9.0-windows\DeviceManagementWindow.g.cs

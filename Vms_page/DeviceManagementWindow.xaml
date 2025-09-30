@@ -1,0 +1,863 @@
+<Window x:Class="Vms_page.DeviceManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Device Management" Height="700" Width="1200"
+        Background="{DynamicResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Navigation button style matching the image -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBg"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12,12,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBg" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Active">
+                                <Setter TargetName="BtnBg" Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Content area styles -->
+        <Style x:Key="ContentBorder" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Margin" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
+        <!-- Primary button style -->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinWidth" Value="96"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Secondary button style -->
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="MinWidth" Value="96"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Sidebar device button style -->
+        <Style x:Key="SidebarDeviceButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Selected">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Toolbar Button Style -->
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2C3E50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="4" 
+                                Padding="{TemplateBinding Padding}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock x:Name="IconBlock" 
+                                           Text="{TemplateBinding Tag}"
+                                           FontSize="12"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,4,0"/>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="#34495E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="#1A252F"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Delete Button Style -->
+        <Style x:Key="DeleteToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+            <Setter Property="Background" Value="#7F8C8D"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#95A5A6"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#6C7B7D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DataGrid Style -->
+        <Style x:Key="DeviceDataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="RowHeight" Value="42"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="AlternatingRowBackground" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="RowBackground" Value="{DynamicResource SurfaceColor}"/>
+        </Style>
+
+        <!-- DataGrid Header Style -->
+        <Style x:Key="DeviceHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#2C3E50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="BorderBrush" Value="#3A4A5A"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- DataGrid Cell Style -->
+        <Style x:Key="DeviceCellStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Operation Button in DataGrid -->
+        <Style x:Key="GridOperationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="3" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Search TextBox Style -->
+        <Style x:Key="ToolbarSearchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="28,4,8,4"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <Grid>
+                                <!-- Search Icon -->
+                                <TextBlock Text="🔍" 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryColor}"
+                                           HorizontalAlignment="Left" 
+                                           VerticalAlignment="Center"
+                                           Margin="8,0,0,0"/>
+                                
+                                <!-- Placeholder Text -->
+                                <TextBlock x:Name="PlaceholderText"
+                                           Text="Enter Keywords"
+                                           FontSize="11"
+                                           Foreground="{DynamicResource TextSecondaryColor}"
+                                           VerticalAlignment="Center"
+                                           Margin="28,0,8,0"
+                                           IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                
+                                <!-- Text Content -->
+                                <ScrollViewer x:Name="PART_ContentHost" 
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Top navigation bar -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource TopBarColor}"
+                BorderThickness="0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="0">
+                <Button x:Name="CameraAlarmBtn"
+                        Content="Camera Alarm"
+                        Style="{StaticResource NavButtonStyle}"
+                        Tag="Active"
+                        Click="NavigationButton_Click"/>
+                <Button x:Name="DeviceAlarmBtn"
+                        Content="Device Alarm"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="NavigationButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Content area -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource SurfaceColor}"
+                CornerRadius="12,12,0,0"
+                Padding="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Sidebar with Device Types -->
+                <Border Grid.Column="0"
+                        Background="{DynamicResource BackgroundColor}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        Padding="8,15">
+                    <StackPanel>
+                        <!-- Encoding Device -->
+                        <Button x:Name="EncodingDeviceBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Tag="Selected"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="📹" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Encoding Device" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Decoding Device -->
+                        <Button x:Name="DecodingDeviceBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="🖥️" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Decoding Device" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Cloud Device -->
+                        <Button x:Name="CloudDeviceBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="☁️" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Cloud Device" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Access Control Device -->
+                        <Button x:Name="AccessControlDeviceBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="🔐" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Access Control Device" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- IP Speaker -->
+                        <Button x:Name="IPSpeakerBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="🔊" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="IP Speaker" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Network Keyboard -->
+                        <Button x:Name="NetworkKeyboardBtn"
+                                Style="{StaticResource SidebarDeviceButton}"
+                                Click="DeviceTypeButton_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="32" Height="32" 
+                                        Background="#4A5568"
+                                        CornerRadius="4"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="⌨️" FontSize="18" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Network Keyboard" 
+                                           VerticalAlignment="Center"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Right Content Area -->
+                <Grid Grid.Column="1">
+                <!-- Camera Alarm view -->
+                <Grid x:Name="CameraAlarmView" Visibility="Visible">
+                        <Grid x:Name="EncodingDeviceView" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Managed Device Section -->
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Managed Device Toolbar -->
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource BackgroundColor}" 
+                                        Padding="12,8"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Left Side - Device Count and Buttons -->
+                                        <StackPanel Grid.Column="0" 
+                                                    Orientation="Horizontal" 
+                                                    VerticalAlignment="Center">
+                                            <TextBlock x:Name="EncodingDeviceCount"
+                                                       Text="Managed Device(0)" 
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,15,0"/>
+                                            
+                                            <Button Content="Add" 
+                                                    Tag="➕"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="AddDevice_Click"/>
+                                            <Button Content="Edit" 
+                                                    Tag="✏️"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="EditDevice_Click"/>
+                                            <Button Content="Delete" 
+                                                    Tag="🗑️"
+                                                    Style="{StaticResource DeleteToolbarButtonStyle}"
+                                                    Click="DeleteDevice_Click"/>
+                                            <Button Content="Time Sync" 
+                                                    Tag="🕐"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="TimeSync_Click"/>
+                                            <Button Content="Status" 
+                                                    Tag="📊"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="Status_Click"
+                                                    Margin="0"/>
+                                        </StackPanel>
+
+                                        <!-- Right Side - Search -->
+                                        <StackPanel Grid.Column="2" 
+                                                    Orientation="Horizontal" 
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center">
+                                            <TextBox x:Name="DeviceSearchTextBox" 
+                                                     Style="{StaticResource ToolbarSearchTextBoxStyle}"
+                                                     Width="220"
+                                                     TextChanged="DeviceSearchTextBox_TextChanged"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Managed Device DataGrid -->
+                                <Border Grid.Row="1" 
+                                        Background="{DynamicResource SurfaceColor}"
+                                        Margin="12,12,12,0">
+                                    <DataGrid x:Name="EncodingDeviceGrid"
+                                              Style="{StaticResource DeviceDataGridStyle}"
+                                              ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                              CellStyle="{StaticResource DeviceCellStyle}"
+                                              AutoGenerateColumns="False"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <!-- Checkbox Column -->
+                                            <DataGridTemplateColumn Header="" Width="50" CanUserSort="False" CanUserResize="False">
+                                                <DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" 
+                                                                  VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.HeaderTemplate>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" 
+                                                                  VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <!-- Name Column -->
+                                            <DataGridTextColumn Header="Name" 
+                                                                Binding="{Binding Name}" 
+                                                                Width="150" 
+                                                                MinWidth="120"/>
+
+                                            <!-- IP Address Column -->
+                                            <DataGridTextColumn Header="IP Address" 
+                                                                Binding="{Binding IPAddress}" 
+                                                                Width="140" 
+                                                                MinWidth="120"/>
+
+                                            <!-- Status Column -->
+                                            <DataGridTemplateColumn Header="Status" 
+                                                                    Width="100" 
+                                                                    MinWidth="80">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Status}" 
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <!-- Model Column -->
+                                            <DataGridTextColumn Header="Model" 
+                                                                Binding="{Binding Model}" 
+                                                                Width="*" 
+                                                                MinWidth="150"/>
+
+                                            <!-- Device Configuration Column -->
+                                            <DataGridTextColumn Header="Device Configuration" 
+                                                                Binding="{Binding DeviceConfiguration}" 
+                                                                Width="*" 
+                                                                MinWidth="180"/>
+
+                                            <!-- Version Info Column -->
+                                            <DataGridTextColumn Header="Version Info" 
+                                                                Binding="{Binding VersionInfo}" 
+                                                                Width="*" 
+                                                                MinWidth="120"/>
+
+                                            <!-- Operation Column -->
+                                            <DataGridTemplateColumn Header="Operation" 
+                                                                    Width="120" 
+                                                                    CanUserSort="False" 
+                                                                    CanUserResize="False">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal" 
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center">
+                                                            <!-- Edit Button -->
+                                                            <Button Content="✏️" 
+                                                                    Style="{StaticResource GridOperationButtonStyle}"
+                                                                    ToolTip="Edit Device"
+                                                                    Click="EditDeviceGrid_Click"/>
+                                                            
+                                                            <!-- Settings Button -->
+                                                            <Button Content="⚙️" 
+                                                                    Style="{StaticResource GridOperationButtonStyle}"
+                                                                    ToolTip="Device Settings"
+                                                                    Click="SettingsDeviceGrid_Click"/>
+                                                            
+                                                            <!-- Delete Button -->
+                                                            <Button Content="🗑️" 
+                                                                    Style="{StaticResource GridOperationButtonStyle}"
+                                                                    ToolTip="Delete Device"
+                                                                    Click="DeleteDeviceGrid_Click"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </Grid>
+
+                            <!-- Splitter -->
+                            <GridSplitter Grid.Row="1" 
+                                          HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Stretch"
+                                          Background="{DynamicResource BorderColor}"
+                                          ResizeDirection="Rows"
+                                          ShowsPreview="False"/>
+
+                            <!-- Online Device Section -->
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Online Device Toolbar -->
+                                <Border Grid.Row="0" 
+                                        Background="{DynamicResource BackgroundColor}" 
+                                        Padding="12,8"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Left Side - Device Count and Buttons -->
+                                        <StackPanel Grid.Column="0" 
+                                                    Orientation="Horizontal" 
+                                                    VerticalAlignment="Center">
+                                            <TextBlock x:Name="OnlineDeviceCount"
+                                                       Text="Online Device(0)" 
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,15,0"/>
+                                            
+                                            <Button Content="Add" 
+                                                    Tag="➕"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="AddOnlineDevice_Click"/>
+                                            <Button Content="Refresh" 
+                                                    Tag="🔄"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="RefreshOnlineDevice_Click"/>
+                                            <Button Content="Search Config" 
+                                                    Tag="⚙️"
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Click="SearchConfig_Click"
+                                                    Margin="0"/>
+                                        </StackPanel>
+
+                                        <!-- Right Side - Search -->
+                                        <StackPanel Grid.Column="2" 
+                                                    Orientation="Horizontal" 
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center">
+                                            <TextBox x:Name="OnlineDeviceSearchTextBox" 
+                                                     Style="{StaticResource ToolbarSearchTextBoxStyle}"
+                                                     Width="220"
+                                                     TextChanged="OnlineDeviceSearchTextBox_TextChanged"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Online Device DataGrid -->
+                                <Border Grid.Row="1" 
+                                        Background="{DynamicResource SurfaceColor}"
+                                        Margin="12,12,12,12">
+                                    <DataGrid x:Name="OnlineDeviceGrid"
+                                              Style="{StaticResource DeviceDataGridStyle}"
+                                              ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                              CellStyle="{StaticResource DeviceCellStyle}"
+                                              AutoGenerateColumns="False"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column">
+                                        <DataGrid.Columns>
+                                            <!-- Checkbox Column -->
+                                            <DataGridTemplateColumn Header="" Width="50" CanUserSort="False" CanUserResize="False">
+                                                <DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" 
+                                                                  VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.HeaderTemplate>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" 
+                                                                  VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <!-- IP Address Column -->
+                                            <DataGridTextColumn Header="IP Address" 
+                                                                Binding="{Binding IPAddress}" 
+                                                                Width="140" 
+                                                                MinWidth="120"/>
+
+                                            <!-- Model Column -->
+                                            <DataGridTextColumn Header="Model" 
+                                                                Binding="{Binding Model}" 
+                                                                Width="*" 
+                                                                MinWidth="150"/>
+
+                                            <!-- Device Configuration Column -->
+                                            <DataGridTextColumn Header="Device Configuration" 
+                                                                Binding="{Binding DeviceConfiguration}" 
+                                                                Width="*" 
+                                                                MinWidth="180"/>
+
+                                            <!-- Serial No. Column -->
+                                            <DataGridTextColumn Header="Serial No." 
+                                                                Binding="{Binding SerialNo}" 
+                                                                Width="*" 
+                                                                MinWidth="120"/>
+
+                                            <!-- Version Info Column -->
+                                            <DataGridTextColumn Header="Version Info" 
+                                                                Binding="{Binding VersionInfo}" 
+                                                                Width="*" 
+                                                                MinWidth="120"/>
+
+                                            <!-- Added Column -->
+                                            <DataGridTextColumn Header="Added" 
+                                                                Binding="{Binding Added}" 
+                                                                Width="80" 
+                                                                MinWidth="60"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+
+                        <Grid x:Name="DecodingDeviceView" Visibility="Collapsed">
+                            <TextBlock Text="Decoding Device Management" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </Grid>
+
+                        <Grid x:Name="CloudDeviceView" Visibility="Collapsed">
+                            <TextBlock Text="Cloud Device Management" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </Grid>
+
+                        <Grid x:Name="AccessControlDeviceView" Visibility="Collapsed">
+                            <TextBlock Text="Access Control Device Management" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </Grid>
+
+                        <Grid x:Name="IPSpeakerView" Visibility="Collapsed">
+                            <TextBlock Text="IP Speaker Management" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </Grid>
+
+                        <Grid x:Name="NetworkKeyboardView" Visibility="Collapsed">
+                            <TextBlock Text="Network Keyboard Management" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                        </Grid>
+                </Grid>
+
+                <!-- Device Alarm view -->
+                <Grid x:Name="DeviceAlarmView" Visibility="Collapsed">
+                    <TextBlock Text="Device Alarm Management" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

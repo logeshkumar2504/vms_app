@@ -306,6 +306,11 @@ namespace Vms_page
                     var systemConfigWindow = new SystemConfigurationWindow();
                     systemConfigWindow.Show();
                 }
+                else if (item.Name == "Device Management")
+                {
+                    var deviceManagementWindow = new DeviceManagementWindow();
+                    deviceManagementWindow.Show();
+                }
                 else
                 {
                     // Show alert for other cards
