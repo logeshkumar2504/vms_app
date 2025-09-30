@@ -76,3 +76,4 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_p
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.genruntimeconfig.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ref\Vms_page.dll
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SystemConfigurationWindow.baml

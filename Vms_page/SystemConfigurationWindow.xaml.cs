@@ -2,22 +2,11 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
-using System.Collections.ObjectModel;
 
 namespace Vms_page
 {
-    public class AlarmSoundItem
-    {
-        public bool IsSelected { get; set; }
-        public string AlarmType { get; set; }
-        public string AudioFile { get; set; }
-        public int PlayCount { get; set; }
-        public string Status { get; set; }
-    }
-
     public partial class SystemConfigurationWindow : Window
     {
-        private ObservableCollection<AlarmSoundItem> alarmSoundItems;
         private bool isAudioVideoExpanded = true;
         private bool isSystemExpanded = false;
         private bool isOperationExpanded = false;
@@ -28,25 +17,6 @@ namespace Vms_page
             // Ensure only the default placeholder is visible on startup
             HideAllPanels();
             DefaultPlaceholder.Visibility = Visibility.Visible;
-            InitializeAlarmData();
-        }
-
-        private void InitializeAlarmData()
-        {
-            alarmSoundItems = new ObservableCollection<AlarmSoundItem>
-            {
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Default Alarm", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Alarm Input Start...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Device Offline", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Tampering Detec...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Motion Detection...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
-                new AlarmSoundItem { IsSelected = false, AlarmType = "Elevator Entranc...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" }
-            };
-
-            if (AlarmSoundDataGrid != null)
-            {
-                AlarmSoundDataGrid.ItemsSource = alarmSoundItems;
-            }
         }
 
         private void HideAllPanels()
@@ -288,12 +258,6 @@ namespace Vms_page
             HideAllPanels();
             AlarmPanel.Visibility = Visibility.Visible;
             SetActiveButton(OperationButton);
-            
-            // Ensure data is loaded
-            if (AlarmSoundDataGrid != null && AlarmSoundDataGrid.ItemsSource == null)
-            {
-                AlarmSoundDataGrid.ItemsSource = alarmSoundItems;
-            }
         }
 
         private void Service_Click(object sender, RoutedEventArgs e)
@@ -488,6 +452,39 @@ namespace Vms_page
                     LocalRecordingPathTextBox.Text = selectedDirectory + (selectedDirectory.EndsWith("\\") ? string.Empty : "\\");
                 }
             }
+        }
+
+        // Alarm button event handlers
+        private void AddAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add alarm configuration dialog would open here.", 
+                          "Add Alarm", 
+                          MessageBoxButton.OK, 
+                          MessageBoxImage.Information);
+        }
+
+        private void DeleteAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Delete selected alarm configuration.", 
+                          "Delete Alarm", 
+                          MessageBoxButton.OK, 
+                          MessageBoxImage.Information);
+        }
+
+        private void EnableAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Enable alarm configuration.", 
+                          "Enable Alarm", 
+                          MessageBoxButton.OK, 
+                          MessageBoxImage.Information);
+        }
+
+        private void PlayCountAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Configure alarm play count settings.", 
+                          "Play Count Configuration", 
+                          MessageBoxButton.OK, 
+                          MessageBoxImage.Information);
         }
     }
 }
