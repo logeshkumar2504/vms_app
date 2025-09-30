@@ -1173,6 +1173,306 @@
                             </StackPanel>
                         </Border>
                     </Grid>
+
+                    <!-- Attribute Display Panel -->
+                    <ScrollViewer x:Name="AttributeDisplayPanel" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Match Face Info Display Section -->
+                            <Border Background="{DynamicResource SurfaceColor}" 
+                                    BorderBrush="{DynamicResource BorderColor}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="6" 
+                                    Padding="20"
+                                    Margin="0,0,0,16">
+                                <StackPanel>
+                                    <TextBlock Text="Match Face Info Display" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="13" 
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,12"/>
+                                    
+                                    <UniformGrid Columns="4" Rows="2">
+                                        <CheckBox Content="Channel Name" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,8"/>
+                                        <CheckBox Content="Name" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,8"/>
+                                        <CheckBox Content="Time" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,8"/>
+                                        <CheckBox Content="Library Name" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,8"/>
+                                        <CheckBox Content="Match Degree" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Temperature" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Mask" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Not Match Face Info Display Section -->
+                            <Border Background="{DynamicResource SurfaceColor}" 
+                                    BorderBrush="{DynamicResource BorderColor}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="6" 
+                                    Padding="20"
+                                    Margin="0,0,0,16">
+                                <StackPanel>
+                                    <TextBlock Text="Not Match Face Info Display" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="13" 
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,12"/>
+                                    
+                                    <UniformGrid Columns="4" Rows="1">
+                                        <CheckBox Content="Channel Name" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Time" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Temperature" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Mask" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Face Snapshot Info Display Section -->
+                            <Border Background="{DynamicResource SurfaceColor}" 
+                                    BorderBrush="{DynamicResource BorderColor}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="6" 
+                                    Padding="20">
+                                <StackPanel>
+                                    <TextBlock Text="Face Snapshot Info Display" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
+                                               FontSize="13" 
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,12"/>
+                                    
+                                    <UniformGrid Columns="4" Rows="1">
+                                        <CheckBox Content="Channel Name" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Time" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Temperature" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                        <CheckBox Content="Mask" 
+                                                  IsChecked="True" 
+                                                  Foreground="{DynamicResource TextPrimaryColor}"
+                                                  Margin="0,0,12,0"/>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Email Panel -->
+                    <ScrollViewer x:Name="EmailPanel" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+                        <Grid MaxWidth="600" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>  <!-- 0: SMTP Server -->
+                                <RowDefinition Height="12"/>     <!-- 1: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 2: Encryption Type -->
+                                <RowDefinition Height="12"/>     <!-- 3: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 4: Port -->
+                                <RowDefinition Height="12"/>     <!-- 5: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 6: Enable Server Auth -->
+                                <RowDefinition Height="16"/>     <!-- 7: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 8: Username -->
+                                <RowDefinition Height="12"/>     <!-- 9: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 10: Password -->
+                                <RowDefinition Height="12"/>     <!-- 11: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 12: Sender -->
+                                <RowDefinition Height="12"/>     <!-- 13: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 14: Recipient1 -->
+                                <RowDefinition Height="12"/>     <!-- 15: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 16: Recipient2 -->
+                                <RowDefinition Height="12"/>     <!-- 17: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 18: Recipient3 -->
+                                <RowDefinition Height="20"/>     <!-- 19: Spacing -->
+                                <RowDefinition Height="Auto"/>  <!-- 20: Button -->
+                            </Grid.RowDefinitions>
+
+                            <!-- SMTP Server -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" 
+                                       Text="SMTP Server" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
+                                     x:Name="SmtpServerTextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Encryption Type -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" 
+                                       Text="Encryption Type" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="2" Grid.Column="1" 
+                                        Orientation="Horizontal">
+                                <RadioButton x:Name="EncryptionOffRadio" 
+                                             Content="Off" 
+                                             GroupName="Encryption" 
+                                             IsChecked="True"
+                                             Foreground="{DynamicResource TextPrimaryColor}"
+                                             Margin="0,0,24,0"/>
+                                <RadioButton x:Name="EncryptionSslRadio" 
+                                             Content="SSL" 
+                                             GroupName="Encryption"
+                                             Foreground="{DynamicResource TextPrimaryColor}"
+                                             Margin="0,0,24,0"/>
+                                <RadioButton x:Name="EncryptionStarttlsRadio" 
+                                             Content="STARTTLS" 
+                                             GroupName="Encryption"
+                                             Foreground="{DynamicResource TextPrimaryColor}"/>
+                            </StackPanel>
+
+                            <!-- Port -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" 
+                                       Text="Port" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" 
+                                     x:Name="SmtpPortTextBox"
+                                     Height="32"
+                                     Text="25"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Enable Server Authentication -->
+                            <CheckBox Grid.Row="6" Grid.ColumnSpan="2" 
+                                      x:Name="EnableServerAuthCheckBox"
+                                      Content="Enable Server Authentication" 
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      FontSize="12"
+                                      Checked="EnableServerAuth_Changed"
+                                      Unchecked="EnableServerAuth_Changed"/>
+
+                            <!-- Username -->
+                            <TextBlock Grid.Row="8" Grid.Column="0" 
+                                       Text="Username" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="8" Grid.Column="1" 
+                                     x:Name="EmailUsernameTextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"
+                                     IsEnabled="False"/>
+
+                            <!-- Password -->
+                            <TextBlock Grid.Row="10" Grid.Column="0" 
+                                       Text="Password" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <PasswordBox Grid.Row="10" Grid.Column="1" 
+                                         x:Name="EmailPasswordBox"
+                                         Height="32"
+                                         VerticalContentAlignment="Center"
+                                         Background="{DynamicResource BackgroundColor}"
+                                         BorderBrush="{DynamicResource BorderColor}"
+                                         Foreground="{DynamicResource TextPrimaryColor}"
+                                         IsEnabled="False"/>
+
+                            <!-- Sender -->
+                            <TextBlock Grid.Row="12" Grid.Column="0" 
+                                       Text="Sender" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="12" Grid.Column="1" 
+                                     x:Name="SenderTextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Recipient1 -->
+                            <TextBlock Grid.Row="14" Grid.Column="0" 
+                                       Text="Recipient1" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="14" Grid.Column="1" 
+                                     x:Name="Recipient1TextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Recipient2 -->
+                            <TextBlock Grid.Row="16" Grid.Column="0" 
+                                       Text="Recipient2" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="16" Grid.Column="1" 
+                                     x:Name="Recipient2TextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Recipient3 -->
+                            <TextBlock Grid.Row="18" Grid.Column="0" 
+                                       Text="Recipient3" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
+                                       FontSize="12" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="18" Grid.Column="1" 
+                                     x:Name="Recipient3TextBox"
+                                     Height="32"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="{DynamicResource TextPrimaryColor}"/>
+
+                            <!-- Send Test Email Button -->
+                            <Button Grid.Row="20" Grid.ColumnSpan="2"
+                                    x:Name="SendTestEmailButton"
+                                    Content="Send Test Email" 
+                                    Width="160"
+                                    Height="40"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource BottomBarButtonStyle}"
+                                    Click="SendTestEmail_Click"/>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

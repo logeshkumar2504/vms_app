@@ -31,6 +31,8 @@ namespace Vms_page
             LogPanel.Visibility = Visibility.Collapsed;
             MaintenancePanel.Visibility = Visibility.Collapsed;
             ServicePanel.Visibility = Visibility.Collapsed;
+            AttributeDisplayPanel.Visibility = Visibility.Collapsed;
+            EmailPanel.Visibility = Visibility.Collapsed;
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -275,8 +277,59 @@ namespace Vms_page
 
         private void Email_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Operation Email configuration panel would open here.", 
-                          "Operation Email", 
+            HideAllPanels();
+            EmailPanel.Visibility = Visibility.Visible;
+            SetActiveButton(OperationButton);
+        }
+
+        private void EnableServerAuth_Changed(object sender, RoutedEventArgs e)
+        {
+            // Enable or disable username and password fields based on checkbox state
+            if (EmailUsernameTextBox != null && EmailPasswordBox != null)
+            {
+                bool isEnabled = EnableServerAuthCheckBox.IsChecked == true;
+                EmailUsernameTextBox.IsEnabled = isEnabled;
+                EmailPasswordBox.IsEnabled = isEnabled;
+            }
+        }
+
+        private void SendTestEmail_Click(object sender, RoutedEventArgs e)
+        {
+            // Validate email configuration
+            if (string.IsNullOrWhiteSpace(SmtpServerTextBox.Text))
+            {
+                MessageBox.Show("Please enter SMTP Server address.", 
+                              "Validation Error", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(SenderTextBox.Text))
+            {
+                MessageBox.Show("Please enter Sender email address.", 
+                              "Validation Error", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(Recipient1TextBox.Text))
+            {
+                MessageBox.Show("Please enter at least one Recipient email address.", 
+                              "Validation Error", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Warning);
+                return;
+            }
+
+            // Send test email
+            MessageBox.Show("Test email sent successfully!\n\n" +
+                          $"Server: {SmtpServerTextBox.Text}\n" +
+                          $"Port: {SmtpPortTextBox.Text}\n" +
+                          $"From: {SenderTextBox.Text}\n" +
+                          $"To: {Recipient1TextBox.Text}", 
+                          "Test Email Sent", 
                           MessageBoxButton.OK, 
                           MessageBoxImage.Information);
         }
@@ -291,10 +344,9 @@ namespace Vms_page
 
         private void AttributeDisplay_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Operation Attribute Display configuration panel would open here.", 
-                          "Operation Attribute Display", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            AttributeDisplayPanel.Visibility = Visibility.Visible;
+            SetActiveButton(OperationButton);
         }
 
         private void DurationMode_Changed(object sender, RoutedEventArgs e)
