@@ -2,11 +2,22 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace Vms_page
 {
+    public class AlarmSoundItem
+    {
+        public bool IsSelected { get; set; }
+        public string AlarmType { get; set; }
+        public string AudioFile { get; set; }
+        public int PlayCount { get; set; }
+        public string Status { get; set; }
+    }
+
     public partial class SystemConfigurationWindow : Window
     {
+        private ObservableCollection<AlarmSoundItem> alarmSoundItems;
         private bool isAudioVideoExpanded = true;
         private bool isSystemExpanded = false;
         private bool isOperationExpanded = false;
@@ -17,6 +28,25 @@ namespace Vms_page
             // Ensure only the default placeholder is visible on startup
             HideAllPanels();
             DefaultPlaceholder.Visibility = Visibility.Visible;
+            InitializeAlarmData();
+        }
+
+        private void InitializeAlarmData()
+        {
+            alarmSoundItems = new ObservableCollection<AlarmSoundItem>
+            {
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Default Alarm", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Alarm Input Start...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Device Offline", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Tampering Detec...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Motion Detection...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" },
+                new AlarmSoundItem { IsSelected = false, AlarmType = "Elevator Entranc...", AudioFile = "C:\\Users\\Publ...", PlayCount = 1, Status = "Disabled" }
+            };
+
+            if (AlarmSoundDataGrid != null)
+            {
+                AlarmSoundDataGrid.ItemsSource = alarmSoundItems;
+            }
         }
 
         private void HideAllPanels()
@@ -33,6 +63,8 @@ namespace Vms_page
             ServicePanel.Visibility = Visibility.Collapsed;
             AttributeDisplayPanel.Visibility = Visibility.Collapsed;
             EmailPanel.Visibility = Visibility.Collapsed;
+            EpidemicControlPanel.Visibility = Visibility.Collapsed;
+            AlarmPanel.Visibility = Visibility.Collapsed;
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -253,10 +285,15 @@ namespace Vms_page
         // Operation sub-option click handlers
         private void Alarm_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Operation Alarm configuration panel would open here.", 
-                          "Operation Alarm", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            AlarmPanel.Visibility = Visibility.Visible;
+            SetActiveButton(OperationButton);
+            
+            // Ensure data is loaded
+            if (AlarmSoundDataGrid != null && AlarmSoundDataGrid.ItemsSource == null)
+            {
+                AlarmSoundDataGrid.ItemsSource = alarmSoundItems;
+            }
         }
 
         private void Service_Click(object sender, RoutedEventArgs e)
@@ -336,10 +373,18 @@ namespace Vms_page
 
         private void EpidemicControl_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Operation Epidemic Control configuration panel would open here.", 
-                          "Operation Epidemic Control", 
-                          MessageBoxButton.OK, 
-                          MessageBoxImage.Information);
+            HideAllPanels();
+            EpidemicControlPanel.Visibility = Visibility.Visible;
+            SetActiveButton(OperationButton);
+        }
+
+        private void AbnormalTempDetection_Changed(object sender, RoutedEventArgs e)
+        {
+            // Enable or disable temperature threshold field based on checkbox state
+            if (TempThresholdTextBox != null)
+            {
+                TempThresholdTextBox.IsEnabled = AbnormalTempDetectionCheckBox.IsChecked == true;
+            }
         }
 
         private void AttributeDisplay_Click(object sender, RoutedEventArgs e)
