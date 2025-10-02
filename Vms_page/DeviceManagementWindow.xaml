@@ -1676,11 +1676,135 @@
                         </Grid>
 
                         <Grid x:Name="NetworkKeyboardView" Visibility="Collapsed">
-                            <TextBlock Text="Network Keyboard Management" 
-                                       HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"
-                                       FontSize="18"
-                                       Foreground="{DynamicResource TextPrimaryColor}"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Top toolbar with tabs (left), Add/Delete (left) and Search (right) -->
+                            <Border Grid.Row="0" Background="{DynamicResource BackgroundColor}" Padding="12,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Left side: Tabs and actions -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <!-- Tabs -->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock x:Name="NK_CameraLink" Text="Camera" Margin="0,0,16,0" Cursor="Hand" Foreground="{DynamicResource TextSecondaryColor}" MouseLeftButtonDown="NK_CameraLink_MouseLeftButtonDown"/>
+                                            <TextBlock x:Name="NK_VideowallLink" Text="Video Wall" Margin="0,0,16,0" Cursor="Hand" Foreground="{DynamicResource TextSecondaryColor}" MouseLeftButtonDown="NK_VideowallLink_MouseLeftButtonDown"/>
+                                            <TextBlock x:Name="NK_SequenceLink" Text="Sequence Resource" Margin="0,0,16,0" Cursor="Hand" Foreground="{DynamicResource TextSecondaryColor}" MouseLeftButtonDown="NK_SequenceLink_MouseLeftButtonDown"/>
+                                        </StackPanel>
+
+                                        <!-- Actions -->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                                            <Button x:Name="NK_AddBtn" Style="{StaticResource ToolbarButtonStyle}" Content="Add" Click="NK_AddBtn_Click"/>
+                                            <Button x:Name="NK_DeleteBtn" Style="{StaticResource DeleteToolbarButtonStyle}" Content="Delete" Click="NK_DeleteBtn_Click"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!-- Right side: Search -->
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBox x:Name="NK_SearchTextBox" Width="260" Style="{StaticResource ToolbarSearchTextBoxStyle}" TextChanged="NK_SearchTextBox_TextChanged"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Content area -->
+                            <Grid Grid.Row="1">
+                                <!-- Camera table -->
+                                <Border x:Name="NK_CameraContent" Background="{DynamicResource SurfaceColor}" Padding="0" Visibility="Visible" Margin="12,12,12,12">
+                                    <DataGrid x:Name="NK_CameraGrid"
+                                              Style="{StaticResource DeviceDataGridStyle}"
+                                              ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                              CellStyle="{StaticResource DeviceCellStyle}"
+                                              AutoGenerateColumns="False"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="50" CanUserSort="False" CanUserResize="False">
+                                                <DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.HeaderTemplate>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Header="Keyboard No." Width="200"/>
+                                            <DataGridTextColumn Header="Name" Width="*" MinWidth="150"/>
+                                            <DataGridTextColumn Header="Stream Type" Width="220" MinWidth="140"/>
+                                            <DataGridTextColumn Header="Operation" Width="160"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+
+                                <!-- Videowall placeholder -->
+                                <Border x:Name="NK_VideowallContent" Background="{DynamicResource SurfaceColor}" Padding="0" Visibility="Collapsed" Margin="12">
+                                    <DataGrid x:Name="NK_VideowallGrid"
+                                              Style="{StaticResource DeviceDataGridStyle}"
+                                              ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                              CellStyle="{StaticResource DeviceCellStyle}"
+                                              AutoGenerateColumns="False"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="50" CanUserSort="False" CanUserResize="False">
+                                                <DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.HeaderTemplate>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Header="Keyboard No." Width="200"/>
+                                            <DataGridTextColumn Header="Video Wall" Width="*" MinWidth="150"/>
+                                            <DataGridTextColumn Header="Operation" Width="160"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+
+                                <!-- Sequence resources placeholder -->
+                                <Border x:Name="NK_SequenceContent" Background="{DynamicResource SurfaceColor}" Padding="0" Visibility="Collapsed" Margin="12">
+                                    <DataGrid x:Name="NK_SequenceGrid"
+                                              Style="{StaticResource DeviceDataGridStyle}"
+                                              ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                              CellStyle="{StaticResource DeviceCellStyle}"
+                                              AutoGenerateColumns="False"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="50" CanUserSort="False" CanUserResize="False">
+                                                <DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.HeaderTemplate>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Header="Keyboard No." Width="200"/>
+                                            <DataGridTextColumn Header="Sequence Resources" Width="*" MinWidth="150"/>
+                                            <DataGridTextColumn Header="Operation" Width="160"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </Grid>
                         </Grid>
                 </Grid>
 

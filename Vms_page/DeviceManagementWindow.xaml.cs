@@ -28,6 +28,81 @@ namespace Vms_page
             InitializeAccessControlOnlineDeviceList();
             InitializeIPSpeakerDeviceList();
             InitializeIPSpeakerOnlineDeviceList();
+            InitializeNetworkKeyboardNavbar();
+        }
+
+        private void InitializeNetworkKeyboardNavbar()
+        {
+            // Default active link
+            SetNKActiveLink(NK_CameraLink);
+        }
+
+        private void SetNKActiveLink(System.Windows.Controls.TextBlock active)
+        {
+            if (NK_CameraLink != null)
+            {
+                NK_CameraLink.Foreground = (System.Windows.Media.Brush)FindResource("TextSecondaryColor");
+                NK_CameraLink.FontWeight = System.Windows.FontWeights.Normal;
+                NK_CameraLink.TextDecorations = null;
+            }
+            if (NK_VideowallLink != null)
+            {
+                NK_VideowallLink.Foreground = (System.Windows.Media.Brush)FindResource("TextSecondaryColor");
+                NK_VideowallLink.FontWeight = System.Windows.FontWeights.Normal;
+                NK_VideowallLink.TextDecorations = null;
+            }
+            if (NK_SequenceLink != null)
+            {
+                NK_SequenceLink.Foreground = (System.Windows.Media.Brush)FindResource("TextSecondaryColor");
+                NK_SequenceLink.FontWeight = System.Windows.FontWeights.Normal;
+                NK_SequenceLink.TextDecorations = null;
+            }
+
+            active.Foreground = (System.Windows.Media.Brush)FindResource("PrimaryColor");
+            active.FontWeight = System.Windows.FontWeights.SemiBold;
+            active.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+
+        private void NK_CameraLink_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SetNKActiveLink(NK_CameraLink);
+            NK_CameraContent.Visibility = Visibility.Visible;
+            NK_VideowallContent.Visibility = Visibility.Collapsed;
+            NK_SequenceContent.Visibility = Visibility.Collapsed;
+        }
+
+        private void NK_VideowallLink_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SetNKActiveLink(NK_VideowallLink);
+            NK_CameraContent.Visibility = Visibility.Collapsed;
+            NK_VideowallContent.Visibility = Visibility.Visible;
+            NK_SequenceContent.Visibility = Visibility.Collapsed;
+        }
+
+        private void NK_SequenceLink_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SetNKActiveLink(NK_SequenceLink);
+            NK_CameraContent.Visibility = Visibility.Collapsed;
+            NK_VideowallContent.Visibility = Visibility.Collapsed;
+            NK_SequenceContent.Visibility = Visibility.Visible;
+        }
+
+        private void NK_AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Reuse existing popup for demo; this can be replaced with NK-specific popup later
+            var deviceInfoPopup = new DeviceInfoPopup();
+            deviceInfoPopup.Owner = this;
+            deviceInfoPopup.ShowDialog();
+        }
+
+        private void NK_DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete action for Network Keyboard section.");
+        }
+
+        private void NK_SearchTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            // Placeholder for future filtering of NK_CameraGrid items
         }
 
         private void InitializeDeviceList()
@@ -171,6 +246,8 @@ namespace Vms_page
 
         private void SetActiveDeviceType(string deviceType)
         {
+            System.Diagnostics.Debug.WriteLine($"SetActiveDeviceType called with: {deviceType}");
+            
             // Update sidebar button states
             EncodingDeviceBtn.Tag = deviceType == "Encoding Device" ? "Selected" : null;
             DecodingDeviceBtn.Tag = deviceType == "Decoding Device" ? "Selected" : null;
@@ -186,6 +263,8 @@ namespace Vms_page
             AccessControlDeviceView.Visibility = deviceType == "Access Control Device" ? Visibility.Visible : Visibility.Collapsed;
             IPSpeakerView.Visibility = deviceType == "IP Speaker" ? Visibility.Visible : Visibility.Collapsed;
             NetworkKeyboardView.Visibility = deviceType == "Network Keyboard" ? Visibility.Visible : Visibility.Collapsed;
+            
+            System.Diagnostics.Debug.WriteLine($"Views updated for: {deviceType}");
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
@@ -200,20 +279,34 @@ namespace Vms_page
         {
             if (sender is System.Windows.Controls.Button btn)
             {
-                // Find the TextBlock with device name inside the button's StackPanel
-                if (btn.Content is System.Windows.Controls.StackPanel stackPanel)
+                // Debug: Show which button was clicked
+                System.Diagnostics.Debug.WriteLine($"Button clicked: {btn.Name}");
+                
+                // Check if the button content is directly a TextBlock
+                if (btn.Content is System.Windows.Controls.TextBlock textBlock)
+                {
+                    System.Diagnostics.Debug.WriteLine($"TextBlock text: {textBlock.Text}");
+                    SetActiveDeviceType(textBlock.Text);
+                }
+                // Fallback: Check if the button content is a StackPanel (for backward compatibility)
+                else if (btn.Content is System.Windows.Controls.StackPanel stackPanel)
                 {
                     foreach (var child in stackPanel.Children)
                     {
-                        if (child is System.Windows.Controls.TextBlock textBlock && 
-                            textBlock.Text != null && 
-                            !string.IsNullOrEmpty(textBlock.Text) &&
-                            textBlock.Text.Length > 2) // Skip emoji TextBlocks
+                        if (child is System.Windows.Controls.TextBlock childTextBlock && 
+                            childTextBlock.Text != null && 
+                            !string.IsNullOrEmpty(childTextBlock.Text) &&
+                            childTextBlock.Text.Length > 2) // Skip emoji TextBlocks
                         {
-                            SetActiveDeviceType(textBlock.Text);
+                            System.Diagnostics.Debug.WriteLine($"StackPanel TextBlock text: {childTextBlock.Text}");
+                            SetActiveDeviceType(childTextBlock.Text);
                             break;
                         }
                     }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Button content type: {btn.Content?.GetType()}");
                 }
             }
         }
