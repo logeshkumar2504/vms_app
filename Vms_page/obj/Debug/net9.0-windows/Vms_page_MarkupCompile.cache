@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\workspace\source\repos\Vms_page\Vms_page\App.xaml
-30-1644185167
+31776523749
 
-35112204966
+36-466605290
 200366931479
-AccessControlWindow.xaml;AddMapWindow.xaml;AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AlarmConfigurationWindow.xaml;AlarmRecordsWindow.xaml;AudioWindow.xaml;BatchAddDialog.xaml;CustomGridLayoutPopup.xaml;DeviceManagementWindow.xaml;DxVideoWallDialog.xaml;EMapWindow.xaml;FaceRecognitionWindow.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;LprWindow.xaml;MainWindow.xaml;OperationLogWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;PictureManagementWindow.xaml;RecordingScheduleWindow.xaml;SelectFaceLibraryDialog.xaml;SequenceResourceWindow.xaml;SystemConfigurationWindow.xaml;UserManagementWindow.xaml;VcaBlankWindow.xaml;VideoWallWindow.xaml;ViewWindow.xaml;
+AccessControlWindow.xaml;AddMapWindow.xaml;AddSequenceResourcePopup.xaml;AddUserPopup.xaml;AddViewPopup.xaml;AlarmConfigurationWindow.xaml;AlarmRecordsWindow.xaml;AudioWindow.xaml;BatchAddDialog.xaml;CustomGridLayoutPopup.xaml;DeviceInfoPopup.xaml;DeviceManagementWindow.xaml;DxVideoWallDialog.xaml;EMapWindow.xaml;FaceRecognitionWindow.xaml;GridLayoutPopup.xaml;LiveViewWindow.xaml;LprWindow.xaml;MainWindow.xaml;OperationLogWindow.xaml;PeopleCountingCustomLayoutPopup.xaml;PeopleCountingWindow.xaml;PictureManagementWindow.xaml;RecordingScheduleWindow.xaml;SelectFaceLibraryDialog.xaml;SequenceResourceWindow.xaml;SystemConfigurationWindow.xaml;UserManagementWindow.xaml;VcaBlankWindow.xaml;VideoWallWindow.xaml;ViewWindow.xaml;
 
 False
 

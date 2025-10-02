@@ -221,7 +221,16 @@ namespace Vms_page
         // Toolbar button event handlers
         private void AddDevice_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Add Device functionality will be implemented here", "Add Device");
+            var deviceInfoPopup = new DeviceInfoPopup();
+            deviceInfoPopup.Owner = this;
+            deviceInfoPopup.DeviceAdded += OnDeviceAdded;
+            deviceInfoPopup.DeviceAddedToGroup += OnDeviceAddedToGroup;
+            
+            var result = deviceInfoPopup.ShowDialog();
+            
+            // Clean up event handlers
+            deviceInfoPopup.DeviceAdded -= OnDeviceAdded;
+            deviceInfoPopup.DeviceAddedToGroup -= OnDeviceAddedToGroup;
         }
 
         private void EditDevice_Click(object sender, RoutedEventArgs e)
@@ -501,6 +510,53 @@ namespace Vms_page
                 string searchText = textBox.Text;
                 // TODO: Implement search/filter functionality for IP Speaker online devices here
             }
+        }
+
+        // Device Info Popup event handlers
+        private void OnDeviceAdded(object sender, DeviceInfoEventArgs e)
+        {
+            // Add the device to the appropriate collection based on current device type
+            var device = new Device
+            {
+                Name = e.DeviceInfo.DeviceName,
+                IPAddress = e.DeviceInfo.IPDomain,
+                Status = "Offline", // Default status
+                Model = "Unknown", // Will be updated when device is discovered
+                DeviceConfiguration = $"{e.DeviceInfo.Username}@{e.DeviceInfo.IPDomain}:{e.DeviceInfo.Port}",
+                VersionInfo = "Unknown" // Will be updated when device is discovered
+            };
+
+            // Add to the appropriate device collection based on current view
+            if (EncodingDeviceView.Visibility == Visibility.Visible)
+            {
+                Devices.Add(device);
+                UpdateDeviceCount();
+            }
+            else if (DecodingDeviceView.Visibility == Visibility.Visible)
+            {
+                DecodingDevices.Add(device);
+                UpdateDecodingDeviceCount();
+            }
+            else if (AccessControlDeviceView.Visibility == Visibility.Visible)
+            {
+                AccessControlDevices.Add(device);
+                UpdateAccessControlDeviceCount();
+            }
+            else if (IPSpeakerView.Visibility == Visibility.Visible)
+            {
+                IPSpeakerDevices.Add(device);
+                UpdateIPSpeakerDeviceCount();
+            }
+
+            MessageBox.Show($"Device '{e.DeviceInfo.DeviceName}' has been added successfully!", "Device Added", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OnDeviceAddedToGroup(object sender, DeviceInfoEventArgs e)
+        {
+            // For now, just add the device normally
+            // In a real application, this would show a group selection dialog
+            OnDeviceAdded(sender, e);
+            MessageBox.Show($"Device '{e.DeviceInfo.DeviceName}' has been added to the default group.", "Device Added to Group", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

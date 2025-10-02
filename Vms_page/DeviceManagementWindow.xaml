@@ -84,13 +84,13 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="15,12"/>
+            <Setter Property="Padding" Value="10,8"/>
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Height" Value="45"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -355,7 +355,7 @@
                 Padding="0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -371,114 +371,54 @@
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Tag="Selected"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="📹" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="Encoding Device" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="Encoding Device" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
 
                         <!-- Decoding Device -->
                         <Button x:Name="DecodingDeviceBtn"
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="🖥️" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="Decoding Device" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="Decoding Device" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
 
                         <!-- Cloud Device -->
                         <Button x:Name="CloudDeviceBtn"
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="☁️" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="Cloud Device" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="Cloud Device" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
 
                         <!-- Access Control Device -->
                         <Button x:Name="AccessControlDeviceBtn"
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="🔐" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="Access Control Device" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="Access Control Device" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
 
                         <!-- IP Speaker -->
                         <Button x:Name="IPSpeakerBtn"
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="🔊" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="IP Speaker" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="IP Speaker" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
 
                         <!-- Network Keyboard -->
                         <Button x:Name="NetworkKeyboardBtn"
                                 Style="{StaticResource SidebarDeviceButton}"
                                 Click="DeviceTypeButton_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Border Width="32" Height="32" 
-                                        Background="#4A5568"
-                                        CornerRadius="4"
-                                        Margin="0,0,12,0">
-                                    <TextBlock Text="⌨️" FontSize="18" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                </Border>
-                                <TextBlock Text="Network Keyboard" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
-                            </StackPanel>
+                            <TextBlock Text="Network Keyboard" 
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}"/>
                         </Button>
                     </StackPanel>
                 </Border>
