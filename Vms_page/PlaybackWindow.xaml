@@ -45,41 +45,62 @@
             </Setter>
         </Style>
 
-        <!-- Timeline Slider Style: flat track with round thumb to mimic CCTV timeline selector -->
+        <!-- Enhanced Timeline Slider Style -->
         <Style x:Key="TimelineSliderStyle" TargetType="Slider">
+            <Setter Property="Focusable" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Slider">
                         <Grid Margin="0" SnapsToDevicePixels="True">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <!-- Track background line -->
-                            <Border Height="4"
-                                    Background="{DynamicResource BorderColor}"
-                                    CornerRadius="2"
-                                    VerticalAlignment="Center"/>
-                            <!-- Filled part -->
-                            <Border x:Name="PART_Selection"
-                                    Height="4"
-                                    Background="{DynamicResource PrimaryColor}"
-                                    CornerRadius="2"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Width="0"/>
-                            <!-- Thumb -->
-                            <Thumb x:Name="Thumb"
-                                   Width="16" Height="16"
-                                   Background="{DynamicResource PrimaryColor}"
-                                   BorderBrush="White" BorderThickness="1"
-                                   VerticalAlignment="Center"/>
+                            <!-- Background track with gradient -->
+                            <Border Height="6" CornerRadius="3" VerticalAlignment="Center">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#2A2A2A" Offset="0"/>
+                                        <GradientStop Color="#3A3A3A" Offset="0.5"/>
+                                        <GradientStop Color="#2A2A2A" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            
+                            <!-- Progress track (filled portion) -->
+                            <Border x:Name="ProgressTrack" Height="6" CornerRadius="3" VerticalAlignment="Center" 
+                                    Background="{DynamicResource PrimaryColor}" Opacity="0.3"/>
+                            
+                            <!-- Time markers -->
+                            <Grid x:Name="TimeMarkers" VerticalAlignment="Center" Height="6">
+                                <Rectangle Height="1" Fill="{DynamicResource TextSecondaryColor}" Opacity="0.4" 
+                                          VerticalAlignment="Top" Margin="0,1,0,0"/>
+                                <Rectangle Height="1" Fill="{DynamicResource TextSecondaryColor}" Opacity="0.4" 
+                                          VerticalAlignment="Bottom" Margin="0,0,0,1"/>
+                            </Grid>
+                            
+                            <Track x:Name="PART_Track" IsDirectionReversed="False" Focusable="False">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="Slider.DecreaseLarge" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Width="16" Height="16" Focusable="False">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Grid>
+                                                    <!-- Outer glow -->
+                                                    <Ellipse Width="20" Height="20" Fill="{DynamicResource PrimaryColor}" Opacity="0.3"/>
+                                                    <!-- Main thumb -->
+                                                    <Ellipse Width="16" Height="16" Fill="{DynamicResource PrimaryColor}" 
+                                                            Stroke="#FFFFFF" StrokeThickness="2"/>
+                                                    <!-- Center dot -->
+                                                    <Ellipse Width="6" Height="6" Fill="#FFFFFF"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="Slider.IncreaseLarge" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
                         </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Thumb" Property="Opacity" Value="0.6"/>
-                                <Setter TargetName="PART_Selection" Property="Opacity" Value="0.6"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -511,12 +532,12 @@
                         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                             <Grid MinHeight="0" MinWidth="0">
                                 <!-- Device View with camera grid and layout selector -->
-                                    <Grid x:Name="DeviceView" Visibility="Visible">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.6*"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="0.4*"/>
-                                        </Grid.RowDefinitions>
+                                <Grid x:Name="DeviceView" Visibility="Visible">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.6*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="0.4*"/>
+                                    </Grid.RowDefinitions>
 
                                     <!-- 2x2 camera grid (placeholder) -->
                                     <Grid Grid.Row="0" x:Name="PlaybackVideoGrid">
@@ -598,7 +619,7 @@
                                                     <Button x:Name="DownloadBtn" Content="⬇" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="12,0,6,0" Click="Download_Click"/>
                                                     <Button x:Name="FullscreenBtn" Content="⛶" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Click="Fullscreen_Click"/>
                                                 </StackPanel>
-                                                </StackPanel>
+                                            </StackPanel>
                                             </Grid>
                                             <!-- Separator line between toolbar and timeline -->
                                             <Border Grid.Row="0" Height="1" Background="{DynamicResource BorderColor}" VerticalAlignment="Bottom" Opacity="0.6"/>
@@ -610,31 +631,36 @@
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <!-- Left: Date/Time -->
-                                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                                    <StackPanel Orientation="Vertical" Margin="0,0,8,0">
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                                    <StackPanel Orientation="Vertical" Margin="0,0,12,0">
                                                         <TextBlock Text="Date" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" Margin="0,0,0,2"/>
                                                         <TextBox x:Name="PlaybackDateTextBox"
-                                                                 Width="120"
-                                                                 Height="24"
+                                                                 Width="128"
+                                                                 Height="28"
                                                                  IsReadOnly="True"
                                                                  Background="{DynamicResource CardBackgroundColor}"
                                                                  Foreground="{DynamicResource TextPrimaryColor}"
                                                                  BorderBrush="{DynamicResource BorderColor}"
                                                                  BorderThickness="1"
-                                                                 Padding="6,2"/>
+                                                                 Padding="8,0"
+                                                                 TextAlignment="Center"/>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Vertical">
                                                         <TextBlock Text="Time" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" Margin="0,0,0,2"/>
                                                         <TextBox x:Name="PlaybackTimeTextBox"
-                                                                 Width="100"
-                                                                 Height="24"
+                                                                 Width="116"
+                                                                 Height="28"
                                                                  Text="00:00:00"
                                                                  Background="{DynamicResource CardBackgroundColor}"
                                                                  Foreground="{DynamicResource TextPrimaryColor}"
                                                                  BorderBrush="{DynamicResource BorderColor}"
                                                                  BorderThickness="1"
-                                                                 Padding="6,2"
-                                                                 ToolTip="HH:mm:ss"/>
+                                                                 Padding="8,0"
+                                                                 ToolTip="HH:mm:ss"
+                                                                 TextAlignment="Center"
+                                                                 VerticalContentAlignment="Center"
+                                                                 PreviewTextInput="PlaybackTimeTextBox_PreviewTextInput"
+                                                                 LostFocus="PlaybackTimeTextBox_LostFocus"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <!-- Right: Legend (Normal, Event, VCA) -->
@@ -650,7 +676,187 @@
                                             <!-- Separator line below this section -->
                                             <Border Grid.Row="1" Height="1" Background="{DynamicResource BorderColor}" VerticalAlignment="Bottom" Opacity="0.6"/>
 
-                                            <!-- Bottom row: date/time and legend -->
+                                            <!-- Bottom row: Time selector -->
+                                            <Grid Grid.Row="2" Margin="0,0,0,0">
+                                                <!-- Enhanced Track area -->
+                                                <Grid Background="#1A1A1A">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!-- Left navigation -->
+                                                    <Button x:Name="LeftTimeArrowBtn" Grid.Column="0" Width="40" Height="40" 
+                                                            Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                            BorderThickness="0,0,1,0" HorizontalAlignment="Left" 
+                                                            Click="LeftTimeArrowBtn_Click"
+                                                            ToolTip="Previous Time Window">
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Background="{TemplateBinding Background}" 
+                                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                                                    <TextBlock Text="❮" FontSize="16" Foreground="{DynamicResource TextSecondaryColor}" 
+                                                                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                                        <Setter Property="Foreground" Value="White"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+                                                    <!-- Timeline slider area -->
+                                                    <Grid x:Name="TimelineTrackArea" Grid.Column="1" VerticalAlignment="Center" 
+                                                          MouseLeftButtonDown="TimelineTrackArea_MouseLeftButtonDown"
+                                                          Margin="8,0">
+                                                        <!-- Background with subtle pattern -->
+                                                        <Border Height="8" CornerRadius="4" VerticalAlignment="Center">
+                                                            <Border.Background>
+                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                                    <GradientStop Color="#1A1A1A" Offset="0"/>
+                                                                    <GradientStop Color="#2A2A2A" Offset="0.5"/>
+                                                                    <GradientStop Color="#1A1A1A" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Border.Background>
+                                                        </Border>
+                                                        
+                                                        <!-- Interactive timeline slider -->
+                                                        <Slider x:Name="TimelineSlider"
+                                                                Minimum="0"
+                                                                Maximum="24"
+                                                                Value="0"
+                                                                TickFrequency="0.5"
+                                                                IsSnapToTickEnabled="True"
+                                                                Style="{StaticResource TimelineSliderStyle}"
+                                                                Margin="0"
+                                                                VerticalAlignment="Center"
+                                                                Background="Transparent"
+                                                                ValueChanged="TimelineSlider_ValueChanged"
+                                                                MouseMove="TimelineSlider_MouseMove"
+                                                                MouseLeave="TimelineSlider_MouseLeave">
+                                                            <Slider.ToolTip>
+                                                                <ToolTip x:Name="TimelineToolTip" 
+                                                                         Background="#2A2A2A" 
+                                                                         Foreground="White" 
+                                                                         BorderBrush="#404040" 
+                                                                         BorderThickness="1"
+                                                                         Padding="8,4"
+                                                                         FontSize="12"
+                                                                         FontWeight="Medium">
+                                                                    <TextBlock x:Name="TimelineToolTipText" Text="00:00:00"/>
+                                                                </ToolTip>
+                                                            </Slider.ToolTip>
+                                                        </Slider>
+                                                    </Grid>
+
+                                                    <!-- Right controls -->
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <!-- Full View Button -->
+                                                        <Button x:Name="FullViewBtn" Content="⛶" Width="28" Height="28" 
+                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                BorderThickness="1" Margin="4,0,2,0"
+                                                                ToolTip="View Full 24 Hours"
+                                                                Click="FullViewBtn_Click">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                            CornerRadius="2">
+                                                                        <TextBlock Text="⛶" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" 
+                                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                                            <Setter Property="Foreground" Value="White"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        
+                                                        <!-- Zoom In Button -->
+                                                        <Button x:Name="ZoomInBtn" Content="+" Width="28" Height="28" 
+                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                BorderThickness="1" Margin="2,0"
+                                                                ToolTip="Zoom In (2 Hours)"
+                                                                Click="ZoomInBtn_Click">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                            CornerRadius="2">
+                                                                        <TextBlock Text="+" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource TextSecondaryColor}" 
+                                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                                            <Setter Property="Foreground" Value="White"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        
+                                                        <!-- Zoom Out Button -->
+                                                        <Button x:Name="ZoomOutBtn" Content="−" Width="28" Height="28" 
+                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                BorderThickness="1" Margin="2,0"
+                                                                ToolTip="Zoom Out (6 Hours)"
+                                                                Click="ZoomOutBtn_Click">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                            CornerRadius="2">
+                                                                        <TextBlock Text="−" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource TextSecondaryColor}" 
+                                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                                            <Setter Property="Foreground" Value="White"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                        
+                                                        <!-- Right navigation -->
+                                                        <Button x:Name="RightTimeArrowBtn" Width="40" Height="40" 
+                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                BorderThickness="1,0,0,0" Margin="4,0,0,0"
+                                                                Click="RightTimeArrowBtn_Click"
+                                                                ToolTip="Next Time Window">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                                        <TextBlock Text="❯" FontSize="16" Foreground="{DynamicResource TextSecondaryColor}" 
+                                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                                            <Setter Property="Foreground" Value="White"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                     </Border>
                                 </Grid>

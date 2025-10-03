@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 
 namespace Vms_page
 {
@@ -11,6 +12,8 @@ namespace Vms_page
     {
         private readonly string[] _gridLayouts = new[] { "1x1", "2x2", "2x3", "3x3", "4x4" };
         private int _currentLayoutIndex = 1; // default to 2x2
+        private double _timelineWindowStartHour = 7.5; // 07:30 start view
+        private double _timelineWindowHours = 6.0; // show 6 hours per page
         public PlaybackWindow()
         {
             InitializeComponent();
@@ -36,6 +39,10 @@ namespace Vms_page
             }
 
             InitializePlaybackDateTimeFields();
+
+            // Build initial timeline scale
+            RebuildTimelineScale();
+            SyncTimeFieldToSlider();
         }
 
         private void SetActiveView(bool isDevice)
@@ -94,6 +101,63 @@ namespace Vms_page
             if (this.FindName("PlaybackDateTextBox") is TextBox dateBox)
             {
                 dateBox.Text = date.ToString("yyyy-MM-dd");
+            }
+        }
+
+        private void RebuildTimelineScale()
+        {
+            // Timeline scale removed - no longer needed
+        }
+
+        private void LeftTimeArrowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _timelineWindowStartHour = (_timelineWindowStartHour - 1 + 24) % 24; // scroll left by 1 hour
+            RebuildTimelineScale();
+        }
+
+        private void RightTimeArrowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _timelineWindowStartHour = (_timelineWindowStartHour + 1) % 24; // scroll right by 1 hour
+            RebuildTimelineScale();
+        }
+
+        // Time textbox validation: allow only HH:mm:ss and sync to slider
+        private void PlaybackTimeTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // Allow digits and ':' only
+            foreach (char c in e.Text)
+            {
+                if (!(char.IsDigit(c) || c == ':'))
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+
+        private void PlaybackTimeTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox tb)
+            {
+                if (!System.TimeSpan.TryParse(tb.Text, out var ts))
+                {
+                    // Reset to current slider time if invalid
+                    double hours = 0;
+                    if (this.FindName("TimelineSlider") is Slider s) hours = s.Value;
+                    tb.Text = new System.DateTime(1,1,1).AddHours(hours).ToString("HH:mm:ss");
+                    return;
+                }
+
+                // Snap to 30-minute increments
+                double newHours = System.Math.Round((ts.TotalHours % 24.0) * 2.0) / 2.0;
+                if (this.FindName("TimelineSlider") is Slider slider)
+                {
+                    slider.Value = newHours;
+                }
+                else
+                {
+                    tb.Text = new System.DateTime(1,1,1).AddHours(newHours).ToString("HH:mm:ss");
+                }
             }
         }
 
@@ -346,22 +410,119 @@ namespace Vms_page
 
         private void TimelineSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
-            // Convert slider value (hours) to HH:mm:ss
-            // If a time label exists in future, we can update it here (removed per latest UI)
-
-            // Expand the filled selection width under the thumb to mimic CCTV tracker
             if (sender is System.Windows.Controls.Slider s)
             {
-                var template = s.Template;
-                if (template != null)
+                double snapped = System.Math.Round(s.Value * 2.0) / 2.0;
+                if (System.Math.Abs(snapped - s.Value) > 0.0001)
                 {
-                    if (template.FindName("PART_Selection", s) is System.Windows.Controls.Border sel)
+                    s.Value = snapped;
+                }
+                // Update Time textbox live
+                if (this.FindName("PlaybackTimeTextBox") is TextBox timeBox)
+                {
+                    var ts = System.TimeSpan.FromHours(snapped);
+                    timeBox.Text = new System.DateTime(1,1,1).Add(ts).ToString("HH:mm:ss");
+                }
+
+                // Auto-pan the scale to keep thumb within the window
+                double windowEnd = (_timelineWindowStartHour + _timelineWindowHours) % 24.0;
+                bool isWrapped = _timelineWindowStartHour > windowEnd; // window crosses midnight
+                bool needsPan = false;
+
+                if (!isWrapped)
+                {
+                    if (snapped < _timelineWindowStartHour + 0.1) { _timelineWindowStartHour = System.Math.Max(0, snapped - _timelineWindowHours / 2); needsPan = true; }
+                    else if (snapped > windowEnd - 0.1) { _timelineWindowStartHour = System.Math.Max(0, System.Math.Min(24 - _timelineWindowHours, snapped - _timelineWindowHours / 2)); needsPan = true; }
+                }
+                else
+                {
+                    // Wrapped: if value not in [start..24) U [0..end]
+                    bool inWindow = (snapped >= _timelineWindowStartHour) || (snapped <= windowEnd);
+                    if (!inWindow)
                     {
-                        double ratio = (s.Value - s.Minimum) / (s.Maximum - s.Minimum);
-                        sel.Width = ratio * s.ActualWidth;
+                        _timelineWindowStartHour = System.Math.Max(0, System.Math.Min(24 - _timelineWindowHours, snapped - _timelineWindowHours / 2));
+                        needsPan = true;
                     }
                 }
+
+                if (needsPan) RebuildTimelineScale();
             }
+        }
+
+        // Click on track to jump slider to that position and sync time field
+        private void TimelineTrackArea_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.FindName("TimelineSlider") is Slider slider && sender is Grid grid)
+            {
+                var pos = e.GetPosition(grid).X;
+                if (grid.ActualWidth <= 0) return;
+                double ratio = System.Math.Max(0, System.Math.Min(1, pos / grid.ActualWidth));
+                double value = slider.Minimum + ratio * (slider.Maximum - slider.Minimum);
+                // snap to 30 minutes
+                value = System.Math.Round(value * 2.0) / 2.0;
+                slider.Value = value;
+                SyncTimeFieldToSlider();
+            }
+        }
+
+        // Full view button - show all 24 hours
+        private void FullViewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _timelineWindowStartHour = 0;
+            _timelineWindowHours = 24;
+            RebuildTimelineScale();
+        }
+
+        // Zoom in button - show 2 hours
+        private void ZoomInBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_timelineWindowHours > 2)
+            {
+                double currentCenter = _timelineWindowStartHour + _timelineWindowHours / 2;
+                _timelineWindowHours = 2;
+                _timelineWindowStartHour = (currentCenter - _timelineWindowHours / 2 + 24) % 24;
+                RebuildTimelineScale();
+            }
+        }
+
+        // Zoom out button - show 6 hours
+        private void ZoomOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_timelineWindowHours < 24)
+            {
+                double currentCenter = _timelineWindowStartHour + _timelineWindowHours / 2;
+                _timelineWindowHours = System.Math.Min(24, _timelineWindowHours + 2);
+                _timelineWindowStartHour = (currentCenter - _timelineWindowHours / 2 + 24) % 24;
+                RebuildTimelineScale();
+            }
+        }
+
+        // Show time tooltip when hovering over slider
+        private void TimelineSlider_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Slider slider && this.FindName("TimelineToolTipText") is TextBlock tooltipText)
+            {
+                // Get mouse position relative to the slider
+                var position = e.GetPosition(slider);
+                var sliderWidth = slider.ActualWidth;
+                
+                if (sliderWidth > 0)
+                {
+                    // Calculate the time based on mouse position
+                    double ratio = System.Math.Max(0, System.Math.Min(1, position.X / sliderWidth));
+                    double timeInHours = slider.Minimum + ratio * (slider.Maximum - slider.Minimum);
+                    
+                    // Convert to time format and update tooltip
+                    var time = System.TimeSpan.FromHours(timeInHours);
+                    tooltipText.Text = new System.DateTime(1, 1, 1).Add(time).ToString("HH:mm:ss");
+                }
+            }
+        }
+
+        // Hide tooltip when mouse leaves slider
+        private void TimelineSlider_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Tooltip will automatically hide when mouse leaves
         }
 
         private void ToggleRightSidebarButton_Click(object sender, RoutedEventArgs e)
@@ -383,5 +544,16 @@ namespace Vms_page
                 }
             }
         }
+
+        private void SyncTimeFieldToSlider()
+        {
+            if (this.FindName("TimelineSlider") is Slider s && this.FindName("PlaybackTimeTextBox") is TextBox tb)
+            {
+                double snapped = System.Math.Round(s.Value * 2.0) / 2.0;
+                var ts = System.TimeSpan.FromHours(snapped);
+                tb.Text = new System.DateTime(1,1,1).Add(ts).ToString("HH:mm:ss");
+            }
+        }
     }
 }
+
