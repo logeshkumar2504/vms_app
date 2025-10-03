@@ -645,7 +645,7 @@
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Name}" Value="Recording Schdual">
+                                                                    <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
                                                                                 <Image Source="/Assets/Icons/Record-Schedule.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -962,7 +962,7 @@
                                                                                  </Setter.Value>
                                                                              </Setter>
                                                                          </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schdual">
+                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
                                                                              <Setter Property="Content">
                                                                                  <Setter.Value>
                                                                                      <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>

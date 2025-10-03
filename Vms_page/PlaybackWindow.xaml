@@ -1,0 +1,479 @@
+<Window x:Class="Vms_page.PlaybackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Playback" Height="700" Width="1200"
+        Background="{DynamicResource BackgroundColor}" 
+        WindowStyle="SingleBorderWindow" 
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Custom ScrollBar Style -->
+        <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Height" Value="8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Background="{DynamicResource TextSecondaryColor}" 
+                                           BorderThickness="0">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderThickness="0"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom Scroll Style -->
+        <Style x:Key="ThinScrollStyle" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ScrollContentPresenter Grid.Column="0" Grid.Row="0" 
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                  CanHorizontallyScroll="False"
+                                                  CanVerticallyScroll="False"/>
+
+                            <ScrollBar x:Name="PART_VerticalScrollBar" 
+                                       Grid.Column="1" Grid.Row="0"
+                                       Value="{TemplateBinding VerticalOffset}"
+                                       Maximum="{TemplateBinding ScrollableHeight}"
+                                       ViewportSize="{TemplateBinding ViewportHeight}"
+                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                       Style="{StaticResource ThinScrollBarStyle}"/>
+
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" 
+                                       Grid.Column="0" Grid.Row="1"
+                                       Value="{TemplateBinding HorizontalOffset}"
+                                       Maximum="{TemplateBinding ScrollableWidth}"
+                                       ViewportSize="{TemplateBinding ViewportWidth}"
+                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                       Style="{StaticResource ThinScrollBarStyle}"
+                                       Orientation="Horizontal"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Navbar Button Style -->
+        <Style x:Key="NavbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                BorderThickness="0,0,0,3"
+                                BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Active Navbar Button Style -->
+        <Style x:Key="ActiveNavbarButtonStyle" TargetType="Button" BasedOn="{StaticResource NavbarButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="0" 
+                                Padding="{TemplateBinding Padding}"
+                                BorderThickness="0,0,0,3"
+                                BorderBrush="{DynamicResource PrimaryColor}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Sidebar (replicated from Live View) -->
+        <Border Grid.Column="0" 
+                x:Name="Sidebar"
+                Background="{DynamicResource SidebarColor}" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                BorderThickness="0,0,1,0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Empty Top Section -->
+                <Grid Grid.Row="0" 
+                      Background="{DynamicResource SidebarColor}">
+                </Grid>
+
+                <!-- Action Icons and Search Bar -->
+                <Grid Grid.Row="1" Grid.RowSpan="3" Margin="8,8,8,8">
+                    <StackPanel>
+
+                        <!-- Action Icons removed for playback -->
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,0,8"/>
+
+                        <!-- Mode Dropdown moved to top navbar -->
+
+                        <!-- Search Bar -->
+                        <Border Background="{DynamicResource CardBackgroundColor}" 
+                                CornerRadius="4" 
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" 
+                                           Text="🔍" 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryColor}"
+                                           VerticalAlignment="Center" 
+                                           Margin="8,0,4,0"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Text="Enter Keywords" 
+                                         Foreground="{DynamicResource TextSecondaryColor}" 
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontSize="12"
+                                         VerticalAlignment="Center"
+                                         Margin="0,4,8,4"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Navigation Icons -->
+                        <StackPanel Orientation="Vertical" 
+                                    HorizontalAlignment="Stretch" 
+                                    VerticalAlignment="Top"
+                                    Margin="0,8,0,0">
+
+                            <!-- Video Icon -->
+                            <Border Background="Transparent" 
+                                    CornerRadius="4" 
+                                    Margin="0,0,0,8"
+                                    Cursor="Hand"
+                                    ToolTip="Video"
+                                    Width="32"
+                                    Height="32"
+                                    x:Name="VideoIconBorder"
+                                    MouseEnter="VideoIcon_MouseEnter"
+                                    MouseLeave="VideoIcon_MouseLeave"
+                                    HorizontalAlignment="Left">
+                                <Grid HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="🎥" 
+                                               FontSize="18" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="Video Channel" 
+                                               FontSize="10" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0,0,0"
+                                               Opacity="0"
+                                               x:Name="VideoLabel"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- View Icon -->
+                            <Border Background="Transparent" 
+                                    CornerRadius="4" 
+                                    Margin="0,0,0,8"
+                                    Cursor="Hand"
+                                    ToolTip="View"
+                                    Width="32"
+                                    Height="32"
+                                    x:Name="ViewIconBorder"
+                                    MouseEnter="ViewIcon_MouseEnter"
+                                    MouseLeave="ViewIcon_MouseLeave"
+                                    HorizontalAlignment="Left">
+                                <Grid HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="⊞" 
+                                               FontSize="18" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="View" 
+                                               FontSize="10" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0,0,0"
+                                               Opacity="0"
+                                               x:Name="ViewLabel"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Sequence Resources Icon -->
+                            <Border Background="Transparent" 
+                                    CornerRadius="4" 
+                                    Cursor="Hand"
+                                    ToolTip="Sequence Resources"
+                                    Width="32"
+                                    Height="32"
+                                    x:Name="SequenceResourcesIconBorder"
+                                    MouseEnter="SequenceResourcesIcon_MouseEnter"
+                                    MouseLeave="SequenceResourcesIcon_MouseLeave"
+                                    HorizontalAlignment="Left">
+                                <Grid HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="🔄" 
+                                               FontSize="18" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="Sequence Resource" 
+                                               FontSize="10" 
+                                               Foreground="#CCCCCC"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0,0,0"
+                                               Opacity="0"
+                                               x:Name="SequenceResourcesLabel"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <!-- Sidebar Bottom Calendar Panel -->
+                    <Border Grid.Row="1" Grid.RowSpan="3"
+                            VerticalAlignment="Bottom"
+                            Margin="0,8,0,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            CornerRadius="0"
+                            Padding="0" 
+                            HorizontalAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <TextBlock Text="Search Time"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
+                                       Margin="0,0,0,6"/>
+                            <Border Height="1" Background="{DynamicResource BorderColor}" Opacity="0.6" Margin="0,0,0,12"/>
+                            <Calendar x:Name="PlaybackSidebarCalendar"
+                                      SelectionMode="SingleDate"
+                                      Background="{DynamicResource CardBackgroundColor}"
+                                      Foreground="{DynamicResource TextPrimaryColor}"
+                                      BorderThickness="0"
+                                      HorizontalAlignment="Stretch"
+                                      Margin="0"
+                                      DisplayDateStart="2000-01-01"
+                                      DisplayDateEnd="2100-12-31">
+                                <Calendar.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </Calendar.LayoutTransform>
+                            </Calendar>
+                            <Button Content="Search" 
+                                    Margin="0,12,0,0" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Right Panel: existing Playback UI -->
+        <Border Grid.Column="1" 
+                Background="{DynamicResource BackgroundColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Top Navbar with Mode on the right -->
+                <Border Grid.Row="0" 
+                        Background="{DynamicResource TopBarColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
+                        BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Left: Tabs -->
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <!-- Device Tab -->
+                            <Button x:Name="DeviceButton"
+                                    Content="Device"
+                                    Style="{StaticResource ActiveNavbarButtonStyle}"
+                                    Click="DeviceButton_Click"/>
+                            
+                            <!-- Local Tab -->
+                            <Button x:Name="LocalButton"
+                                    Content="Local"
+                                    Style="{StaticResource NavbarButtonStyle}"
+                                    Click="LocalButton_Click"/>
+                        </StackPanel>
+
+                        <!-- Right: Mode selector -->
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,8,0">
+                            <TextBlock Text="Mode" 
+                                       FontSize="11" 
+                                       Foreground="{DynamicResource TextSecondaryColor}"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,8,0"/>
+                            <ComboBox x:Name="PlaybackModeComboBox"
+                                      SelectedIndex="0"
+                                      Width="140"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Main Content Area -->
+                <Border Grid.Row="1" 
+                        Background="{DynamicResource BackgroundColor}">
+                    <Grid>
+                        <!-- Device View -->
+                        <Grid x:Name="DeviceView" Visibility="Visible">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="📱" FontSize="48" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Opacity="0.3"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text="Device Playback View" 
+                                           FontSize="18" 
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="Device playback functionality will be implemented here" 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Margin="0,8,0,0"
+                                           Opacity="0.7"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Local View -->
+                        <Grid x:Name="LocalView" Visibility="Collapsed">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="💾" FontSize="48" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Opacity="0.3"
+                                           Margin="0,0,0,16"/>
+                                <TextBlock Text="Local Playback View" 
+                                           FontSize="18" 
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextPrimaryColor}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="Local playback functionality will be implemented here" 
+                                           FontSize="12" 
+                                           Foreground="{DynamicResource TextSecondaryColor}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Margin="0,8,0,0"
+                                           Opacity="0.7"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

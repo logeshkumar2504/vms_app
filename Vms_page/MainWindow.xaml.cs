@@ -80,7 +80,7 @@ namespace Vms_page
             BasicMenuItems.Add(new MenuItemModel { Name = "Audio", Group = "Basic", Icon = "🔊", IconColor = "#7986CB", Description = "Configure audio settings and controls" });
             BasicMenuItems.Add(new MenuItemModel { Name = "Video Wall", Group = "Basic", Icon = "🖼️", IconColor = "#4DB6AC", Description = "Configure and manage video wall displays" });
             BasicMenuItems.Add(new MenuItemModel { Name = "E-map", Group = "Basic", Icon = "🗺️", IconColor = "#9575CD", Description = "Configure electronic maps and layouts" });
-            BasicMenuItems.Add(new MenuItemModel { Name = "Recording Schdual", Group = "Basic", Icon = "⏰", IconColor = "#FFD54F", Description = "Schedule and manage recording tasks" });
+            BasicMenuItems.Add(new MenuItemModel { Name = "Recording Schedule", Group = "Basic", Icon = "⏰", IconColor = "#FFD54F", Description = "Schedule and manage recording tasks" });
             SmartMenuItems.Add(new MenuItemModel { Name = "Face Recognition", Group = "Smart", Icon = "👤", IconColor = "#4DD0E1", Description = "Advanced face recognition and identification" });
             SmartMenuItems.Add(new MenuItemModel { Name = "Access Control", Group = "Smart", Icon = "🔐", IconColor = "#81C784", Description = "Manage access control systems and permissions" });
             SmartMenuItems.Add(new MenuItemModel { Name = "LPR", Group = "Smart", Icon = "🚗", IconColor = "#FFB74D", Description = "License Plate Recognition system" });
@@ -172,6 +172,11 @@ namespace Vms_page
                 {
                     var systemConfigWindow = new SystemConfigurationWindow();
                     systemConfigWindow.Show();
+                }
+                else if (item.Name == "Playback")
+                {
+                    var playbackWindow = new PlaybackWindow();
+                    playbackWindow.Show();
                 }
                 else
                 {
@@ -310,6 +315,11 @@ namespace Vms_page
                 {
                     var deviceManagementWindow = new DeviceManagementWindow();
                     deviceManagementWindow.Show();
+                }
+                else if (item.Name == "Playback")
+                {
+                    var playbackWindow = new PlaybackWindow();
+                    playbackWindow.Show();
                 }
                 else
                 {

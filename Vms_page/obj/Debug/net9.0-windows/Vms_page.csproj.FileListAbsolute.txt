@@ -81,3 +81,5 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Devic
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceManagementWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.g.cs
