@@ -3,11 +3,14 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 namespace Vms_page
 {
     public partial class PlaybackWindow : Window
     {
+        private readonly string[] _gridLayouts = new[] { "1x1", "2x2", "2x3", "3x3", "4x4" };
+        private int _currentLayoutIndex = 1; // default to 2x2
         public PlaybackWindow()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace Vms_page
             // Ensure default camera grid is built with CCTV icons visible on first open
             if (PlaybackVideoGrid != null)
             {
-                ApplyGridLayout("2x2");
+                ApplyGridLayout(_gridLayouts[_currentLayoutIndex]);
             }
         }
 
@@ -62,12 +65,17 @@ namespace Vms_page
             SetActiveView(false);
         }
 
-        // Grid layout dropdown toggle
+        // Grid layout button - show dropdown if present; otherwise cycle
         private void GridLayout_Click(object sender, RoutedEventArgs e)
         {
-            if (GridLayoutDropdownPopup != null)
+            if (this.FindName("GridLayoutDropdownPopup") is System.Windows.Controls.Primitives.Popup popup)
             {
-                GridLayoutDropdownPopup.IsOpen = !GridLayoutDropdownPopup.IsOpen;
+                popup.IsOpen = !popup.IsOpen;
+            }
+            else
+            {
+                _currentLayoutIndex = (_currentLayoutIndex + 1) % _gridLayouts.Length;
+                ApplyGridLayout(_gridLayouts[_currentLayoutIndex]);
             }
         }
 
@@ -77,7 +85,6 @@ namespace Vms_page
             if (sender is System.Windows.Controls.Button button && button.Tag is string layout && PlaybackVideoGrid != null)
             {
                 ApplyGridLayout(layout);
-                GridLayoutDropdownPopup.IsOpen = false;
             }
         }
 
@@ -316,6 +323,26 @@ namespace Vms_page
                         double ratio = (s.Value - s.Minimum) / (s.Maximum - s.Minimum);
                         sel.Width = ratio * s.ActualWidth;
                     }
+                }
+            }
+        }
+
+        private void ToggleRightSidebarButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the right sidebar column between visible and collapsed
+            if (RightSidebar != null && RightSidebarColumn != null && ToggleRightSidebarButton != null)
+            {
+                if (RightSidebar.Visibility == Visibility.Visible)
+                {
+                    RightSidebar.Visibility = Visibility.Collapsed;
+                    RightSidebarColumn.Width = new GridLength(0);
+                    ToggleRightSidebarButton.Content = "◀"; // show arrow pointing left to reopen
+                }
+                else
+                {
+                    RightSidebar.Visibility = Visibility.Visible;
+                    RightSidebarColumn.Width = new GridLength(260);
+                    ToggleRightSidebarButton.Content = "▶"; // arrow pointing to collapse
                 }
             }
         }

@@ -503,8 +503,13 @@
                 <!-- Main Content Area -->
         <Border Grid.Row="1" 
                 Background="{DynamicResource BackgroundColor}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <Grid MinHeight="0" MinWidth="0">
+            <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="MainContentColumn" Width="*"/>
+                            <ColumnDefinition x:Name="RightSidebarColumn" Width="260"/>
+                        </Grid.ColumnDefinitions>
+                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Grid MinHeight="0" MinWidth="0">
                         <!-- Device View with camera grid and layout selector -->
                 <Grid x:Name="DeviceView" Visibility="Visible">
                             <Grid.RowDefinitions>
@@ -531,54 +536,48 @@
                             </Grid>
 
                             <!-- Bottom controls: grid layout dropdown (match Live View simplified) -->
-                            <Border Grid.Row="1" Background="Transparent" Padding="8,6,8,10">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="GridLayoutButton" Content="⚏" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}"
-                                            Background="Transparent" BorderThickness="0" Width="24" Height="24" Cursor="Hand" Click="GridLayout_Click"/>
-                                    <Popup x:Name="GridLayoutDropdownPopup" PlacementTarget="{Binding ElementName=GridLayoutButton}" Placement="Bottom" IsOpen="False" AllowsTransparency="True" StaysOpen="False">
-                                        <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="16" Margin="0,0,0,8" MaxWidth="600" MaxHeight="400">
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                                <StackPanel>
-                                                    <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
-                                                    <UniformGrid Columns="9" Rows="2">
-                                                        <Button Content="1" Tag="1x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="3" Tag="3x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="4" Tag="2x2" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="4" Tag="4x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="5" Tag="5x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="6" Tag="2x3" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="7" Tag="7x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="8" Tag="2x4" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="9" Tag="3x3" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
 
-                                                        <Button Content="10" Tag="2x5" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="10" Tag="10x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="13" Tag="13x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="16" Tag="4x4" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="17" Tag="17x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="25" Tag="5x5" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="32" Tag="4x8" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="36" Tag="6x6" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                        <Button Content="64" Tag="8x8" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
-                                                    </UniformGrid>
-                                                </StackPanel>
-                                            </ScrollViewer>
-                                        </Border>
-                                    </Popup>
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Playback controls area -->
+                                    <!-- Playback controls area -->
                             <Border Grid.Row="2" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,1,0" Padding="0,0,0,8">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="36"/>
                                         <RowDefinition Height="56"/>
+                                        <RowDefinition Height="44"/>
                                     </Grid.RowDefinitions>
 
                                     <!-- Top toolbar -->
                                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,0">
                                         <Button x:Name="LayoutBtn" Content="▦" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="0,0,6,0" Click="GridLayout_Click"/>
+                                        <Popup x:Name="GridLayoutDropdownPopup" PlacementTarget="{Binding ElementName=LayoutBtn}" Placement="Bottom" IsOpen="False" AllowsTransparency="True" StaysOpen="False">
+                                            <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                                    <StackPanel>
+                                                        <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                                                        <UniformGrid Columns="9" Rows="2">
+                                                            <Button Content="1" Tag="1x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="3" Tag="3x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="4" Tag="2x2" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="4" Tag="4x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="5" Tag="5x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="6" Tag="2x3" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="7" Tag="7x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="8" Tag="2x4" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="9" Tag="3x3" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="10" Tag="2x5" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="10" Tag="10x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="13" Tag="13x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="16" Tag="4x4" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="17" Tag="17x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="25" Tag="5x5" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="32" Tag="4x8" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="36" Tag="6x6" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                            <Button Content="64" Tag="8x8" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
+                                                        </UniformGrid>
+                                                    </StackPanel>
+                                                </ScrollViewer>
+                                            </Border>
+                                        </Popup>
                                         <Button x:Name="CloseAllBtn" Content="✖" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="0,0,6,0" Click="CloseAll_Click"/>
                                         <Button x:Name="SnapshotBtn" Content="📷" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Click="Snapshot_Click"/>
                                         <Separator Margin="12,0"/>
@@ -593,13 +592,75 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Button x:Name="DownloadBtn" Content="⬇" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="12,0,6,0" Click="Download_Click"/>
-                                                <Button x:Name="FullscreenBtn" Content="⛶" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Click="Fullscreen_Click"/>
-                                            </StackPanel>
+                                            <Button x:Name="FullscreenBtn" Content="⛶" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Click="Fullscreen_Click"/>
+                                        </StackPanel>
                                     </StackPanel>
 
                                     <!-- Timeline -->
+                                    <Grid Grid.Row="1" Margin="8,0,8,4">
+                                        <Border Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="2" Height="48" ClipToBounds="True">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!-- Hour ticks placeholder -->
+                                                <UniformGrid Rows="1" Columns="8" Margin="8,0">
+                                                    <TextBlock Text="01:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="03:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="05:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="07:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="09:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="11:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="13:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                    <TextBlock Text="15:30" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                                </UniformGrid>
+                                                <!-- Draggable time selector -->
+                                                <Slider x:Name="TimelineSlider"
+                                                        Minimum="0" Maximum="24"
+                                                        TickFrequency="0.5"
+                                                        IsSnapToTickEnabled="True"
+                                                        Background="Transparent"
+                                                        Foreground="{DynamicResource PrimaryColor}"
+                                   VerticalAlignment="Center" 
+                                                        Margin="6,0" 
+                                                        Style="{StaticResource TimelineSliderStyle}"
+                                                        ValueChanged="TimelineSlider_ValueChanged"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
 
-                                        <!-- Bottom info row removed per request -->
+                                    <!-- Bottom row: date/time and legend -->
+                                    <Grid Grid.Row="2" Margin="8,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" MinWidth="180" SharedSizeGroup="info"/>
+                                            <ColumnDefinition Width="Auto" MinWidth="180" SharedSizeGroup="info"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Date -->
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="📅" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <DatePicker SelectedDate="{x:Static sys:DateTime.Now}"/>
+                                        </StackPanel>
+
+                                        
+
+                                        <!-- Legend -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Border Width="14" Height="14" Background="#3B82F6" CornerRadius="2" Margin="0,0,6,0"/>
+                                                <TextBlock Text="Normal" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                                                <Border Width="14" Height="14" Background="#EF4444" CornerRadius="2" Margin="0,0,6,0"/>
+                                                <TextBlock Text="Event" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                                                <Border Width="14" Height="14" Background="#8B5CF6" CornerRadius="2" Margin="0,0,6,0"/>
+                                                <TextBlock Text="VCA" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                            </StackPanel>
+                    </StackPanel>
+                                    </Grid>
                                 </Grid>
                             </Border>
                 </Grid>
@@ -627,8 +688,31 @@
                                    Opacity="0.7"/>
                     </StackPanel>
                 </Grid>
+                        </Grid>
+                        </ScrollViewer>
+
+                        <!-- Collapse/Expand Toggle between content and sidebar -->
+                        <GridSplitter Grid.Column="0" Width="6" HorizontalAlignment="Right" Background="{DynamicResource BorderColor}" ShowsPreview="False" ResizeBehavior="PreviousAndNext"/>
+                        <Button x:Name="ToggleRightSidebarButton" Grid.Column="0" Content="▶" Width="16" Height="48" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" Background="{DynamicResource TopBarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,0,1" Click="ToggleRightSidebarButton_Click"/>
+
+                        <!-- Right Sidebar: Recoding section -->
+                        <Border Grid.Column="1" x:Name="RightSidebar" Background="{DynamicResource SidebarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,0,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" Background="{DynamicResource TopBarColor}" Padding="12,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
+                                    <TextBlock Text="Recoding" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                </Border>
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel Margin="12">
+                                        <TextBlock Text="No recordings" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
                     </Grid>
-                    </ScrollViewer>
                 </Border>
             </Grid>
         </Border>
