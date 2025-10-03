@@ -27,6 +27,15 @@ namespace Vms_page
             {
                 ApplyGridLayout(_gridLayouts[_currentLayoutIndex]);
             }
+
+            // Hook calendar selection to main layout date field
+            if (PlaybackSidebarCalendar != null)
+            {
+                PlaybackSidebarCalendar.SelectedDatesChanged -= PlaybackSidebarCalendar_SelectedDatesChanged;
+                PlaybackSidebarCalendar.SelectedDatesChanged += PlaybackSidebarCalendar_SelectedDatesChanged;
+            }
+
+            InitializePlaybackDateTimeFields();
         }
 
         private void SetActiveView(bool isDevice)
@@ -58,6 +67,34 @@ namespace Vms_page
         private void DeviceButton_Click(object sender, RoutedEventArgs e)
         {
             SetActiveView(true);
+        }
+
+        private void InitializePlaybackDateTimeFields()
+        {
+            if (this.FindName("PlaybackTimeTextBox") is TextBox timeBox && string.IsNullOrWhiteSpace(timeBox.Text))
+            {
+                timeBox.Text = "00:00:00";
+            }
+
+            var date = PlaybackSidebarCalendar != null && PlaybackSidebarCalendar.SelectedDate.HasValue
+                ? PlaybackSidebarCalendar.SelectedDate.Value
+                : System.DateTime.Today;
+
+            if (this.FindName("PlaybackDateTextBox") is TextBox dateBox)
+            {
+                dateBox.Text = date.ToString("yyyy-MM-dd");
+            }
+        }
+
+        private void PlaybackSidebarCalendar_SelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            var date = PlaybackSidebarCalendar != null && PlaybackSidebarCalendar.SelectedDate.HasValue
+                ? PlaybackSidebarCalendar.SelectedDate.Value
+                : System.DateTime.Today;
+            if (this.FindName("PlaybackDateTextBox") is TextBox dateBox)
+            {
+                dateBox.Text = date.ToString("yyyy-MM-dd");
+            }
         }
 
         private void LocalButton_Click(object sender, RoutedEventArgs e)

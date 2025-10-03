@@ -511,12 +511,12 @@
                         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                             <Grid MinHeight="0" MinWidth="0">
                                 <!-- Device View with camera grid and layout selector -->
-                                <Grid x:Name="DeviceView" Visibility="Visible">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0.6*"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="0.4*"/>
-                                    </Grid.RowDefinitions>
+                                    <Grid x:Name="DeviceView" Visibility="Visible">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.6*"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="0.4*"/>
+                                        </Grid.RowDefinitions>
 
                                     <!-- 2x2 camera grid (placeholder) -->
                                     <Grid Grid.Row="0" x:Name="PlaybackVideoGrid">
@@ -547,7 +547,12 @@
                                             </Grid.RowDefinitions>
 
                                             <!-- Top toolbar -->
-                                            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,0">
+                                            <Grid Grid.Row="0" Margin="8,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!-- Center: existing controls -->
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Button x:Name="LayoutBtn" Content="▦" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="0,0,6,0" Click="GridLayout_Click"/>
                                                 <Popup x:Name="GridLayoutDropdownPopup" PlacementTarget="{Binding ElementName=LayoutBtn}" Placement="Bottom" IsOpen="False" AllowsTransparency="True" StaysOpen="False">
                                                     <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
@@ -593,10 +598,57 @@
                                                     <Button x:Name="DownloadBtn" Content="⬇" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="12,0,6,0" Click="Download_Click"/>
                                                     <Button x:Name="FullscreenBtn" Content="⛶" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Click="Fullscreen_Click"/>
                                                 </StackPanel>
-                                            </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                            <!-- Separator line between toolbar and timeline -->
+                                            <Border Grid.Row="0" Height="1" Background="{DynamicResource BorderColor}" VerticalAlignment="Bottom" Opacity="0.6"/>
 
-                                            <!-- Timeline -->
-                                            <Grid Grid.Row="1" Margin="8,0,8,4"/>
+                                            <!-- Timeline / Date-Time Row -->
+                                            <Grid Grid.Row="1" Margin="8,4,8,4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!-- Left: Date/Time -->
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Vertical" Margin="0,0,8,0">
+                                                        <TextBlock Text="Date" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" Margin="0,0,0,2"/>
+                                                        <TextBox x:Name="PlaybackDateTextBox"
+                                                                 Width="120"
+                                                                 Height="24"
+                                                                 IsReadOnly="True"
+                                                                 Background="{DynamicResource CardBackgroundColor}"
+                                                                 Foreground="{DynamicResource TextPrimaryColor}"
+                                                                 BorderBrush="{DynamicResource BorderColor}"
+                                                                 BorderThickness="1"
+                                                                 Padding="6,2"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="Time" FontSize="10" Foreground="{DynamicResource TextSecondaryColor}" Margin="0,0,0,2"/>
+                                                        <TextBox x:Name="PlaybackTimeTextBox"
+                                                                 Width="100"
+                                                                 Height="24"
+                                                                 Text="00:00:00"
+                                                                 Background="{DynamicResource CardBackgroundColor}"
+                                                                 Foreground="{DynamicResource TextPrimaryColor}"
+                                                                 BorderBrush="{DynamicResource BorderColor}"
+                                                                 BorderThickness="1"
+                                                                 Padding="6,2"
+                                                                 ToolTip="HH:mm:ss"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <!-- Right: Legend (Normal, Event, VCA) -->
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12,0,0,0">
+                                                    <Border Width="14" Height="14" Background="#6AAEFF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Normal" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="#D53A2A" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Event" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="#7D63FF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="VCA" Margin="6,0,0,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Grid>
+                                            <!-- Separator line below this section -->
+                                            <Border Grid.Row="1" Height="1" Background="{DynamicResource BorderColor}" VerticalAlignment="Bottom" Opacity="0.6"/>
 
                                             <!-- Bottom row: date/time and legend -->
                                         </Grid>

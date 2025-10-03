@@ -12,6 +12,8 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Alarm
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AudioWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\CustomGridLayoutPopup.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceManagementWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DxVideoWallDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\EMapWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\FaceRecognitionWindow.baml
@@ -22,6 +24,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Opera
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PictureManagementWindow.baml
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.baml
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.baml
@@ -39,6 +42,8 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Alarm
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\AudioWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\BatchAddDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\CustomGridLayoutPopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceManagementWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DxVideoWallDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\EMapWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\FaceRecognitionWindow.g.cs
@@ -50,6 +55,7 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Opera
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingCustomLayoutPopup.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PeopleCountingWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PictureManagementWindow.g.cs
+C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\RecordingScheduleWindow.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SelectFaceLibraryDialog.g.cs
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\SequenceResourceWindow.g.cs
@@ -77,9 +83,3 @@ C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\refin
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.pdb
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\Vms_page.genruntimeconfig.cache
 C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\ref\Vms_page.dll
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceManagementWindow.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceManagementWindow.g.cs
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\DeviceInfoPopup.g.cs
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.baml
-C:\Users\workspace\source\repos\Vms_page\Vms_page\obj\Debug\net9.0-windows\PlaybackWindow.g.cs
