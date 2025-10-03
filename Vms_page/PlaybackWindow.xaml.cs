@@ -575,7 +575,7 @@ namespace Vms_page
                 else
                 {
                     RightSidebar.Visibility = Visibility.Visible;
-                    RightSidebarColumn.Width = new GridLength(260);
+                    RightSidebarColumn.Width = new GridLength(200);
                     ToggleRightSidebarButton.Content = "▶"; // arrow pointing to collapse
                 }
             }
