@@ -669,5 +669,45 @@ namespace Vms_page
             // Hide empty message when data is added
             EmptyTableMessage.Visibility = Visibility.Collapsed;
         }
+
+        // Top bar event handlers
+        private void LockButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Lock/Unlock functionality
+            MessageBox.Show("Lock/Unlock functionality not implemented yet.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void MainMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Main menu functionality
+            MessageBox.Show("Main menu functionality not implemented yet.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle theme popup
+            if (ThemePopup != null)
+            {
+                ThemePopup.IsOpen = !ThemePopup.IsOpen;
+            }
+        }
+
+        private void LightMode_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Light");
+            if (ThemePopup != null)
+            {
+                ThemePopup.IsOpen = false;
+            }
+        }
+
+        private void DarkMode_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Dark");
+            if (ThemePopup != null)
+            {
+                ThemePopup.IsOpen = false;
+            }
+        }
     }
 }

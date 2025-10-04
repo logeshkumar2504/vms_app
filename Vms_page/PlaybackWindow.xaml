@@ -10,6 +10,59 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
+        <!-- Top Bar Colors for Light and Dark Modes -->
+        <SolidColorBrush x:Key="TopBarLightColor" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="TopBarDarkColor" Color="#2D2D30"/>
+
+        <!-- Custom Native TopBar Style -->
+        <Style x:Key="NativeTopBarStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="1" Opacity="0.1" BlurRadius="4"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Popup Button Style -->
+        <Style x:Key="PopupButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="2"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Card Shadow Effect -->
+        <DropShadowEffect x:Key="CardShadow" 
+                          Color="#000000" 
+                          Direction="270" 
+                          ShadowDepth="3" 
+                          Opacity="0.3" 
+                          BlurRadius="10"/>
+
         <!-- Custom ScrollBar Style -->
         <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
             <Setter Property="Width" Value="8"/>
@@ -255,11 +308,123 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <DockPanel LastChildFill="True">
+        <!-- Native TopBar with Dark Mode Toggle -->
+        <Border DockPanel.Dock="Top" 
+                Height="35"
+                Style="{StaticResource NativeTopBarStyle}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"
+                           Margin="15,0">
+                    <!-- Warning/Alert Icon -->
+                    <TextBlock Text="⚠️" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+
+                    <!-- Notification/Bell Icon -->
+                    <TextBlock Text="🔔" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+
+                    <!-- Download/Arrow Icon -->
+                    <TextBlock Text="⬇️" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,12,0"/>
+
+                    <!-- Clipboard/List Icon -->
+                    <TextBlock Text="📋" 
+                               FontSize="18" 
+                               Foreground="{DynamicResource TextPrimaryColor}"
+                               Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Right" 
+                           VerticalAlignment="Center" 
+                           Margin="15,0">
+                    <!-- Lock Icon -->
+                    <Button x:Name="LockButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="LockButton_Click"
+                            ToolTip="Lock/Unlock"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="🔒" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+
+                    <!-- Menu Icon -->
+                    <Button x:Name="MainMenuButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="MainMenuButton_Click"
+                            ToolTip="Menu"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="☰" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+
+                    <!-- Theme Toggle Button -->
+                    <Button x:Name="ThemeButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ThemeButton_Click"
+                            ToolTip="Select Theme">
+                        <TextBlock Text="🌙" 
+                                   FontSize="16" 
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+
+                    <!-- Theme Options Popup -->
+                    <Popup x:Name="ThemePopup"
+                           PlacementTarget="{Binding ElementName=ThemeButton}"
+                           Placement="Bottom"
+                           IsOpen="False"
+                           AllowsTransparency="True"
+                           PopupAnimation="Slide">
+                        <Border Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Padding="8"
+                                Effect="{DynamicResource CardShadow}">
+                            <StackPanel Orientation="Vertical" MinWidth="100">
+                                <Button Content="☀️ Light Mode" 
+                                        Style="{StaticResource PopupButtonStyle}"
+                                        Click="LightMode_Click"
+                                        Margin="0,2"/>
+                                <Button Content="🌙 Dark Mode" 
+                                        Style="{StaticResource PopupButtonStyle}"
+                                        Click="DarkMode_Click"
+                                        Margin="0,2"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Separator Line -->
+        <Border Height="1" 
+                Background="{DynamicResource BorderColor}" 
+                Margin="0,0,0,0"
+                Opacity="0.6"/>
+
+        <!-- Main Content Grid -->
+        <Grid Margin="0,12,0,12" Background="{DynamicResource BackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
         <!-- Left Sidebar (replicated from Live View) -->
         <Border Grid.Column="0" 
@@ -1340,5 +1505,6 @@
                 </Border>
             </Grid>
         </Border>
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
