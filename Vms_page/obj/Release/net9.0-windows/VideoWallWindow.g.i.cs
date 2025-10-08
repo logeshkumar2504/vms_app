@@ -116,7 +116,7 @@ namespace Vms_page {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Vms_page;component/videowallwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Vms_page;V1.0.0.0;component/videowallwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\VideoWallWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
