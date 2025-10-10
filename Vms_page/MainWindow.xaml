@@ -31,11 +31,11 @@
                                     <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Background="{DynamicResource TextSecondaryColor}" 
+                                    <Thumb Background="Transparent" 
                                            BorderThickness="0">
                                         <Thumb.Template>
                                             <ControlTemplate TargetType="{x:Type Thumb}">
-                                                <Border Background="{TemplateBinding Background}"
+                                                <Border Background="Transparent"
                                                         BorderThickness="0"/>
                                             </ControlTemplate>
                                         </Thumb.Template>
