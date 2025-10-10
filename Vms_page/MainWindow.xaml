@@ -527,7 +527,9 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Button Tag="{Binding}"
+                                                PreviewMouseLeftButtonDown="MenuButton_PreviewMouseLeftButtonDown"
                                                 PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                                PreviewMouseLeftButtonUp="MenuButton_PreviewMouseLeftButtonUp"
                                                 Click="MenuButton_Click"
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>
@@ -713,7 +715,9 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Button Tag="{Binding}"
+                                                PreviewMouseLeftButtonDown="MenuButton_PreviewMouseLeftButtonDown"
                                                 PreviewMouseMove="MenuButton_PreviewMouseMove"
+                                                PreviewMouseLeftButtonUp="MenuButton_PreviewMouseLeftButtonUp"
                                                 Click="MenuButton_Click"
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>

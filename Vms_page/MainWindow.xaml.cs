@@ -44,6 +44,7 @@ namespace Vms_page
         public ObservableCollection<MenuItemModel> SmartMenuItems { get; set; } = new();
         public ObservableCollection<MenuItemModel> DroppedItems { get; set; } = new();
         private bool isDarkMode = true;
+        private Point? dragStartPoint = null;
 
         // Converter for binding
         public CountToVisibilityConverter CountToVisibilityConverter { get; } = new CountToVisibilityConverter();
@@ -92,16 +93,34 @@ namespace Vms_page
 
 
 
+        private void MenuButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            dragStartPoint = e.GetPosition(null);
+        }
+
         private void MenuButton_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && dragStartPoint.HasValue)
             {
-                var button = sender as Button;
-                if (button?.Tag is MenuItemModel item)
+                Point currentPosition = e.GetPosition(null);
+                Vector diff = dragStartPoint.Value - currentPosition;
+
+                // Only start drag if mouse has moved more than 10 pixels
+                if (Math.Abs(diff.X) > 10 || Math.Abs(diff.Y) > 10)
                 {
-                    DragDrop.DoDragDrop(button, item, DragDropEffects.Move);
+                    var button = sender as Button;
+                    if (button?.Tag is MenuItemModel item)
+                    {
+                        DragDrop.DoDragDrop(button, item, DragDropEffects.Move);
+                        dragStartPoint = null;
+                    }
                 }
             }
+        }
+
+        private void MenuButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            dragStartPoint = null;
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -129,6 +148,11 @@ namespace Vms_page
                 {
                     var alarmRecordsWindow = new AlarmRecordsWindow();
                     alarmRecordsWindow.Show();
+                }
+                else if (item.Name == "Device Management")
+                {
+                    var deviceManagementWindow = new DeviceManagementWindow();
+                    deviceManagementWindow.Show();
                 }
                 else if (item.Name == "Access Control")
                 {
@@ -179,6 +203,26 @@ namespace Vms_page
                 {
                     var playbackWindow = new PlaybackWindow();
                     playbackWindow.Show();
+                }
+                else if (item.Name == "Sequence Resource")
+                {
+                    var sequenceResourceWindow = new SequenceResourceWindow();
+                    sequenceResourceWindow.Show();
+                }
+                else if (item.Name == "Audio")
+                {
+                    var audioWindow = new AudioWindow();
+                    audioWindow.Show();
+                }
+                else if (item.Name == "E-map")
+                {
+                    var emapWindow = new EMapWindow();
+                    emapWindow.Show();
+                }
+                else if (item.Name == "People Counting")
+                {
+                    var peopleCountingWindow = new PeopleCountingWindow();
+                    peopleCountingWindow.Show();
                 }
                 else
                 {
