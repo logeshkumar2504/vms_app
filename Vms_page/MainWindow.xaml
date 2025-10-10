@@ -844,20 +844,57 @@
                                                  Cursor="Hand"
                                                  MouseLeftButtonDown="Card_Click"
                                                  Tag="{Binding}"
-                                                 CornerRadius="12"
+                                                 CornerRadius="4"
                                                  Margin="8"
                                                  BorderThickness="1"
                                                  BorderBrush="{DynamicResource BorderColor}"
-                                                 Effect="{DynamicResource CardShadow}">
-                                             <Grid>
-                                                 <Grid.RowDefinitions>
-                                                     <RowDefinition Height="Auto"/>
-                                                     <RowDefinition Height="Auto"/>
-                                                     <RowDefinition Height="*"/>
-                                                 </Grid.RowDefinitions>
+                                                 Effect="{DynamicResource CardShadow}"
+                                                 x:Name="CardBorder">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
 
-                                                 <!-- Icon and Close Button Row -->
-                                                 <Grid Grid.Row="0" Margin="16,16,16,8">
+                                                <!-- Close Button at Corner -->
+                                                <Button x:Name="CloseButton"
+                                                        Grid.Row="0"
+                                                        Content="✕" 
+                                                        FontSize="16" 
+                                                        Foreground="#8E8E93"
+                                                        Background="Transparent"
+                                                        BorderThickness="0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Width="24" Height="24"
+                                                        Padding="0"
+                                                        Margin="0,4,4,0"
+                                                        Click="RemoveCard_Click"
+                                                        Tag="{Binding}"
+                                                        Visibility="Collapsed"
+                                                        ToolTip="Remove card">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="Button">
+                                                                        <ContentPresenter/>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Foreground" Value="#FF3B30"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+
+                                                <!-- Icon and Close Button Row -->
+                                                <Grid Grid.Row="0" Margin="16,16,16,8">
                                                      <!-- Icon Container with Fixed Size -->
                                                      <Border Width="80" Height="80" 
                                                              HorizontalAlignment="Center" 
@@ -1022,21 +1059,8 @@
                                                                  </Style>
                                                              </ContentControl.Style>
                                                          </ContentControl>
-                                                     </Border>
-                                                     <Button Content="✕" 
-                                                             FontSize="14" 
-                                                             Foreground="#8E8E93"
-                                                             Background="Transparent"
-                                                             BorderThickness="0"
-                                                             HorizontalAlignment="Right"
-                                                             VerticalAlignment="Top"
-                                                             Width="24" Height="24"
-                                                             Padding="0"
-                                                             Click="RemoveCard_Click"
-                                                             Tag="{Binding}"
-                                                             Opacity="0.7"
-                                                             ToolTip="Remove card"/>
-                                                 </Grid>
+                                                    </Border>
+                                                </Grid>
 
                                                  <!-- Title -->
                                                  <TextBlock Grid.Row="1" 
@@ -1064,32 +1088,54 @@
                                                             Margin="16,8,16,16"/>
                                              </Grid>
                                              
-                                             <!-- Hover Effect Border -->
-                                                                                           <Border.Style>
-                                                  <Style TargetType="Border">
-                                                      <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
-                                                      <Setter Property="CornerRadius" Value="12"/>
-                                                      <Setter Property="BorderThickness" Value="1"/>
-                                                      <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                                      <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
-                                                      <Style.Triggers>
-                                                          <Trigger Property="IsMouseOver" Value="True">
-                                                              <Setter Property="Effect">
-                                                                  <Setter.Value>
-                                                                      <DropShadowEffect Color="#000000" 
-                                                                                       Direction="270" 
-                                                                                       ShadowDepth="6" 
-                                                                                       Opacity="0.4" 
-                                                                                       BlurRadius="16"/>
-                                                                  </Setter.Value>
-                                                              </Setter>
-                                                              <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                                              <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
-                                                              <Setter Property="BorderThickness" Value="2"/>
-                                                          </Trigger>
-                                                      </Style.Triggers>
-                                                  </Style>
-                                              </Border.Style>
+                                            <!-- Hover Effect Border -->
+                                                                                          <Border.Style>
+                                                 <Style TargetType="Border">
+                                                     <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+                                                     <Setter Property="CornerRadius" Value="4"/>
+                                                     <Setter Property="BorderThickness" Value="1"/>
+                                                     <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+                                                     <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
+                                                     <Style.Triggers>
+                                                         <Trigger Property="IsMouseOver" Value="True">
+                                                             <Setter Property="Effect">
+                                                                 <Setter.Value>
+                                                                     <DropShadowEffect Color="#000000" 
+                                                                                      Direction="270" 
+                                                                                      ShadowDepth="6" 
+                                                                                      Opacity="0.4" 
+                                                                                      BlurRadius="16"/>
+                                                                 </Setter.Value>
+                                                             </Setter>
+                                                             <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                             <Setter Property="BorderThickness" Value="2"/>
+                                                         </Trigger>
+                                                     </Style.Triggers>
+                                                 </Style>
+                                             </Border.Style>
+                                             <Border.Triggers>
+                                                 <EventTrigger RoutedEvent="MouseEnter">
+                                                     <BeginStoryboard>
+                                                         <Storyboard>
+                                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CloseButton" 
+                                                                                          Storyboard.TargetProperty="Visibility">
+                                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                                             </ObjectAnimationUsingKeyFrames>
+                                                         </Storyboard>
+                                                     </BeginStoryboard>
+                                                 </EventTrigger>
+                                                 <EventTrigger RoutedEvent="MouseLeave">
+                                                     <BeginStoryboard>
+                                                         <Storyboard>
+                                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CloseButton" 
+                                                                                          Storyboard.TargetProperty="Visibility">
+                                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}"/>
+                                                             </ObjectAnimationUsingKeyFrames>
+                                                         </Storyboard>
+                                                     </BeginStoryboard>
+                                                 </EventTrigger>
+                                             </Border.Triggers>
                                          </Border>
                                      </DataTemplate>
                         </ItemsControl.ItemTemplate>
