@@ -139,8 +139,8 @@
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="0,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Template">
@@ -534,13 +534,13 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="64"/>
+                                                    <ColumnDefinition Width="48"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <!-- Icon Container with Fixed Size -->
                                                 <Border Grid.Column="0" 
-                                                        Width="64" Height="64" 
+                                                        Width="48" Height="48" 
                                                         HorizontalAlignment="Center" 
                                                         VerticalAlignment="Center"
                                                         Background="Transparent">
@@ -647,13 +647,6 @@
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
-                                                                        <Setter Property="Content">
-                                                                            <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/Record-Schedule.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                            </Setter.Value>
-                                                                        </Setter>
-                                                                    </DataTrigger>
                                                                 </Style.Triggers>
                                                                 <Setter Property="Content">
                                                                     <Setter.Value>
@@ -680,7 +673,7 @@
                                                            HorizontalAlignment="Left"
                                                            TextWrapping="Wrap"
                                                            TextTrimming="None"
-                                                           Margin="12,0,8,0"/>
+                                                           Margin="6,0,8,0"/>
                                             </Grid>
                                         </Button>
                                     </DataTemplate>
@@ -722,13 +715,13 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="64"/>
+                                                    <ColumnDefinition Width="48"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <!-- Icon Container with Fixed Size -->
                                                 <Border Grid.Column="0" 
-                                                        Width="64" Height="64" 
+                                                        Width="48" Height="48" 
                                                         HorizontalAlignment="Center" 
                                                         VerticalAlignment="Center"
                                                         Background="Transparent">
@@ -798,7 +791,7 @@
                                                            HorizontalAlignment="Left"
                                                            TextWrapping="Wrap"
                                                            TextTrimming="None"
-                                                           Margin="12,0,8,0"/>
+                                                           Margin="6,0,8,0"/>
                                             </Grid>
                                         </Button>
                                     </DataTemplate>
@@ -999,13 +992,6 @@
                                                                              <Setter Property="Content">
                                                                                  <Setter.Value>
                                                                                      <Image Source="/Assets/Icons/e-map.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                                                                 </Setter.Value>
-                                                                             </Setter>
-                                                                         </DataTrigger>
-                                                                         <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
-                                                                             <Setter Property="Content">
-                                                                                 <Setter.Value>
-                                                                                     <Image Source="/Assets/Icons/Record-Schedule.png" Width="64" Height="64" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                                  </Setter.Value>
                                                                              </Setter>
                                                                          </DataTrigger>

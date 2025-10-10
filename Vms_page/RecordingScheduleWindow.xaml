@@ -37,6 +37,82 @@
         <DataTemplate x:Key="HourBlockTemplate">
             <Border Background="#222" BorderBrush="#3A3A3A" BorderThickness="1" Width="24" Height="16" Margin="2"/>
         </DataTemplate>
+        
+        <!-- Modern Button Styles -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#64B5F6"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#42A5F5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1E88E5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B0B0B0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#404040"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#555555"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Camera Item Style -->
+        <Style x:Key="CameraItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#333333"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -45,21 +121,198 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
-        <Border Grid.Column="0" Background="{StaticResource SidebarBg}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="0,0,1,0" Margin="0">
-            <StackPanel>
-                <TextBlock Text="Camera" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="16,16,16,8"/>
-                <Border Margin="8,0,8,12" Background="#2F2F2F" BorderBrush="#3C3C3C" BorderThickness="1" Height="32">
-                    <Grid>
+        <!-- Modern Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBg}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="0,0,1,0" Margin="0" MinWidth="260">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Header Section -->
+                <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12" Margin="0,0,0,8">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <Image Source="/Assets/Icons/Record-Schedule.png" Width="20" Height="20" Margin="0,0,8,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Recording Schedule" 
+                                       Foreground="{StaticResource TextPrimary}" 
+                                       FontSize="14" 
+                                       FontWeight="SemiBold" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Configure recording schedules and timings" 
+                                   Foreground="{StaticResource TextSecondary}" 
+                                   FontSize="10"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Enhanced Search Section -->
+                <Border Grid.Row="1" Margin="12,0,12,16" Background="#2A2A2A" BorderBrush="#404040" BorderThickness="1" CornerRadius="6">
+                    <Grid Height="40">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="🔍" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#C0C0C0"/>
-                        <TextBox x:Name="KeywordTextBox" Grid.Column="1" BorderThickness="0" Background="Transparent" Foreground="#808080" Padding="0,6,8,6" CaretBrush="#FFFFFF" Text="Enter Keywords" GotFocus="KeywordTextBox_GotFocus" LostFocus="KeywordTextBox_LostFocus"/>
+                        
+                        <!-- Search Icon -->
+                        <Border Grid.Column="0" Width="40" VerticalAlignment="Center">
+                            <TextBlock Text="🔍" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Foreground="#64B5F6"/>
+                        </Border>
+                        
+                        <!-- Search Input -->
+                        <TextBox x:Name="KeywordTextBox" 
+                                 Grid.Column="1" 
+                                 BorderThickness="0" 
+                                 Background="Transparent" 
+                                 Foreground="#FFFFFF" 
+                                 Padding="0,8,8,8" 
+                                 CaretBrush="#64B5F6" 
+                                 Text="Search schedules..." 
+                                 FontSize="12"
+                                 GotFocus="KeywordTextBox_GotFocus" 
+                                 LostFocus="KeywordTextBox_LostFocus"
+                                 VerticalAlignment="Center"/>
+                        
+                        <!-- Clear Button -->
+                        <Button Grid.Column="2" 
+                                Width="24" Height="24" 
+                                Margin="0,0,8,0"
+                                Background="Transparent" 
+                                BorderThickness="0"
+                                VerticalAlignment="Center">
+                            <TextBlock Text="✕" 
+                                       FontSize="12" 
+                                       Foreground="#888888" 
+                                       HorizontalAlignment="Center"/>
+                        </Button>
                     </Grid>
                 </Border>
-            </StackPanel>
+                
+                <!-- Camera List Section -->
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="12,0,12,0">
+                        <!-- Category Header -->
+                        <Border Background="#333333" CornerRadius="4" Margin="0,0,0,8" Padding="12,8">
+                            <TextBlock Text="Recording Templates" 
+                                       Foreground="{StaticResource TextSecondary}" 
+                                       FontSize="11" 
+                                       FontWeight="SemiBold"/>
+                        </Border>
+                        
+                        <!-- Recording Schedule Templates -->
+                        <StackPanel>
+                            <Border Style="{StaticResource CameraItemStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="#4CAF50" CornerRadius="3" Margin="0,0,8,0">
+                                        <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </Border>
+                                    
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="24/7 Recording" 
+                                                   Foreground="#FFFFFF" 
+                                                   FontSize="12" 
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="Continuous recording" 
+                                                   Foreground="#B0B0B0" 
+                                                   FontSize="10"/>
+                                    </StackPanel>
+                                    
+                                    <Border Grid.Column="2" 
+                                            Width="8" Height="8" 
+                                            Background="#4CAF50" 
+                                            CornerRadius="4"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource CameraItemStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="#FF9800" CornerRadius="3" Margin="0,0,8,0">
+                                        <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </Border>
+                                    
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Business Hours" 
+                                                   Foreground="#FFFFFF" 
+                                                   FontSize="12" 
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="9 AM - 6 PM" 
+                                                   Foreground="#B0B0B0" 
+                                                   FontSize="10"/>
+                                    </StackPanel>
+                                    
+                                    <Border Grid.Column="2" 
+                                            Width="8" Height="8" 
+                                            Background="#FF9800" 
+                                            CornerRadius="4"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Style="{StaticResource CameraItemStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="#F44336" CornerRadius="3" Margin="0,0,8,0">
+                                        <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </Border>
+                                    
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Motion Detection" 
+                                                   Foreground="#FFFFFF" 
+                                                   FontSize="12" 
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="Event-based recording" 
+                                                   Foreground="#B0B0B0" 
+                                                   FontSize="10"/>
+                                    </StackPanel>
+                                    
+                                    <Border Grid.Column="2" 
+                                            Width="8" Height="8" 
+                                            Background="#F44336" 
+                                            CornerRadius="4"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                
+                <!-- Footer Actions -->
+                <Border Grid.Row="3" 
+                        Background="#1A1A1A" 
+                        BorderBrush="#333333" 
+                        BorderThickness="0,1,0,0" 
+                        Padding="12,8">
+                    <StackPanel>
+                        <Button Style="{StaticResource ModernButtonStyle}"
+                                Content="New Template"
+                                Margin="0,0,0,4"/>
+                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                Content="Import Schedule"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
 
         <!-- Main content -->
