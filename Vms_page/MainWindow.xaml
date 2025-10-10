@@ -844,7 +844,7 @@
                                                  Cursor="Hand"
                                                  MouseLeftButtonDown="Card_Click"
                                                  Tag="{Binding}"
-                                                 CornerRadius="4"
+                                                 CornerRadius="2"
                                                  Margin="8"
                                                  BorderThickness="1"
                                                  BorderBrush="{DynamicResource BorderColor}"
@@ -872,8 +872,7 @@
                                                         Margin="0,4,4,0"
                                                         Click="RemoveCard_Click"
                                                         Tag="{Binding}"
-                                                        Visibility="Collapsed"
-                                                        ToolTip="Remove card">
+                                                        Visibility="Collapsed">
                                                     <Button.Style>
                                                         <Style TargetType="Button">
                                                             <Setter Property="Background" Value="Transparent"/>
@@ -1092,7 +1091,7 @@
                                                                                           <Border.Style>
                                                  <Style TargetType="Border">
                                                      <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
-                                                     <Setter Property="CornerRadius" Value="4"/>
+                                                     <Setter Property="CornerRadius" Value="2"/>
                                                      <Setter Property="BorderThickness" Value="1"/>
                                                      <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
                                                      <Setter Property="Effect" Value="{DynamicResource CardShadow}"/>
