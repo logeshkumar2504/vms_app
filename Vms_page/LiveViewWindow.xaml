@@ -144,8 +144,8 @@
         <!-- Grid Layout Button Style -->
         <Style x:Key="GridLayoutButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -166,10 +166,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#404040"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FF9500"/>
+                                <Setter Property="Background" Value="{DynamicResource WarningColor}"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -430,13 +430,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="🎥" 
                                                FontSize="18" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="Video Channel" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -464,13 +464,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="⊞" 
                                                FontSize="18" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="View" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -497,13 +497,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="🔄" 
                                                FontSize="18" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="Sequence Resource" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -554,11 +554,11 @@
 
                             <!-- Top Left Video Feed -->
                             <Border Grid.Row="0" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
@@ -568,11 +568,11 @@
 
                             <!-- Top Right Video Feed -->
                             <Border Grid.Row="0" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
@@ -582,11 +582,11 @@
 
                             <!-- Bottom Left Video Feed -->
                             <Border Grid.Row="1" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomLeftFeed">
@@ -594,25 +594,25 @@
                                     <!-- CCTV Camera Icon -->
                                     <Border Width="60" Height="60" 
                                             Background="Transparent"
-                                            BorderBrush="#666666"
+                                            BorderBrush="{DynamicResource TextSecondaryColor}"
                                             BorderThickness="2"
                                             CornerRadius="30">
                                         <Grid>
                                             <!-- Camera Body -->
                                             <Rectangle Width="24" Height="16" 
-                                                       Fill="#666666" 
+                                                       Fill="{DynamicResource TextSecondaryColor}" 
                                                        HorizontalAlignment="Center" 
                                                        VerticalAlignment="Center"
                                                        RadiusX="2" RadiusY="2"/>
                                             <!-- Camera Lens -->
                                             <Ellipse Width="8" Height="8" 
-                                                     Fill="#666666" 
+                                                     Fill="{DynamicResource TextSecondaryColor}" 
                                                      HorizontalAlignment="Center" 
                                                      VerticalAlignment="Center"
                                                      Margin="-8,0,0,0"/>
                                             <!-- Mounting Arm -->
                                             <Path Data="M 8,8 L 12,12 L 12,16 L 8,16 Z" 
-                                                  Fill="#666666" 
+                                                  Fill="{DynamicResource TextSecondaryColor}" 
                                                   HorizontalAlignment="Center" 
                                                   VerticalAlignment="Center"
                                                   Margin="8,8,0,0"/>
@@ -623,11 +623,11 @@
 
                             <!-- Bottom Right Video Feed (Selected) -->
                             <Border Grid.Row="1" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#FF9500"
+                                    BorderBrush="{DynamicResource WarningColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomRightFeed">
@@ -635,25 +635,25 @@
                                     <!-- CCTV Camera Icon -->
                                     <Border Width="60" Height="60" 
                                             Background="Transparent"
-                                            BorderBrush="#FF9500"
+                                            BorderBrush="{DynamicResource WarningColor}"
                                             BorderThickness="2"
                                             CornerRadius="30">
                                         <Grid>
                                             <!-- Camera Body -->
                                             <Rectangle Width="24" Height="16" 
-                                                       Fill="#FF9500" 
+                                                       Fill="{DynamicResource WarningColor}" 
                                                        HorizontalAlignment="Center" 
                                                        VerticalAlignment="Center"
                                                        RadiusX="2" RadiusY="2"/>
                                             <!-- Camera Lens -->
                                             <Ellipse Width="8" Height="8" 
-                                                     Fill="#FF9500" 
+                                                     Fill="{DynamicResource WarningColor}" 
                                                      HorizontalAlignment="Center" 
                                                      VerticalAlignment="Center"
                                                      Margin="-8,0,0,0"/>
                                             <!-- Mounting Arm -->
                                             <Path Data="M 8,8 L 12,12 L 12,16 L 8,16 Z" 
-                                                  Fill="#FF9500" 
+                                                  Fill="{DynamicResource WarningColor}" 
                                                   HorizontalAlignment="Center" 
                                                   VerticalAlignment="Center"
                                                   Margin="8,8,0,0"/>
@@ -774,9 +774,9 @@
                                            IsOpen="False" 
                                            AllowsTransparency="True"
                                            StaysOpen="False">
-                                        <Border Background="#2A2A2A" 
+                                        <Border Background="{DynamicResource CardBackgroundColor}" 
                                                 CornerRadius="8" 
-                                                BorderBrush="#40FFFFFF" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
                                                 BorderThickness="1" 
                                                 Padding="16" 
                                                 Margin="0,0,0,8" 
@@ -794,13 +794,13 @@
                                                     <!-- Custom Section -->
                                                     <StackPanel Grid.Row="0" Margin="0,0,0,12">
                                                         <TextBlock Text="Custom" 
-                                                                   Foreground="White" 
+                                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                                    FontSize="12" 
                                                                    FontWeight="Bold" 
                                                                    Margin="0,0,0,8"/>
                                                         <Button Content="✏️ Edit" 
                                                                 Background="Transparent" 
-                                                                Foreground="White" 
+                                                                Foreground="{DynamicResource TextPrimaryColor}" 
                                                                 BorderThickness="0" 
                                                                 FontSize="11" 
                                                                 Padding="8,4" 
@@ -812,7 +812,7 @@
                                                     <!-- Default Section -->
                                                     <StackPanel Grid.Row="1" Margin="0,0,0,12">
                                                         <TextBlock Text="Default" 
-                                                                   Foreground="White" 
+                                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                                    FontSize="12" 
                                                                    FontWeight="Bold" 
                                                                    Margin="0,0,0,8"/>

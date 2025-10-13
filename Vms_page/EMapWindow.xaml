@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="E-Map" Height="700" Width="1000"
         WindowStartupLocation="CenterScreen"
-        Background="#1A1A1A">
+        Background="{DynamicResource BackgroundColor}">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -393,12 +393,12 @@
                                 <TextBlock Text="📍" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                             <Button x:Name="AddMapMainButton" Content="Add Map" Width="120" Height="30" Margin="0,10,0,0"
-                                    Background="#3A7AFE" Foreground="White" BorderBrush="#3A7AFE" Cursor="Hand"
+                                    Background="{DynamicResource PrimaryColor}" Foreground="White" BorderBrush="{DynamicResource PrimaryColor}" Cursor="Hand"
                                     Click="AddMapMainButton_Click"/>
                         </StackPanel>
 
                         <!-- Add Map Popup Overlay -->
-                        <Grid x:Name="AddMapPopup" Visibility="Collapsed" Background="#66000000">
+                        <Grid x:Name="AddMapPopup" Visibility="Collapsed" Background="{DynamicResource BackgroundColor}" Opacity="0.4">
                             <Border Width="720" Height="400" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="6" SnapsToDevicePixels="True">
                                 <Grid>
                                     <Grid.Resources>
@@ -513,7 +513,7 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <Button Grid.Column="1" Content="Add" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                                    Background="#3A7AFE" Foreground="White" BorderBrush="#3A7AFE" Click="AddMap_AddButton_Click"/>
+                                                    Background="{DynamicResource PrimaryColor}" Foreground="White" BorderBrush="{DynamicResource PrimaryColor}" Click="AddMap_AddButton_Click"/>
                                             <Button Grid.Column="2" Content="Cancel" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
                                                     Background="{DynamicResource CardBackgroundColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource BorderColor}" Click="AddMap_CancelButton_Click"/>
                                         </Grid>

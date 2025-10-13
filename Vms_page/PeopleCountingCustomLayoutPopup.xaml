@@ -133,8 +133,8 @@
 
         <!-- Top Control Bar -->
         <Border Grid.Row="0" 
-                Background="#2A2A2A" 
-                BorderBrush="#404040"
+                Background="{DynamicResource CardBackgroundColor}" 
+                BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,0,0,1"
                 Padding="16,12">
             <Grid>
@@ -186,7 +186,7 @@
                              FontSize="12"
                              Foreground="Black"
                              Background="White"
-                             BorderBrush="#FF9500"
+                             BorderBrush="{DynamicResource WarningColor}"
                              BorderThickness="1"
                              TextAlignment="Center"
                              VerticalAlignment="Center"
@@ -203,7 +203,7 @@
                              FontSize="12"
                              Foreground="Black"
                              Background="White"
-                             BorderBrush="#FF9500"
+                             BorderBrush="{DynamicResource WarningColor}"
                              BorderThickness="1"
                              TextAlignment="Center"
                              VerticalAlignment="Center"
@@ -236,8 +236,8 @@
             <!-- Left Sidebar with Preview -->
             <Border Grid.Column="0" 
                     Width="120"
-                    Background="#2A2A2A" 
-                    BorderBrush="#404040"
+                    Background="{DynamicResource CardBackgroundColor}" 
+                    BorderBrush="{DynamicResource BorderColor}"
                     BorderThickness="0,0,1,0"
                     Padding="12">
                 <StackPanel>
@@ -250,8 +250,8 @@
 
             <!-- Main Grid Designer -->
             <Border Grid.Column="1" 
-                    Background="#1A1A1A"
-                    BorderBrush="#FF9500"
+                    Background="{DynamicResource SurfaceColor}"
+                    BorderBrush="{DynamicResource WarningColor}"
                     BorderThickness="1"
                     Margin="0">
                 <Grid x:Name="MainGridDesigner" 
@@ -263,8 +263,8 @@
 
         <!-- Bottom Instructions and Buttons -->
         <Border Grid.Row="2" 
-                Background="#2A2A2A" 
-                BorderBrush="#404040"
+                Background="{DynamicResource CardBackgroundColor}" 
+                BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="16,12">
             <Grid>
@@ -281,13 +281,13 @@
                                FontWeight="Bold"
                                Margin="0,0,0,2"/>
                     <TextBlock Text="• Click cells to select them" 
-                               Foreground="#CCCCCC" 
+                               Foreground="{DynamicResource TextSecondaryColor}" 
                                FontSize="11"/>
                     <TextBlock Text="• Click 'Combine' to merge selected cells" 
-                               Foreground="#CCCCCC" 
+                               Foreground="{DynamicResource TextSecondaryColor}" 
                                FontSize="11"/>
                     <TextBlock Text="• Use input fields to change grid size" 
-                               Foreground="#CCCCCC" 
+                               Foreground="{DynamicResource TextSecondaryColor}" 
                                FontSize="11"/>
                 </StackPanel>
 

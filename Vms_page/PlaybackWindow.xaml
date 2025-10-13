@@ -141,9 +141,9 @@
                                                     <Ellipse Width="20" Height="20" Fill="{DynamicResource PrimaryColor}" Opacity="0.3"/>
                                                     <!-- Main thumb -->
                                                     <Ellipse Width="16" Height="16" Fill="{DynamicResource PrimaryColor}" 
-                                                            Stroke="#FFFFFF" StrokeThickness="2"/>
+                                                            Stroke="{DynamicResource TextPrimaryColor}" StrokeThickness="2"/>
                                                     <!-- Center dot -->
-                                                    <Ellipse Width="6" Height="6" Fill="#FFFFFF"/>
+                                                    <Ellipse Width="6" Height="6" Fill="{DynamicResource TextPrimaryColor}"/>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Thumb.Template>
@@ -497,13 +497,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="🎥" 
                                            FontSize="16" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="Video Channel" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -531,13 +531,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="⊞" 
                                            FontSize="16" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="View" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -564,13 +564,13 @@
                                     <TextBlock Grid.Column="0"
                                                Text="🔄" 
                                            FontSize="16" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
                                                Text="Sequence Resource" 
                                                FontSize="10" 
-                                               Foreground="#CCCCCC"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="8,0,0,0"
                                                Opacity="0"
@@ -808,10 +808,10 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1"/>
-                                        <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" Margin="0,0,10,0"/>
-                                        <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1"/>
-                                        <Border Grid.Column="1" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="1" Margin="0,191,10,0" Grid.RowSpan="2"/>
+                                        <Border Grid.Row="0" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"/>
+                                        <Border Grid.Row="0" Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="0,0,10,0"/>
+                                        <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"/>
+                                        <Border Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource WarningColor}" BorderThickness="1" Margin="0,191,10,0" Grid.RowSpan="2"/>
                                     </Grid>
 
                                     <!-- Bottom controls: grid layout dropdown (match Live View simplified) -->
@@ -834,7 +834,7 @@
                                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Button x:Name="LayoutBtn" Content="▦" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="0,0,6,0" Click="GridLayout_Click"/>
                                                 <Popup x:Name="GridLayoutDropdownPopup" PlacementTarget="{Binding ElementName=LayoutBtn}" Placement="Bottom" IsOpen="False" AllowsTransparency="True" StaysOpen="False">
-                                                    <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
+                                                    <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="8" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                                             <StackPanel>
                                                                 <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
@@ -923,11 +923,11 @@
                                                 </StackPanel>
                                                 <!-- Right: Legend (Normal, Event, VCA) -->
                                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12,0,0,0">
-                                                    <Border Width="14" Height="14" Background="#6AAEFF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource PrimaryColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="Normal" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
-                                                    <Border Width="14" Height="14" Background="#D53A2A" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource ErrorColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="Event" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
-                                                    <Border Width="14" Height="14" Background="#7D63FF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource SecondaryColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="VCA" Margin="6,0,0,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Grid>
@@ -937,7 +937,7 @@
                                             <!-- Bottom row: Time selector -->
                                             <Grid Grid.Row="2" Margin="0,0,0,0">
                                                 <!-- Enhanced Track area -->
-                                                <Grid Background="#1A1A1A">
+                                                <Grid Background="{DynamicResource SurfaceColor}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
@@ -946,7 +946,7 @@
 
                                                     <!-- Left navigation -->
                                                     <Button x:Name="LeftTimeArrowBtn" Grid.Column="0" Width="40" Height="40" 
-                                                            Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                            Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                             BorderThickness="0,0,1,0" HorizontalAlignment="Left" 
                                                             Click="LeftTimeArrowBtn_Click"
                                                             ToolTip="Previous Time Window">
@@ -999,9 +999,9 @@
                                                                 MouseLeave="TimelineSlider_MouseLeave">
                                                             <Slider.ToolTip>
                                                                 <ToolTip x:Name="TimelineToolTip" 
-                                                                         Background="#2A2A2A" 
+                                                                         Background="{DynamicResource CardBackgroundColor}" 
                                                                          Foreground="White" 
-                                                                         BorderBrush="#404040" 
+                                                                         BorderBrush="{DynamicResource BorderColor}" 
                                                                          BorderThickness="1"
                                                                          Padding="8,4"
                                                                          FontSize="12"
@@ -1016,7 +1016,7 @@
                                                     <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                                                         <!-- Full View Button -->
                                                         <Button x:Name="FullViewBtn" Content="⛶" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="4,0,2,0"
                                                                 ToolTip="View Full 24 Hours"
                                                                 Click="FullViewBtn_Click">
@@ -1041,7 +1041,7 @@
                                                         
                                                         <!-- Zoom In Button -->
                                                         <Button x:Name="ZoomInBtn" Content="+" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="2,0"
                                                                 ToolTip="Zoom In (2 Hours)"
                                                                 Click="ZoomInBtn_Click">
@@ -1066,7 +1066,7 @@
                                                         
                                                         <!-- Zoom Out Button -->
                                                         <Button x:Name="ZoomOutBtn" Content="−" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="2,0"
                                                                 ToolTip="Zoom Out (6 Hours)"
                                                                 Click="ZoomOutBtn_Click">
@@ -1091,7 +1091,7 @@
                                                         
                                                         <!-- Right navigation -->
                                                         <Button x:Name="RightTimeArrowBtn" Width="40" Height="40" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1,0,0,0" Margin="4,0,0,0"
                                                                 Click="RightTimeArrowBtn_Click"
                                                                 ToolTip="Next Time Window">
@@ -1137,10 +1137,10 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1"/>
-                                        <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" Margin="0,0,10,0"/>
-                                        <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1"/>
-                                        <Border Grid.Column="1" Background="#1A1A1A" BorderBrush="#FF9500" BorderThickness="1" Margin="0,191,10,0" Grid.RowSpan="2"/>
+                                        <Border Grid.Row="0" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"/>
+                                        <Border Grid.Row="0" Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="0,0,10,0"/>
+                                        <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"/>
+                                        <Border Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource WarningColor}" BorderThickness="1" Margin="0,191,10,0" Grid.RowSpan="2"/>
                                     </Grid>
 
                                     <!-- Bottom controls: grid layout dropdown (match Live View simplified) -->
@@ -1163,7 +1163,7 @@
                                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Button x:Name="LocalLayoutBtn" Content="▦" Style="{StaticResource OutlinedButtonStyle}" Width="36" Height="28" Margin="0,0,6,0" Click="LocalGridLayout_Click"/>
                                                 <Popup x:Name="LocalGridLayoutDropdownPopup" PlacementTarget="{Binding ElementName=LocalLayoutBtn}" Placement="Bottom" IsOpen="False" AllowsTransparency="True" StaysOpen="False">
-                                                    <Border Background="#2A2A2A" CornerRadius="8" BorderBrush="#40FFFFFF" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
+                                                    <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="8" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                                             <StackPanel>
                                                                 <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
@@ -1252,11 +1252,11 @@
                                                 </StackPanel>
                                                 <!-- Right: Legend (Normal, Event, VCA) -->
                                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="12,0,0,0">
-                                                    <Border Width="14" Height="14" Background="#6AAEFF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource PrimaryColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="Normal" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
-                                                    <Border Width="14" Height="14" Background="#D53A2A" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource ErrorColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="Event" Margin="6,0,12,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
-                                                    <Border Width="14" Height="14" Background="#7D63FF" CornerRadius="2" VerticalAlignment="Center"/>
+                                                    <Border Width="14" Height="14" Background="{DynamicResource SecondaryColor}" CornerRadius="2" VerticalAlignment="Center"/>
                                                     <TextBlock Text="VCA" Margin="6,0,0,0" Foreground="{DynamicResource TextSecondaryColor}" FontSize="12" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Grid>
@@ -1266,7 +1266,7 @@
                                             <!-- Bottom row: Time selector -->
                                             <Grid Grid.Row="2" Margin="0,0,0,0">
                                                 <!-- Enhanced Track area -->
-                                                <Grid Background="#1A1A1A">
+                                                <Grid Background="{DynamicResource SurfaceColor}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
@@ -1275,7 +1275,7 @@
 
                                                     <!-- Left navigation -->
                                                     <Button x:Name="LocalLeftTimeArrowBtn" Grid.Column="0" Width="40" Height="40" 
-                                                            Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                            Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                             BorderThickness="0,0,1,0" HorizontalAlignment="Left" 
                                                             Click="LocalLeftTimeArrowBtn_Click"
                                                             ToolTip="Previous Time Window">
@@ -1328,9 +1328,9 @@
                                                                 MouseLeave="LocalTimelineSlider_MouseLeave">
                                                             <Slider.ToolTip>
                                                                 <ToolTip x:Name="LocalTimelineToolTip" 
-                                                                         Background="#2A2A2A" 
+                                                                         Background="{DynamicResource CardBackgroundColor}" 
                                                                          Foreground="White" 
-                                                                         BorderBrush="#404040" 
+                                                                         BorderBrush="{DynamicResource BorderColor}" 
                                                                          BorderThickness="1"
                                                                          Padding="8,4"
                                                                          FontSize="12"
@@ -1345,7 +1345,7 @@
                                                     <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                                                         <!-- Full View Button -->
                                                         <Button x:Name="LocalFullViewBtn" Content="⛶" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="4,0,2,0"
                                                                 ToolTip="View Full 24 Hours"
                                                                 Click="LocalFullViewBtn_Click">
@@ -1370,7 +1370,7 @@
                                                         
                                                         <!-- Zoom In Button -->
                                                         <Button x:Name="LocalZoomInBtn" Content="+" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="2,0"
                                                                 ToolTip="Zoom In (2 Hours)"
                                                                 Click="LocalZoomInBtn_Click">
@@ -1395,7 +1395,7 @@
                                                         
                                                         <!-- Zoom Out Button -->
                                                         <Button x:Name="LocalZoomOutBtn" Content="−" Width="28" Height="28" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1" Margin="2,0"
                                                                 ToolTip="Zoom Out (6 Hours)"
                                                                 Click="LocalZoomOutBtn_Click">
@@ -1420,7 +1420,7 @@
                                                         
                                                         <!-- Right navigation -->
                                                         <Button x:Name="LocalRightTimeArrowBtn" Width="40" Height="40" 
-                                                                Background="#2A2A2A" BorderBrush="{DynamicResource BorderColor}" 
+                                                                Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" 
                                                                 BorderThickness="1,0,0,0" Margin="4,0,0,0"
                                                                 Click="LocalRightTimeArrowBtn_Click"
                                                                 ToolTip="Next Time Window">

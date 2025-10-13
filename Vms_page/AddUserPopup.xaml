@@ -109,9 +109,9 @@
 
         <!-- ComboBox Style -->
         <Style x:Key="FormComboBoxStyle" TargetType="{x:Type ComboBox}">
-            <Setter Property="Background" Value="#2C2C2E"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#3A3A3C"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8,6"/>
             <Setter Property="FontSize" Value="10"/>
@@ -129,12 +129,12 @@
                                           ClickMode="Press">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                        <Border Background="#2C2C2E"
-                                                BorderBrush="#3A3A3C"
+                                        <Border Background="{DynamicResource CardBackgroundColor}"
+                                                BorderBrush="{DynamicResource BorderColor}"
                                                 BorderThickness="1"
                                                 CornerRadius="4">
                                             <Path x:Name="Arrow"
-                                                  Fill="White"
+                                                  Fill="{DynamicResource TextPrimaryColor}"
                                                   HorizontalAlignment="Right"
                                                   VerticalAlignment="Center"
                                                   Margin="0,0,8,0"
@@ -158,7 +158,7 @@
                                      Margin="8,6,8,6"
                                      Focusable="True"
                                      Background="Transparent"
-                                     Foreground="White"
+                                     Foreground="{DynamicResource TextPrimaryColor}"
                                      FontSize="10"
                                      FontFamily="Segoe UI"
                                      Height="16"
@@ -176,9 +176,9 @@
                                       MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                            Background="White"
+                                            Background="{DynamicResource CardBackgroundColor}"
                                             BorderThickness="1"
-                                            BorderBrush="#E5E5EA"
+                                            BorderBrush="{DynamicResource BorderColor}"
                                             CornerRadius="4"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
@@ -199,7 +199,7 @@
                                 <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
                             </Trigger>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#007AFF"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -209,8 +209,8 @@
 
         <!-- ComboBoxItem Style -->
         <Style x:Key="ComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Padding" Value="8,4"/>
@@ -226,10 +226,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#F0F0F0"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#E0E0E0"/>
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -353,17 +354,17 @@
                            Margin="0,0,0,5"/>
                 <StackPanel Orientation="Horizontal">
                     <Border x:Name="WeakBorder" 
-                            Background="#E5E5EA" 
+                            Background="{DynamicResource BorderColor}" 
                             Width="60" Height="8" 
                             CornerRadius="2" 
                             Margin="0,0,5,0"/>
                     <Border x:Name="MediumBorder" 
-                            Background="#E5E5EA" 
+                            Background="{DynamicResource BorderColor}" 
                             Width="60" Height="8" 
                             CornerRadius="2" 
                             Margin="0,0,5,0"/>
                     <Border x:Name="StrongBorder" 
-                            Background="#E5E5EA" 
+                            Background="{DynamicResource BorderColor}" 
                             Width="60" Height="8" 
                             CornerRadius="2"/>
                 </StackPanel>
@@ -385,7 +386,7 @@
                 <!-- Select All / Clear All Buttons -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                     <Button Content="Select All" 
-                            Background="#007AFF"
+                            Background="{DynamicResource PrimaryColor}"
                             Foreground="White"
                             BorderThickness="0"
                             Padding="8,2"
@@ -416,7 +417,7 @@
                         </Button.Style>
                     </Button>
                     <Button Content="Clear All" 
-                            Background="#8E8E93"
+                            Background="{DynamicResource TextSecondaryColor}"
                             Foreground="White"
                             BorderThickness="0"
                             Padding="8,2"

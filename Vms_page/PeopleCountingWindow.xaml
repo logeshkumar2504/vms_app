@@ -340,7 +340,7 @@
                                 <TextBlock Grid.Column="0" 
                                            Text="📁" 
                                            FontSize="12" 
-                                           Foreground="#FFD700"
+                                           Foreground="{DynamicResource WarningColor}"
                                            VerticalAlignment="Center" 
                                            Margin="6,0,6,0"/>
                                 
@@ -370,7 +370,7 @@
                                 <TextBlock Grid.Column="0" 
                                            Text="📁" 
                                            FontSize="12" 
-                                           Foreground="#FFD700"
+                                           Foreground="{DynamicResource WarningColor}"
                                            VerticalAlignment="Center" 
                                            Margin="6,0,6,0"/>
                                 
@@ -428,17 +428,17 @@
 
                             <!-- Top Left Video Feed -->
                             <Border Grid.Row="0" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
                                     <TextBlock Text="📹" 
                                                FontSize="40" 
-                                               Foreground="#666666"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"/>
                                 </Grid>
@@ -446,17 +446,17 @@
 
                             <!-- Top Right Video Feed -->
                             <Border Grid.Row="0" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
                                     <TextBlock Text="📹" 
                                                FontSize="40" 
-                                               Foreground="#666666"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"/>
                                 </Grid>
@@ -464,18 +464,18 @@
 
                             <!-- Bottom Left Video Feed -->
                             <Border Grid.Row="1" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomLeftFeed">
                                 <Grid>
                                     <TextBlock Text="📹" 
                                                FontSize="40" 
-                                               Foreground="#666666"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"/>
                                 </Grid>
@@ -483,18 +483,18 @@
 
                             <!-- Bottom Right Video Feed (Selected) -->
                             <Border Grid.Row="1" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#FF9500"
+                                    BorderBrush="{DynamicResource WarningColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomRightFeed">
                                 <Grid>
                                     <TextBlock Text="📹" 
                                                FontSize="40" 
-                                               Foreground="#666666"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                HorizontalAlignment="Center" 
                                                VerticalAlignment="Center"/>
                                 </Grid>
@@ -529,9 +529,9 @@
                                            IsOpen="False" 
                                            AllowsTransparency="True"
                                            StaysOpen="False">
-                                        <Border Background="#2A2A2A" 
+                                        <Border Background="{DynamicResource CardBackgroundColor}" 
                                                 CornerRadius="8" 
-                                                BorderBrush="#40FFFFFF" 
+                                                BorderBrush="{DynamicResource BorderColor}" 
                                                 BorderThickness="1" 
                                                 Padding="16" 
                                                 Margin="0,0,0,8" 
@@ -681,8 +681,8 @@
 
                         <!-- Top Control Bar -->
                         <Border Grid.Row="0" 
-                                Background="#2A2A2A" 
-                                BorderBrush="#404040"
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}"
                                 BorderThickness="0,0,0,1"
                                 Padding="8,6">
                             <Grid>
@@ -702,8 +702,8 @@
                                                FontWeight="Medium"
                                                VerticalAlignment="Center"
                                                Margin="0,0,6,0"/>
-                                    <Border Background="#1A1A1A" 
-                                            BorderBrush="#404040" 
+                                    <Border Background="{DynamicResource SurfaceColor}" 
+                                            BorderBrush="{DynamicResource BorderColor}" 
                                             BorderThickness="1" 
                                             CornerRadius="0" 
                                             Padding="6,2" 
@@ -715,7 +715,7 @@
                                                        FontSize="10" 
                                                        VerticalAlignment="Center"/>
                                             <TextBlock Text=" ▼" 
-                                                       Foreground="#888888" 
+                                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                                        FontSize="9" 
                                                        Margin="3,0,0,0" 
                                                        VerticalAlignment="Center"/>
@@ -733,7 +733,7 @@
                                                FontSize="10" 
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" ~ " 
-                                               Foreground="#888888" 
+                                               Foreground="{DynamicResource TextSecondaryColor}" 
                                                FontSize="10" 
                                                VerticalAlignment="Center"
                                                Margin="3,0"/>
@@ -743,7 +743,7 @@
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" 📅" 
                                                FontSize="10" 
-                                               Foreground="#888888"
+                                               Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                Margin="3,0,0,0"/>
                                 </StackPanel>
@@ -782,15 +782,15 @@
 
                         <!-- Main Content Area - Centered Table -->
                         <Border Grid.Row="1" 
-                                Background="#1A1A1A"
+                                Background="{DynamicResource SurfaceColor}"
                                 Margin="0">
                             <Grid>
                                 <StackPanel HorizontalAlignment="Stretch" 
                                             VerticalAlignment="Center" 
                                             Margin="0">
                                     <!-- Export and Details Controls -->
-                                    <Border Background="#2A2A2A" 
-                                            BorderBrush="#404040"
+                                    <Border Background="{DynamicResource CardBackgroundColor}" 
+                                            BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="0,1,0,0"
                                             Padding="12,6"
                                             Margin="0,0,0,6">
@@ -808,8 +808,8 @@
                                     </Border>
 
                                     <!-- Table Header -->
-                                    <Border Background="#2A2A2A" 
-                                            BorderBrush="#404040"
+                                    <Border Background="{DynamicResource CardBackgroundColor}" 
+                                            BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="1"
                                             Padding="0">
                                         <Grid>

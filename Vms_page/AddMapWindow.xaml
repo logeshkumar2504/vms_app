@@ -69,7 +69,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" Content="Add" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-                        Background="#3A7AFE" Foreground="White" BorderBrush="#3A7AFE" Click="AddButton_Click"/>
+                        Background="{DynamicResource PrimaryColor}" Foreground="White" BorderBrush="{DynamicResource PrimaryColor}" Click="AddButton_Click"/>
                 <Button Grid.Column="2" Content="Cancel" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
                         Background="{DynamicResource CardBackgroundColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource BorderColor}" Click="CancelButton_Click"/>
             </Grid>

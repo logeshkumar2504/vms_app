@@ -369,7 +369,7 @@
 
                 <!-- Left: Mic toggle button -->
                 <!-- Center: Mic toggle button -->
-                <Border Grid.Column="1" BorderBrush="#FF4A9EFF" BorderThickness="1" CornerRadius="4" Padding="3" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF1A1A1A">
+                <Border Grid.Column="1" BorderBrush="{DynamicResource PrimaryColor}" BorderThickness="1" CornerRadius="4" Padding="3" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource SurfaceColor}">
                     <Button Name="CenterMicBtn"
                             Width="32" Height="32"
                             Background="Transparent"

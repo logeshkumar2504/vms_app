@@ -1104,7 +1104,7 @@
                                         CornerRadius="0" 
                                         Margin="0"
                                         BorderThickness="1"
-                                        BorderBrush="#333333"
+                                        BorderBrush="{DynamicResource BorderColor}"
                                         Cursor="Hand"
                                         MouseLeftButtonDown="CameraTile_Click">
                                     <Grid>
@@ -1125,7 +1125,7 @@
                                         CornerRadius="0" 
                                         Margin="0"
                                         BorderThickness="1"
-                                        BorderBrush="#333333"
+                                        BorderBrush="{DynamicResource BorderColor}"
                                         Cursor="Hand"
                                         MouseLeftButtonDown="CameraTile_Click">
                                     <Grid>
@@ -1146,7 +1146,7 @@
                                         CornerRadius="0" 
                                         Margin="0"
                                         BorderThickness="1"
-                                        BorderBrush="#333333"
+                                        BorderBrush="{DynamicResource BorderColor}"
                                         Cursor="Hand"
                                         MouseLeftButtonDown="CameraTile_Click">
                                     <Grid>
@@ -1167,7 +1167,7 @@
                                         CornerRadius="0" 
                                         Margin="0"
                                         BorderThickness="1"
-                                        BorderBrush="#333333"
+                                        BorderBrush="{DynamicResource BorderColor}"
                                         Cursor="Hand"
                                         MouseLeftButtonDown="CameraTile_Click">
                                     <Grid>

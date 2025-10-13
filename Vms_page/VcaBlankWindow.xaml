@@ -196,7 +196,7 @@
 								</ToggleButton>
 								<ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="10,0,28,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-									<Border Background="#232323" BorderBrush="#555555" BorderThickness="1" CornerRadius="8">
+									<Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8">
 										<ScrollViewer Margin="4,6,4,6">
 											<StackPanel IsItemsHost="True"/>
 										</ScrollViewer>
@@ -227,9 +227,9 @@
 		</Style>
 
 		<Style x:Key="FilterIconButton" TargetType="Button">
-			<Setter Property="Background" Value="#2A2A2A"/>
-			<Setter Property="Foreground" Value="#E2E8F0"/>
-			<Setter Property="BorderBrush" Value="#555555"/>
+			<Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+			<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Width" Value="28"/>
 			<Setter Property="Height" Value="28"/>
@@ -243,8 +243,8 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" Value="#3A3A3A"/>
-								<Setter Property="BorderBrush" Value="#777777"/>
+								<Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+								<Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -254,9 +254,9 @@
 
 		<!-- Dark Combo style made global for reuse across views (e.g., HeatMap) -->
 		<Style x:Key="DarkCombo" TargetType="ComboBox">
-			<Setter Property="Background" Value="#111111"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="BorderBrush" Value="#404040"/>
+			<Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+			<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Padding" Value="8,4"/>
 			<Setter Property="Template">
@@ -270,14 +270,14 @@
 								</Grid.ColumnDefinitions>
 								<ContentPresenter x:Name="ContentSite" Grid.Column="0" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<ToggleButton x:Name="ToggleButton" Grid.Column="1" Focusable="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Background="Transparent" BorderThickness="0" Width="24" Height="24" Margin="0,0,4,0">
-									<Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="White" Stretch="Uniform" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+									<Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{DynamicResource TextPrimaryColor}" Stretch="Uniform" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
 										<Path.RenderTransform>
 											<RotateTransform Angle="0"/>
 										</Path.RenderTransform>
 									</Path>
 								</ToggleButton>
 								<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
-									<Border Background="#111111" BorderBrush="#404040" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+									<Border Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
 										<ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 											<StackPanel IsItemsHost="True"/>
 										</ScrollViewer>
@@ -300,8 +300,8 @@
 			<Setter Property="ItemContainerStyle">
 				<Setter.Value>
 					<Style TargetType="ComboBoxItem">
-						<Setter Property="Foreground" Value="White"/>
-						<Setter Property="Background" Value="#111111"/>
+						<Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+						<Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
 						<Setter Property="Padding" Value="8,6"/>
 						<Setter Property="Template">
 							<Setter.Value>
@@ -311,10 +311,11 @@
 									</Border>
 									<ControlTemplate.Triggers>
 										<Trigger Property="IsMouseOver" Value="True">
-											<Setter TargetName="ItemBg" Property="Background" Value="#1A1A1A"/>
+											<Setter TargetName="ItemBg" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
 										</Trigger>
 										<Trigger Property="IsSelected" Value="True">
-											<Setter TargetName="ItemBg" Property="Background" Value="#2A2A2A"/>
+											<Setter TargetName="ItemBg" Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+											<Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
 										</Trigger>
 									</ControlTemplate.Triggers>
 								</ControlTemplate>
@@ -506,7 +507,7 @@
 					</Border>
 
                 <!-- Grid area -->
-                <Border x:Name="RM_GridFrame" Background="#000000" BorderBrush="#FF9500" BorderThickness="0" Padding="0" Margin="0">
+                <Border x:Name="RM_GridFrame" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource WarningColor}" BorderThickness="0" Padding="0" Margin="0">
                 <Grid Margin="0">
 						<Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -517,25 +518,25 @@
                         <ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 
-                    <Border x:Name="Tile00" Grid.Row="0" Grid.Column="0" Background="#1A1A1A" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
+                    <Border x:Name="Tile00" Grid.Row="0" Grid.Column="0" Background="{DynamicResource SurfaceColor}" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
 							<Grid>
 								<Image Source="/Assets/Icons/cctv.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
 							</Grid>
 						</Border>
 
-                    <Border x:Name="Tile01" Grid.Row="0" Grid.Column="1" Background="#1A1A1A" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
+                    <Border x:Name="Tile01" Grid.Row="0" Grid.Column="1" Background="{DynamicResource SurfaceColor}" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
 							<Grid>
 								<Image Source="/Assets/Icons/cctv.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
 							</Grid>
 						</Border>
 
-                    <Border x:Name="Tile10" Grid.Row="1" Grid.Column="0" Background="#1A1A1A" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
+                    <Border x:Name="Tile10" Grid.Row="1" Grid.Column="0" Background="{DynamicResource SurfaceColor}" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
 							<Grid>
 								<Image Source="/Assets/Icons/cctv.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
 							</Grid>
 						</Border>
 
-                    <Border x:Name="Tile11" Grid.Row="1" Grid.Column="1" Background="#1A1A1A" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
+                    <Border x:Name="Tile11" Grid.Row="1" Grid.Column="1" Background="{DynamicResource SurfaceColor}" CornerRadius="0" Margin="0" BorderThickness="0" Cursor="Hand" MouseLeftButtonDown="CameraTile_Click">
 							<Grid>
 								<Image Source="/Assets/Icons/cctv.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
 							</Grid>
@@ -848,7 +849,7 @@
 															</Path>
 														</ToggleButton>
 														<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
-															<Border Background="#111111" BorderBrush="#404040" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+															<Border Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="4" MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
 																<ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 																	<StackPanel IsItemsHost="True"/>
 																</ScrollViewer>

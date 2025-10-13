@@ -51,6 +51,15 @@ namespace Vms_page
                     // DatePicker colors for dark mode
                     appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
                     appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    // Alarm Level Colors
+                    appResources["AlarmCriticalColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x45, 0x3A));
+                    appResources["AlarmHighColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0x9F, 0x0A));
+                    appResources["AlarmMediumColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xD6, 0x0A));
+                    appResources["AlarmLowColor"] = new SolidColorBrush(Color.FromRgb(0x64, 0xD2, 0xFF));
+                    appResources["AlarmInfoColor"] = new SolidColorBrush(Color.FromRgb(0x25, 0x63, 0xEB));
+                    // Button Hover States
+                    appResources["ButtonHoverColor"] = new SolidColorBrush(Color.FromRgb(0x5E, 0x5C, 0xE6));
+                    appResources["ButtonPressedColor"] = new SolidColorBrush(Color.FromRgb(0x4A, 0x4A, 0xBF));
                     break;
                     
                 case "Blue":

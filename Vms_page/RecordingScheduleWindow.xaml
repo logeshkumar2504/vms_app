@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	Title="Recording Schedule" Height="720" Width="1100" MinHeight="500" MinWidth="900"
 	WindowStartupLocation="CenterOwner"
-	Background="#1E1E1E">
+	Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <SolidColorBrush x:Key="PanelBg" Color="#1E1E1E"/>
         <SolidColorBrush x:Key="SidebarBg" Color="#2A2A2A"/>
@@ -35,7 +35,7 @@
             </Setter>
         </Style>
         <DataTemplate x:Key="HourBlockTemplate">
-            <Border Background="#222" BorderBrush="#3A3A3A" BorderThickness="1" Width="24" Height="16" Margin="2"/>
+            <Border Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Width="24" Height="16" Margin="2"/>
         </DataTemplate>
         
         <!-- Modern Button Styles -->
@@ -132,7 +132,7 @@
                 </Grid.RowDefinitions>
                 
                 <!-- Header Section -->
-                <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12" Margin="0,0,0,8">
+                <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" Padding="16,12" Margin="0,0,0,8">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                             <Image Source="/Assets/Icons/Record-Schedule.png" Width="20" Height="20" Margin="0,0,8,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -149,7 +149,7 @@
                 </Border>
                 
                 <!-- Enhanced Search Section -->
-                <Border Grid.Row="1" Margin="12,0,12,16" Background="#2A2A2A" BorderBrush="#404040" BorderThickness="1" CornerRadius="6">
+                <Border Grid.Row="1" Margin="12,0,12,16" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="6">
                     <Grid Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -163,7 +163,7 @@
                                        FontSize="14" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" 
-                                       Foreground="#64B5F6"/>
+                                       Foreground="{DynamicResource PrimaryColor}"/>
                         </Border>
                         
                         <!-- Search Input -->
@@ -171,7 +171,7 @@
                                  Grid.Column="1" 
                                  BorderThickness="0" 
                                  Background="Transparent" 
-                                 Foreground="#FFFFFF" 
+                                 Foreground="{DynamicResource TextPrimaryColor}" 
                                  Padding="0,8,8,8" 
                                  CaretBrush="#64B5F6" 
                                  Text="Search schedules..." 
@@ -189,7 +189,7 @@
                                 VerticalAlignment="Center">
                             <TextBlock Text="✕" 
                                        FontSize="12" 
-                                       Foreground="#888888" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                        HorizontalAlignment="Center"/>
                         </Button>
                     </Grid>
@@ -199,7 +199,7 @@
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="12,0,12,0">
                         <!-- Category Header -->
-                        <Border Background="#333333" CornerRadius="4" Margin="0,0,0,8" Padding="12,8">
+                        <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="4" Margin="0,0,0,8" Padding="12,8">
                             <TextBlock Text="Recording Templates" 
                                        Foreground="{StaticResource TextSecondary}" 
                                        FontSize="11" 
@@ -216,23 +216,23 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <Border Grid.Column="0" Width="32" Height="24" Background="#4CAF50" CornerRadius="3" Margin="0,0,8,0">
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="{DynamicResource SuccessColor}" CornerRadius="3" Margin="0,0,8,0">
                                         <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                     </Border>
                                     
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Text="24/7 Recording" 
-                                                   Foreground="#FFFFFF" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="SemiBold"/>
                                         <TextBlock Text="Continuous recording" 
-                                                   Foreground="#B0B0B0" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
                                                    FontSize="10"/>
                                     </StackPanel>
                                     
                                     <Border Grid.Column="2" 
                                             Width="8" Height="8" 
-                                            Background="#4CAF50" 
+                                            Background="{DynamicResource SuccessColor}" 
                                             CornerRadius="4"/>
                                 </Grid>
                             </Border>
@@ -245,23 +245,23 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <Border Grid.Column="0" Width="32" Height="24" Background="#FF9800" CornerRadius="3" Margin="0,0,8,0">
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="{DynamicResource WarningColor}" CornerRadius="3" Margin="0,0,8,0">
                                         <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                     </Border>
                                     
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Text="Business Hours" 
-                                                   Foreground="#FFFFFF" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="SemiBold"/>
                                         <TextBlock Text="9 AM - 6 PM" 
-                                                   Foreground="#B0B0B0" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
                                                    FontSize="10"/>
                                     </StackPanel>
                                     
                                     <Border Grid.Column="2" 
                                             Width="8" Height="8" 
-                                            Background="#FF9800" 
+                                            Background="{DynamicResource WarningColor}" 
                                             CornerRadius="4"/>
                                 </Grid>
                             </Border>
@@ -274,23 +274,23 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <Border Grid.Column="0" Width="32" Height="24" Background="#F44336" CornerRadius="3" Margin="0,0,8,0">
+                                    <Border Grid.Column="0" Width="32" Height="24" Background="{DynamicResource ErrorColor}" CornerRadius="3" Margin="0,0,8,0">
                                         <Image Source="/Assets/Icons/Record-Schedule.png" Width="16" Height="16" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                     </Border>
                                     
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Text="Motion Detection" 
-                                                   Foreground="#FFFFFF" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="SemiBold"/>
                                         <TextBlock Text="Event-based recording" 
-                                                   Foreground="#B0B0B0" 
+                                                   Foreground="{DynamicResource TextSecondaryColor}" 
                                                    FontSize="10"/>
                                     </StackPanel>
                                     
                                     <Border Grid.Column="2" 
                                             Width="8" Height="8" 
-                                            Background="#F44336" 
+                                            Background="{DynamicResource ErrorColor}" 
                                             CornerRadius="4"/>
                                 </Grid>
                             </Border>
@@ -300,8 +300,8 @@
                 
                 <!-- Footer Actions -->
                 <Border Grid.Row="3" 
-                        Background="#1A1A1A" 
-                        BorderBrush="#333333" 
+                        Background="{DynamicResource SurfaceColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,1,0,0" 
                         Padding="12,8">
                     <StackPanel>
@@ -336,7 +336,7 @@
 
             <!-- Schedule block -->
             <ScrollViewer Grid.Row="2" Margin="0,16,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <Border Background="#232323" BorderBrush="#333" BorderThickness="1">
+                <Border Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
                     <Grid Margin="12">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

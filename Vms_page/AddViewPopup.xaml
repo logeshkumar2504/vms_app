@@ -309,19 +309,19 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- Camera Cells -->
-                            <Border Grid.Row="0" Grid.Column="0" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="0" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="0" Grid.Column="1" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="0" Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="1" Grid.Column="0" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>
-                            <Border Grid.Row="1" Grid.Column="1" Background="#1A1A1A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
+                            <Border Grid.Row="1" Grid.Column="1" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Margin="2" CornerRadius="2">
                                 <Image Source="/Assets/Icons/cctv.png" Width="28" Height="28" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.9"/>
                             </Border>

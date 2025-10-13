@@ -124,10 +124,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0056CC"/>
+                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#004499"/>
+                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                                <Setter Property="Opacity" Value="0.8"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -470,7 +471,7 @@
 
         <!-- Separator Line -->
         <Border Height="1" 
-                Background="#D0D0D0" 
+                Background="{DynamicResource BorderColor}" 
                 Margin="0,0,0,0"
                 Opacity="0.6"/>
 
@@ -481,7 +482,7 @@
                 <RowDefinition Height="388*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -496,7 +497,7 @@
                               Margin="0"
                               Padding="0"
                               Style="{StaticResource ThinScrollStyle}">
-                    <StackPanel Margin="0" Background="Transparent" Width="240">
+                    <StackPanel Margin="0" Background="Transparent" HorizontalAlignment="Stretch">
 
                         <!-- Basic Section -->
                         <Expander Header="📋 Basic Functions" 
@@ -505,7 +506,7 @@
                                   Margin="0,0,0,12"
                                   Background="Transparent" 
                                   BorderThickness="0" 
-                                  IsExpanded="False" Width="240">
+                                  IsExpanded="False">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -534,13 +535,13 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="48"/>
+                                                    <ColumnDefinition Width="40"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <!-- Icon Container with Fixed Size -->
                                                 <Border Grid.Column="0" 
-                                                        Width="48" Height="48" 
+                                                        Width="40" Height="40" 
                                                         HorizontalAlignment="Center" 
                                                         VerticalAlignment="Center"
                                                         Background="Transparent">
@@ -552,98 +553,98 @@
                                                                     <DataTrigger Binding="{Binding Name}" Value="User Management">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/user-management.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/user-management.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Recording Schedule">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/Record-Schedule.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/Record-Schedule.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="View">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/view.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/view.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Alarm Records">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/alarm-records.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/alarm-records.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Device Management">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/device-management.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/device-management.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Alarm Configuration">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/alarm-configuration.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/alarm-configuration.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="System Configuration">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/system-configuration.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/system-configuration.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Sequence Resource">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/sequence-Resources.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/sequence-Resources.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Live View">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/live-view.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/live-view.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Operation Log">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/log.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/log.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Playback">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/playback.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/playback.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Audio">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/audio.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/audio.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Video Wall">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/video-wall.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/video-wall.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="E-map">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/e-map.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/e-map.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
@@ -673,7 +674,7 @@
                                                            HorizontalAlignment="Left"
                                                            TextWrapping="Wrap"
                                                            TextTrimming="None"
-                                                           Margin="6,0,8,0"/>
+                                                           Margin="4,0,4,0"/>
                                             </Grid>
                                         </Button>
                                     </DataTemplate>
@@ -686,7 +687,7 @@
                                   IsExpanded="True" 
                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                   FontWeight="SemiBold" 
-                                  Margin="0,0,0,12" Width="240">
+                                  Margin="0,0,0,12">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -715,13 +716,13 @@
                                                 Style="{StaticResource MenuButtonStyle}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="48"/>
+                                                    <ColumnDefinition Width="40"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <!-- Icon Container with Fixed Size -->
                                                 <Border Grid.Column="0" 
-                                                        Width="48" Height="48" 
+                                                        Width="40" Height="40" 
                                                         HorizontalAlignment="Center" 
                                                         VerticalAlignment="Center"
                                                         Background="Transparent">
@@ -733,35 +734,35 @@
                                                                     <DataTrigger Binding="{Binding Name}" Value="Face Recognition">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/face-recognition.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/face-recognition.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="Access Control">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/access control.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/access control.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="LPR">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/LPR.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/LPR.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="People Counting">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/peopel-counting.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/peopel-counting.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding Name}" Value="VCA">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image Source="/Assets/Icons/VCA.png" Width="48" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                                <Image Source="/Assets/Icons/VCA.png" Width="40" Height="40" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
@@ -791,7 +792,7 @@
                                                            HorizontalAlignment="Left"
                                                            TextWrapping="Wrap"
                                                            TextTrimming="None"
-                                                           Margin="6,0,8,0"/>
+                                                           Margin="4,0,4,0"/>
                                             </Grid>
                                         </Button>
                                     </DataTemplate>
@@ -855,7 +856,7 @@
                                                         Grid.Row="0"
                                                         Content="✕" 
                                                         FontSize="16" 
-                                                        Foreground="#8E8E93"
+                                                        Foreground="{DynamicResource TextSecondaryColor}"
                                                         Background="Transparent"
                                                         BorderThickness="0"
                                                         HorizontalAlignment="Right"
@@ -878,7 +879,7 @@
                                                             </Setter>
                                                             <Style.Triggers>
                                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Foreground" Value="#FF3B30"/>
+                                                                    <Setter Property="Foreground" Value="{DynamicResource ErrorColor}"/>
                                                                 </Trigger>
                                                             </Style.Triggers>
                                                         </Style>

@@ -373,7 +373,7 @@
                 </Border>
 
                     <!-- Grid area -->
-                    <Border x:Name="CameraGridContainer" Background="#000000">
+                    <Border x:Name="CameraGridContainer" Background="{DynamicResource BackgroundColor}">
                         <UniformGrid x:Name="CameraTilesHost" Rows="2" Columns="2"/>
                     </Border>
                 </DockPanel>

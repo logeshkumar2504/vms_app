@@ -1900,7 +1900,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -1977,7 +1977,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -2017,7 +2017,7 @@
                                                         ToolTip="Delete"
                                                         Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="#EF4444"/>
+                                                               Foreground="{DynamicResource ErrorColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2063,7 +2063,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -2103,7 +2103,7 @@
                                                         ToolTip="Delete"
                                                         Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="#EF4444"/>
+                                                               Foreground="{DynamicResource ErrorColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2149,7 +2149,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -2189,7 +2189,7 @@
                                                         ToolTip="Delete"
                                                         Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="#EF4444"/>
+                                                               Foreground="{DynamicResource ErrorColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2235,7 +2235,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -2275,7 +2275,7 @@
                                                         ToolTip="Delete"
                                                         Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="#EF4444"/>
+                                                               Foreground="{DynamicResource ErrorColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -2322,7 +2322,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"/>
                                             <Border Grid.Column="4" 
-                                                    Background="#EF4444" 
+                                                    Background="{DynamicResource ErrorColor}" 
                                                     CornerRadius="12" 
                                                     HorizontalAlignment="Center" 
                                                     VerticalAlignment="Center"
@@ -2362,7 +2362,7 @@
                                                         ToolTip="Delete"
                                                         Margin="2,0">
                                                     <TextBlock Text="🗑" FontSize="12" 
-                                                               Foreground="#EF4444"/>
+                                                               Foreground="{DynamicResource ErrorColor}"/>
                                                 </Button>
                                             </StackPanel>
                                         </Grid>

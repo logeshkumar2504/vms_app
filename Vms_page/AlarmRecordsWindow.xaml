@@ -114,7 +114,7 @@
                                VerticalAlignment="Center"
                                Margin="0,0,12,0"/>
                     <Border Background="{DynamicResource BackgroundColor}"
-                            BorderBrush="#0078D4"
+                            BorderBrush="{DynamicResource PrimaryColor}"
                             BorderThickness="2"
                             CornerRadius="4"
                             Padding="6,4">
@@ -124,10 +124,10 @@
                                   Height="24"
                                   Background="Transparent"
                                   BorderThickness="0"
-                                  Foreground="#0078D4"
+                                  Foreground="{DynamicResource PrimaryColor}"
                                   FontSize="11"
                                   FontWeight="Medium">
-                            <ComboBoxItem Content="All" Foreground="#0078D4"/>
+                            <ComboBoxItem Content="All" Foreground="{DynamicResource PrimaryColor}"/>
                             <ComboBoxItem Content="Motion" Foreground="{DynamicResource TextPrimaryColor}"/>
                             <ComboBoxItem Content="Audio" Foreground="{DynamicResource TextPrimaryColor}"/>
                             <ComboBoxItem Content="Temperature" Foreground="{DynamicResource TextPrimaryColor}"/>
@@ -160,7 +160,7 @@
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
                                                     <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                                    <Setter Property="BorderBrush" Value="#0078D4"/>
+                                                    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -216,7 +216,7 @@
                                                             Margin="0,0,3,0">
                                                         <Path x:Name="CheckMark"
                                                               Data="M 1,3 L 3,5 L 7,1"
-                                                              Stroke="#0078D4"
+                                                              Stroke="{DynamicResource PrimaryColor}"
                                                               StrokeThickness="1.5"
                                                               Visibility="Collapsed"/>
                                                     </Border>
@@ -225,8 +225,8 @@
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsChecked" Value="True">
                                                         <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                        <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#0078D4"/>
-                                                        <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0078D420"/>
+                                                        <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                        <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -248,7 +248,7 @@
                             <CheckBox x:Name="Level1CheckBox">
                                 <CheckBox.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="8" Height="8" Background="#FF4444" CornerRadius="1" Margin="0,0,3,0"/>
+                                        <Border Width="8" Height="8" Background="{DynamicResource AlarmCriticalColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                         <TextBlock Text="L1" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                     </StackPanel>
                                 </CheckBox.Content>
@@ -267,7 +267,7 @@
                                                                 Margin="0,0,3,0">
                                                             <Path x:Name="CheckMark"
                                                                   Data="M 1,3 L 3,5 L 7,1"
-                                                                  Stroke="#0078D4"
+                                                                  Stroke="{DynamicResource PrimaryColor}"
                                                                   StrokeThickness="1.5"
                                                                   Visibility="Collapsed"/>
                                                         </Border>
@@ -276,8 +276,8 @@
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsChecked" Value="True">
                                                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                            <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#0078D4"/>
-                                                            <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0078D420"/>
+                                                            <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                            <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -297,7 +297,7 @@
                             <CheckBox x:Name="Level2CheckBox">
                                 <CheckBox.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="8" Height="8" Background="#FF8800" CornerRadius="1" Margin="0,0,3,0"/>
+                                        <Border Width="8" Height="8" Background="{DynamicResource AlarmHighColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                         <TextBlock Text="L2" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                     </StackPanel>
                                 </CheckBox.Content>
@@ -313,7 +313,7 @@
                             <CheckBox x:Name="Level3CheckBox">
                                 <CheckBox.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="8" Height="8" Background="#FFDD00" CornerRadius="1" Margin="0,0,3,0"/>
+                                        <Border Width="8" Height="8" Background="{DynamicResource AlarmMediumColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                         <TextBlock Text="L3" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                     </StackPanel>
                                 </CheckBox.Content>
@@ -329,7 +329,7 @@
                             <CheckBox x:Name="Level4CheckBox">
                                 <CheckBox.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="8" Height="8" Background="#44AAFF" CornerRadius="1" Margin="0,0,3,0"/>
+                                        <Border Width="8" Height="8" Background="{DynamicResource AlarmLowColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                         <TextBlock Text="L4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                     </StackPanel>
                                 </CheckBox.Content>
@@ -344,7 +344,7 @@
                             <CheckBox x:Name="Level5CheckBox">
                                 <CheckBox.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="8" Height="8" Background="#0066CC" CornerRadius="1" Margin="0,0,3,0"/>
+                                        <Border Width="8" Height="8" Background="{DynamicResource AlarmInfoColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                         <TextBlock Text="L5" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                     </StackPanel>
                                 </CheckBox.Content>
@@ -373,8 +373,8 @@
                 
                 <!-- Select All Checkbox -->
                 <Border Grid.Column="0" 
-                        Background="#2C3E50" 
-                        BorderBrush="#34495E" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,0,1,0"
                         CornerRadius="0">
                     <CheckBox x:Name="SelectAllTableCheckBox" 
@@ -387,8 +387,8 @@
                                         <ControlTemplate TargetType="CheckBox">
                                             <Border x:Name="CheckBoxBorder"
                                                     Width="16" Height="16"
-                                                    Background="#34495E"
-                                                    BorderBrush="#0078D4"
+                                                    Background="{DynamicResource SurfaceColor}"
+                                                    BorderBrush="{DynamicResource PrimaryColor}"
                                                     BorderThickness="2"
                                                     CornerRadius="3">
                                                 <Path x:Name="CheckMark"
@@ -400,12 +400,12 @@
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
                                                     <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0078D4"/>
-                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#0078D4"/>
+                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#40A9FF"/>
-                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="#2C3E50"/>
+                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource SecondaryColor}"/>
+                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -418,11 +418,11 @@
                 
                 <!-- Alarm Time Header -->
                 <Border Grid.Column="1" 
-                        Background="#2C3E50" 
-                        BorderBrush="#34495E" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,0,1,0">
                     <TextBlock Text="Alarm Time" 
-                               Foreground="#FFFFFF"
+                               Foreground="{DynamicResource TextPrimaryColor}"
                                FontSize="12"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"
@@ -431,11 +431,11 @@
                 
                 <!-- Alarm Source Header -->
                 <Border Grid.Column="2" 
-                        Background="#2C3E50" 
-                        BorderBrush="#34495E" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,0,1,0">
                     <TextBlock Text="Alarm Source" 
-                               Foreground="#FFFFFF"
+                               Foreground="{DynamicResource TextPrimaryColor}"
                                FontSize="12"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"
@@ -444,11 +444,11 @@
                 
                 <!-- Alarm Type Header -->
                 <Border Grid.Column="3" 
-                        Background="#2C3E50" 
-                        BorderBrush="#34495E" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,0,1,0">
                     <TextBlock Text="Alarm Type" 
-                               Foreground="#FFFFFF"
+                               Foreground="{DynamicResource TextPrimaryColor}"
                                FontSize="12"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"
@@ -457,11 +457,11 @@
                 
                 <!-- Alarm Level Header -->
                 <Border Grid.Column="4" 
-                        Background="#2C3E50" 
-                        BorderBrush="#34495E" 
+                        Background="{DynamicResource CardBackgroundColor}" 
+                        BorderBrush="{DynamicResource BorderColor}" 
                         BorderThickness="0,0,1,0">
                     <TextBlock Text="Alarm Level" 
-                               Foreground="#FFFFFF"
+                               Foreground="{DynamicResource TextPrimaryColor}"
                                FontSize="12"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"
@@ -470,9 +470,9 @@
                 
                 <!-- Preview Header -->
                 <Border Grid.Column="5" 
-                        Background="#2C3E50">
+                        Background="{DynamicResource CardBackgroundColor}">
                     <TextBlock Text="Preview" 
-                               Foreground="#FFFFFF"
+                               Foreground="{DynamicResource TextPrimaryColor}"
                                FontSize="12"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"
@@ -561,17 +561,17 @@
                                 </Border>
                                 <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
                                     <TextBlock Text="Today" 
-                                               Foreground="#0078D4"
+                                               Foreground="{DynamicResource PrimaryColor}"
                                                FontSize="11"
                                                Margin="0,0,12,0"
                                                Cursor="Hand"/>
                                     <TextBlock Text="Last 3 days" 
-                                               Foreground="#0078D4"
+                                               Foreground="{DynamicResource PrimaryColor}"
                                                FontSize="11"
                                                Margin="0,0,12,0"
                                                Cursor="Hand"/>
                                     <TextBlock Text="Last 7 days" 
-                                               Foreground="#0078D4"
+                                               Foreground="{DynamicResource PrimaryColor}"
                                                FontSize="11"
                                                Cursor="Hand"/>
                                 </StackPanel>
@@ -592,8 +592,8 @@
                                 <Button Content="Search" 
                                         Width="60"
                                         Height="24"
-                                        Background="#0078D4"
-                                        BorderBrush="#0078D4"
+                                        Background="{DynamicResource PrimaryColor}"
+                                        BorderBrush="{DynamicResource PrimaryColor}"
                                         BorderThickness="1"
                                         Foreground="White"
                                         FontSize="11"
@@ -622,12 +622,12 @@
                                               Height="20"
                                               Background="Transparent"
                                               BorderThickness="0"
-                                              Foreground="Black"
+                                              Foreground="{DynamicResource TextPrimaryColor}"
                                               FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="Black"/>
-                                        <ComboBoxItem Content="Motion" Foreground="Black"/>
-                                        <ComboBoxItem Content="Audio" Foreground="Black"/>
-                                        <ComboBoxItem Content="Temperature" Foreground="Black"/>
+                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Motion" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Audio" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Temperature" Foreground="{DynamicResource TextPrimaryColor}"/>
                                     </ComboBox>
                                 </Border>
                                 <Button Content="⋯" 
@@ -659,12 +659,12 @@
                                               Height="20"
                                               Background="Transparent"
                                               BorderThickness="0"
-                                              Foreground="Black"
+                                              Foreground="{DynamicResource TextPrimaryColor}"
                                               FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="Black"/>
-                                        <ComboBoxItem Content="Active" Foreground="Black"/>
-                                        <ComboBoxItem Content="Acknowledged" Foreground="Black"/>
-                                        <ComboBoxItem Content="Resolved" Foreground="Black"/>
+                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Active" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Acknowledged" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Resolved" Foreground="{DynamicResource TextPrimaryColor}"/>
                                     </ComboBox>
                                 </Border>
                             </StackPanel>
@@ -687,12 +687,12 @@
                                               Height="20"
                                               Background="Transparent"
                                               BorderThickness="0"
-                                              Foreground="Black"
+                                              Foreground="{DynamicResource TextPrimaryColor}"
                                               FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="Black"/>
-                                        <ComboBoxItem Content="Admin" Foreground="Black"/>
-                                        <ComboBoxItem Content="Operator" Foreground="Black"/>
-                                        <ComboBoxItem Content="Security" Foreground="Black"/>
+                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Admin" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Operator" Foreground="{DynamicResource TextPrimaryColor}"/>
+                                        <ComboBoxItem Content="Security" Foreground="{DynamicResource TextPrimaryColor}"/>
                                     </ComboBox>
                                 </Border>
                             </StackPanel>
@@ -729,13 +729,13 @@
                                                                 <Border x:Name="CheckBoxBorder"
                                                                         Width="10" Height="10"
                                                                         Background="{DynamicResource BackgroundColor}"
-                                                                        BorderBrush="#0078D4"
+                                                                        BorderBrush="{DynamicResource PrimaryColor}"
                                                                         BorderThickness="1"
                                                                         CornerRadius="2"
                                                                         Margin="0,0,3,0">
                                                                     <Path x:Name="CheckMark"
                                                                           Data="M 1,3 L 3,5 L 7,1"
-                                                                          Stroke="#0078D4"
+                                                                          Stroke="{DynamicResource PrimaryColor}"
                                                                           StrokeThickness="1.5"
                                                                           Visibility="Visible"/>
                                                                 </Border>
@@ -744,8 +744,8 @@
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="IsChecked" Value="True">
                                                                     <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#0078D4"/>
-                                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0078D420"/>
+                                                                    <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+                                                                    <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                                                 </Trigger>
                                                                 <Trigger Property="IsChecked" Value="False">
                                                                     <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
@@ -772,7 +772,7 @@
                                         <CheckBox x:Name="HistoryLevel1CheckBox" IsChecked="True">
                                             <CheckBox.Content>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Border Width="8" Height="8" Background="#FF4444" CornerRadius="1" Margin="0,0,3,0"/>
+                                                    <Border Width="8" Height="8" Background="{DynamicResource AlarmCriticalColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                                     <TextBlock Text="L1" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                                 </StackPanel>
                                             </CheckBox.Content>
@@ -788,7 +788,7 @@
                                         <CheckBox x:Name="HistoryLevel2CheckBox" IsChecked="True">
                                             <CheckBox.Content>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Border Width="8" Height="8" Background="#FF8800" CornerRadius="1" Margin="0,0,3,0"/>
+                                                    <Border Width="8" Height="8" Background="{DynamicResource AlarmHighColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                                     <TextBlock Text="L2" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                                 </StackPanel>
                                             </CheckBox.Content>
@@ -804,7 +804,7 @@
                                         <CheckBox x:Name="HistoryLevel3CheckBox" IsChecked="True">
                                             <CheckBox.Content>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Border Width="8" Height="8" Background="#FFDD00" CornerRadius="1" Margin="0,0,3,0"/>
+                                                    <Border Width="8" Height="8" Background="{DynamicResource AlarmMediumColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                                     <TextBlock Text="L3" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                                 </StackPanel>
                                             </CheckBox.Content>
@@ -820,7 +820,7 @@
                                         <CheckBox x:Name="HistoryLevel4CheckBox" IsChecked="True">
                                             <CheckBox.Content>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Border Width="8" Height="8" Background="#44AAFF" CornerRadius="1" Margin="0,0,3,0"/>
+                                                    <Border Width="8" Height="8" Background="{DynamicResource AlarmLowColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                                     <TextBlock Text="L4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                                 </StackPanel>
                                             </CheckBox.Content>
@@ -835,7 +835,7 @@
                                         <CheckBox x:Name="HistoryLevel5CheckBox" IsChecked="True">
                                             <CheckBox.Content>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Border Width="8" Height="8" Background="#0066CC" CornerRadius="1" Margin="0,0,3,0"/>
+                                                    <Border Width="8" Height="8" Background="{DynamicResource AlarmInfoColor}" CornerRadius="1" Margin="0,0,3,0"/>
                                                     <TextBlock Text="L5" Foreground="{DynamicResource TextPrimaryColor}" FontSize="9" FontWeight="Medium"/>
                                                 </StackPanel>
                                             </CheckBox.Content>
@@ -921,8 +921,8 @@
                         
                         <!-- Select All Checkbox -->
                         <Border Grid.Column="0" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <CheckBox x:Name="HistorySelectAllTableCheckBox" 
                                       HorizontalAlignment="Center" 
@@ -934,8 +934,8 @@
                                                 <ControlTemplate TargetType="CheckBox">
                                                     <Border x:Name="CheckBoxBorder"
                                                             Width="16" Height="16"
-                                                            Background="#34495E"
-                                                            BorderBrush="#0078D4"
+                                                            Background="{DynamicResource SurfaceColor}"
+                                                            BorderBrush="{DynamicResource PrimaryColor}"
                                                             BorderThickness="2"
                                                             CornerRadius="3">
                                                         <Path x:Name="CheckMark"
@@ -947,8 +947,8 @@
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsChecked" Value="True">
                                                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                            <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0078D4"/>
-                                                            <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="#0078D4"/>
+                                                            <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                                            <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -961,11 +961,11 @@
                         
                         <!-- Alarm Time -->
                         <Border Grid.Column="1" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Alarm Time" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -974,11 +974,11 @@
                         
                         <!-- Alarm Source -->
                         <Border Grid.Column="2" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Alarm Source" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -987,11 +987,11 @@
                         
                         <!-- Alarm Type -->
                         <Border Grid.Column="3" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Alarm Type" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -1000,11 +1000,11 @@
                         
                         <!-- Alarm Level -->
                         <Border Grid.Column="4" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Alarm Level" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -1013,11 +1013,11 @@
                         
                         <!-- Alarm Status -->
                         <Border Grid.Column="5" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Alarm Status" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -1026,11 +1026,11 @@
                         
                         <!-- Acknowledged By -->
                         <Border Grid.Column="6" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Acknowledged By" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -1039,11 +1039,11 @@
                         
                         <!-- Acknowledged At -->
                         <Border Grid.Column="7" 
-                                Background="#2C3E50" 
-                                BorderBrush="#34495E" 
+                                Background="{DynamicResource CardBackgroundColor}" 
+                                BorderBrush="{DynamicResource BorderColor}" 
                                 BorderThickness="0,0,1,0">
                             <TextBlock Text="Acknowledged At" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"
@@ -1052,9 +1052,9 @@
                         
                         <!-- Remarks -->
                         <Border Grid.Column="8" 
-                                Background="#2C3E50">
+                                Background="{DynamicResource CardBackgroundColor}">
                             <TextBlock Text="Remarks" 
-                                       Foreground="#FFFFFF"
+                                       Foreground="{DynamicResource TextPrimaryColor}"
                                        FontSize="12"
                                        FontWeight="Bold"
                                        HorizontalAlignment="Center"

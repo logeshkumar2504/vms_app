@@ -63,8 +63,8 @@
 
         <!-- Button Style -->
         <Style x:Key="TopBarButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#2C3E50"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="FontSize" Value="10"/>
@@ -82,10 +82,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#34495E"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1A252F"/>
+                                <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -95,13 +95,15 @@
 
         <!-- Delete Button Style -->
         <Style x:Key="DeleteButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TopBarButtonStyle}">
-            <Setter Property="Background" Value="#7F8C8D"/>
+            <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#95A5A6"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#6C7B7D"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Opacity" Value="0.8"/>
                 </Trigger>
             </Style.Triggers>
         </Style>

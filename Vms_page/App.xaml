@@ -21,6 +21,17 @@
         <!-- Menu hover/active background -->
         <SolidColorBrush x:Key="MenuHoverColor" Color="#4A4A5E"/>
         
+        <!-- Alarm Level Colors -->
+        <SolidColorBrush x:Key="AlarmCriticalColor" Color="#FF453A"/>
+        <SolidColorBrush x:Key="AlarmHighColor" Color="#FF9F0A"/>
+        <SolidColorBrush x:Key="AlarmMediumColor" Color="#FFD60A"/>
+        <SolidColorBrush x:Key="AlarmLowColor" Color="#64D2FF"/>
+        <SolidColorBrush x:Key="AlarmInfoColor" Color="#2563EB"/>
+        
+        <!-- Button Hover States -->
+        <SolidColorBrush x:Key="ButtonHoverColor" Color="#5E5CE6"/>
+        <SolidColorBrush x:Key="ButtonPressedColor" Color="#4A4ABF"/>
+        
         <!-- Typography -->
         <FontFamily x:Key="AppFont">Segoe UI</FontFamily>
 
@@ -88,7 +99,7 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsHighlighted" Value="True">
-                                            <Setter TargetName="Bd" Property="Background" Value="#33374A"/>
+                                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
