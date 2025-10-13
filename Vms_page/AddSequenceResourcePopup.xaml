@@ -171,7 +171,7 @@
         <!-- Bottom buttons -->
         <Border Grid.Row="1" Background="{DynamicResource SurfaceColor}" Padding="12" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1,1,1,1" Margin="0,477,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="OkBtn" Content="OK" Width="80" Height="28" Margin="0,0,8,0" Background="{DynamicResource PrimaryColor}" Foreground="White" BorderThickness="0" Click="OkBtn_Click"/>
+                <Button x:Name="OkBtn" Content="OK" Width="80" Height="28" Margin="0,0,8,0" Background="{DynamicResource PrimaryColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderThickness="0" Click="OkBtn_Click"/>
                 <Button x:Name="CancelBtn" Content="Cancel" Width="80" Height="28" Background="{DynamicResource SurfaceColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Click="CancelBtn_Click"/>
             </StackPanel>
         </Border>

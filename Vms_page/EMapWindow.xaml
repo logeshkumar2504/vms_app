@@ -393,7 +393,7 @@
                                 <TextBlock Text="📍" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                             <Button x:Name="AddMapMainButton" Content="Add Map" Width="120" Height="30" Margin="0,10,0,0"
-                                    Background="{DynamicResource PrimaryColor}" Foreground="White" BorderBrush="{DynamicResource PrimaryColor}" Cursor="Hand"
+                                    Background="{DynamicResource PrimaryColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource PrimaryColor}" Cursor="Hand"
                                     Click="AddMapMainButton_Click"/>
                         </StackPanel>
 
@@ -513,7 +513,7 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <Button Grid.Column="1" Content="Add" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                                    Background="{DynamicResource PrimaryColor}" Foreground="White" BorderBrush="{DynamicResource PrimaryColor}" Click="AddMap_AddButton_Click"/>
+                                                    Background="{DynamicResource PrimaryColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource PrimaryColor}" Click="AddMap_AddButton_Click"/>
                                             <Button Grid.Column="2" Content="Cancel" Width="96" Height="30" Margin="0,0,12,0" VerticalAlignment="Center" HorizontalAlignment="Right"
                                                     Background="{DynamicResource CardBackgroundColor}" Foreground="{DynamicResource TextPrimaryColor}" BorderBrush="{DynamicResource BorderColor}" Click="AddMap_CancelButton_Click"/>
                                         </Grid>

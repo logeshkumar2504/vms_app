@@ -8,13 +8,13 @@
     <Window.Resources>
         <!-- Top bar button -->
         <Style x:Key="TopBarButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#1E2330"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="MinWidth" Value="59"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinWidth" Value="80"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -26,7 +26,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#2A2F3A"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -37,10 +37,10 @@
         <Style x:Key="SearchTextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
-            <Setter Property="BorderBrush" Value="#3A3F4A"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Height" Value="34"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="FontSize" Value="12"/>
         </Style>
 

@@ -7,6 +7,10 @@ namespace Vms_page
         public OperationLogWindow()
         {
             InitializeComponent();
+            
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
+            
             InitializeDropdowns();
         }
 

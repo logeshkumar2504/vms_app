@@ -40,15 +40,15 @@
 
         <!-- TextBox Style -->
         <Style TargetType="TextBox">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Padding" Value="6,1"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="8,6"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -74,15 +74,15 @@
 
         <!-- ComboBox Style -->
         <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Padding" Value="6,0,4,0"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="8,6,4,6"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
@@ -170,13 +170,13 @@
 
         <!-- DatePicker Style -->
         <Style TargetType="DatePicker">
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
 
         <!-- CheckBox Style -->
@@ -188,14 +188,14 @@
 
         <!-- Button Styles -->
         <Style TargetType="Button">
-            <Setter Property="Height" Value="24"/>
-            <Setter Property="Padding" Value="10,0"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -209,12 +209,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#1D4ED8"/>
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="#1D4ED8"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource ButtonHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#1E40AF"/>
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="#1E40AF"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource ButtonPressedColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Bd" Property="Opacity" Value="0.6"/>
@@ -223,6 +223,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Small Button Style (for toolbars) -->
+        <Style x:Key="SmallButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="12,4"/>
+            <Setter Property="FontSize" Value="11"/>
         </Style>
 
         <Style x:Key="OutlinedButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -244,7 +251,7 @@
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#13213D"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -265,9 +272,9 @@
             <Setter Property="GridLinesVisibility" Value="None"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="RowBackground" Value="Transparent"/>
-            <Setter Property="AlternatingRowBackground" Value="#1F2A3A"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="#2E3A4A"/>
-            <Setter Property="VerticalGridLinesBrush" Value="#2E3A4A"/>
+            <Setter Property="AlternatingRowBackground" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="RowHeight" Value="28"/>
             <Setter Property="ColumnHeaderHeight" Value="30"/>
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
@@ -292,10 +299,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#233043"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.3"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#2B3A50"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

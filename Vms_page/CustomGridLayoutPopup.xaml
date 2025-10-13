@@ -19,7 +19,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="0" 
+                                CornerRadius="{StaticResource ControlCornerRadius}" 
                                 Padding="{TemplateBinding Padding}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
@@ -58,7 +58,7 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" Padding="16,12">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Default" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock Text="Default" Foreground="{DynamicResource TextPrimaryColor}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                 <TextBlock Text=" - Select Grid Layout" Foreground="{DynamicResource TextSecondaryColor}" FontSize="14" Margin="6,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
@@ -78,9 +78,9 @@
                             Margin="6" Click="Grid1x1_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="50" Height="30" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="50" Height="30" Canvas.Left="5" Canvas.Top="5"/>
                             </Canvas>
-                            <TextBlock Text="1" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="1" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -90,11 +90,11 @@
                             Margin="6" Click="Grid3Col_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="15" Height="30" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="15" Height="30" Canvas.Left="22.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="15" Height="30" Canvas.Left="40" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="30" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="30" Canvas.Left="22.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="30" Canvas.Left="40" Canvas.Top="5"/>
                             </Canvas>
-                            <TextBlock Text="3" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="3" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -104,12 +104,12 @@
                             Margin="6" Click="Grid2x2_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="25" Height="15" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="25" Height="15" Canvas.Left="32.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="25" Height="15" Canvas.Left="5" Canvas.Top="22.5"/>
-                                <Rectangle Fill="White" Width="25" Height="15" Canvas.Left="32.5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="15" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="15" Canvas.Left="32.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="15" Canvas.Left="5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="15" Canvas.Left="32.5" Canvas.Top="22.5"/>
                             </Canvas>
-                            <TextBlock Text="4" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -119,11 +119,11 @@
                             Margin="6" Click="Grid4Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="25" Height="25" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="12" Height="12" Canvas.Left="32.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="12" Height="12" Canvas.Left="32.5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="25" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="12" Canvas.Left="32.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="12" Canvas.Left="32.5" Canvas.Top="22.5"/>
                             </Canvas>
-                            <TextBlock Text="4" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="4" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -133,12 +133,12 @@
                             Margin="6" Click="Grid5Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="17.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="10" Height="12" Canvas.Left="17.5" Canvas.Top="22.5"/>
-                                <Rectangle Fill="White" Width="10" Height="25" Canvas.Left="30" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="25" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="12" Canvas.Left="17.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="12" Canvas.Left="17.5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="25" Canvas.Left="30" Canvas.Top="5"/>
                             </Canvas>
-                            <TextBlock Text="5" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="5" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -148,12 +148,12 @@
                             Margin="6" Click="Grid6Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="27.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="5" Canvas.Top="22.5"/>
-                                <Rectangle Fill="White" Width="18" Height="12" Canvas.Left="27.5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="18" Height="12" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="18" Height="12" Canvas.Left="27.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="18" Height="12" Canvas.Left="5" Canvas.Top="22.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="18" Height="12" Canvas.Left="27.5" Canvas.Top="22.5"/>
                             </Canvas>
-                            <TextBlock Text="6" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="6" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -163,15 +163,15 @@
                             Margin="6" Click="Grid7Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="25" Height="25" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="40" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="12.5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="40" Canvas.Top="12.5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="20"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="40" Canvas.Top="20"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="25" Height="25" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="40" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="12.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="40" Canvas.Top="12.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="32.5" Canvas.Top="20"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="40" Canvas.Top="20"/>
                             </Canvas>
-                            <TextBlock Text="7" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="7" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -181,12 +181,12 @@
                             Margin="6" Click="Grid8Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="35" Height="10" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="5" Canvas.Top="17.5"/>
-                                <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="17.5" Canvas.Top="17.5"/>
-                                <Rectangle Fill="White" Width="10" Height="15" Canvas.Left="30" Canvas.Top="17.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="35" Height="10" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="15" Canvas.Left="5" Canvas.Top="17.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="15" Canvas.Left="17.5" Canvas.Top="17.5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="15" Canvas.Left="30" Canvas.Top="17.5"/>
                             </Canvas>
-                            <TextBlock Text="8" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="8" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -196,17 +196,17 @@
                             Margin="6" Click="Grid3x3_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="19" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="33" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="5" Canvas.Top="15"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="19" Canvas.Top="15"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="33" Canvas.Top="15"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="5" Canvas.Top="25"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="19" Canvas.Top="25"/>
-                                <Rectangle Fill="White" Width="12" Height="8" Canvas.Left="33" Canvas.Top="25"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="19" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="33" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="5" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="19" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="33" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="5" Canvas.Top="25"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="19" Canvas.Top="25"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="12" Height="8" Canvas.Left="33" Canvas.Top="25"/>
                             </Canvas>
-                            <TextBlock Text="9" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="9" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -219,12 +219,12 @@
                             Margin="6" Click="Grid10Top_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="35" Height="8" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="5" Canvas.Top="15"/>
-                                <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="17.5" Canvas.Top="15"/>
-                                <Rectangle Fill="White" Width="10" Height="20" Canvas.Left="30" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="35" Height="8" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="20" Canvas.Left="5" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="20" Canvas.Left="17.5" Canvas.Top="15"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="10" Height="20" Canvas.Left="30" Canvas.Top="15"/>
                             </Canvas>
-                            <TextBlock Text="10" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="10" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -234,13 +234,13 @@
                             Margin="6" Click="Grid10Left_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="8" Height="25" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="15" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="32.5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="15" Canvas.Top="19"/>
-                                <Rectangle Fill="White" Width="15" Height="12" Canvas.Left="32.5" Canvas.Top="19"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="25" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="12" Canvas.Left="15" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="12" Canvas.Left="32.5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="12" Canvas.Left="15" Canvas.Top="19"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="15" Height="12" Canvas.Left="32.5" Canvas.Top="19"/>
                             </Canvas>
-                            <TextBlock Text="10" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="10" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -250,23 +250,23 @@
                             Margin="6" Click="Grid13Pane_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="13" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="21" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="29" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="37" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="5" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="37" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="5" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="37" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="5" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="13" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="21" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="29" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="6" Height="6" Canvas.Left="37" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="16" Height="16" Canvas.Left="17" Canvas.Top="17"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="13" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="21" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="29" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="37" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="5" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="37" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="5" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="37" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="5" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="13" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="21" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="29" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="6" Height="6" Canvas.Left="37" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="16" Height="16" Canvas.Left="17" Canvas.Top="17"/>
                             </Canvas>
-                            <TextBlock Text="13" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="13" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -276,24 +276,24 @@
                             Margin="6" Click="Grid4x4_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="5" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="15" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="25" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="35" Canvas.Top="5"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="5" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="15" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="25" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="35" Canvas.Top="13"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="5" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="15" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="25" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="35" Canvas.Top="21"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="5" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="15" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="25" Canvas.Top="29"/>
-                                <Rectangle Fill="White" Width="8" Height="6" Canvas.Left="35" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="5" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="15" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="25" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="35" Canvas.Top="5"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="5" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="15" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="25" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="35" Canvas.Top="13"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="5" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="15" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="25" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="35" Canvas.Top="21"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="5" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="15" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="25" Canvas.Top="29"/>
+                                <Rectangle Fill="{DynamicResource TextPrimaryColor}" Width="8" Height="6" Canvas.Left="35" Canvas.Top="29"/>
                             </Canvas>
-                            <TextBlock Text="16" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="16" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -303,10 +303,10 @@
                             Margin="6" Click="Grid25_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <TextBlock Text="25" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                <TextBlock Text="25" Foreground="{DynamicResource TextPrimaryColor}" FontSize="10" FontWeight="Bold" 
                                            Canvas.Left="20" Canvas.Top="17"/>
                             </Canvas>
-                            <TextBlock Text="25" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="25" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -316,10 +316,10 @@
                             Margin="6" Click="Grid32_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <TextBlock Text="32" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                <TextBlock Text="32" Foreground="{DynamicResource TextPrimaryColor}" FontSize="10" FontWeight="Bold" 
                                            Canvas.Left="20" Canvas.Top="17"/>
                             </Canvas>
-                            <TextBlock Text="32" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="32" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -329,10 +329,10 @@
                             Margin="6" Click="Grid36_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <TextBlock Text="36" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                <TextBlock Text="36" Foreground="{DynamicResource TextPrimaryColor}" FontSize="10" FontWeight="Bold" 
                                            Canvas.Left="20" Canvas.Top="17"/>
                             </Canvas>
-                            <TextBlock Text="36" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="36" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>
@@ -342,10 +342,10 @@
                             Margin="6" Click="Grid64_Click">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <Canvas Style="{StaticResource GridIconStyle}">
-                                <TextBlock Text="64" Foreground="White" FontSize="10" FontWeight="Bold" 
+                                <TextBlock Text="64" Foreground="{DynamicResource TextPrimaryColor}" FontSize="10" FontWeight="Bold" 
                                            Canvas.Left="20" Canvas.Top="17"/>
                             </Canvas>
-                            <TextBlock Text="64" Foreground="White" FontSize="14" FontWeight="Bold" 
+                            <TextBlock Text="64" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold" 
                                        HorizontalAlignment="Center" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Button>

@@ -14,6 +14,9 @@ namespace Vms_page
         {
             InitializeComponent();
             
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
+            
             // Set default view to Realtime Monitoring
             SetDefaultView();
             

@@ -428,11 +428,11 @@
 
                             <!-- Top Left Video Feed -->
                             <Border Grid.Row="0" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
@@ -447,11 +447,11 @@
 
                             <!-- Top Right Video Feed -->
                             <Border Grid.Row="0" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
@@ -466,11 +466,11 @@
 
                             <!-- Bottom Left Video Feed -->
                             <Border Grid.Row="1" Grid.Column="0" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#333333"
+                                    BorderBrush="{DynamicResource BorderColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomLeftFeed">
@@ -486,11 +486,11 @@
 
                             <!-- Bottom Right Video Feed (Selected) -->
                             <Border Grid.Row="1" Grid.Column="1" 
-                                    Background="#1A1A1A" 
+                                    Background="{DynamicResource SurfaceColor}" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="#FF9500"
+                                    BorderBrush="{DynamicResource WarningColor}"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomRightFeed">
@@ -553,13 +553,13 @@
                                                     <!-- Custom Section -->
                                                     <StackPanel Grid.Row="0" Margin="0,0,0,12">
                                                         <TextBlock Text="Custom" 
-                                                                   Foreground="White" 
+                                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                                    FontSize="12" 
                                                                    FontWeight="Bold" 
                                                                    Margin="0,0,0,8"/>
                                                         <Button Content="✏️ Edit" 
                                                                 Background="Transparent" 
-                                                                Foreground="White" 
+                                                                Foreground="{DynamicResource TextPrimaryColor}" 
                                                                 BorderThickness="0" 
                                                                 FontSize="11" 
                                                                 Padding="8,4" 
@@ -571,7 +571,7 @@
                                                     <!-- Default Section -->
                                                     <StackPanel Grid.Row="1" Margin="0,0,0,12">
                                                         <TextBlock Text="Default" 
-                                                                   Foreground="White" 
+                                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                                    FontSize="12" 
                                                                    FontWeight="Bold" 
                                                                    Margin="0,0,0,8"/>
@@ -701,7 +701,7 @@
                                 <!-- Counting Type Dropdown -->
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                     <TextBlock Text="Counting Type" 
-                                               Foreground="White" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
                                                FontSize="10" 
                                                FontWeight="Medium"
                                                VerticalAlignment="Center"
@@ -715,7 +715,7 @@
                                             Height="24">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="By Day" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="10" 
                                                        VerticalAlignment="Center"/>
                                             <TextBlock Text=" ▼" 
@@ -733,7 +733,7 @@
                                             VerticalAlignment="Center"
                                             Margin="16,0,0,0">
                                     <TextBlock Text="2025-08-25" 
-                                               Foreground="White" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
                                                FontSize="10" 
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" ~ " 
@@ -742,7 +742,7 @@
                                                VerticalAlignment="Center"
                                                Margin="3,0"/>
                                     <TextBlock Text="2025-08-31" 
-                                               Foreground="White" 
+                                               Foreground="{DynamicResource TextPrimaryColor}" 
                                                FontSize="10" 
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text=" 📅" 
@@ -803,7 +803,7 @@
                                                     Style="{StaticResource ExportButtonStyle}"
                                                     Click="Export_Click"/>
                                             <CheckBox Content="Details" 
-                                                      Foreground="White"
+                                                      Foreground="{DynamicResource TextPrimaryColor}"
                                                       FontSize="11"
                                                       Margin="12,0,0,0"
                                                       VerticalAlignment="Center"

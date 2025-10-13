@@ -8,6 +8,9 @@ namespace Vms_page
         public AlarmConfigurationWindow()
         {
             InitializeComponent();
+            
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
         }
 
         private void SetActiveTab(Button active, params Button[] others)

@@ -183,7 +183,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
+                                CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"/>
                         </Border>
@@ -242,12 +242,12 @@
         
         <!-- Main dialog container -->
         <Border Background="{DynamicResource SurfaceColor}"
-                CornerRadius="8"
+                CornerRadius="4"
                 Width="400"
                 Height="480"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Effect="{x:Null}">
+                Effect="{DynamicResource CardShadow}">
             
             <Grid Margin="0">
                 <Grid.RowDefinitions>
@@ -259,7 +259,7 @@
                 <!-- Header with title and close button -->
                 <Border Grid.Row="0" 
                         Background="{DynamicResource CardBackgroundColor}"
-                        CornerRadius="8,8,0,0"
+                        CornerRadius="4,4,0,0"
                         Padding="20,16,16,16">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -285,7 +285,7 @@
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}"
-                                            CornerRadius="12">
+                                            CornerRadius="4">
                                         <TextBlock Text="✕"
                                                    FontSize="12"
                                                    FontWeight="Bold"
@@ -406,7 +406,7 @@
                 <!-- Footer with action buttons -->
                 <Border Grid.Row="2"
                         Background="{DynamicResource CardBackgroundColor}"
-                        CornerRadius="0,0,8,8"
+                        CornerRadius="0,0,4,4"
                         Padding="20,16">
                     <StackPanel Orientation="Horizontal" 
                                 HorizontalAlignment="Right">

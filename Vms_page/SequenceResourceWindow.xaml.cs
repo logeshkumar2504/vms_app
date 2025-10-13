@@ -8,6 +8,9 @@ namespace Vms_page
         public SequenceResourceWindow()
         {
             InitializeComponent();
+            
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
 
             // Ensure window respects taskbar
             this.SourceInitialized += SequenceResourceWindow_SourceInitialized;

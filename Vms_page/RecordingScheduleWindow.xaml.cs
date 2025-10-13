@@ -11,6 +11,10 @@ namespace Vms_page
 		public RecordingScheduleWindow()
 		{
 			InitializeComponent();
+			
+			// Apply the current theme
+			ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
+			
 			this.SourceInitialized += RecordingScheduleWindow_SourceInitialized;
 			for (int i = 0; i < 24; i++) HourBlocks.Add(i);
 			DataContext = this;

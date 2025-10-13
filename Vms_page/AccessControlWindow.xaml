@@ -119,7 +119,7 @@
 
         <!-- Custom ComboBox Style for Access Control -->
         <Style x:Key="AccessControlComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="FontSize" Value="12"/>
@@ -526,7 +526,7 @@
                                             FontSize="12"
                                             FontWeight="Normal"
                                             Background="{DynamicResource PrimaryColor}"
-                                            Foreground="White"
+                                            Foreground="{DynamicResource TextPrimaryColor}"
                                             BorderThickness="0"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
@@ -1445,7 +1445,7 @@
                                             Height="26"
                                             FontSize="11"
                                             Background="{DynamicResource PrimaryColor}"
-                                            Foreground="White"
+                                            Foreground="{DynamicResource TextPrimaryColor}"
                                             BorderThickness="0"
                                             Cursor="Hand"
                                             Click="EntryExitSearchButton_Click"
@@ -1453,7 +1453,7 @@
                                             Style="{x:Null}">
                                         <Button.Template>
                                             <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="4">
                                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
@@ -1484,7 +1484,7 @@
                                             Style="{x:Null}">
                                         <Button.Template>
                                             <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="{TemplateBinding Background}" CornerRadius="3" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="4" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
@@ -1519,7 +1519,7 @@
                                     Height="28"
                                     FontSize="11"
                                     Background="{DynamicResource PrimaryColor}"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource TextPrimaryColor}"
                                     BorderThickness="0"
                                     Cursor="Hand"
                                     Click="EntryExitExportButton_Click"

@@ -700,7 +700,7 @@
                                 HorizontalAlignment="Stretch"
                                 Height="36"
                                 Background="{DynamicResource PrimaryColor}"
-                                Foreground="White"
+                                Foreground="{DynamicResource TextPrimaryColor}"
                                 BorderThickness="0"
                                 FontSize="14"
                                 FontWeight="SemiBold">
@@ -837,7 +837,7 @@
                                                     <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="8" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                                             <StackPanel>
-                                                                <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                                                                <TextBlock Text="Grid Layouts" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
                                                                 <UniformGrid Columns="9" Rows="2">
                                                                     <Button Content="1" Tag="1x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
                                                                     <Button Content="3" Tag="3x1" Style="{StaticResource GridLayoutButtonStyle}" Click="SelectLayout_Click"/>
@@ -1000,7 +1000,7 @@
                                                             <Slider.ToolTip>
                                                                 <ToolTip x:Name="TimelineToolTip" 
                                                                          Background="{DynamicResource CardBackgroundColor}" 
-                                                                         Foreground="White" 
+                                                                         Foreground="{DynamicResource TextPrimaryColor}" 
                                                                          BorderBrush="{DynamicResource BorderColor}" 
                                                                          BorderThickness="1"
                                                                          Padding="8,4"
@@ -1166,7 +1166,7 @@
                                                     <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="8" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="16" Margin="0,6,0,0" MaxWidth="600" MaxHeight="400">
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                                             <StackPanel>
-                                                                <TextBlock Text="Grid Layouts" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                                                                <TextBlock Text="Grid Layouts" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
                                                                 <UniformGrid Columns="9" Rows="2">
                                                                     <Button Content="1" Tag="1x1" Style="{StaticResource GridLayoutButtonStyle}" Click="LocalSelectLayout_Click"/>
                                                                     <Button Content="3" Tag="3x1" Style="{StaticResource GridLayoutButtonStyle}" Click="LocalSelectLayout_Click"/>
@@ -1329,7 +1329,7 @@
                                                             <Slider.ToolTip>
                                                                 <ToolTip x:Name="LocalTimelineToolTip" 
                                                                          Background="{DynamicResource CardBackgroundColor}" 
-                                                                         Foreground="White" 
+                                                                         Foreground="{DynamicResource TextPrimaryColor}" 
                                                                          BorderBrush="{DynamicResource BorderColor}" 
                                                                          BorderThickness="1"
                                                                          Padding="8,4"

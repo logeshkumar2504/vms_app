@@ -295,7 +295,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- Camera Preview Area with Orange Border -->
-                    <Border Grid.Row="0" Background="Black" BorderBrush="{DynamicResource WarningColor}" BorderThickness="3" 
+                    <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource WarningColor}" BorderThickness="3" 
                             Margin="12,12,27,12" CornerRadius="4">
                         <Grid x:Name="CameraPreviewGrid">
                             <!-- Default 2x2 Grid Layout -->

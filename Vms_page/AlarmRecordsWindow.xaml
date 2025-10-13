@@ -585,7 +585,7 @@
                                         Background="{DynamicResource PrimaryColor}"
                                         BorderBrush="{DynamicResource PrimaryColor}"
                                         BorderThickness="1"
-                                        Foreground="White"
+                                        Foreground="{DynamicResource TextPrimaryColor}"
                                         FontSize="11"
                                         FontWeight="SemiBold"
                                         Cursor="Hand"/>

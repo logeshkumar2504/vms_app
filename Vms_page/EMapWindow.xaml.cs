@@ -13,6 +13,10 @@ namespace Vms_page
         public EMapWindow()
         {
             InitializeComponent();
+            
+            // Apply the current theme
+            ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
+            
             // Default to Edit Map mode on load
             Loaded += (s, e) =>
             {
