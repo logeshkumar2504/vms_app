@@ -463,7 +463,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0"
                                                Text="⊞" 
-                                               FontSize="18" 
+                                               FontSize="16" 
                                                Foreground="{DynamicResource TextSecondaryColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
@@ -775,7 +775,7 @@
                                            AllowsTransparency="True"
                                            StaysOpen="False">
                                         <Border Background="{DynamicResource CardBackgroundColor}" 
-                                                CornerRadius="8" 
+                                                CornerRadius="4" 
                                                 BorderBrush="{DynamicResource BorderColor}" 
                                                 BorderThickness="1" 
                                                 Padding="16" 

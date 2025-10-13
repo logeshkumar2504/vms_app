@@ -428,75 +428,79 @@
 
                             <!-- Top Left Video Feed -->
                             <Border Grid.Row="0" Grid.Column="0" 
-                                    Background="{DynamicResource SurfaceColor}" 
+                                    Background="#1A1A1A" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderBrush="#333333"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
-                                    <TextBlock Text="📹" 
-                                               FontSize="40" 
-                                               Foreground="{DynamicResource TextSecondaryColor}"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
+                                    <Image Source="pack://application:,,,/Assets/Icons/cctv.png"
+                                           Width="60"
+                                           Height="60"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
 
                             <!-- Top Right Video Feed -->
                             <Border Grid.Row="0" Grid.Column="1" 
-                                    Background="{DynamicResource SurfaceColor}" 
+                                    Background="#1A1A1A" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderBrush="#333333"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click">
                                 <Grid>
-                                    <TextBlock Text="📹" 
-                                               FontSize="40" 
-                                               Foreground="{DynamicResource TextSecondaryColor}"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
+                                    <Image Source="pack://application:,,,/Assets/Icons/cctv.png"
+                                           Width="60"
+                                           Height="60"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
 
                             <!-- Bottom Left Video Feed -->
                             <Border Grid.Row="1" Grid.Column="0" 
-                                    Background="{DynamicResource SurfaceColor}" 
+                                    Background="#1A1A1A" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderBrush="#333333"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomLeftFeed">
                                 <Grid>
-                                    <TextBlock Text="📹" 
-                                               FontSize="40" 
-                                               Foreground="{DynamicResource TextSecondaryColor}"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
+                                    <Image Source="pack://application:,,,/Assets/Icons/cctv.png"
+                                           Width="60"
+                                           Height="60"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
 
                             <!-- Bottom Right Video Feed (Selected) -->
                             <Border Grid.Row="1" Grid.Column="1" 
-                                    Background="{DynamicResource SurfaceColor}" 
+                                    Background="#1A1A1A" 
                                     CornerRadius="0" 
                                     Margin="0"
                                     BorderThickness="1"
-                                    BorderBrush="{DynamicResource WarningColor}"
+                                    BorderBrush="#FF9500"
                                     Cursor="Hand"
                                     MouseLeftButtonDown="VideoFeed_Click"
                                     x:Name="BottomRightFeed">
                                 <Grid>
-                                    <TextBlock Text="📹" 
-                                               FontSize="40" 
-                                               Foreground="{DynamicResource TextSecondaryColor}"
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
+                                    <Image Source="pack://application:,,,/Assets/Icons/cctv.png"
+                                           Width="60"
+                                           Height="60"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -823,7 +827,7 @@
 
                                             <TextBlock Grid.Column="0" 
                                                        Text="Statistics Time" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="11" 
                                                        FontWeight="Medium"
                                                        HorizontalAlignment="Center" 
@@ -832,7 +836,7 @@
                                             
                                             <TextBlock Grid.Column="1" 
                                                        Text="People Entered" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="11" 
                                                        FontWeight="Medium"
                                                        HorizontalAlignment="Center" 
@@ -841,7 +845,7 @@
                                             
                                             <TextBlock Grid.Column="2" 
                                                        Text="People Left" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="11" 
                                                        FontWeight="Medium"
                                                        HorizontalAlignment="Center" 
@@ -850,7 +854,7 @@
                                             
                                             <TextBlock Grid.Column="3" 
                                                        Text="People Present" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="11" 
                                                        FontWeight="Medium"
                                                        HorizontalAlignment="Center" 
@@ -859,7 +863,7 @@
                                             
                                             <TextBlock Grid.Column="4" 
                                                        Text="Result" 
-                                                       Foreground="White" 
+                                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                                        FontSize="11" 
                                                        FontWeight="Medium"
                                                        HorizontalAlignment="Center" 

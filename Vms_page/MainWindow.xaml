@@ -506,12 +506,12 @@
                                   Margin="0,0,0,12"
                                   Background="Transparent" 
                                   BorderThickness="0" 
-                                  IsExpanded="False">
+                                  IsExpanded="True">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="📋" 
-                                                   FontSize="14" 
+                                                   FontSize="16" 
                                                    Foreground="{DynamicResource SuccessColor}" 
                                                    VerticalAlignment="Center" 
                                                    Margin="0,0,6,0"/>

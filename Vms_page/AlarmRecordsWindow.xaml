@@ -113,27 +113,17 @@
                                FontWeight="SemiBold"
                                VerticalAlignment="Center"
                                Margin="0,0,12,0"/>
-                    <Border Background="{DynamicResource BackgroundColor}"
-                            BorderBrush="{DynamicResource PrimaryColor}"
-                            BorderThickness="2"
-                            CornerRadius="4"
-                            Padding="6,4">
-                        <ComboBox x:Name="AlarmTypeComboBox"
-                                  SelectedIndex="0"
-                                  Width="120"
-                                  Height="24"
-                                  Background="Transparent"
-                                  BorderThickness="0"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  FontSize="11"
-                                  FontWeight="Medium">
-                            <ComboBoxItem Content="All" Foreground="{DynamicResource PrimaryColor}"/>
-                            <ComboBoxItem Content="Motion" Foreground="{DynamicResource TextPrimaryColor}"/>
-                            <ComboBoxItem Content="Audio" Foreground="{DynamicResource TextPrimaryColor}"/>
-                            <ComboBoxItem Content="Temperature" Foreground="{DynamicResource TextPrimaryColor}"/>
-                            <ComboBoxItem Content="Network" Foreground="{DynamicResource TextPrimaryColor}"/>
-                        </ComboBox>
-                    </Border>
+                    <ComboBox x:Name="AlarmTypeComboBox"
+                              SelectedIndex="0"
+                              Width="120"
+                              Height="24"
+                              FontSize="11">
+                        <ComboBoxItem Content="All"/>
+                        <ComboBoxItem Content="Motion"/>
+                        <ComboBoxItem Content="Audio"/>
+                        <ComboBoxItem Content="Temperature"/>
+                        <ComboBoxItem Content="Network"/>
+                    </ComboBox>
                     <Button Content="⋯" 
                             Width="28"
                             Height="24"
@@ -612,24 +602,15 @@
                                            FontWeight="SemiBold"
                                            VerticalAlignment="Center"
                                            Margin="0,0,8,0"/>
-                                <Border Background="{DynamicResource BackgroundColor}"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        BorderThickness="1"
-                                        CornerRadius="4"
-                                        Padding="6,3">
-                                    <ComboBox SelectedIndex="0"
-                                              Width="100"
-                                              Height="20"
-                                              Background="Transparent"
-                                              BorderThickness="0"
-                                              Foreground="{DynamicResource TextPrimaryColor}"
-                                              FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Motion" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Audio" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Temperature" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                    </ComboBox>
-                                </Border>
+                                <ComboBox SelectedIndex="0"
+                                          Width="100"
+                                          Height="20"
+                                          FontSize="11">
+                                    <ComboBoxItem Content="All"/>
+                                    <ComboBoxItem Content="Motion"/>
+                                    <ComboBoxItem Content="Audio"/>
+                                    <ComboBoxItem Content="Temperature"/>
+                                </ComboBox>
                                 <Button Content="⋯" 
                                         Width="20"
                                         Height="20"
@@ -649,24 +630,15 @@
                                            FontWeight="SemiBold"
                                            VerticalAlignment="Center"
                                            Margin="0,0,8,0"/>
-                                <Border Background="{DynamicResource BackgroundColor}"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        BorderThickness="1"
-                                        CornerRadius="4"
-                                        Padding="6,3">
-                                    <ComboBox SelectedIndex="0"
-                                              Width="100"
-                                              Height="20"
-                                              Background="Transparent"
-                                              BorderThickness="0"
-                                              Foreground="{DynamicResource TextPrimaryColor}"
-                                              FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Active" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Acknowledged" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Resolved" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                    </ComboBox>
-                                </Border>
+                                <ComboBox SelectedIndex="0"
+                                          Width="100"
+                                          Height="20"
+                                          FontSize="11">
+                                    <ComboBoxItem Content="All"/>
+                                    <ComboBoxItem Content="Active"/>
+                                    <ComboBoxItem Content="Acknowledged"/>
+                                    <ComboBoxItem Content="Resolved"/>
+                                </ComboBox>
                             </StackPanel>
 
                             <!-- Acknowledged By -->
@@ -677,24 +649,15 @@
                                            FontWeight="SemiBold"
                                            VerticalAlignment="Center"
                                            Margin="0,0,8,0"/>
-                                <Border Background="{DynamicResource BackgroundColor}"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        BorderThickness="1"
-                                        CornerRadius="4"
-                                        Padding="6,3">
-                                    <ComboBox SelectedIndex="0"
-                                              Width="100"
-                                              Height="20"
-                                              Background="Transparent"
-                                              BorderThickness="0"
-                                              Foreground="{DynamicResource TextPrimaryColor}"
-                                              FontSize="11">
-                                        <ComboBoxItem Content="All" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Admin" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Operator" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                        <ComboBoxItem Content="Security" Foreground="{DynamicResource TextPrimaryColor}"/>
-                                    </ComboBox>
-                                </Border>
+                                <ComboBox SelectedIndex="0"
+                                          Width="100"
+                                          Height="20"
+                                          FontSize="11">
+                                    <ComboBoxItem Content="All"/>
+                                    <ComboBoxItem Content="Admin"/>
+                                    <ComboBoxItem Content="Operator"/>
+                                    <ComboBoxItem Content="Security"/>
+                                </ComboBox>
                             </StackPanel>
 
                             <!-- Alarm Level Filter -->

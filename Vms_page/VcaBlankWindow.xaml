@@ -184,7 +184,7 @@
 						<Border x:Name="Pill" Background="{TemplateBinding Background}"
 								BorderBrush="{TemplateBinding BorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
-								CornerRadius="14">
+								CornerRadius="4">
 							<Grid>
 								<ToggleButton x:Name="ToggleButton" Grid.Column="2" Focusable="False"
 										IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -196,7 +196,7 @@
 								</ToggleButton>
 								<ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="10,0,28,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 								<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-									<Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8">
+									<Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="4">
 										<ScrollViewer Margin="4,6,4,6">
 											<StackPanel IsItemsHost="True"/>
 										</ScrollViewer>
@@ -238,7 +238,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="14">
+						<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
 							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 						<ControlTemplate.Triggers>

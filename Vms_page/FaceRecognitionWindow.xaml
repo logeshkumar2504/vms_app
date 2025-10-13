@@ -52,7 +52,7 @@
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Border Background="{TemplateBinding Background}"
                                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
                                             <Grid>
                                                 <ContentPresenter Margin="6,0,18,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                                 <Path x:Name="Arrow"
@@ -795,7 +795,7 @@
                                 </Grid.RowDefinitions>
                                 <Border Grid.Row="0" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
                                     <Grid>
-                                        <TextBlock Text="Snapshots" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="8,0,8,0"/>
+                                        <TextBlock Text="Snapshots" Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" VerticalAlignment="Center" Margin="8,0,8,0"/>
                                         <TextBlock Text="More >" Foreground="{DynamicResource PrimaryColor}" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"/>
                                     </Grid>
                                 </Border>

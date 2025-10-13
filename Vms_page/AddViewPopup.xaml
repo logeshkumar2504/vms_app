@@ -50,7 +50,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="0"
+                                CornerRadius="4"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid>
@@ -240,7 +240,7 @@
                                        VerticalAlignment="Center"/>
                             <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
                                     Background="Transparent" BorderThickness="0" Padding="4" Cursor="Hand">
-                                <TextBlock Text="⊞" FontSize="12" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="⊞" FontSize="16" Foreground="{DynamicResource TextSecondaryColor}"/>
                             </Button>
                         </Grid>
 

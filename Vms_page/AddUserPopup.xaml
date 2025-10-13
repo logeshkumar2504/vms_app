@@ -319,7 +319,7 @@
                                 <ComboBox x:Name="UserLevelComboBox" 
                            Style="{StaticResource FormComboBoxStyle}"
                            SelectedIndex="0"
-                           Foreground="White"
+                           Foreground="{DynamicResource TextPrimaryColor}"
                            FontSize="10"
                            FontFamily="Segoe UI"
                            ItemContainerStyle="{StaticResource ComboBoxItemStyle}">
@@ -340,7 +340,7 @@
                              Style="{StaticResource FormPasswordBoxStyle}"
                              PasswordChanged="PasswordBox_PasswordChanged"
                              GotFocus="PasswordBox_GotFocus"
-                             Foreground="White"
+                             Foreground="{DynamicResource TextPrimaryColor}"
                              FontSize="10"
                              FontFamily="Segoe UI"/>
             </StackPanel>
@@ -483,7 +483,7 @@
                 <TextBox x:Name="UsernameTextBox" 
                          Style="{StaticResource FormTextBoxStyle}"
                          TextChanged="UsernameTextBox_TextChanged"
-                         Foreground="White"
+                         Foreground="{DynamicResource TextPrimaryColor}"
                          FontSize="10"
                          FontFamily="Segoe UI"/>
             </StackPanel>
@@ -498,7 +498,7 @@
                 <PasswordBox x:Name="ConfirmPasswordBox" 
                              Style="{StaticResource FormPasswordBoxStyle}"
                              GotFocus="ConfirmPasswordBox_GotFocus"
-                             Foreground="White"
+                             Foreground="{DynamicResource TextPrimaryColor}"
                              FontSize="10"
                              FontFamily="Segoe UI"/>
             </StackPanel>

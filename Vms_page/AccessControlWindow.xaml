@@ -1586,7 +1586,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Time" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1600,7 +1600,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Name" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1614,7 +1614,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="No." 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1628,7 +1628,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="ID No." 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1642,7 +1642,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="ID Card No." 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1656,7 +1656,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Status" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1670,7 +1670,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Temperature" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1684,7 +1684,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Device Name" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1698,7 +1698,7 @@
                                             BorderThickness="0,0,1,0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Snapshot" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
@@ -1711,7 +1711,7 @@
                                             BorderThickness="0"
                                             Padding="8,0,8,0">
                                         <TextBlock Text="Library Photo" 
-                                                   Foreground="White" 
+                                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                                    FontSize="12" 
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"

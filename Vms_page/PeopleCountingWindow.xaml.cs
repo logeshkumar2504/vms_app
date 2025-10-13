@@ -572,7 +572,7 @@ namespace Vms_page
 
             var grid = new Grid();
             
-            // Create CCTV Camera Icon using cctv.png for combined cells
+            // Create Camera Icon using cctv.png for combined cells
             var cameraIcon = CreateCCTVCameraIcon(rowSpan, colSpan);
             grid.Children.Add(cameraIcon);
             
@@ -638,7 +638,7 @@ namespace Vms_page
 
             var grid = new Grid();
             
-            // Create CCTV Camera Icon using cctv.png
+            // Create Camera Icon using cctv.png
             var cameraIcon = CreateCCTVCameraIcon(totalRows, totalCols);
             grid.Children.Add(cameraIcon);
             
