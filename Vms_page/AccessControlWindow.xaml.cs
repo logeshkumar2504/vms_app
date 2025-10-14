@@ -8,6 +8,8 @@ namespace Vms_page
 {
     public partial class AccessControlWindow : Window
     {
+        private bool _cameraGridInitialized = false;
+
         public AccessControlWindow()
         {
             InitializeComponent();
@@ -15,9 +17,6 @@ namespace Vms_page
             // Apply the current theme
             var currentTheme = ThemeManager.GetCurrentTheme();
             ThemeManager.ApplyTheme(currentTheme);
-            
-            // Initialize camera grid with default 4-camera layout
-            InitializeCameraGrid();
         }
 
         private void InitializeCameraGrid()
@@ -60,6 +59,13 @@ namespace Vms_page
             LibraryManagementContent.Visibility = Visibility.Collapsed;
             RealtimeMonitoringContent.Visibility = Visibility.Visible;
             EntryExitRecordsContent.Visibility = Visibility.Collapsed;
+
+            // Initialize camera grid on first access to ensure theme resources are loaded
+            if (!_cameraGridInitialized)
+            {
+                InitializeCameraGrid();
+                _cameraGridInitialized = true;
+            }
         }
 
         private void EntryExitRecordsButton_Click(object sender, RoutedEventArgs e)
@@ -206,8 +212,8 @@ namespace Vms_page
             // Create the camera tile border (same design as LiveViewWindow)
             var tileBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1A1A1A")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(1),
                 Margin = new Thickness(0),
                 CornerRadius = new CornerRadius(0),
@@ -278,7 +284,7 @@ namespace Vms_page
                 {
                     if (child is Border border)
                     {
-                        border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)); // Gray border
+                        border.BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"];
                     }
                 }
             }
@@ -430,8 +436,8 @@ namespace Vms_page
             // Create row border
             var rowBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 0, 1),
                 Height = 40,
                 Margin = new Thickness(0)
@@ -453,15 +459,15 @@ namespace Vms_page
             // Time column
             var timeBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var timeText = new TextBlock
             {
                 Text = time,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -473,15 +479,15 @@ namespace Vms_page
             // Name column
             var nameBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var nameText = new TextBlock
             {
                 Text = name,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -493,15 +499,15 @@ namespace Vms_page
             // No. column
             var noBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var noText = new TextBlock
             {
                 Text = no,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -513,15 +519,15 @@ namespace Vms_page
             // ID No. column
             var idNoBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var idNoText = new TextBlock
             {
                 Text = idNo,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -533,15 +539,15 @@ namespace Vms_page
             // ID Card No. column
             var idCardNoBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var idCardNoText = new TextBlock
             {
                 Text = idCardNo,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -553,8 +559,8 @@ namespace Vms_page
             // Status column
             var statusBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
@@ -575,15 +581,15 @@ namespace Vms_page
             // Temperature column
             var temperatureBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var temperatureText = new TextBlock
             {
                 Text = temperature,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -595,15 +601,15 @@ namespace Vms_page
             // Device Name column
             var deviceNameBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
             var deviceNameText = new TextBlock
             {
                 Text = deviceName,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
+                Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"],
                 FontSize = 10,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextTrimming = TextTrimming.CharacterEllipsis
@@ -615,8 +621,8 @@ namespace Vms_page
             // Snapshot column
             var snapshotBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 BorderThickness = new Thickness(0, 0, 1, 0),
                 Padding = new Thickness(8, 0, 8, 0)
             };
@@ -641,7 +647,7 @@ namespace Vms_page
             // Library Photo column
             var libraryPhotoBorder = new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")),
+                Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundColor"],
                 BorderThickness = new Thickness(0),
                 Padding = new Thickness(8, 0, 8, 0)
             };

@@ -179,13 +179,13 @@ namespace Vms_page
 			CameraTilesHost.Children.Clear();
 			for (int i = 0; i < tileCount; i++)
 			{
-				var border = new Border
-				{
-					Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
-					BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
-					BorderThickness = new Thickness(1),
-					Cursor = Cursors.Hand
-				};
+			var border = new Border
+			{
+				Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
+				BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
+				BorderThickness = new Thickness(1),
+				Cursor = Cursors.Hand
+			};
 
 				var grid = new Grid();
 				var image = new Image
@@ -212,7 +212,7 @@ namespace Vms_page
 			{
 				if (child is Border border)
 				{
-					border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33));
+					border.BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"];
 				}
 			}
 		}

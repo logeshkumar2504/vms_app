@@ -81,7 +81,7 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(1),
                 Margin = new Thickness(0.5),
@@ -133,7 +133,7 @@ namespace Vms_page
                     if (selectedCells.Contains(border))
                     {
                         selectedCells.Remove(border);
-                        border.Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A));
+                        border.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
                     }
                     else
                     {
@@ -155,7 +155,7 @@ namespace Vms_page
         {
             if (sender is Border border && !selectedCells.Contains(border))
             {
-                border.Background = new SolidColorBrush(Color.FromRgb(0x2A, 0x2A, 0x2A));
+                border.Background = (SolidColorBrush)Application.Current.Resources["MenuHoverColor"];
             }
         }
 
@@ -163,7 +163,7 @@ namespace Vms_page
         {
             if (sender is Border border && !selectedCells.Contains(border))
             {
-                border.Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A));
+                border.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
             }
         }
 
@@ -171,7 +171,7 @@ namespace Vms_page
         {
             foreach (var cell in selectedCells)
             {
-                cell.Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A));
+                cell.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
             }
             selectedCells.Clear();
         }
@@ -289,7 +289,7 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0.5),
@@ -325,7 +325,7 @@ namespace Vms_page
                 if (selectedCells.Contains(border))
                 {
                     selectedCells.Remove(border);
-                    border.Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A));
+                    border.Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"];
                 }
                 else
                 {
@@ -392,7 +392,7 @@ namespace Vms_page
             // Top-left cell with complex 2x2 sub-grid (like in the image)
             var topLeftBorder = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(0.5),
                 Margin = new Thickness(0.5)
@@ -412,7 +412,7 @@ namespace Vms_page
                 {
                     var subBorder = new Border
                     {
-                        Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                        Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                         BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                         BorderThickness = new Thickness(0.3),
                         Margin = new Thickness(0.3)
@@ -430,7 +430,7 @@ namespace Vms_page
             // Top-right cell with 1x2 sub-grid (like in the image)
             var topRightBorder = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(0.5),
                 Margin = new Thickness(0.5)
@@ -446,7 +446,7 @@ namespace Vms_page
             // Create 1x2 sub-grid within top-right cell
             var topRightSubBorder = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(0.3),
                 Margin = new Thickness(0.3)
@@ -465,7 +465,7 @@ namespace Vms_page
             {
                 var bottomBorder = new Border
                 {
-                    Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                    Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                     BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                     BorderThickness = new Thickness(0.5),
                     Margin = new Thickness(0.5)

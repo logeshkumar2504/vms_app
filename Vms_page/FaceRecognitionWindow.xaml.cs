@@ -222,8 +222,8 @@ namespace Vms_page
             {
                 var border = new Border
                 {
-                    Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
-                    BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
+                    Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
+                    BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                     BorderThickness = new Thickness(1),
                     Cursor = Cursors.Hand
                 };
@@ -254,7 +254,7 @@ namespace Vms_page
             {
                 if (child is Border border)
                 {
-                    border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)); // Gray
+                    border.BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"];
                 }
             }
         }

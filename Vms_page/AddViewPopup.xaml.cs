@@ -132,8 +132,8 @@ namespace Vms_page
                     {
                         var cell = new Border
                         {
-                            Background = new SolidColorBrush(Color.FromRgb(26, 26, 26)), // #1A1A1A
-                            BorderBrush = new SolidColorBrush(Color.FromRgb(64, 64, 64)), // #404040
+                            Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
+                            BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                             BorderThickness = new Thickness(1),
                             Margin = new Thickness(2),
                             CornerRadius = new CornerRadius(2)

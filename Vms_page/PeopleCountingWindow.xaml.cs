@@ -135,7 +135,7 @@ namespace Vms_page
                 {
                     if (child is Border border)
                     {
-                        border.BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)); // Gray border
+                        border.BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"];
                     }
                 }
             }
@@ -455,7 +455,7 @@ namespace Vms_page
             // Top-left cell with 2x2 sub-grid (4 small cells)
             var topLeftContainer = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(1),
                 Margin = new Thickness(1),
@@ -488,7 +488,7 @@ namespace Vms_page
             // Top-right cell with 1x2 sub-grid (2 small cells)
             var topRightContainer = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(1),
                 Margin = new Thickness(1),
@@ -530,7 +530,7 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)),
                 BorderThickness = new Thickness(0.5),
                 Margin = new Thickness(0.5),
@@ -562,7 +562,7 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderThickness = new Thickness(2),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)), // Orange border for combined cells
                 CornerRadius = new CornerRadius(0),
@@ -621,9 +621,9 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0x1A, 0x1A, 0x1A)),
+                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderThickness = new Thickness(1),
-                BorderBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
+                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 CornerRadius = new CornerRadius(0),
                 Margin = new Thickness(0),
                 Cursor = Cursors.Hand

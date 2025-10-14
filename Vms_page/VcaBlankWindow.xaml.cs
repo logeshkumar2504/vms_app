@@ -46,17 +46,17 @@ namespace Vms_page
 			}
 		}
 
-		private void DeselectAllTiles()
+	private void DeselectAllTiles()
+	{
+		var normalBrush = (System.Windows.Media.SolidColorBrush)Application.Current.Resources["BorderColor"];
+		void ResetTile(string name)
 		{
-			var normalColor = System.Windows.Media.Color.FromRgb(0x33, 0x33, 0x33);
-			void ResetTile(string name)
+			if (this.FindName(name) is System.Windows.Controls.Border tile)
 			{
-				if (this.FindName(name) is System.Windows.Controls.Border tile)
-				{
-					tile.BorderBrush = new System.Windows.Media.SolidColorBrush(normalColor);
-					tile.BorderThickness = new Thickness(1);
-				}
+				tile.BorderBrush = normalBrush;
+				tile.BorderThickness = new Thickness(1);
 			}
+		}
 
 			ResetTile("Tile00");
 			ResetTile("Tile01");
