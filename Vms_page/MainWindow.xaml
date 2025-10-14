@@ -361,7 +361,7 @@
 
     <DockPanel LastChildFill="True">
         <!-- Native TopBar with Dark Mode Toggle -->
-        <Border DockPanel.Dock="Top" 
+        <Border DockPanel.Dock="Bottom" 
                 Height="35"
                 Style="{StaticResource NativeTopBarStyle}">
             <Grid>
