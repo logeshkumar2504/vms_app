@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Vms_page
 {
@@ -18,7 +19,7 @@ namespace Vms_page
         {
             InitializeComponent();
             ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
-            SetActiveTab("Camera Alarm");
+            SetActiveTab("Device");
             SetActiveDeviceType("Encoding Device");
             InitializeDeviceList();
             InitializeOnlineDeviceList();
@@ -235,13 +236,48 @@ namespace Vms_page
 
         private void SetActiveTab(string tab)
         {
-            // Button visual state via Tag for template trigger
-            CameraAlarmBtn.Tag = tab == "Camera Alarm" ? "Active" : null;
-            DeviceAlarmBtn.Tag = tab == "Device Alarm" ? "Active" : null;
+            // Update button visual states
+            if (CameraAlarmBtn != null && DeviceAlarmBtn != null)
+            {
+                // Reset both buttons
+                CameraAlarmBtn.Background = (System.Windows.Media.Brush)FindResource("CardBackgroundColor");
+                DeviceAlarmBtn.Background = (System.Windows.Media.Brush)FindResource("CardBackgroundColor");
+                
+                // Highlight active button
+                if (tab == "Device")
+                {
+                    CameraAlarmBtn.Background = (System.Windows.Media.Brush)FindResource("PrimaryColor");
+                    CameraAlarmBtn.Foreground = System.Windows.Media.Brushes.White;
+                }
+                else if (tab == "Group")
+                {
+                    DeviceAlarmBtn.Background = (System.Windows.Media.Brush)FindResource("PrimaryColor");
+                    DeviceAlarmBtn.Foreground = System.Windows.Media.Brushes.White;
+                }
+            }
 
-            // Content visibility
-            CameraAlarmView.Visibility = tab == "Camera Alarm" ? Visibility.Visible : Visibility.Collapsed;
-            DeviceAlarmView.Visibility = tab == "Device Alarm" ? Visibility.Visible : Visibility.Collapsed;
+            // Update content visibility
+            if (CameraAlarmView != null && DeviceAlarmView != null)
+            {
+                CameraAlarmView.Visibility = tab == "Device" ? Visibility.Visible : Visibility.Collapsed;
+                DeviceAlarmView.Visibility = tab == "Group" ? Visibility.Visible : Visibility.Collapsed;
+            }
+            
+            // Show/hide left device type sidebar based on tab
+            if (tab == "Device")
+            {
+                if (DeviceSidebar != null)
+                    DeviceSidebar.Visibility = Visibility.Visible;
+                if (SidebarColumn != null)
+                    SidebarColumn.Width = new System.Windows.GridLength(180);
+            }
+            else
+            {
+                if (DeviceSidebar != null)
+                    DeviceSidebar.Visibility = Visibility.Collapsed;
+                if (SidebarColumn != null)
+                    SidebarColumn.Width = new System.Windows.GridLength(0);
+            }
         }
 
         private void SetActiveDeviceType(string deviceType)
@@ -690,6 +726,58 @@ namespace Vms_page
             {
                 ThemePopup.IsOpen = false;
             }
+        }
+
+        // Group action button event handlers
+        private void GroupAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Group functionality will be implemented here", "Add Group");
+        }
+
+        private void GroupEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit Group functionality will be implemented here", "Edit Group");
+        }
+
+        private void GroupDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete Group functionality will be implemented here", "Delete Group");
+        }
+
+        private void GroupImportCamera_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Import Camera functionality will be implemented here", "Import Camera");
+        }
+
+        private void GroupConfiguration_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Configuration functionality will be implemented here", "Configuration");
+        }
+
+        private void GroupSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Search functionality for Group view
+            if (GroupSearchTextBox != null)
+            {
+                var searchText = GroupSearchTextBox.Text;
+                // TODO: Implement search logic for groups
+            }
+        }
+
+        // Left sidebar icon button event handlers
+        private void GroupSidebarAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Add Group functionality will be implemented here", "Add Group");
+        }
+
+        private void GroupSidebarEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Edit Group functionality will be implemented here", "Edit Group");
+        }
+
+        private void GroupSidebarDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Delete Group functionality will be implemented here", "Delete Group");
         }
     }
 

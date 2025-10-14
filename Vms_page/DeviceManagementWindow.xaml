@@ -132,6 +132,38 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
+        <!-- Top Bar Navigation Button Style -->
+        <Style x:Key="TopBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- Sidebar device button style -->
         <Style x:Key="SidebarDeviceButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -489,47 +521,54 @@
         <!-- Main Content Grid -->
         <Grid Margin="0,12,0,12" Background="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="32"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <!-- Top navigation bar -->
+            <!-- Top Navigation Bar with Device/Group Tabs -->
             <Border Grid.Row="0"
-                    Background="{DynamicResource TopBarColor}"
-                    BorderThickness="0">
+                    Background="{DynamicResource SurfaceColor}"
+                    Padding="15,8"
+                    Margin="0,0,0,0">
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Margin="0">
+                            VerticalAlignment="Center">
                     <Button x:Name="CameraAlarmBtn"
                             Content="Device"
-                            Style="{StaticResource NavButtonStyle}"
-                        Tag="Active"
-                        Click="NavigationButton_Click"/>
-                <Button x:Name="DeviceAlarmBtn"
-                        Content="Group"
-                        Style="{StaticResource NavButtonStyle}"
-                        Click="NavigationButton_Click"/>
-            </StackPanel>
-        </Border>
+                            Style="{StaticResource TopBarButtonStyle}"
+                            Click="NavigationButton_Click"
+                            Margin="0,0,10,0"
+                            Height="32"
+                            MinWidth="100"/>
+                    <Button x:Name="DeviceAlarmBtn"
+                            Content="Group"
+                            Style="{StaticResource TopBarButtonStyle}"
+                            Click="NavigationButton_Click"
+                            Height="32"
+                            MinWidth="100"/>
+                </StackPanel>
+            </Border>
 
-        <!-- Content area -->
-        <Border Grid.Row="1"
-                Background="{DynamicResource SurfaceColor}"
-                CornerRadius="12,12,0,0"
-                Padding="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!-- Content area -->
+            <Border Grid.Row="1"
+                    Background="{DynamicResource SurfaceColor}"
+                    CornerRadius="0,0,8,8"
+                    Padding="0"
+                    Margin="0,1,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="SidebarColumn" Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
                 <!-- Left Sidebar with Device Types -->
-                <Border Grid.Column="0"
+                <Border x:Name="DeviceSidebar"
+                        Grid.Column="0"
                         Background="{DynamicResource BackgroundColor}"
                         BorderThickness="0,0,1,0"
                         BorderBrush="{DynamicResource BorderColor}"
-                        Padding="8,15">
+                        Padding="8,15"
+                        Visibility="Visible">
                     <StackPanel>
                         <!-- Encoding Device -->
                         <Button x:Name="EncodingDeviceBtn"
@@ -590,8 +629,8 @@
 
                 <!-- Right Content Area -->
                 <Grid Grid.Column="1">
-                <!-- Camera Alarm view -->
-                <Grid x:Name="CameraAlarmView" Visibility="Visible">
+                    <!-- Camera Alarm view (Device Section) -->
+                    <Grid x:Name="CameraAlarmView" Visibility="Visible">
                         <Grid x:Name="EncodingDeviceView" Visibility="Visible">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -1971,20 +2010,126 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                </Grid>
+                    </Grid>
 
-                <!-- Device Alarm view -->
-                <Grid x:Name="DeviceAlarmView" Visibility="Collapsed">
-                    <TextBlock Text="Device Alarm Management" 
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="{DynamicResource TextPrimaryColor}"/>
+                    <!-- Group view (DeviceAlarmView) -->
+                    <Grid x:Name="DeviceAlarmView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Top Toolbar with Action Buttons and Search -->
+                        <Border Grid.Row="0" 
+                                Background="{DynamicResource BackgroundColor}" 
+                                Padding="12,8"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Left Side - Action Buttons -->
+                                <StackPanel Grid.Column="0" 
+                                            Orientation="Horizontal" 
+                                            VerticalAlignment="Center">
+                                    <Button Content="Add" 
+                                            Tag="➕"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Click="GroupSidebarAddButton_Click"/>
+                                    <Button Content="Edit" 
+                                            Tag="✏️"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Click="GroupSidebarEditButton_Click"/>
+                                    <Button Content="Delete" 
+                                            Tag="🗑️"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Click="GroupSidebarDeleteButton_Click"/>
+                                    <Button Content="Import Camera" 
+                                            Tag="+"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Click="GroupImportCamera_Click"/>
+                                    <Button Content="Configuration" 
+                                            Tag="⚙"
+                                            Style="{StaticResource ToolbarButtonStyle}"
+                                            Click="GroupConfiguration_Click"
+                                            Margin="0"/>
+                                </StackPanel>
+
+                                <!-- Right Side - Search -->
+                                <StackPanel Grid.Column="2" 
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center">
+                                    <TextBox x:Name="GroupSearchTextBox" 
+                                             Style="{StaticResource ToolbarSearchTextBoxStyle}"
+                                             Width="220"
+                                             TextChanged="GroupSearchTextBox_TextChanged"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Group DataGrid -->
+                        <Border Grid.Row="1" 
+                                Background="{DynamicResource SurfaceColor}"
+                                Margin="12,12,12,0">
+                            <DataGrid x:Name="GroupDataGrid"
+                                      Style="{StaticResource DeviceDataGridStyle}"
+                                      ColumnHeaderStyle="{StaticResource DeviceHeaderStyle}"
+                                      CellStyle="{StaticResource DeviceCellStyle}"
+                                      AutoGenerateColumns="False"
+                                      GridLinesVisibility="None"
+                                      HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <!-- Checkbox Column -->
+                                    <DataGridTemplateColumn Header="" Width="50" CanUserSort="False" CanUserResize="False">
+                                        <DataGridTemplateColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <CheckBox HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.HeaderTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <!-- Name Column -->
+                                    <DataGridTextColumn Header="Name" 
+                                                        Binding="{Binding Name}" 
+                                                        Width="*" 
+                                                        MinWidth="150"/>
+
+                                    <!-- IP Address Column -->
+                                    <DataGridTextColumn Header="IP Address" 
+                                                        Binding="{Binding IPAddress}" 
+                                                        Width="140" 
+                                                        MinWidth="120"/>
+
+                                    <!-- Status Column -->
+                                    <DataGridTextColumn Header="Status" 
+                                                        Binding="{Binding Status}" 
+                                                        Width="100" 
+                                                        MinWidth="80"/>
+
+                                    <!-- Remarks Column -->
+                                    <DataGridTextColumn Header="Remarks" 
+                                                        Binding="{Binding Remarks}" 
+                                                        Width="*" 
+                                                        MinWidth="150"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
                     </Grid>
                 </Grid>
-
-            </Grid>
-        </Border>
+                </Grid>
+            </Border>
         </Grid>
     </DockPanel>
 </Window>
