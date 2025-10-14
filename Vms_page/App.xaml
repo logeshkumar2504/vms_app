@@ -3,34 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Global Theme Colors (Default: Dark Theme) -->
-        <SolidColorBrush x:Key="PrimaryColor" Color="#2563EB"/>
-        <SolidColorBrush x:Key="SecondaryColor" Color="#5E5CE6"/>
-        <SolidColorBrush x:Key="SuccessColor" Color="#30D158"/>
-        <SolidColorBrush x:Key="WarningColor" Color="#FF9F0A"/>
-        <SolidColorBrush x:Key="ErrorColor" Color="#FF453A"/>
-        <SolidColorBrush x:Key="BackgroundColor" Color="#1C1C1E"/>
-        <SolidColorBrush x:Key="SurfaceColor" Color="#0F172A"/>
-        <SolidColorBrush x:Key="SidebarColor" Color="#242438"/>
-        <SolidColorBrush x:Key="TopBarColor" Color="#242438"/>
-        <SolidColorBrush x:Key="CardBackgroundColor" Color="#2A2A3E"/>
-        <SolidColorBrush x:Key="TextPrimaryColor" Color="#F8FAFC"/>
-        <SolidColorBrush x:Key="TextSecondaryColor" Color="#94A3B8"/>
-        <SolidColorBrush x:Key="BorderColor" Color="#1E293B"/>
+        <!-- Global Theme Colors (Default: Cursor Dark Mode) -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#007ACC"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#569CD6"/>
+        <SolidColorBrush x:Key="SuccessColor" Color="#6A9955"/>
+        <SolidColorBrush x:Key="WarningColor" Color="#CE9178"/>
+        <SolidColorBrush x:Key="ErrorColor" Color="#F48771"/>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SurfaceColor" Color="#252526"/>
+        <SolidColorBrush x:Key="SidebarColor" Color="#252526"/>
+        <SolidColorBrush x:Key="TopBarColor" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="CardBackgroundColor" Color="#2D2D30"/>
+        <SolidColorBrush x:Key="TextPrimaryColor" Color="#D4D4D4"/>
+        <SolidColorBrush x:Key="TextSecondaryColor" Color="#858585"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#3E3E42"/>
 
         <!-- Menu hover/active background -->
-        <SolidColorBrush x:Key="MenuHoverColor" Color="#4A4A5E"/>
+        <SolidColorBrush x:Key="MenuHoverColor" Color="#2A2D2E"/>
         
         <!-- Alarm Level Colors -->
-        <SolidColorBrush x:Key="AlarmCriticalColor" Color="#FF453A"/>
-        <SolidColorBrush x:Key="AlarmHighColor" Color="#FF9F0A"/>
-        <SolidColorBrush x:Key="AlarmMediumColor" Color="#FFD60A"/>
-        <SolidColorBrush x:Key="AlarmLowColor" Color="#64D2FF"/>
-        <SolidColorBrush x:Key="AlarmInfoColor" Color="#2563EB"/>
+        <SolidColorBrush x:Key="AlarmCriticalColor" Color="#F48771"/>
+        <SolidColorBrush x:Key="AlarmHighColor" Color="#CE9178"/>
+        <SolidColorBrush x:Key="AlarmMediumColor" Color="#DCDCAA"/>
+        <SolidColorBrush x:Key="AlarmLowColor" Color="#4EC9B0"/>
+        <SolidColorBrush x:Key="AlarmInfoColor" Color="#007ACC"/>
         
         <!-- Button Hover States -->
-        <SolidColorBrush x:Key="ButtonHoverColor" Color="#5E5CE6"/>
-        <SolidColorBrush x:Key="ButtonPressedColor" Color="#4A4ABF"/>
+        <SolidColorBrush x:Key="ButtonHoverColor" Color="#1177BB"/>
+        <SolidColorBrush x:Key="ButtonPressedColor" Color="#0E639C"/>
+        
+        <!-- DatePicker Colors -->
+        <SolidColorBrush x:Key="DatePickerBackgroundColor" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="DatePickerTextColor" Color="#D4D4D4"/>
         
         <!-- Typography -->
         <FontFamily x:Key="AppFont">Segoe UI</FontFamily>
