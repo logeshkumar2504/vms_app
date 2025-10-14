@@ -40,7 +40,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

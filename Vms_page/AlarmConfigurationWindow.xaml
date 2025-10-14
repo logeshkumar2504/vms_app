@@ -31,7 +31,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
-                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -92,26 +92,66 @@
             </Setter>
         </Style>
 
+        <!-- Primary Button Style - For main actions like Add -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ButtonHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ButtonPressedColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- Delete Button Style - Application Theme -->
         <Style x:Key="DeleteButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
             <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ErrorColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ErrorColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#4A1F1F"/>
-                    <Setter Property="BorderBrush" Value="#DC2626"/>
-                    <Setter Property="Foreground" Value="#FF6B6B"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#3A1515"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Opacity" Value="0.8"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Table Header Style -->
         <Style x:Key="TableHeaderStyle" TargetType="Border">
-            <Setter Property="Background" Value="#2D3035"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
             <Setter Property="Padding" Value="8,6"/>
@@ -208,7 +248,7 @@
                             <!-- Action Buttons Section -->
                             <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="CameraAddButton_Click"/>
+                                    <Button Content="Add" Style="{StaticResource PrimaryButtonStyle}" Click="CameraAddButton_Click"/>
                                     <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="CameraDeleteButton_Click"/>
                                 </StackPanel>
                             </Border>
@@ -313,7 +353,7 @@
                             <!-- Action Buttons Section -->
                             <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="DeviceAddButton_Click"/>
+                                    <Button Content="Add" Style="{StaticResource PrimaryButtonStyle}" Click="DeviceAddButton_Click"/>
                                     <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="DeviceDeleteButton_Click"/>
                                 </StackPanel>
                             </Border>
@@ -414,7 +454,7 @@
                             <!-- Action Buttons Section -->
                             <Border Grid.Row="0" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="12,8">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Button Content="Add" Style="{StaticResource ActionButtonStyle}" Click="PeopleCountingAddButton_Click"/>
+                                    <Button Content="Add" Style="{StaticResource PrimaryButtonStyle}" Click="PeopleCountingAddButton_Click"/>
                                     <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}" Click="PeopleCountingDeleteButton_Click"/>
                                 </StackPanel>
                             </Border>

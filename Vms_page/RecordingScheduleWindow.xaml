@@ -5,15 +5,11 @@
 	WindowStartupLocation="CenterOwner"
 	Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <SolidColorBrush x:Key="PanelBg" Color="#1E1E1E"/>
-        <SolidColorBrush x:Key="SidebarBg" Color="#2A2A2A"/>
-        <SolidColorBrush x:Key="BorderBrushDark" Color="#333333"/>
-        <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="TextSecondary" Color="#B0B0B0"/>
+        <!-- Removed hardcoded colors - will use DynamicResource directly in elements -->
         <Style x:Key="ToolbarButton" TargetType="Button">
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="Background" Value="#2F2F2F"/>
-            <Setter Property="BorderBrush" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Height" Value="28"/>
             <Setter Property="Padding" Value="14,0"/>
@@ -27,7 +23,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#404040"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -40,8 +36,8 @@
         
         <!-- Modern Button Styles -->
         <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#64B5F6"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="12,6"/>
             <Setter Property="FontSize" Value="11"/>
@@ -57,10 +53,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#42A5F5"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1E88E5"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -70,8 +66,8 @@
         
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#B0B0B0"/>
-            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="12,6"/>
             <Setter Property="FontSize" Value="11"/>
@@ -88,11 +84,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#404040"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#555555"/>
+                                <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -102,14 +98,14 @@
         
         <!-- Camera Item Style -->
         <Style x:Key="CameraItemStyle" TargetType="Border">
-            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
             <Setter Property="CornerRadius" Value="4"/>
             <Setter Property="Margin" Value="0,0,0,4"/>
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#333333"/>
+                    <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -122,7 +118,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Modern Sidebar -->
-        <Border Grid.Column="0" Background="{StaticResource SidebarBg}" BorderBrush="{StaticResource BorderBrushDark}" BorderThickness="0,0,1,0" Margin="0" MinWidth="260">
+        <Border Grid.Column="0" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0" Margin="0" MinWidth="260">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -137,13 +133,13 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                             <Image Source="/Assets/Icons/Record-Schedule.png" Width="20" Height="20" Margin="0,0,8,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Recording Schedule" 
-                                       Foreground="{StaticResource TextPrimary}" 
+                                       Foreground="{DynamicResource TextPrimaryColor}" 
                                        FontSize="14" 
                                        FontWeight="SemiBold" 
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                         <TextBlock Text="Configure recording schedules and timings" 
-                                   Foreground="{StaticResource TextSecondary}" 
+                                   Foreground="{DynamicResource TextSecondaryColor}" 
                                    FontSize="10"/>
                     </StackPanel>
                 </Border>
@@ -173,7 +169,7 @@
                                  Background="Transparent" 
                                  Foreground="{DynamicResource TextPrimaryColor}" 
                                  Padding="0,8,8,8" 
-                                 CaretBrush="#64B5F6" 
+                                 CaretBrush="{DynamicResource PrimaryColor}" 
                                  Text="Search schedules..." 
                                  FontSize="12"
                                  GotFocus="KeywordTextBox_GotFocus" 
@@ -201,14 +197,14 @@
                         <!-- Category Header -->
                         <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="4" Margin="0,0,0,8" Padding="12,8">
                             <TextBlock Text="Recording Templates" 
-                                       Foreground="{StaticResource TextSecondary}" 
+                                       Foreground="{DynamicResource TextSecondaryColor}" 
                                        FontSize="11" 
                                        FontWeight="SemiBold"/>
                         </Border>
                         
                         <!-- Recording Schedule Templates -->
                         <StackPanel>
-                            <Border Style="{StaticResource CameraItemStyle}">
+                            <Border Style="{DynamicResource CameraItemStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -237,7 +233,7 @@
                                 </Grid>
                             </Border>
                             
-                            <Border Style="{StaticResource CameraItemStyle}">
+                            <Border Style="{DynamicResource CameraItemStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -266,7 +262,7 @@
                                 </Grid>
                             </Border>
                             
-                            <Border Style="{StaticResource CameraItemStyle}">
+                            <Border Style="{DynamicResource CameraItemStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -305,10 +301,10 @@
                         BorderThickness="0,1,0,0" 
                         Padding="12,8">
                     <StackPanel>
-                        <Button Style="{StaticResource ModernButtonStyle}"
+                        <Button Style="{DynamicResource ModernButtonStyle}"
                                 Content="New Template"
                                 Margin="0,0,0,4"/>
-                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                        <Button Style="{DynamicResource SecondaryButtonStyle}"
                                 Content="Import Schedule"/>
                     </StackPanel>
                 </Border>
@@ -316,7 +312,7 @@
         </Border>
 
         <!-- Main content -->
-        <Grid Background="{StaticResource PanelBg}" Grid.Column="1">
+        <Grid Background="{DynamicResource SurfaceColor}" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -325,13 +321,13 @@
             </Grid.RowDefinitions>
 
             <!-- Enable -->
-            <CheckBox Grid.Row="0" Content="Enable" Foreground="{StaticResource TextSecondary}" Margin="16,14,16,8"/>
+            <CheckBox Grid.Row="0" Content="Enable" Foreground="{DynamicResource TextSecondaryColor}" Margin="16,14,16,8"/>
 
             <!-- Toolbar -->
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="16,0,16,12">
-                <Button Style="{StaticResource ToolbarButton}" Content="Select" Width="57"/>
-                <Button Style="{StaticResource ToolbarButton}" Content="Edit Template" Width="102"/>
-                <Button Style="{StaticResource ToolbarButton}" Content="Clear" Width="66"/>
+                <Button Style="{DynamicResource ToolbarButton}" Content="Select" Width="57"/>
+                <Button Style="{DynamicResource ToolbarButton}" Content="Edit Template" Width="102"/>
+                <Button Style="{DynamicResource ToolbarButton}" Content="Clear" Width="66"/>
             </StackPanel>
 
             <!-- Schedule block -->
@@ -346,19 +342,19 @@
                         <!-- Hour header every 2 hours 0..24 -->
                         <Grid Grid.Row="0" Margin="110,0,0,6">
                             <UniformGrid Columns="13">
-                                <TextBlock Text="0" Foreground="{StaticResource TextSecondary}" HorizontalAlignment="Left"/>
-                                <TextBlock Text="2" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="4" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="6" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="8" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="10" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="12" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="14" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="16" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="18" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="20" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="22" Foreground="{StaticResource TextSecondary}"/>
-                                <TextBlock Text="24" Foreground="{StaticResource TextSecondary}"/>
+                                <TextBlock Text="0" Foreground="{DynamicResource TextSecondaryColor}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="2" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="4" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="6" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="8" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="10" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="12" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="14" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="16" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="18" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="20" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="22" Foreground="{DynamicResource TextSecondaryColor}"/>
+                                <TextBlock Text="24" Foreground="{DynamicResource TextSecondaryColor}"/>
                             </UniformGrid>
                         </Grid>
 
@@ -366,8 +362,8 @@
                         <StackPanel Grid.Row="1">
                             <!-- Helper: a row template replicated for each day -->
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Monday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Monday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -377,8 +373,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Tuesday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Tuesday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -388,8 +384,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Wednesday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Wednesday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -399,8 +395,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Thursday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Thursday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -410,8 +406,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Friday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Friday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -421,8 +417,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <TextBlock Width="110" Text="Saturday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Saturday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -432,8 +428,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                                <TextBlock Width="110" Text="Sunday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Sunday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -443,8 +439,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                                <TextBlock Width="110" Text="Holiday" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center"/>
-                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{StaticResource HourBlockTemplate}">
+                                <TextBlock Width="110" Text="Holiday" Foreground="{DynamicResource TextSecondaryColor}" VerticalAlignment="Center"/>
+                                <ItemsControl ItemsSource="{Binding HourBlocks}" ItemTemplate="{DynamicResource HourBlockTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="24"/>
@@ -459,8 +455,8 @@
 
             <!-- Footer actions -->
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
-                <Button Style="{StaticResource ToolbarButton}" Content="Save" Width="89"/>
-                <Button Style="{StaticResource ToolbarButton}" Content="Copy To" Width="74" Margin="12,0,0,0"/>
+                <Button Style="{DynamicResource ToolbarButton}" Content="Save" Width="89"/>
+                <Button Style="{DynamicResource ToolbarButton}" Content="Copy To" Width="74" Margin="12,0,0,0"/>
             </StackPanel>
         </Grid>
     </Grid>

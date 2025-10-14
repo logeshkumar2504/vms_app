@@ -2406,7 +2406,7 @@
                                             <TextBlock Grid.Column="3" Text="1" 
                                                        Foreground="{DynamicResource TextPrimaryColor}" FontSize="12" FontWeight="Medium"
                                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            <Border Grid.Column="4" Background="#FFA500" CornerRadius="14" 
+                                            <Border Grid.Column="4" Background="{DynamicResource WarningColor}" CornerRadius="14" 
                                                     HorizontalAlignment="Center" VerticalAlignment="Center" Padding="12,5">
                                                 <TextBlock Text="Pending" Foreground="White" FontSize="10" FontWeight="Bold"/>
                                             </Border>

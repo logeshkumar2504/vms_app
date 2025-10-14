@@ -26,6 +26,9 @@ namespace Vms_page
             // Add key down event handler for escape key
             this.KeyDown += LiveViewWindow_KeyDown;
             this.Focusable = true;
+            
+            // Initialize the grid layout with default 2x2 layout
+            this.Loaded += (s, e) => ApplyGridLayout(currentLayout);
         }
 
         private void VideoTab_Click(object sender, MouseButtonEventArgs e)
@@ -136,7 +139,8 @@ namespace Vms_page
                 {
                     if (child is Border border)
                     {
-                        border.BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"];
+                        // Use SetResourceReference to bind to dynamic resource
+                        border.SetResourceReference(Border.BorderBrushProperty, "BorderColor");
                     }
                 }
             }
@@ -433,13 +437,15 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderThickness = new Thickness(2),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xFF, 0x95, 0x00)), // Orange border for combined cells
                 CornerRadius = new CornerRadius(0),
                 Margin = new Thickness(1),
                 Cursor = Cursors.Hand
             };
+
+            // Bind to dynamic resources instead of capturing static values
+            border.SetResourceReference(Border.BackgroundProperty, "SurfaceColor");
 
             var grid = new Grid();
             
@@ -491,13 +497,15 @@ namespace Vms_page
         {
             var border = new Border
             {
-                Background = (SolidColorBrush)Application.Current.Resources["SurfaceColor"],
                 BorderThickness = new Thickness(1),
-                BorderBrush = (SolidColorBrush)Application.Current.Resources["BorderColor"],
                 CornerRadius = new CornerRadius(0),
                 Margin = new Thickness(0),
                 Cursor = Cursors.Hand
             };
+
+            // Bind to dynamic resources instead of capturing static values
+            border.SetResourceReference(Border.BackgroundProperty, "SurfaceColor");
+            border.SetResourceReference(Border.BorderBrushProperty, "BorderColor");
 
             // Set orange border for the last cell (bottom-right equivalent)
             if (row == totalRows - 1 && col == totalCols - 1)
@@ -882,6 +890,8 @@ namespace Vms_page
             {
                 ThemePopup.IsOpen = false;
             }
+            // Refresh the grid to apply new theme colors
+            ApplyGridLayout(currentLayout);
         }
 
         private void DarkMode_Click(object sender, RoutedEventArgs e)
@@ -891,6 +901,8 @@ namespace Vms_page
             {
                 ThemePopup.IsOpen = false;
             }
+            // Refresh the grid to apply new theme colors
+            ApplyGridLayout(currentLayout);
         }
     }
 }

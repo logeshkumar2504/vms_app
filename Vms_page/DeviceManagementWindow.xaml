@@ -203,8 +203,8 @@
 
         <!-- Toolbar Button Style -->
         <Style x:Key="ToolbarButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#2C3E50"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="FontSize" Value="11"/>
@@ -232,10 +232,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BtnBorder" Property="Background" Value="#34495E"/>
+                                <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="BtnBorder" Property="Background" Value="#1A252F"/>
+                                <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -245,13 +245,16 @@
 
         <!-- Delete Button Style -->
         <Style x:Key="DeleteToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
-            <Setter Property="Background" Value="#7F8C8D"/>
+            <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+            <Setter Property="Foreground" Value="White"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#95A5A6"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Opacity" Value="0.8"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#6C7B7D"/>
+                    <Setter Property="Background" Value="{DynamicResource ErrorColor}"/>
+                    <Setter Property="Opacity" Value="0.6"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -281,12 +284,12 @@
 
         <!-- DataGrid Header Style -->
         <Style x:Key="DeviceHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#2C3E50"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="BorderBrush" Value="#3A4A5A"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="0,0,1,0"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>

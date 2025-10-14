@@ -26,7 +26,7 @@ namespace Vms_page
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x1C, 0x1C, 0x1E));
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x8E, 0x8E, 0x93));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0xE5, 0xE5, 0xEA));
-                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0xE8, 0xE8, 0xED)); // Subtle gray for hover in light mode
                     // DatePicker colors for light mode
                     appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
                     appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
