@@ -505,31 +505,5 @@ namespace Vms_page
             MessageBox.Show("Main menu functionality not implemented yet.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void ThemeButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Toggle theme popup
-            if (ThemePopup != null)
-            {
-                ThemePopup.IsOpen = !ThemePopup.IsOpen;
-            }
-        }
-
-        private void LightMode_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ApplyTheme("Light");
-            if (ThemePopup != null)
-            {
-                ThemePopup.IsOpen = false;
-            }
-        }
-
-        private void DarkMode_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ApplyTheme("Dark");
-            if (ThemePopup != null)
-            {
-                ThemePopup.IsOpen = false;
-            }
-        }
     }
 }
