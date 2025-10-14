@@ -11,11 +11,6 @@
         <!-- Count to Visibility Converter -->
         <local:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
 
-        <!-- Top Bar Colors for Light and Dark Modes -->
-        <SolidColorBrush x:Key="TopBarLightColor" Color="#F5F5F5"/>
-        <SolidColorBrush x:Key="TopBarDarkColor" Color="#2D2D30"/>
-
-
         <!-- Thin ScrollBar Style -->
         <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
             <Setter Property="Width" Value="8"/>

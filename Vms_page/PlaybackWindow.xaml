@@ -10,10 +10,6 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- Top Bar Colors for Light and Dark Modes -->
-        <SolidColorBrush x:Key="TopBarLightColor" Color="#F5F5F5"/>
-        <SolidColorBrush x:Key="TopBarDarkColor" Color="#2D2D30"/>
-
         <!-- Custom Native TopBar Style -->
         <Style x:Key="NativeTopBarStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
@@ -105,16 +101,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Slider">
                         <Grid Margin="0" SnapsToDevicePixels="True">
-                            <!-- Background track with gradient -->
-                            <Border Height="6" CornerRadius="3" VerticalAlignment="Center">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <GradientStop Color="#2A2A2A" Offset="0"/>
-                                        <GradientStop Color="#3A3A3A" Offset="0.5"/>
-                                        <GradientStop Color="#2A2A2A" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                            </Border>
+                            <!-- Background track -->
+                            <Border Height="6" CornerRadius="3" VerticalAlignment="Center" Background="{DynamicResource CardBackgroundColor}"/>
                             
                             <!-- Progress track (filled portion) -->
                             <Border x:Name="ProgressTrack" Height="6" CornerRadius="3" VerticalAlignment="Center" 

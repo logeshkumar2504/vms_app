@@ -10,10 +10,6 @@
         SnapsToDevicePixels="True">
 
     <Window.Resources>
-        <!-- Top Bar Colors for Light and Dark Modes -->
-        <SolidColorBrush x:Key="TopBarLightColor" Color="#F5F5F5"/>
-        <SolidColorBrush x:Key="TopBarDarkColor" Color="#2D2D30"/>
-
         <!-- Custom Native TopBar Style -->
         <Style x:Key="NativeTopBarStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource TopBarColor}"/>
