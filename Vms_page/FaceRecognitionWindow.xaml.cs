@@ -56,8 +56,13 @@ namespace Vms_page
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is FrameworkElement fe && fe.Tag is string tag)
+            if (sender is Button button)
             {
+                // Set active state using Tag property
+                SetActiveTab(button);
+                
+                string tag = button.Content?.ToString() ?? "";
+                
                 // Show appropriate sidebar based on selected tab
                 if (LeftSidebar != null)
                 {
@@ -167,6 +172,20 @@ namespace Vms_page
                     }
                 }
             }
+        }
+
+        private void SetActiveTab(Button activeButton)
+        {
+            // Set Tag to "Active" for the selected button, null for others (for visual state in template)
+            if (RealtimeMonitoringBtn != null) RealtimeMonitoringBtn.Tag = null;
+            if (FaceLibraryBtn != null) FaceLibraryBtn.Tag = null;
+            if (MonitoringTaskBtn != null) MonitoringTaskBtn.Tag = null;
+            if (AlarmRecordsBtn != null) AlarmRecordsBtn.Tag = null;
+            if (PassThruRecordsBtn != null) PassThruRecordsBtn.Tag = null;
+            if (SearchByImageBtn != null) SearchByImageBtn.Tag = null;
+            
+            // Set active state on clicked button
+            activeButton.Tag = "Active";
         }
 
         private void VideoFeed_Click(object sender, MouseButtonEventArgs e)

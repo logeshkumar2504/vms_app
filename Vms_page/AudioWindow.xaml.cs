@@ -7,18 +7,12 @@ namespace Vms_page
 {
     public partial class AudioWindow : Window
     {
-        private Button currentActiveButton;
-
         public AudioWindow()
         {
             try
             {
                 InitializeComponent();
                 ThemeManager.ApplyTheme(ThemeManager.GetCurrentTheme());
-                
-                // Set Two-way Audio as the default active button
-                currentActiveButton = TwoWayAudioBtn;
-                SetActiveButton(TwoWayAudioBtn);
             }
             catch (Exception ex)
             {
@@ -30,56 +24,42 @@ namespace Vms_page
         {
             if (sender is Button button)
             {
-                SetActiveButton(button);
-                
-                // Toggle main content views
-                if (TwoWayView != null && BroadcastView != null)
-                {
-                    switch (button.Name)
-                    {
-                        case "TwoWayAudioBtn":
-                            TwoWayView.Visibility = Visibility.Visible;
-                            BroadcastView.Visibility = Visibility.Collapsed;
-                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
-                            if (BottomBar != null) BottomBar.Visibility = Visibility.Visible;
-                            System.Diagnostics.Debug.WriteLine("Two-way Audio selected");
-                            break;
-                        case "BroadcastBtn":
-                            TwoWayView.Visibility = Visibility.Collapsed;
-                            BroadcastView.Visibility = Visibility.Visible;
-                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
-                            if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
-                            System.Diagnostics.Debug.WriteLine("Broadcast selected");
-                            break;
-                        case "AudioFileManagementBtn":
-                            TwoWayView.Visibility = Visibility.Collapsed;
-                            BroadcastView.Visibility = Visibility.Collapsed;
-                            if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Visible;
-                            if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
-                            System.Diagnostics.Debug.WriteLine("Audio File Management selected");
-                            break;
-                    }
-                }
+                SetActiveTab(button.Name);
             }
         }
 
-        private void SetActiveButton(Button activeButton)
+        private void SetActiveTab(string tabName)
         {
-            // Reset all buttons to inactive state
-            TwoWayAudioBtn.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
-            TwoWayAudioBtn.FontWeight = FontWeights.Normal;
-            
-            BroadcastBtn.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
-            BroadcastBtn.FontWeight = FontWeights.Normal;
-            
-            AudioFileManagementBtn.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
-            AudioFileManagementBtn.FontWeight = FontWeights.Normal;
+            // Set Tag to "Active" for the selected button, null for others (for visual state in template)
+            TwoWayAudioBtn.Tag = tabName == "TwoWayAudioBtn" ? "Active" : null;
+            BroadcastBtn.Tag = tabName == "BroadcastBtn" ? "Active" : null;
+            AudioFileManagementBtn.Tag = tabName == "AudioFileManagementBtn" ? "Active" : null;
 
-            // Set the active button
-            activeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x4A, 0x9E, 0xFF));
-            activeButton.FontWeight = FontWeights.SemiBold;
-            
-            currentActiveButton = activeButton;
+            // Toggle content visibility
+            switch (tabName)
+            {
+                case "TwoWayAudioBtn":
+                    TwoWayView.Visibility = Visibility.Visible;
+                    BroadcastView.Visibility = Visibility.Collapsed;
+                    if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
+                    if (BottomBar != null) BottomBar.Visibility = Visibility.Visible;
+                    System.Diagnostics.Debug.WriteLine("Two-way Audio selected");
+                    break;
+                case "BroadcastBtn":
+                    TwoWayView.Visibility = Visibility.Collapsed;
+                    BroadcastView.Visibility = Visibility.Visible;
+                    if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Collapsed;
+                    if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
+                    System.Diagnostics.Debug.WriteLine("Broadcast selected");
+                    break;
+                case "AudioFileManagementBtn":
+                    TwoWayView.Visibility = Visibility.Collapsed;
+                    BroadcastView.Visibility = Visibility.Collapsed;
+                    if (AudioManagementView != null) AudioManagementView.Visibility = Visibility.Visible;
+                    if (BottomBar != null) BottomBar.Visibility = Visibility.Collapsed;
+                    System.Diagnostics.Debug.WriteLine("Audio File Management selected");
+                    break;
+            }
         }
 
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -87,7 +67,7 @@ namespace Vms_page
             if (SearchTextBox.Text == "Enter Keywords")
             {
                 SearchTextBox.Text = "";
-                SearchTextBox.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
+                SearchTextBox.Foreground = (SolidColorBrush)Application.Current.Resources["TextPrimaryColor"];
             }
         }
 
@@ -96,7 +76,7 @@ namespace Vms_page
             if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
             {
                 SearchTextBox.Text = "Enter Keywords";
-                SearchTextBox.Foreground = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
+                SearchTextBox.Foreground = (SolidColorBrush)Application.Current.Resources["TextSecondaryColor"];
             }
         }
 

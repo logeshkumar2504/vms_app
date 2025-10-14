@@ -8,6 +8,47 @@
         FontFamily="Segoe UI"
         WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <!-- Top Navigation Button Style (Matching Application Standard) -->
+        <Style x:Key="TopNavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBg" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="4" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBg" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BtnBg" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Active">
+                                <Setter TargetName="BtnBg" Property="Background" Value="{DynamicResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -17,33 +58,19 @@
 
         <!-- Top Navigation Bar -->
         <Border Grid.Row="0" Background="{DynamicResource TopBarColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0">
-                <Button Name="TwoWayAudioBtn" Content="Two-way Audio" 
-                        Background="Transparent" 
-                        BorderThickness="0" 
-                        Foreground="{DynamicResource PrimaryColor}" 
-                        FontSize="12" 
-                        FontWeight="SemiBold"
-                        Padding="10,5"
-                        Cursor="Hand"
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0">
+                <Button Name="TwoWayAudioBtn" 
+                        Content="Two-way Audio" 
+                        Tag="Active"
+                        Style="{StaticResource TopNavButtonStyle}"
                         Click="NavigationButton_Click"/>
-                <Button Name="BroadcastBtn" Content="Broadcast" 
-                        Background="Transparent" 
-                        BorderThickness="0" 
-                        Foreground="{DynamicResource TextSecondaryColor}" 
-                        FontSize="12" 
-                        FontWeight="Normal"
-                        Padding="10,5"
-                        Cursor="Hand"
+                <Button Name="BroadcastBtn" 
+                        Content="Broadcast" 
+                        Style="{StaticResource TopNavButtonStyle}"
                         Click="NavigationButton_Click"/>
-                <Button Name="AudioFileManagementBtn" Content="Audio File Management" 
-                        Background="Transparent" 
-                        BorderThickness="0" 
-                        Foreground="{DynamicResource TextSecondaryColor}" 
-                        FontSize="12" 
-                        FontWeight="Normal"
-                        Padding="10,5"
-                        Cursor="Hand"
+                <Button Name="AudioFileManagementBtn" 
+                        Content="Audio File Management" 
+                        Style="{StaticResource TopNavButtonStyle}"
                         Click="NavigationButton_Click"/>
             </StackPanel>
         </Border>

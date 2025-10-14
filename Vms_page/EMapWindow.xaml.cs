@@ -49,18 +49,19 @@ namespace Vms_page
 
         private void UpdateButtonStyles()
         {
+            // Set Tag to "Active" for the selected button, null for others (for visual state in template)
             if (isEditMode)
             {
                 // Edit Map is active
-                MapButton.Foreground = (System.Windows.Media.Brush)FindResource("TextSecondaryColor");
-                EditMapButton.Foreground = (System.Windows.Media.Brush)FindResource("PrimaryColor");
+                MapButton.Tag = null;
+                EditMapButton.Tag = "Active";
                 InnerNavbar.Visibility = Visibility.Visible;
             }
             else
             {
                 // Map is active
-                MapButton.Foreground = (System.Windows.Media.Brush)FindResource("PrimaryColor");
-                EditMapButton.Foreground = (System.Windows.Media.Brush)FindResource("TextSecondaryColor");
+                MapButton.Tag = "Active";
+                EditMapButton.Tag = null;
                 InnerNavbar.Visibility = Visibility.Collapsed;
             }
         }
