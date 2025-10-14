@@ -13,8 +13,8 @@
 
         <!-- Thin ScrollBar Style -->
         <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
-            <Setter Property="Width" Value="8"/>
-            <Setter Property="Height" Value="8"/>
+            <Setter Property="Width" Value="6"/>
+            <Setter Property="Height" Value="6"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
@@ -26,11 +26,12 @@
                                     <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Background="Transparent" 
-                                           BorderThickness="0">
+                                    <Thumb BorderThickness="0">
                                         <Thumb.Template>
                                             <ControlTemplate TargetType="{x:Type Thumb}">
-                                                <Border Background="Transparent"
+                                                <Border Background="{DynamicResource TextSecondaryColor}"
+                                                        CornerRadius="3"
+                                                        Opacity="0.3"
                                                         BorderThickness="0"/>
                                             </ControlTemplate>
                                         </Thumb.Template>
@@ -485,7 +486,7 @@
                 <RowDefinition Height="388*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -494,11 +495,13 @@
                     Background="{DynamicResource SidebarColor}" 
                     CornerRadius="0" 
                     Margin="0,-13,0,-11"
-                    Grid.RowSpan="2">
+                    Grid.RowSpan="2"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="{DynamicResource BorderColor}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Disabled"
                               Margin="0"
-                              Padding="0"
+                              Padding="8,8,4,8"
                               Style="{StaticResource ThinScrollStyle}">
                     <StackPanel Margin="0" Background="Transparent" HorizontalAlignment="Stretch">
 
@@ -506,10 +509,11 @@
                         <Expander Header="📋 Basic Functions" 
                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                   FontWeight="SemiBold" 
-                                  Margin="0,0,0,12"
+                                  Margin="0,0,0,8"
                                   Background="Transparent" 
                                   BorderThickness="0" 
-                                  IsExpanded="True">
+                                  IsExpanded="True"
+                                  Padding="0">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -690,7 +694,10 @@
                                   IsExpanded="True" 
                                   Foreground="{DynamicResource TextPrimaryColor}" 
                                   FontWeight="SemiBold" 
-                                  Margin="0,0,0,12">
+                                  Margin="0,0,0,8"
+                                  Background="Transparent" 
+                                  BorderThickness="0"
+                                  Padding="0">
                             <Expander.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
