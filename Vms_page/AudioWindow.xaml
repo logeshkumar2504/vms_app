@@ -47,6 +47,36 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Toolbar Button Style -->
+        <Style x:Key="ToolbarButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -245,14 +275,6 @@
                                 <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
                                 <Setter Property="FontSize" Value="13"/>
                             </Style>
-                            <Style x:Key="ToolbarButton" TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
-                                <Setter Property="Padding" Value="10,6"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                            </Style>
                         </Grid.Resources>
 
                         <!-- Device Info Panel -->
@@ -404,19 +426,19 @@
                             Padding="6"
                             Cursor="Hand"
                             Click="MicrophoneBtn_Click">
-                        <Path Data="M12,14C13.66,14 15,12.66 15,11V5C15,3.34 13.66,2 12,2C10.34,2 9,3.34 9,5V11C9,12.66 10.34,14 12,14M19,10C19,15 15,19 12,19C9,19 5,15 5,10H7C7,13.86 9.14,16 12,16C14.86,16 17,13.86 17,10H19Z" Fill="#FFB0B0B0" Width="16" Height="16" Stretch="Uniform"/>
+                        <Path Data="M12,14C13.66,14 15,12.66 15,11V5C15,3.34 13.66,2 12,2C10.34,2 9,3.34 9,5V11C9,12.66 10.34,14 12,14M19,10C19,15 15,19 12,19C9,19 5,15 5,10H7C7,13.86 9.14,16 12,16C14.86,16 17,13.86 17,10H19Z" Fill="{DynamicResource TextSecondaryColor}" Width="16" Height="16" Stretch="Uniform"/>
                     </Button>
                 </Border>
 
                 <!-- Center: Speaker slider -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="97,0,0,0">
-                    <Path Data="M12,1L7,6H2V18H7L12,23V1M10,16.17L8.17,14.34H4V9.66H8.17L10,7.83V16.17Z" Fill="#FFB0B0B0" Width="18" Height="18" Stretch="Uniform"/>
+                    <Path Data="M12,1L7,6H2V18H7L12,23V1M10,16.17L8.17,14.34H4V9.66H8.17L10,7.83V16.17Z" Fill="{DynamicResource TextSecondaryColor}" Width="18" Height="18" Stretch="Uniform"/>
                     <Slider Name="SpeakerSlider" Width="320" MaxWidth="420" MinWidth="200" Height="20" Minimum="0" Maximum="100" Value="40" Margin="10,0,0,0"/>
                 </StackPanel>
 
                 <!-- Right: Audio (mic) slider -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="19,0,0,0">
-                    <Path Data="M12,14C13.66,14 15,12.66 15,11V5C15,3.34 13.66,2 12,2C10.34,2 9,3.34 9,5V11C9,12.66 10.34,14 12,14M19,10C19,15 15,19 12,19C9,19 5,15 5,10H7C7,13.86 9.14,16 12,16C14.86,16 17,13.86 17,10H19Z" Fill="#FFB0B0B0" Width="22" Height="11" Stretch="Uniform"/>
+                    <Path Data="M12,14C13.66,14 15,12.66 15,11V5C15,3.34 13.66,2 12,2C10.34,2 9,3.34 9,5V11C9,12.66 10.34,14 12,14M19,10C19,15 15,19 12,19C9,19 5,15 5,10H7C7,13.86 9.14,16 12,16C14.86,16 17,13.86 17,10H19Z" Fill="{DynamicResource TextSecondaryColor}" Width="22" Height="11" Stretch="Uniform"/>
                     <Slider x:Name="AudioSlider" Width="320" MaxWidth="420" MinWidth="200" Height="20" Minimum="0" Maximum="100" Value="50" Margin="10,0,0,0"/>
                 </StackPanel>
             </Grid>

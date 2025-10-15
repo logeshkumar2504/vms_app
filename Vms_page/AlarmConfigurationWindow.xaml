@@ -228,8 +228,8 @@
                     <!-- Camera Alarm Sub Navigation -->
                     <Border Grid.Row="0" x:Name="CameraSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <Button x:Name="CameraAlarmParametersTab" Content="Alarm Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="135" Height="26" Click="CameraAlarmParametersTab_Click"/>
-                            <Button x:Name="CameraTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="160" Height="26" Click="CameraTriggerActionTab_Click"/>
+                            <Button x:Name="CameraAlarmParametersTab" Content="Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="100" Height="26" Click="CameraAlarmParametersTab_Click"/>
+                            <Button x:Name="CameraTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="120" Height="26" Click="CameraTriggerActionTab_Click"/>
                         </StackPanel>
                     </Border>
                     
@@ -333,8 +333,8 @@
                     <!-- Device Alarm Sub Navigation -->
                     <Border Grid.Row="0" x:Name="DeviceSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <Button x:Name="DeviceAlarmParametersTab" Content="Alarm Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="135" Height="26" Click="DeviceAlarmParametersTab_Click"/>
-                            <Button x:Name="DeviceTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="160" Height="26" Click="DeviceTriggerActionTab_Click"/>
+                            <Button x:Name="DeviceAlarmParametersTab" Content="Parameters" Style="{StaticResource SelectedNavbarButtonStyle}" Width="100" Height="26" Click="DeviceAlarmParametersTab_Click"/>
+                            <Button x:Name="DeviceTriggerActionTab" Content="Trigger Action" Style="{StaticResource NavbarButtonStyle}" Width="120" Height="26" Click="DeviceTriggerActionTab_Click"/>
                         </StackPanel>
                     </Border>
                     
@@ -438,7 +438,7 @@
                     <!-- People Counting Alarm Sub Navigation -->
                     <Border Grid.Row="0" x:Name="PeopleCountingSubNavbar" Background="{DynamicResource SurfaceColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1" Padding="0" Height="28" Margin="0,0,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <Button x:Name="PeopleCountingTriggerActionTab" Content="Trigger Action" Style="{StaticResource SelectedNavbarButtonStyle}" Width="160" Height="26" Click="PeopleCountingTriggerActionTab_Click"/>
+                            <Button x:Name="PeopleCountingTriggerActionTab" Content="Trigger Action" Style="{StaticResource SelectedNavbarButtonStyle}" Width="120" Height="26" Click="PeopleCountingTriggerActionTab_Click"/>
                         </StackPanel>
                     </Border>
                     
