@@ -430,13 +430,7 @@ namespace Vms_page
             ThemePopup.IsOpen = false;
         }
         
-        private void BlueMode_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ApplyTheme("Blue");
-            isDarkMode = false;
-            UpdateThemeButtonIcon();
-            ThemePopup.IsOpen = false;
-        }
+        
         
         private void UpdateThemeButtonIcon()
         {
@@ -449,7 +443,6 @@ namespace Vms_page
                 {
                     "Dark" => "🌙",
                     "Light" => "☀️",
-                    "Blue" => "🔵",
                     _ => "🌙"
                 };
             }

@@ -154,8 +154,8 @@
                                 <TextBlock Text="Broadcast List" Foreground="{DynamicResource TextPrimaryColor}" FontSize="13" VerticalAlignment="Center" Margin="12,0"/>
 
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
-                                    <Button Content="Delete" Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Foreground="{DynamicResource TextPrimaryColor}" Padding="10,6" Margin="0,0,8,0" Cursor="Hand"/>
-                                    <Button Content="Start Voice Broadcast" Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Foreground="{DynamicResource TextPrimaryColor}" Padding="10,6" Cursor="Hand"/>
+                                    <Button Content="Delete" Style="{StaticResource ToolbarButton}" Margin="0,0,8,0"/>
+                                    <Button Content="Start Voice Broadcast" Style="{StaticResource ToolbarButton}"/>
                                 </StackPanel>
 
                                 <!-- Center mic volume -->
@@ -277,7 +277,7 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,16,0,0" VerticalAlignment="Center">
                                         <TextBlock Text="Audio Output Volume" Foreground="{DynamicResource TextPrimaryColor}" Width="160" VerticalAlignment="Center"/>
                                         <Slider Width="360" Minimum="0" Maximum="100" Value="60"/>
-                                        <Button Content="Test Volume" Margin="12,0,0,0" Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Foreground="{DynamicResource TextPrimaryColor}" Padding="10,6" Cursor="Hand"/>
+                                        <Button Content="Test Volume" Style="{StaticResource ToolbarButton}" Margin="12,0,0,0"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,12,0,0" VerticalAlignment="Center">
@@ -316,8 +316,8 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="Import" Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Foreground="{DynamicResource TextPrimaryColor}" Padding="10,6" Cursor="Hand"/>
-                                    <Button Content="Delete" Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Foreground="{DynamicResource TextPrimaryColor}" Padding="10,6" Cursor="Hand" Margin="8,0,0,0"/>
+                                    <Button Content="Import" Style="{StaticResource ToolbarButton}"/>
+                                    <Button Content="Delete" Style="{StaticResource ToolbarButton}" Margin="8,0,0,0"/>
                                 </StackPanel>
 
                                 <!-- Search -->

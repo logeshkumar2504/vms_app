@@ -120,10 +120,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
                                 <Setter Property="Opacity" Value="0.8"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -480,10 +480,7 @@
                                         Style="{StaticResource PopupButtonStyle}"
                                         Click="DarkMode_Click"
                                         Margin="0,2"/>
-                                <Button Content="🔵 Blue Mode" 
-                                        Style="{StaticResource PopupButtonStyle}"
-                                        Click="BlueMode_Click"
-                                        Margin="0,2"/>
+                                
                             </StackPanel>
                         </Border>
                     </Popup>

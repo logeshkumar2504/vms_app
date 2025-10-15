@@ -338,8 +338,8 @@
                                 <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource SecondaryColor}"/>
-                                <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource SecondaryColor}"/>
+                                <Setter TargetName="CheckBoxBorder" Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
+                                <Setter TargetName="CheckBoxBorder" Property="BorderBrush" Value="{DynamicResource ButtonPressedColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -458,7 +458,7 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{DynamicResource SecondaryColor}"/>
+                                                    <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
