@@ -430,13 +430,28 @@ namespace Vms_page
             ThemePopup.IsOpen = false;
         }
         
+        private void BlueMode_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ApplyTheme("Blue");
+            isDarkMode = false;
+            UpdateThemeButtonIcon();
+            ThemePopup.IsOpen = false;
+        }
+        
         private void UpdateThemeButtonIcon()
         {
             // Update the button icon based on current theme
             var themeButton = ThemeButton.Content as TextBlock;
             if (themeButton != null)
             {
-                themeButton.Text = isDarkMode ? "🌙" : "☀️";
+                var currentTheme = ThemeManager.GetCurrentTheme();
+                themeButton.Text = currentTheme switch
+                {
+                    "Dark" => "🌙",
+                    "Light" => "☀️",
+                    "Blue" => "🔵",
+                    _ => "🌙"
+                };
             }
         }
 

@@ -80,12 +80,24 @@ namespace Vms_page
                     appResources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xF0, 0xF8, 0xFF));
                     appResources["SurfaceColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
                     appResources["SidebarColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
+                    appResources["TopBarColor"] = new SolidColorBrush(Color.FromRgb(0xE3, 0xF2, 0xFD));
+                    appResources["CardBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFA, 0xFA, 0xFA));
                     appResources["TextPrimaryColor"] = new SolidColorBrush(Color.FromRgb(0x1E, 0x3A, 0x8A));
                     appResources["TextSecondaryColor"] = new SolidColorBrush(Color.FromRgb(0x64, 0x74, 0x8B));
                     appResources["BorderColor"] = new SolidColorBrush(Color.FromRgb(0xE2, 0xE8, 0xF0));
-                    // DatePicker colors for blue theme (light-like defaults)
+                    appResources["MenuHoverColor"] = new SolidColorBrush(Color.FromRgb(0xE8, 0xF4, 0xFD));
+                    // DatePicker colors for blue theme
                     appResources["DatePickerBackgroundColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF));
                     appResources["DatePickerTextColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
+                    // Alarm Level Colors for blue theme
+                    appResources["AlarmCriticalColor"] = new SolidColorBrush(Color.FromRgb(0xEF, 0x44, 0x44));
+                    appResources["AlarmHighColor"] = new SolidColorBrush(Color.FromRgb(0xF5, 0x9E, 0x0B));
+                    appResources["AlarmMediumColor"] = new SolidColorBrush(Color.FromRgb(0xFF, 0xD6, 0x0A));
+                    appResources["AlarmLowColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x7A, 0xFF));
+                    appResources["AlarmInfoColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x7A, 0xFF));
+                    // Button Hover States for blue theme
+                    appResources["ButtonHoverColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x5B, 0xD8));
+                    appResources["ButtonPressedColor"] = new SolidColorBrush(Color.FromRgb(0x00, 0x4A, 0xB8));
                     break;
             }
             

@@ -430,6 +430,10 @@
                                         Style="{StaticResource PopupButtonStyle}"
                                         Click="DarkMode_Click"
                                         Margin="0,2"/>
+                                <Button Content="🔵 Blue Mode" 
+                                        Style="{StaticResource PopupButtonStyle}"
+                                        Click="BlueMode_Click"
+                                        Margin="0,2"/>
                             </StackPanel>
                         </Border>
                     </Popup>

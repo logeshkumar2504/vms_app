@@ -207,7 +207,7 @@
                                             <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsKeyboardFocused, ElementName=KeywordBox}" Value="True">
-                                                    <Setter Property="Background" Value="#3A7AFE"/>
+                                                    <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>

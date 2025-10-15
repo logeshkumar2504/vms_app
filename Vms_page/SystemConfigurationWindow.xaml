@@ -65,8 +65,8 @@
             <Setter Property="Padding" Value="12,6"/>
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="MinWidth" Value="60"/>
-            <Setter Property="Height" Value="26"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -78,10 +78,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#1E40AF"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1D4ED8"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -96,10 +96,10 @@
             <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#6B7280"/>
+                    <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#4B5563"/>
+                    <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -109,10 +109,10 @@
             <Setter Property="Background" Value="{DynamicResource TextSecondaryColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#6B7280"/>
+                    <Setter Property="Background" Value="{DynamicResource MenuHoverColor}"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#4B5563"/>
+                    <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -122,10 +122,10 @@
             <Setter Property="Background" Value="{DynamicResource SuccessColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#059669"/>
+                    <Setter Property="Background" Value="{DynamicResource ButtonHoverColor}"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#047857"/>
+                    <Setter Property="Background" Value="{DynamicResource ButtonPressedColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>

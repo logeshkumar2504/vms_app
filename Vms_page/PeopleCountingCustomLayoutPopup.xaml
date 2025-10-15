@@ -119,7 +119,7 @@
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Height" Value="28"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Padding" Value="8,4"/>
         </Style>
     </Window.Resources>
