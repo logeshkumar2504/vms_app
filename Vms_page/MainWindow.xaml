@@ -358,6 +358,56 @@
                           ShadowDepth="3" 
                           Opacity="0.3" 
                           BlurRadius="10"/>
+
+        <!-- Close Button Style with Theme-Aware Colors -->
+        <Style x:Key="CardCloseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryColor}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CloseButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Width="24" Height="24"
+                                BorderThickness="1"
+                                BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="CloseButtonBorder" Property="Background" Value="#FF4444"/>
+                                    <Setter TargetName="CloseButtonBorder" Property="BorderBrush" Value="#FF6666"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="CloseButtonBorder" Property="Background" Value="#CC0000"/>
+                                    <Setter TargetName="CloseButtonBorder" Property="BorderBrush" Value="#FF3333"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter TargetName="CloseButtonBorder" Property="Opacity" Value="0.9"/>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
@@ -869,36 +919,13 @@
                                                 <Button x:Name="CloseButton"
                                                         Grid.Row="0"
                                                         Content="✕" 
-                                                        FontSize="16" 
-                                                        Foreground="{DynamicResource TextSecondaryColor}"
-                                                        Background="Transparent"
-                                                        BorderThickness="0"
+                                                        Style="{StaticResource CardCloseButtonStyle}"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Top"
-                                                        Width="24" Height="24"
-                                                        Padding="0"
                                                         Margin="0,4,4,0"
                                                         Click="RemoveCard_Click"
                                                         Tag="{Binding}"
-                                                        Visibility="Collapsed">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Background" Value="Transparent"/>
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="Button">
-                                                                        <ContentPresenter/>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Foreground" Value="{DynamicResource ErrorColor}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
+                                                        Visibility="Collapsed"/>
 
                                                 <!-- Icon and Close Button Row -->
                                                 <Grid Grid.Row="0" Margin="16,16,16,8">
