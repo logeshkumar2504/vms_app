@@ -367,17 +367,14 @@
                            FontWeight="SemiBold" 
                            Foreground="{DynamicResource TextPrimaryColor}"
                            Margin="0,0,0,5"/>
-                                <ComboBox x:Name="UserLevelComboBox" 
+                <ComboBox x:Name="UserLevelComboBox" 
                            Style="{StaticResource FormComboBoxStyle}"
+                           ItemsSource="{Binding Roles}"
                            SelectedIndex="0"
                            Foreground="{DynamicResource TextPrimaryColor}"
                            FontSize="10"
                            FontFamily="Segoe UI"
-                           ItemContainerStyle="{StaticResource ComboBoxItemStyle}">
-                    <ComboBoxItem Content="Administrator"/>
-                    <ComboBoxItem Content="Operator"/>
-                    <ComboBoxItem Content="Viewer"/>
-                </ComboBox>
+                           ItemContainerStyle="{StaticResource ComboBoxItemStyle}"/>
             </StackPanel>
 
             <!-- Password -->

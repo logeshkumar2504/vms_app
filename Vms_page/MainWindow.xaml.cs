@@ -8,6 +8,9 @@ using System.Windows.Interop; // Added for WindowInteropHelper
 using System.Runtime.InteropServices; // Added for DllImport
 using System.Windows.Data; // Added for IValueConverter
 using System.Globalization; // Added for CultureInfo
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 
 namespace Vms_page
 {
@@ -45,6 +48,7 @@ namespace Vms_page
         public ObservableCollection<MenuItemModel> DroppedItems { get; set; } = new();
         private bool isDarkMode = true;
         private Point? dragStartPoint = null;
+        private static readonly HttpClient Http = new HttpClient();
 
         // Converter for binding
         public CountToVisibilityConverter CountToVisibilityConverter { get; } = new CountToVisibilityConverter();
@@ -455,6 +459,11 @@ namespace Vms_page
             {
                 ThemePopup.IsOpen = false;
             }
+            // Check if the click is outside the roles popup
+            if (RolesPopup.IsOpen && !RolesPopup.IsMouseOver)
+            {
+                RolesPopup.IsOpen = false;
+            }
         }
         
         private void LockButton_Click(object sender, RoutedEventArgs e)
@@ -480,6 +489,72 @@ namespace Vms_page
         {
             // Show menu options
             MessageBox.Show("Menu options:\n• Settings\n• Help\n• About\n• Exit", "Menu", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void RolesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the roles popup
+            RolesPopup.IsOpen = !RolesPopup.IsOpen;
+        }
+
+        private async void RolesSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var roleName = RolesInputTextBox?.Text?.Trim() ?? string.Empty;
+            if (string.IsNullOrEmpty(roleName))
+            {
+                MessageBox.Show("Please enter a role name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Build JSON payload
+            var payload = new { roles = roleName, user_id = 1 };
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            try
+            {
+                var response = await Http.PostAsync("http://localhost:8081/roles", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Role '{roleName}' saved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Close popup after save
+                    RolesPopup.IsOpen = false;
+                    RolesInputTextBox.Text = string.Empty;
+                }
+                else
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Failed to save role.\nStatus: {(int)response.StatusCode} {response.ReasonPhrase}\n{body}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error contacting server:\n{ex.Message}", "Network Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RolesPopup_Opened(object sender, EventArgs e)
+        {
+            // Ensure popup content is measured
+            if (RolesPopup.Child is FrameworkElement content)
+            {
+                if (double.IsNaN(content.Width) || content.Width == 0 || double.IsNaN(content.Height) || content.Height == 0)
+                {
+                    content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                }
+
+                var popupWidth = content.ActualWidth > 0 ? content.ActualWidth : content.DesiredSize.Width;
+                var popupHeight = content.ActualHeight > 0 ? content.ActualHeight : content.DesiredSize.Height;
+
+                if (double.IsNaN(popupWidth) || popupWidth == 0) popupWidth = 260;   // fallback
+                if (double.IsNaN(popupHeight) || popupHeight == 0) popupHeight = 140; // fallback
+
+                // Account for window location on the screen
+                var centerX = this.Left + (this.ActualWidth - popupWidth) / 2.0;
+                var centerY = this.Top + (this.ActualHeight - popupHeight) / 2.0;
+
+                RolesPopup.HorizontalOffset = centerX;
+                RolesPopup.VerticalOffset = centerY;
+            }
         }
     }
 

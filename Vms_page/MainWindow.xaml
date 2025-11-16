@@ -519,7 +519,56 @@
                     <TextBlock Text="📋" 
                                FontSize="18" 
                                Foreground="{DynamicResource TextPrimaryColor}"
-                               Margin="0,0,0,0"/>
+                               Margin="0,0,12,0"/>
+
+                    <!-- Roles Icon Button -->
+                    <Button x:Name="RolesButton"
+                            Width="24" Height="24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="RolesButton_Click"
+                            ToolTip="Roles">
+                        <TextBlock Text="👥"
+                                   FontSize="18"
+                                   Foreground="{DynamicResource TextPrimaryColor}"/>
+                    </Button>
+
+                    <!-- Roles Popup -->
+                    <Popup x:Name="RolesPopup"
+                           Placement="Absolute"
+                           IsOpen="False"
+                           AllowsTransparency="True"
+                           PopupAnimation="Slide"
+                           StaysOpen="False"
+                           Opened="RolesPopup_Opened">
+                        <Border Background="{DynamicResource SurfaceColor}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Padding="8"
+                                Effect="{DynamicResource CardShadow}">
+                            <StackPanel Orientation="Vertical" MinWidth="220">
+                                <TextBlock Text="Role Name"
+                                           Foreground="{DynamicResource TextSecondaryColor}"
+                                           FontSize="12"
+                                           Margin="0,0,0,6"/>
+                                <TextBox x:Name="RolesInputTextBox"
+                                         Background="{DynamicResource CardBackgroundColor}"
+                                         Foreground="{DynamicResource TextPrimaryColor}"
+                                         BorderBrush="{DynamicResource BorderColor}"
+                                         BorderThickness="1"
+                                         Padding="6"
+                                         MinWidth="200"/>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            Margin="0,8,0,0">
+                                    <Button Content="Save"
+                                            Style="{StaticResource IOSButtonStyle}"
+                                            Click="RolesSaveButton_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
                 </StackPanel>
             </Grid>
         </Border>

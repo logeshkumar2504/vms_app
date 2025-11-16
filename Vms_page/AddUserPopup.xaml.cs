@@ -1,11 +1,18 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Vms_page
 {
     public partial class AddUserPopup : Window
     {
+        public ObservableCollection<string> Roles { get; } = new ObservableCollection<string>();
+        private static readonly HttpClient Http = new HttpClient();
+
         public AddUserPopup()
         {
             InitializeComponent();
@@ -13,12 +20,17 @@ namespace Vms_page
             // Apply the current theme
             var currentTheme = ThemeManager.GetCurrentTheme();
             ThemeManager.ApplyTheme(currentTheme);
+
+            // Bind for roles
+            this.DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Ensure text is visible in input fields after window is fully loaded
             SetInputFieldTextColors();
+            // Load roles from API
+            _ = LoadRolesAsync();
         }
 
         private void SetInputFieldTextColors()
@@ -60,6 +72,45 @@ namespace Vms_page
                 UserLevelComboBox.FontFamily = fontFamily;
                 UserLevelComboBox.InvalidateVisual();
             }
+        }
+
+        private async Task LoadRolesAsync()
+        {
+            try
+            {
+                var response = await Http.GetAsync("http://localhost:8081/roles");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var items = JsonSerializer.Deserialize<RoleDto[]>(json, options) ?? [];
+                Roles.Clear();
+                foreach (var item in items)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.roles) && !Roles.Contains(item.roles))
+                    {
+                        Roles.Add(item.roles);
+                    }
+                }
+                if (Roles.Count > 0)
+                {
+                    UserLevelComboBox.SelectedIndex = 0;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Failed to load roles.\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Invalid roles response.\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private record RoleDto
+        {
+            public int r_id { get; init; }
+            public string roles { get; init; }
+            public int user_id { get; init; }
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -139,7 +190,7 @@ namespace Vms_page
 
             // Get selected values
             var username = UsernameTextBox.Text.Trim();
-            var userLevel = (UserLevelComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Administrator";
+            var userLevel = UserLevelComboBox.SelectedItem?.ToString() ?? "Administrator";
 
             // Show success message
             MessageBox.Show($"User '{username}' has been added successfully!\n\n" +
